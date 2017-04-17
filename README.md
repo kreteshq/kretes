@@ -1,7 +1,7 @@
 # [Huncwot](https://huncwot.org) (pre-alpha)
 
 
-![[Subscribe]](https://img.shields.io/badge/%20huncwot%20-%20newsletter%20-blue.svg)]( https://landing.mailerlite.com/webforms/landing/a3k0m1)
+[![Subscribe](https://img.shields.io/badge/%20huncwot%20-%20newsletter%20-blue.svg)](https://landing.mailerlite.com/webforms/landing/a3k0m1)
 [![npm](https://img.shields.io/npm/v/huncwot.svg)](https://www.npmjs.com/package/huncwot)
 [![npm](https://img.shields.io/npm/dm/huncwot.svg)](https://www.npmjs.com/package/huncwot)
 
