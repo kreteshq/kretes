@@ -34,6 +34,22 @@ app.post('/bim', context => {
 app.listen(3000);
 ```
 
+## Modules
+
+Huncwot comes with a set of modules that enable common functionalities
+
+### Auth
+
+```js
+app.use(auth({ users: { 'admin': 'secret' }}))
+```
+
+### Static
+
+```js
+app.use(static('./public'))
+```
+
 ## Roadmap
 
 Huncwot keeps track of the upcoming fixes and features on GitHub Projects: [Huncwot Roadmap](https://github.com/zaiste/huncwot/projects/1)
