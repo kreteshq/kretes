@@ -15,6 +15,7 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 
 ```js
 const Huncwot = require('huncwot');
+const { reply, render } = require('huncwot/lib/helpers');
 
 const app = new Huncwot();
 
@@ -23,16 +24,29 @@ app.get('/', _ => 'Hello Huncwot')
 
 // explicit `return` for `application/json`
 app.get('/json', _ => {
-  return { a: 1, b: 2 };
+  return reply({ a: 1, b: 2 });
 })
 
-// explicit assignment to `context.body` to set response body
-app.post('/bim', context => {
-  context.body = `Hello POST! ${context.params.name}`;
+// set headers
+app.get('/headers', _ => {
+  return { body: 'Hello B', statusCode: 201, headers: { 'Authorization': 'PASS' } }
+})
+
+// parsing request body 
+app.post('/bim', request => {
+  return `Hello POST! ${context.params.name}`;
 })
 
 app.listen(3000);
 ```
+
+Huncwot has built-in [nunjucks](https://mozilla.github.io/nunjucks/) templating via `render()` method.
+
+```js
+app.get('/', _ => render('test.html', { foo: 'bar' }))
+```
+
+
 
 ## Modules
 
