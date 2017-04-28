@@ -15,10 +15,11 @@ const nunjucks = require('nunjucks');
 nunjucks.configure('views', { autoescape: true });
 
 // XXX how to do `response` compression
-function reply(content, statusCode = 200) {
+function reply(content, statusCode = 200, type = 'text/html') {
   return {
     body: content,
-    statusCode
+    statusCode,
+    type
   }
 }
 

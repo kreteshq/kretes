@@ -127,14 +127,16 @@ function handleRoute(response) {
 
     let body;
     let headers;
+    let type;
 
-    if (typeof r === 'string') {
-      response.statusCode = 200;
+    response.statusCode = r.statusCode || 200;
+
+    if (typeof r === 'string' || r instanceof Stream) {
       body = r;
     } else {
-      response.statusCode = r.statusCode;
       body = r.body;
       headers = r.headers
+      type = r.type;
     }
 
     for (var key in headers) {
@@ -147,20 +149,14 @@ function handleRoute(response) {
     }
 
     if (Buffer.isBuffer(body)) {
-      if (!response.getHeader('Content-Type')) {
-        response.setHeader('Content-Type', 'application/octet-stream');
-      }
-
+      response.setHeader('Content-Type', type || 'application/octet-stream');
       response.setHeader('Content-Length', body.length);
       response.end(body);
       return;
     }
 
     if (body instanceof Stream) {
-      if (!response.getHeader('Content-Type')) {
-        response.setHeader('Content-Type', 'application/octet-stream');
-      }
-
+      response.setHeader('Content-Type', type || 'text/html');
       body.pipe(response);
       return;
     }
@@ -169,10 +165,9 @@ function handleRoute(response) {
 
     if (typeof body === 'object' || typeof body === 'number') {
       str = JSON.stringify(body);
-
-      if (!response.getHeader('Content-Type')) {
-        response.setHeader('Content-Type', 'application/json');
-      }
+      response.setHeader('Content-Type', 'application/json');
+    } else {
+      response.setHeader('Content-Type', type || 'text/plain');
     }
 
     response.setHeader('Content-Length', Buffer.byteLength(str));

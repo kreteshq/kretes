@@ -2,7 +2,7 @@
   "name": "huncwot",
   "version": "0.2.0",
   "description": "Fast, opinionated and minimal Node.js web framework built for ES6/7 era",
-  "main": "lib/index.js",
+  "main": "index.js",
   "repository": "https://github.com/zaiste/huncwot",
   "author": "Zaiste",
   "license": "Apache 2.0",
