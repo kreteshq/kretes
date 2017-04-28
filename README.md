@@ -15,7 +15,7 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 
 ```js
 const Huncwot = require('huncwot');
-const { reply, render } = require('huncwot/lib/helpers');
+const { reply, render } = require('huncwot/helpers');
 
 const app = new Huncwot();
 
