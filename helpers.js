@@ -11,9 +11,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const nunjucks = require('nunjucks');
-nunjucks.configure('views', { autoescape: true });
-
 // XXX how to do `response` compression
 function reply(content, statusCode = 200, type = 'text/html') {
   return {
@@ -44,13 +41,11 @@ function redirect(url) {
   }
 }
 
-function render(view, bindings) {
+function render(content) {
   return {
     statusCode: 200,
-    headers: {
-      'Content-Type': 'application/html; charset=utf-8',
-    },
-    body: nunjucks.render(view, bindings)
+    headers: { 'Content-Type': 'text/html; charset=utf-8' },
+    body: content
   }
 }
 
