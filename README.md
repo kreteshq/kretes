@@ -11,7 +11,7 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 [Contribution Guide](CONTRIBUTING.md) |
 [Twitter](http://twitter.com/huncwot)
 
-## Usage
+## Getting Started 
 
 ```js
 const Huncwot = require('huncwot');
@@ -34,19 +34,11 @@ app.get('/headers', _ => {
 
 // parsing request body 
 app.post('/bim', request => {
-  return `Hello POST! ${context.params.name}`;
+  return `Hello POST! ${request.params.name}`;
 })
 
 app.listen(3000);
 ```
-
-Huncwot has built-in [nunjucks](https://mozilla.github.io/nunjucks/) templating via `render()` method.
-
-```js
-app.get('/', _ => render('test.html', { foo: 'bar' }))
-```
-
-
 
 ## Modules
 
@@ -62,6 +54,73 @@ app.use(auth({ users: { 'admin': 'secret' }}))
 
 ```js
 app.use(static('./public'))
+```
+
+## Examples
+
+### [nunjucks](https://mozilla.github.io/nunjucks/) integration
+
+```js
+const Huncwot = require('huncwot');
+const { reply } = require('huncwot/helpers');
+const nunjucks = require('nunjucks');
+
+const app = new Huncwot();
+
+nunjucks.configure('views', { autoescape: true });
+
+app.get('/', request => {
+  return reply(nunjucks.render('index.html', { username: 'Zaiste' }));
+})
+
+app.listen(3000);
+```
+
+In your project create `views/` directory with the following `index.html`
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nunjucks Example</title>
+</head>
+<body>
+  <h1>Hello {{ username }}</h1>
+</body>
+</html>
+```
+
+### [marko](http://markojs.com) integration
+
+```js
+const Huncwot = require('huncwot');
+const { reply } = require('huncwot/helpers');
+
+require('marko/node-require');
+
+const app = new Huncwot();
+
+const template = require('./views/index.marko');
+
+app.get('/', request => {
+  return template.stream({ name: 'Zaiste' })
+})
+
+app.listen(3000);
+```
+
+In your project create `views/` directory with the following `index.marko`
+
+```html
+<!doctype html>
+<html>
+<head>
+  <title>Marko Example</title>
+</head>
+<body>
+  <h1>Hello ${input.name}</h1>
+</body>
+</html>
 ```
 
 ## Roadmap
