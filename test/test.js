@@ -4,7 +4,8 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-const Huncwot = require('../lib');
+const Huncwot = require('../');
+const { reply } = require('../helpers');
 
 let app;
 let server;
@@ -15,13 +16,6 @@ before(() => {
 });
 
 describe('init', () => {
-  it('no route', async () => {
-    const response = await chai.request(server)
-      .get('/');
-
-    expect(response.text).to.eq(`There's no such route.`);
-  });
-
   it('GET / route, implict return', async () => {
     app.get('/', _ => 'Hello Huncwot')
 
@@ -32,8 +26,8 @@ describe('init', () => {
   });
 
   it('GET /explicit route, explicit assignment', async () => {
-    app.get('/explicit', context => {
-      context.body = `Hello Explicit Assignment`
+    app.get('/explicit', request => {
+      return { body: `Hello Explicit Assignment` }
     })
 
     const response = await chai.request(server)
@@ -43,9 +37,7 @@ describe('init', () => {
   });
 
   it('GET /json route', async () => {
-    app.get('/json', _ => {
-      return { a: 1, b: 2 };
-    })
+    app.get('/json', _ => reply({ a: 1, b: 2 }))
 
     const response = await chai.request(server)
       .get('/json');
