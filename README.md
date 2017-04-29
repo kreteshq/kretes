@@ -13,6 +13,8 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 
 ## Getting Started 
 
+You can define a route using one of HTTP verbs e.g. `.get()`, `.post()`, `.put()`, `.patch()` or `.delete()` - it takes a string which defines a desired path and a function that defines a action which will be exectued once the route is hit. The action takes the incoming `request` as its parameter and returns a `response` that will be send to the client. The response is represented as a JavaScript object which must have at least `body` and `statusCode` keys. By conventions, a return of string value is considered to be a `200` response of type `plain/text` with `body` set to that string. There is also a `reply` helper function which allows to create responses with `application/json` type out of JavaScript objects.
+
 ```js
 const Huncwot = require('huncwot');
 const { reply, render } = require('huncwot/helpers');
