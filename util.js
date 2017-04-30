@@ -11,6 +11,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const parsePath = require('path-to-regexp');
+
 function pick(obj, keys) {
   return keys.reduce((acc, k) => { acc[k] = obj[k]; return acc; }, {});
 }
@@ -26,4 +28,25 @@ function compose(...middlewareList) {
   }
 }
 
-module.exports = { pick, compose };
+function match(options = {}) {
+  return route => {
+    const keys = [];
+    const reg = parsePath.apply(this, [route, keys, options]);
+
+    return route => {
+      const res = reg.exec(route);
+      const params = {};
+
+      if (!res) return false;
+
+      for (let i = 1, l = res.length; i < l; i++) {
+        if (!res[i]) continue;
+        params[keys[i - 1].name] = res[i];
+      }
+
+      return params;
+    }
+  }
+};
+
+module.exports = { pick, compose, match };

@@ -19,6 +19,7 @@
     "bluebird": "^3.5.0",
     "debug": "^2.6.6",
     "fs-extra": "^3.0.0",
+    "path-to-regexp": "^1.7.0",
     "raw-body": "^2.2.0"
   }
 }

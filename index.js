@@ -19,8 +19,9 @@ const Stream = require('stream');
 const assert = require('assert');
 const rawBody = require('raw-body');
 const querystring = require('querystring');
+const extractParams = require('path-to-regexp');
 
-const { pick, compose } = require('./util');
+const { pick, compose, match } = require('./util');
 
 class Huncwot extends Emitter {
   constructor() {
@@ -83,7 +84,10 @@ class Huncwot extends Emitter {
 
 function route(method, path, func) {
   return async (context, next) => {
-    if (context.request.method === method && context.request.url === path) {
+    const params = match()(path)(context.request.url);
+
+    if (context.request.method === method && params) {
+      Object.assign(context.params, params);
       return await func(context)
     } else {
       return await next();

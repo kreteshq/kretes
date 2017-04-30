@@ -46,6 +46,16 @@ describe('init', () => {
     expect(response.body).to.have.all.keys('a', 'b');
   })
 
+  it('GET /hello/:foo route', async () => {
+    app.get('/hello/:foo', _ => _.params.foo)
+
+    const response = await chai.request(server)
+      .get('/hello/world');
+
+    expect(response.type).to.eq('text/plain');
+    expect(response.text).to.eq('world');
+  })
+
   it('POST /bim route, with params', async () => {
     app.post('/bim', context => {
       return `Hello ${context.params.name}!`
