@@ -84,10 +84,11 @@ class Huncwot extends Emitter {
 
 function route(method, path, func) {
   return async (context, next) => {
-    const params = match()(path)(context.request.url);
+    const { pathname, query } = require('url').parse(context.request.url, true)
+    const params = match()(path)(pathname);
 
     if (context.request.method === method && params) {
-      Object.assign(context.params, params);
+      Object.assign(context.params, params, query);
       return await func(context)
     } else {
       return await next();
