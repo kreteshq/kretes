@@ -38,12 +38,18 @@ class Huncwot extends Emitter {
         request
       };
 
-      await compose(
-        handleRoute(response),
-        handleError,
-        ...this.middlewareList,
-        notFound
-      )(context);
+      try {
+        await compose(
+          handleRoute(response),
+          handleError,
+          ...this.middlewareList,
+          notFound
+        )(context);
+      } catch (e) {
+        response.statusCode = 500;
+        response.end();
+        console.log(e.message);
+      }
     })
 
     return server.listen.apply(server, arguments);
@@ -128,7 +134,8 @@ function handleRoute(response) {
       }
     }
 
-    const r = await next();
+    let r = await next();
+    if (!r) throw new Error('One of your routes does not return a value. You probably forgot a `return` statement.');
 
     let body;
     let headers;

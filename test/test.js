@@ -25,6 +25,22 @@ describe('init', () => {
     expect(response.text).to.eq('Hello Huncwot');
   });
 
+  it('GET /a route, no required return', async () => {
+    app.get('/a', _ => { 'Hello Huncwot' })
+
+    // XXX ugly
+    let response;
+    try {
+      response = await chai.request(server)
+        .get('/a');
+    } catch (e) {
+      response = e.response
+    }
+
+    expect(response.status).to.eq(500);
+
+  });
+
   it('GET /explicit route, explicit assignment', async () => {
     app.get('/explicit', request => {
       return { body: `Hello Explicit Assignment` }
