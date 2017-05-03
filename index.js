@@ -22,12 +22,16 @@ const querystring = require('querystring');
 const extractParams = require('path-to-regexp');
 
 const { pick, compose, match } = require('./util');
+const serve = require('./static');
 
 class Huncwot extends Emitter {
-  constructor() {
+  constructor({
+    staticDir = './static'
+  } = {}) {
     super();
 
     this.middlewareList = [];
+    this.middlewareList.push(serve(staticDir))
   }
 
   listen() {
