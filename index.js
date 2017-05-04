@@ -172,7 +172,9 @@ function handleRoute(response) {
     }
 
     if (body instanceof Stream) {
-      response.setHeader('Content-Type', type || 'text/html');
+      if (! response.getHeader('Content-Type'))
+        response.setHeader('Content-Type', type || 'text/html');
+
       body.pipe(response);
       return;
     }
