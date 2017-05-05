@@ -1,0 +1,29 @@
+class {
+    onCreate() {
+        this.state = { count:0 };
+    }
+    increment() {
+        this.state.count++;
+    }
+}
+
+style {
+    body {
+        background-color: red;
+    }
+    .count {
+        color:yellow;
+        font-size:3em;
+    }
+    .example-button {
+        font-size:1em;
+        padding:0.5em;
+    }
+}
+
+<div.count>
+    <p class="title count">${state.count}</p>
+</div>
+<button.is-danger.button.is-outlined on-click('increment')>
+    Click me!
+</button>
