@@ -17,7 +17,7 @@ You can define a route using one of HTTP verbs e.g. `.get()`, `.post()`, `.put()
 
 ```js
 const Huncwot = require('huncwot');
-const { reply, render } = require('huncwot/helpers');
+const { reply } = require('huncwot/helpers');
 
 const app = new Huncwot();
 

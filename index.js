@@ -144,6 +144,7 @@ function handleRoute(response) {
     let body;
     let headers;
     let type;
+    let encoding;
 
     response.statusCode = r.statusCode || 200;
 
@@ -151,13 +152,16 @@ function handleRoute(response) {
       body = r;
     } else {
       body = r.body;
-      headers = r.headers
+      headers = r.headers;
       type = r.type;
+      encoding = r.encoding;
     }
 
     for (var key in headers) {
       response.setHeader(key, headers[key]);
     }
+
+    if (encoding) response.setHeader('Content-Encoding', encoding);
 
     if (body === null) {
       response.end();

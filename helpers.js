@@ -30,17 +30,6 @@ function json(content, statusCode = 200) {
   }
 }
 
-function redirect(url, body = `Redirecting...`, statusCode = 302) {
-  return {
-    statusCode,
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Location': url
-    },
-    body
-  }
-}
-
 function render(content) {
   return {
     statusCode: 200,
@@ -49,5 +38,7 @@ function render(content) {
   }
 }
 
-module.exports = { reply, redirect, render };
+
+
+module.exports = { reply, render };
 
