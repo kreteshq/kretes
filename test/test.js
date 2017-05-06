@@ -5,7 +5,7 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 const Huncwot = require('../');
-const { reply } = require('../helpers');
+const { ok, created } = require('../response');
 
 let app;
 let server;
@@ -52,13 +52,25 @@ describe('init', () => {
     expect(response.text).to.eq('Hello Explicit Assignment');
   });
 
-  it('GET /json route', async () => {
-    app.get('/json', _ => reply({ a: 1, b: 2 }))
+  it('GET /json route as 200 OK', async () => {
+    app.get('/json-ok', _ => ok({ a: 1, b: 2 }))
 
     const response = await chai.request(server)
-      .get('/json');
+      .get('/json-ok');
 
     expect(response.type).to.eq('application/json');
+    expect(response.status).to.eq(200);
+    expect(response.body).to.have.all.keys('a', 'b');
+  })
+
+  it('GET /json route as 201 Created', async () => {
+    app.get('/json-created', _ => created({ a: 1, b: 2 }))
+
+    const response = await chai.request(server)
+      .get('/json-created');
+
+    expect(response.type).to.eq('application/json');
+    expect(response.status).to.eq(201);
     expect(response.body).to.have.all.keys('a', 'b');
   })
 
