@@ -36,7 +36,8 @@ function static(root, opts = { index: 'index.html' }) {
         let stats = await fs.statAsync(file);
 
         if (stats.isDirectory()) {
-          return next();
+          file = path.join(file, opts.index);
+          stats = await fs.statAsync(file);
         }
 
         let type = path.extname(file);
