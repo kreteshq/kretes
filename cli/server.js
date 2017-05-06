@@ -12,8 +12,23 @@
 // limitations under the License.
 
 const debug = require('debug')('server');
+const { join, resolve } = require('path');
+const chokidar = require('chokidar');
+
+const currentDirectory = process.cwd();
 
 function serve({ port, dir }) {
+  const watcher = chokidar.watch(dir, {
+    ignored: /[\/\\]\./,
+    persistent: true,
+    cwd: '.'
+  });
+
+  watcher.on('change', () => {})
+
+  require(join(currentDirectory, 'server.js'));
+
+  console.log(`---\nServer running at http://localhost:${port}`);
 }
 
 module.exports = {
