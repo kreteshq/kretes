@@ -12,6 +12,7 @@
 // limitations under the License.
 
 require('marko/node-require');
+const { createGzip } = require('zlib');
 
 const __current = process.cwd();
 const isProduction = false;
@@ -30,4 +31,14 @@ function page(name, bindings) {
   return template.stream(bindings);
 }
 
-module.exports = { page };
+function gzip(body) {
+  return {
+    body: body.pipe(createGzip()),
+    encoding: 'gzip'
+  }
+}
+
+module.exports = {
+  page,
+  gzip,
+};
