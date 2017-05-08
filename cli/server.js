@@ -12,10 +12,63 @@
 // limitations under the License.
 
 const debug = require('debug')('server');
-const { join, resolve } = require('path');
+
+const Promise = require('bluebird');
+const fs = Promise.promisifyAll(require('fs-extra'));
+const { join, resolve, extname, parse } = require('path');
 const chokidar = require('chokidar');
 
+const Huncwot = require('../');
+const { page } = require('../view');
+
 const currentDirectory = process.cwd();
+
+let concat = (a, b) => a.concat(b);
+
+function scan(directory, recursive = true) {
+  return fs
+    .readdirAsync(directory)
+    .map(el =>
+      fs.statAsync(join(directory, el)).then(stat => {
+        if (stat.isFile()) {
+          return el;
+        } else {
+          return !recursive
+            ? []
+            : scan(join(directory, el))
+                .reduce(concat, [])
+                .map(_ => join(el, _));
+        }
+      })
+    )
+    .reduce(concat, []);
+}
+
+async function init(app) {
+  const pages = await scan('./pages')
+    .filter(f => extname(f) === '.marko')
+    .map(f => {
+      const { dir, name } = parse(f);
+
+      const pathname = join(dir, name);
+      let route;
+
+      if (name === 'index') {
+        route = `/${dir}`
+      } else {
+        route = `/${dir}/${name}`
+      }
+
+      return { route, pathname };
+    })
+
+  for (let { route, pathname } of pages) {
+    let handler = () => ({});
+    try { handler = require('./asdf') } catch (error) {}
+
+    app.get(route, request => page(pathname, handler(request)))
+  }
+}
 
 function serve({ port, dir }) {
   const watcher = chokidar.watch(dir, {
@@ -26,14 +79,22 @@ function serve({ port, dir }) {
 
   watcher.on('change', () => {})
 
-  require(join(currentDirectory, 'server.js'));
+  let server = join(currentDirectory, 'server.js');
+
+  try {
+    require(server);
+  } catch (_) {
+    const app = new Huncwot();
+    init(app);
+    app.listen(port)
+  }
 
   console.log(`---\nServer running at http://localhost:${port}`);
 }
 
 module.exports = {
   builder: _ => _
-    .option('port', { alias: 'p', default: 3000 })
+    .option('port', { alias: 'p', default: 5544 })
     .default('dir', '.'),
   handler: serve
 };
