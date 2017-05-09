@@ -1697,6 +1697,13 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.1"
     yallist "^2.0.0"
 
+marko-path-router@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/marko-path-router/-/marko-path-router-0.3.0.tgz#b81453044b4b7327add36e16d914da61a38d874b"
+  dependencies:
+    marko "^4.2.8"
+    radix-router "^2.0.0"
+
 marko@^4.2.8:
   version "4.2.8"
   resolved "https://registry.yarnpkg.com/marko/-/marko-4.2.8.tgz#9d59928284850f27e014377eb5194c83465f0edb"
@@ -2078,6 +2085,10 @@ qs@^6.1.0, qs@^6.2.0, qs@~6.4.0:
 querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
+
+radix-router@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/radix-router/-/radix-router-2.0.0.tgz#2424e105490102183818f9185d6a1484683c65d7"
 
 randomatic@^1.1.3:
   version "1.1.6"
