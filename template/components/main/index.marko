@@ -1,0 +1,54 @@
+import { Router } from 'marko-path-router';
+
+class {
+  onMount() {
+    const routes = [
+      { path: '/', component: require('../home') },
+      { path: '/click-count', component: require('../click-count') },
+    ]
+
+    const render = Router.renderSync({
+      routes,
+      initialRoute: '/' 
+    })
+
+    render 
+      .appendTo(this.getEl('router-container'))
+      .getComponent()
+
+  }
+}
+
+style {
+}
+
+<section class="hero is-medium is-dark">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        Hello, I'm Huncwot
+      </h1>
+      <h2 class="subtitle">
+        A modern Node.js framework designed for programmer happiness.
+      </h2>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <nav class="tabs is-boxed is-fullwidth">
+      <div class="container">
+        <ul>
+          <router-link path='/'>Home</router-link>
+          <router-link path='/click-count'>Here be dragons!</router-link>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div no-update key='router-container'>
+    </div>
+  </div>
+</section>

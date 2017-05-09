@@ -1,0 +1,12 @@
+{
+  "name": "huncwot",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "huncwot": "^0.5.0",
+    "lasso": "^2.11.10",
+    "lasso-marko": "^2.3.0",
+    "marko": "^4.2.8",
+    "marko-path-router": "^0.2.0"
+  }
+}
