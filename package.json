@@ -24,6 +24,7 @@
     "lasso-marko": "^2.3.0",
     "marko": "^4.2.8",
     "marko-path-router": "^0.3.0",
+    "mime-types": "^2.1.15",
     "path-to-regexp": "^1.7.0",
     "raw-body": "^2.2.0",
     "upath": "^1.0.0",

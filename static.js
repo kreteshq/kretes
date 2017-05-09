@@ -17,12 +17,7 @@ const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require("fs-extra"));
 const path = require('path');
 const assert = require('assert');
-
-TYPES = {
-  '.css': 'text/css',
-  '.html': 'text/html',
-  '.js': 'text/javascript'
-}
+const mime = require('mime-types');
 
 function static(root, opts = { index: 'index.html' }) {
   assert(root, 'you need to specify `root` directory');
@@ -45,7 +40,7 @@ function static(root, opts = { index: 'index.html' }) {
         return {
           statusCode: 200,
           headers: {
-            'Content-Type': TYPES[type],
+            'Content-Type': mime.lookup(type) || 'application/octet-stream',
             'Content-Length': stats.size,
           },
           body: fs.createReadStream(file)
