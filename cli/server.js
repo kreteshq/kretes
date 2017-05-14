@@ -22,6 +22,7 @@ const Huncwot = require('../');
 const { page } = require('../view');
 
 const currentDirectory = process.cwd();
+const cwd = process.cwd();
 
 let concat = (a, b) => a.concat(b);
 
@@ -54,19 +55,28 @@ async function init(app) {
       let route;
 
       if (name === 'index') {
-        route = `/${dir}`
+        route = join('/', dir);
       } else {
-        route = `/${dir}/${name}`
+        route = join('/', dir, name);
       }
 
       return { route, pathname };
     })
 
   for (let { route, pathname } of pages) {
-    let handler = () => ({});
-    try { handler = require('./asdf') } catch (error) {}
+    let get = () => ({})
+    let handlers = {};
 
-    app.get(route, request => page(pathname, handler(request)))
+    try {
+      let handlersPath = `${join(cwd, 'pages', pathname)}.js`; // XXX to avoid Marko autoload
+      handlers = require(handlersPath);
+    } catch (error) {}
+
+    app.get(route, request => page(pathname, (handlers.get || get)(request)))
+
+    for (let [ method, handler ] of Object.entries(handlers)) {
+      app[method](route, request => page(pathname, handler(request)))
+    }
   }
 }
 
