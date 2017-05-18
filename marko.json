@@ -1,0 +1,9 @@
+{
+  "tags-dir": "./components",
+  "<include-javascripts>": {
+    "template": "./components/include-javascripts.marko"
+  },
+  "<include-stylesheets>": {
+    "template": "./components/include-stylesheets.marko"
+  }
+}
