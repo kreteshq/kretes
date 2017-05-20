@@ -1,20 +1,20 @@
 class {
-    onCreate() {
-        this.state = { count:0 };
-    }
-    increment() {
-        this.state.count++;
-    }
+  onCreate() {
+    this.state = { count:0 };
+  }
+  increment() {
+    this.state.count++;
+  }
 }
 
 style {
-    .count {
-        font-size:3em;
-    }
-    .example-button {
-        font-size:1em;
-        padding:0.5em;
-    }
+  .count {
+    font-size:3em;
+  }
+  .example-button {
+    font-size:1em;
+    padding:0.5em;
+  }
 }
 
 <h1 class="title">Here be dragons!</h1>
@@ -23,8 +23,8 @@ style {
 </h2>
 
 <div.count>
-    <p class="title count">${state.count}</p>
+  <p class="title count">${state.count}</p>
 </div>
 <button.is-danger.button.is-outlined on-click('increment')>
-    Click me!
+  Click me!
 </button>
