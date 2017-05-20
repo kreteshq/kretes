@@ -76,6 +76,10 @@ Visit `https://localhost:5544`
 
 Huncwot can be used as a replacement for Express or Koa, but it also tries to go beyond that by providing opinionated choices to other layers in the stack (view, ORM, etc) required to build a fully functional web application.
 
+### Server-side
+
+### Component-based
+
 ### View
 
 Huncwot uses [Marko][1] in the view layer to handle both server-side template generation and browser, component-based approach. 
@@ -162,6 +166,13 @@ In your project create `views/` directory with the following `index.html`
 </body>
 </html>
 ```
+
+## Examples
+
+* [huncwot-component-app](https://github.com/zaiste/huncwot-component-app) a basic Huncwot application built using component approach
+* [huncwot-server-app](https://github.com/zaiste/huncwot-server-app) a basic Huncwot application built using server-side approach
+* [huncwot-rest-api](https://github.com/zaiste/huncwot-rest-api) a REST API built with Huncwot 
+* [huncwot-graphql-api](https://github.com/zaiste/huncwot-graphql) a GraphQL API built with Huncwot 
 
 ## Roadmap
 
