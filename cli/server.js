@@ -21,7 +21,6 @@ const chokidar = require('chokidar');
 const Huncwot = require('../');
 const { page } = require('../view');
 
-const currentDirectory = process.cwd();
 const cwd = process.cwd();
 
 let concat = (a, b) => a.concat(b);
@@ -45,9 +44,9 @@ function scan(directory, recursive = true) {
     .reduce(concat, []);
 }
 
-async function init(app) {
-  const pages = await scan('./pages')
-    .filter(f => extname(f) === '.marko')
+async function list(dir, ext) {
+  return scan(dir)
+    .filter(f => extname(f) === ext)
     .map(f => {
       const { dir, name } = parse(f);
 
@@ -62,6 +61,10 @@ async function init(app) {
 
       return { route, pathname };
     })
+}
+
+async function init(app) {
+  const pages = await list('./pages', '.marko');
 
   for (let { route, pathname } of pages) {
     let get = () => ({})
@@ -78,18 +81,45 @@ async function init(app) {
       app[method](route, request => page(pathname, handler(request)))
     }
   }
+
+  // API
+
+  const resources = await list(join(cwd, 'rest'), '.js');
+
+  for (let { _, pathname } of resources) {
+    let handlers = {};
+
+    try {
+      let handlersPath = `${join(cwd, 'rest', pathname)}.js`;
+      handlers = require(handlersPath);
+    } catch (error) {}
+
+    for (let [ name, handler ] of Object.entries(handlers)) {
+      let { method, route } = translate(name, pathname)
+      app[method](route, request => handler(request));
+    }
+  }
+}
+
+function translate(name, resource) {
+  return {
+    browse: { method: 'get', route: `/rest/${resource}` },
+    read: { method: 'get', route: `/rest/${resource}/:id` },
+    edit: { method: 'put', route: `/rest/${resource}/:id` },
+    add: { method: 'post', route: `/rest/${resource}` },
+    destroy: { method: 'delete', route: `/rest/${resource}/:id` },
+  }[name];
 }
 
 function serve({ port, dir }) {
   const watcher = chokidar.watch(dir, {
     ignored: /[\/\\]\./,
-    persistent: true,
     cwd: '.'
   });
 
   watcher.on('change', () => {})
 
-  let server = join(currentDirectory, 'server.js');
+  let server = join(cwd, 'server.js');
 
   try {
     require(server);
