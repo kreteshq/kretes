@@ -1,3 +1,5 @@
+*.marko.js
+
 # Logs
 logs
 *.log
