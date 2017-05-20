@@ -39,9 +39,29 @@ function redirect(url, body = `Redirecting...`, statusCode = 302) {
   }
 }
 
+function json(content, statusCode = 200) {
+  return {
+    statusCode,
+    body: JSON.stringify(content),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+}
+
+function html(content) {
+  return {
+    statusCode: 200,
+    headers: { 'Content-Type': 'text/html; charset=utf-8' },
+    body: content
+  }
+}
+
 module.exports = {
   ok,
   created,
   accepted,
   redirect,
+  html,
+  json
 }
