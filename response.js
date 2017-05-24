@@ -43,17 +43,15 @@ function json(content, statusCode = 200) {
   return {
     statusCode,
     body: JSON.stringify(content),
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    type: 'application/json',
   }
 }
 
 function html(content) {
   return {
     statusCode: 200,
-    headers: { 'Content-Type': 'text/html; charset=utf-8' },
-    body: content
+    type: 'text/html',
+    body: content,
   }
 }
 

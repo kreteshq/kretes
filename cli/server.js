@@ -92,7 +92,10 @@ async function init(app) {
     try {
       let handlersPath = `${join(cwd, 'rest', pathname)}.js`;
       handlers = require(handlersPath);
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
+
 
     for (let [ name, handler ] of Object.entries(handlers)) {
       let { method, route } = translate(name, pathname)

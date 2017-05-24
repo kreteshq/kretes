@@ -184,7 +184,8 @@ function handleRoute(response) {
       str = JSON.stringify(body);
       response.setHeader('Content-Type', 'application/json');
     } else {
-      response.setHeader('Content-Type', type || 'text/plain');
+      if (! response.getHeader('Content-Type'))
+        response.setHeader('Content-Type', type || 'text/plain');
     }
 
     response.setHeader('Content-Length', Buffer.byteLength(str));

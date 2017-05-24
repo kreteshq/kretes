@@ -5,7 +5,7 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 const Huncwot = require('../');
-const { ok, created } = require('../response');
+const { ok, created, html } = require('../response');
 
 let app;
 let server;
@@ -95,4 +95,14 @@ describe('init', () => {
 
     expect(response.text).to.eq('Hello Zaiste!');
   })
+
+  it('GET /html route, `Content-Type` as `text/html`', async () => {
+    app.get('/html', _ => html('<h1>Hello HTML</h1>'));
+
+    const response = await chai.request(server)
+      .get('/html');
+
+    expect(response.type).to.eq('text/html');
+    expect(response.text).to.eq('<h1>Hello HTML</h1>');
+  });
 });
