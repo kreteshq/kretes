@@ -14,8 +14,9 @@
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs-extra'));
 const { join, resolve } = require('path');
+const exec = require('child_process').exec;
 
-const currentDirectory = process.cwd();
+const cwd = process.cwd();
 
 async function init({ dir }) {
   const themeDir = join(resolve(__dirname, '..'), 'template');
@@ -25,7 +26,8 @@ async function init({ dir }) {
       `Initialising '${dir}'... `
     );
 
-    await fs.copyAsync(themeDir, join(currentDirectory, dir));
+    await fs.copyAsync(themeDir, join(cwd, dir));
+    exec(`yarn`, { cwd: dir }).stdout.pipe(process.stdout);
 
     console.log('done');
   } catch (error) {
