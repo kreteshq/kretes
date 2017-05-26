@@ -1,6 +1,6 @@
 {
   "name": "huncwot",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "description": "Fast, opinionated and minimal Node.js web framework built for ES6/7 era",
   "main": "index.js",
   "repository": "https://github.com/zaiste/huncwot",
