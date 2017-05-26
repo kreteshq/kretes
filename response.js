@@ -11,23 +11,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// XXX auto-create those functions?
 
-// XXX auto-create those functions
-
-function ok(body) {
-  return { body, statusCode: 200 }
+function ok(body = '', headers = {}) {
+  return { statusCode: 200, headers, body }
 }
 
-function created(body) {
-  return { body, statusCode: 201 }
+function created(body = '', headers = {}) {
+  return { statusCode: 201, headers, body }
 }
 
-function accepted(body) {
-  return { body, statusCode: 202 }
+function accepted(body = '', headers = {}) {
+  return { statusCode: 202, headers, body }
 }
 
-function noContent(body) {
-  return { body, statusCode: 204 }
+function noContent(headers = {}) {
+  return { statusCode: 204, headers, body: '' }
 }
 
 function redirect(url, body = `Redirecting...`, statusCode = 302) {
