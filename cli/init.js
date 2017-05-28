@@ -13,7 +13,7 @@
 
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs-extra'));
-const { join, resolve } = require('path');
+const { join, resolve, delimiter } = require('path');
 const exec = require('child_process').exec;
 
 const cwd = process.cwd();
@@ -27,11 +27,31 @@ async function init({ dir }) {
     );
 
     await fs.copyAsync(themeDir, join(cwd, dir));
-    exec(`yarn`, { cwd: dir }).stdout.pipe(process.stdout);
+    const isYarnInstalled = await hasbin('yarn');
 
-    console.log('done');
+    if (isYarnInstalled) {
+      exec(`yarn`, { cwd: dir }).stdout.pipe(process.stdout);
+      console.log('done');
+    } else {
+      console.error('\nError: `yarn` is not installed. Please check their installation guide at https://yarnpkg.com/en/docs/install to learn how to install `yarn` on your platform');
+    }
   } catch (error) {
     console.log('error: ' + error.message);
+  }
+}
+
+async function hasbin(name) {
+  return await Promise.resolve(process.env.PATH.split(delimiter).map(_ => join(_, name)))
+    .map(exists)
+    .reduce((a, b) => a || b)
+}
+
+async function exists(pathname) {
+  try {
+    let stats = await fs.statAsync(pathname);
+    return true
+  } catch (error) {
+    return false;
   }
 }
 
