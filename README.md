@@ -50,18 +50,17 @@ Huncwot is being built with *battery included* approach in mind, i.e. it comes w
 
 ## Getting Started 
 
-Install `huncwot` globally to use its CLI commands which simplify frequent operations
+Install `huncwot` globally to use its CLI commands which simplify frequent operations. You also need to install [yarn](https://yarnpkg.com/en/).
 
 ```
 yarn global add huncwot
 ```
 
-Generate new application and install its dependencies
+Generate new application 
 
 ```
 huncwot new my-project 
 cd my-project
-yarn
 ```
 
 Start the application using built-in development server
@@ -74,11 +73,72 @@ Visit `https://localhost:5544`
 
 ## Usage
 
-Huncwot can be used as a replacement for Express or Koa, but it also tries to go beyond that by providing opinionated choices to other layers in the stack (view, ORM, etc) required to build a fully functional web application.
+Huncwot can be used as a replacement for Express or Koa, but it also goes beyond that by providing opinionated choices to other layers in the stack (view, ORM, etc) required to build a fully functional web application. 
+
+There are two essential ways in Huncwot to constract a web application: traditional server-side or modern component-based. Nonenthless, those two approaches can be combined in any proportion.
 
 ### Server-side
 
+Server-side means that the application content is generated on the server. We usually think here in terms of *pages* available at particular paths. Routing is also performed on the server with paths corresponding to pages. 
+
+![page](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/page-approach.png)
+
+Here's a server-side example of a Huncwot application. 
+
+```js
+const Huncwot = require('huncwot');
+const { page, gzip } = require('huncwot/view');
+
+const app = new Huncwot();
+
+app.get('/', request => gzip(page('index', { name: 'Frank' })))
+
+app.listen(5544);
+```
+
 ### Component-based
+
+Component-based means that *pages* are built by combining components: an independant chunks of HTML with their own styling and behaviour defined in JavaScript. There is usually only a single *page* (rendered on the server) to which components are being attached - this happens in the browser (client-side). Routing is usually performed in the browser with paths corresponding to components. 
+
+![component](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/component-approach.png)
+
+
+Here's a component example
+
+```js
+class {
+  onCreate() {
+    this.state = { count:0 };
+  }
+  increment() {
+    this.state.count++;
+  }
+}
+
+style {
+  .count {
+    font-size:3em;
+  }
+  .example-button {
+    font-size:1em;
+    padding:0.5em;
+  }
+}
+
+<h1 class="title">Here be dragons!</h1>
+<h2 class="subtitle">
+  Experience Huncwot magic and carefully follow the instruction.
+</h2>
+
+<div.count>
+  <p class="title count">${state.count}</p>
+</div>
+<button.is-danger.button.is-outlined on-click('increment')>
+  Click me!
+</button>
+```
+
+## Concepts 
 
 ### View
 
@@ -169,8 +229,8 @@ In your project create `views/` directory with the following `index.html`
 
 ## Examples
 
-* [huncwot-component-app](https://github.com/zaiste/huncwot-component-app) a basic Huncwot application built using component approach
-* [huncwot-server-app](https://github.com/zaiste/huncwot-server-app) a basic Huncwot application built using server-side approach
+* [huncwot-component-app](https://github.com/zaiste/huncwot-component-app) a basic Huncwot application using components 
+* [huncwot-server-app](https://github.com/zaiste/huncwot-server-app) a basic server-side Huncwot application 
 * [huncwot-rest-api](https://github.com/zaiste/huncwot-rest-api) a REST API built with Huncwot 
 * [huncwot-graphql-api](https://github.com/zaiste/huncwot-graphql) a GraphQL API built with Huncwot 
 
