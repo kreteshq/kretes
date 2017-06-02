@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "https://github.com/zaiste/huncwot",
   "author": "Zaiste",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "devDependencies": {
     "chai": "^4.0.1",
     "chai-http": "^3.0.0",
