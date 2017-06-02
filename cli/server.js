@@ -17,6 +17,7 @@ const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs-extra'));
 const { join, resolve, extname, parse } = require('path');
 const chokidar = require('chokidar');
+const color = require('chalk');
 
 const Huncwot = require('../');
 const { page } = require('../view');
@@ -132,7 +133,7 @@ function serve({ port, dir }) {
     app.listen(port)
   }
 
-  console.log(`---\nServer running at http://localhost:${port}`);
+  console.log(`${color.bold.green('Huncwot:')} Server running at ${color.underline.blue(`http://localhost:${port}`)}`);
 }
 
 module.exports = {
