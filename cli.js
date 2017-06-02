@@ -13,9 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const Promise = require('bluebird');
-const fs = Promise.promisifyAll(require("fs"));
-
 const argv = require('yargs')
   .version()
   .usage('Usage: huncwot <command> [options]')
