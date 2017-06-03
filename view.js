@@ -13,13 +13,14 @@
 
 require('marko/node-require');
 const { createGzip } = require('zlib');
+const { join } = require('path');
 
-const __current = process.cwd();
+const cwd = process.cwd();
 const isProduction = false;
 
 require('lasso').configure({
   plugins: ['lasso-marko'],
-  outputDir: __current + '/static',
+  outputDir: cwd + '/static',
   urlPrefix: "/",
   bundlingEnabled: isProduction, // Only enable bundling in production
   minify: isProduction, // Only minify JS and CSS code in production
@@ -27,7 +28,7 @@ require('lasso').configure({
 });
 
 function page(name, bindings) {
-  const template = require(`${__current}/pages/${name}.marko`);
+  const template = require(join(cwd, 'pages', `${name}.marko`));
   return template.stream(bindings);
 }
 
