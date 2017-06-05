@@ -7,7 +7,7 @@
   "author": "Zaiste",
   "license": "Apache-2.0",
   "devDependencies": {
-    "chai": "^4.0.1",
+    "chai": "^4.0.2",
     "chai-http": "^3.0.0",
     "mocha": "^3.4.2"
   },
@@ -24,7 +24,7 @@
     "lasso": "^2.11.12",
     "lasso-marko": "^2.3.0",
     "marko": "^4.4.9",
-    "marko-path-router": "^0.3.0",
+    "marko-path-router": "^0.4.0",
     "mime-types": "^2.1.15",
     "path-to-regexp": "^1.7.0",
     "raw-body": "^2.2.0",

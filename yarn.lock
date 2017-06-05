@@ -653,9 +653,9 @@ chai@^3.5.0:
     deep-eql "^0.1.3"
     type-detect "^1.0.0"
 
-chai@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/chai/-/chai-4.0.1.tgz#9e41e808e17a7f10807721e2ac5a589d5bb09082"
+chai@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/chai/-/chai-4.0.2.tgz#2f7327c4de6f385dd7787999e2ab02697a32b83b"
   dependencies:
     assertion-error "^1.0.1"
     check-error "^1.0.1"
@@ -1722,14 +1722,14 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.1"
     yallist "^2.0.0"
 
-marko-path-router@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/marko-path-router/-/marko-path-router-0.3.0.tgz#b81453044b4b7327add36e16d914da61a38d874b"
+marko-path-router@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/marko-path-router/-/marko-path-router-0.4.0.tgz#ec11d95270b4c26689dddae2e06859275c92fa9a"
   dependencies:
-    marko "^4.2.8"
+    marko "^4.4.5"
     radix-router "^2.0.0"
 
-marko@^4.2.8, marko@^4.4.9:
+marko@^4.2.8, marko@^4.4.5, marko@^4.4.9:
   version "4.4.9"
   resolved "https://registry.yarnpkg.com/marko/-/marko-4.4.9.tgz#c643f14a12f698bf65bd5b2b252633d612578395"
   dependencies:
