@@ -29,6 +29,10 @@ function noContent(headers = {}) {
   return { statusCode: 204, headers, body: '' }
 }
 
+function notFound(headers = {}) {
+  return { statusCode: 404, headers, body: '' }
+}
+
 function redirect(url, body = `Redirecting...`, statusCode = 302) {
   return {
     statusCode,
@@ -60,5 +64,6 @@ module.exports = {
   accepted,
   redirect,
   html,
-  json
+  json,
+  notFound,
 }
