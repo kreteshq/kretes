@@ -1722,14 +1722,14 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.1"
     yallist "^2.0.0"
 
-marko-path-router@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/marko-path-router/-/marko-path-router-0.4.0.tgz#ec11d95270b4c26689dddae2e06859275c92fa9a"
+marko-path-router@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/marko-path-router/-/marko-path-router-0.5.0.tgz#d674aac0c912c25d2c7fa648c8a02e425568db51"
   dependencies:
     marko "^4.4.5"
     radix-router "^2.0.0"
 
-marko@^4.2.8, marko@^4.4.5, marko@^4.4.9:
+marko@^4.2.8, marko@^4.4.5:
   version "4.4.9"
   resolved "https://registry.yarnpkg.com/marko/-/marko-4.4.9.tgz#c643f14a12f698bf65bd5b2b252633d612578395"
   dependencies:
@@ -1756,6 +1756,42 @@ marko@^4.2.8, marko@^4.4.5, marko@^4.4.9:
     raptor-async "^1.1.2"
     raptor-json "^1.0.1"
     raptor-logging "^1.0.1"
+    raptor-polyfill "^1.0.0"
+    raptor-promises "^1.0.1"
+    raptor-regexp "^1.0.0"
+    raptor-util "^3.2.0"
+    resolve-from "^2.0.0"
+    simple-sha1 "^2.1.0"
+    strip-json-comments "^2.0.1"
+    try-require "^1.2.1"
+    warp10 "^1.0.0"
+
+marko@^4.4.11:
+  version "4.4.11"
+  resolved "https://registry.yarnpkg.com/marko/-/marko-4.4.11.tgz#fecee315458c9a761de917210ebad71dcf9b026a"
+  dependencies:
+    app-module-path "^2.2.0"
+    argly "^1.0.0"
+    browser-refresh-client "^1.0.0"
+    char-props "~0.1.5"
+    complain "^1.0.0"
+    deresolve "^1.1.2"
+    escodegen "^1.8.1"
+    esprima "^3.1.1"
+    estraverse "^4.2.0"
+    events "^1.0.2"
+    events-light "^1.0.0"
+    he "^1.1.0"
+    htmljs-parser "^2.3.2"
+    lasso-caching-fs "^1.0.1"
+    lasso-modules-client "^2.0.3"
+    lasso-package-root "^1.0.1"
+    listener-tracker "^2.0.0"
+    minimatch "^3.0.2"
+    object-assign "^4.1.0"
+    property-handlers "^1.0.0"
+    raptor-async "^1.1.2"
+    raptor-json "^1.0.1"
     raptor-polyfill "^1.0.0"
     raptor-promises "^1.0.1"
     raptor-regexp "^1.0.0"
