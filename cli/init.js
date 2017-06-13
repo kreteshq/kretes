@@ -48,7 +48,7 @@ async function hasbin(name) {
 
 async function exists(pathname) {
   try {
-    let stats = await fs.statAsync(pathname);
+    await fs.accessAsync(pathname);
     return true
   } catch (error) {
     return false;
