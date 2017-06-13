@@ -21,7 +21,7 @@ const rawBody = require('raw-body');
 const querystring = require('querystring');
 const extractParams = require('path-to-regexp');
 
-const { pick, compose, match } = require('./util');
+const { pick, compose, match, isObject } = require('./util');
 
 class Huncwot extends Emitter {
   constructor() {
@@ -127,7 +127,10 @@ function handleRoute(response) {
           Object.assign(context.params, querystring.parse(buffer.toString()))
           break;
         case 'application/json':
-          Object.assign(context.params, JSON.parse(buffer))
+          const result = JSON.parse(buffer);
+          if (isObject(result)) {
+            Object.assign(context.params, result);
+          }
           break;
         default:
       }

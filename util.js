@@ -49,4 +49,8 @@ function match(options = {}) {
   }
 };
 
-module.exports = { pick, compose, match };
+function isObject(_) {
+  return (!!_) && (_.constructor === Object);
+};
+
+module.exports = { pick, compose, match, isObject };
