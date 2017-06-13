@@ -19,8 +19,6 @@ function pick(obj, keys) {
 
 function compose(...middlewareList) {
   return async (ctx, next) => {
-    const last = next ? next : () => ctx
-
     await middlewareList.reduceRight(
       (acc, fn) => async () => await fn(ctx, acc),
       () => ctx // noop
