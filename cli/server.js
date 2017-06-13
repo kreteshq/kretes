@@ -106,13 +106,15 @@ async function init(app) {
 }
 
 function translate(name, resource) {
-  return {
+  const methods = {
     browse: { method: 'get', route: `/rest/${resource}` },
     read: { method: 'get', route: `/rest/${resource}/:id` },
     edit: { method: 'put', route: `/rest/${resource}/:id` },
     add: { method: 'post', route: `/rest/${resource}` },
     destroy: { method: 'delete', route: `/rest/${resource}/:id` },
-  }[name];
+  };
+
+  return methods[name];
 }
 
 function serve({ port, dir }) {
