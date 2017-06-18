@@ -26,7 +26,13 @@ async function init({ dir }) {
       `Initialising '${dir}'... `
     );
 
+    // dynamic files
+    const databaseConfig = join(cwd, dir, 'config', 'database.json');
+    await fs.outputJson(databaseConfig, generateDatabaseConfig(dir), { spaces: 2 });
+
+    // static files
     await fs.copyAsync(themeDir, join(cwd, dir));
+
     const isYarnInstalled = await hasbin('yarn');
 
     if (isYarnInstalled) {
@@ -60,3 +66,12 @@ module.exports = {
   builder: _ =>
     _.default('dir', '.')
 };
+
+// TODO: generalize this function as ~ `generate(...)`
+function generateDatabaseConfig(database) {
+  return {
+    development: { host: "localhost", port: 5432, database },
+    test: { "host": "localhost", "port": 5432, database },
+    production: { host: "localhost", port: 5432, database }
+  }
+}
