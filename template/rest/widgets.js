@@ -1,30 +1,39 @@
 const { ok, created } = require('huncwot/response');
+const db = require('huncwot/db');
 
-function browse(request) {
-  return ok([
-    { name: 'Widget 1' },
-    { name: 'Widget 2' },
-  ]);
+async function browse(request) {
+  const results = await db.any('select * from widgets');
+
+  return ok(results);
 }
 
-function read(request) {
-  return ok({ name: 'Widget 1' })
+async function read(request) {
+  const { id } = request.params;
+
+  const result = await db.one('select * from widgets where id = $1', id)
+  return ok(result);
 }
 
-function edit(request) {
+async function edit(request) {
   const { id, name } = request.params;
+
+  await db.none('update widgets set name=$1 where id=$2', [name, parseInt(id)])
 
   return ok({ status: `success: ${id} changed to ${name}` });
 }
 
-function add(request) {
+async function add(request) {
   const { name } = request.params;
+
+  await db.none('insert into widgets(name) values(${name})', { name })
 
   return created({ status: `success: ${name} created` })
 }
 
-function destroy(request) {
+async function destroy(request) {
   const { id } = request.params;
+
+  await db.result('delete from widgets where id = $1', id)
 
   return ok({ status: `success: ${id} destroyed` })
 }
