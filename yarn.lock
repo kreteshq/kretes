@@ -1781,9 +1781,9 @@ marko@^4.2.8, marko@^4.4.5:
     try-require "^1.2.1"
     warp10 "^1.0.0"
 
-marko@^4.4.15:
-  version "4.4.15"
-  resolved "https://registry.yarnpkg.com/marko/-/marko-4.4.15.tgz#7fe0c08cbc24bc0a6e9c71bb3b99826917c55c40"
+marko@^4.4.16:
+  version "4.4.16"
+  resolved "https://registry.yarnpkg.com/marko/-/marko-4.4.16.tgz#bff9e175717cea8248864fcde7d725e45cd79963"
   dependencies:
     app-module-path "^2.2.0"
     argly "^1.0.0"
@@ -2120,9 +2120,9 @@ pg-minify@0.4:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/pg-minify/-/pg-minify-0.4.2.tgz#c75b4b5878960fb09c3b9a4d4eb1036aea7ea0e3"
 
-pg-promise@^5.9.4:
-  version "5.9.4"
-  resolved "https://registry.yarnpkg.com/pg-promise/-/pg-promise-5.9.4.tgz#a1ed33d082d1f2b36108479f3c920c51cff849a7"
+pg-promise@^5.9.6:
+  version "5.9.6"
+  resolved "https://registry.yarnpkg.com/pg-promise/-/pg-promise-5.9.6.tgz#8f946863e39fa36e8903f8b837948c78acbbceea"
   dependencies:
     manakin "^0.4.7"
     pg "^5.1.0"
