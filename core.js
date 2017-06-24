@@ -35,6 +35,7 @@ class Huncwot extends Emitter {
     const server = http.createServer(async (request, response) => {
       const context = {
         params: {},
+        headers: {},
         request
       };
 
@@ -117,6 +118,7 @@ async function handleError(context, next) {
 
 function handleRoute(response) {
   return async (context, next) => {
+    context.headers = context.request.headers;
     const buffer = await rawBody(context.request);
 
     if (buffer.length > 0) {
