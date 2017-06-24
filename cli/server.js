@@ -85,13 +85,13 @@ async function init(app) {
 
   // API
 
-  const resources = await list(join(cwd, 'rest'), '.js');
+  const resources = await list(join(cwd, 'controllers'), '.js');
 
   for (let { _, pathname } of resources) {
     let handlers = {};
 
     try {
-      let handlersPath = `${join(cwd, 'rest', pathname)}.js`;
+      let handlersPath = `${join(cwd, 'controllers', pathname)}.js`;
       handlers = require(handlersPath);
     } catch (error) {
       console.error(error);
@@ -107,11 +107,11 @@ async function init(app) {
 
 function translate(name, resource) {
   const methods = {
-    browse: { method: 'get', route: `/rest/${resource}` },
-    read: { method: 'get', route: `/rest/${resource}/:id` },
-    edit: { method: 'put', route: `/rest/${resource}/:id` },
-    add: { method: 'post', route: `/rest/${resource}` },
-    destroy: { method: 'delete', route: `/rest/${resource}/:id` },
+    browse: { method: 'get', route: `/${resource}` },
+    read: { method: 'get', route: `/${resource}/:id` },
+    edit: { method: 'put', route: `/${resource}/:id` },
+    add: { method: 'post', route: `/${resource}` },
+    destroy: { method: 'delete', route: `/${resource}/:id` },
   };
 
   return methods[name];

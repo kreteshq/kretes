@@ -2,7 +2,7 @@ const { ok, created } = require('huncwot/response');
 const db = require('huncwot/db');
 
 async function browse(request) {
-  const results = await db.any('select * from widgets');
+  const results = await db('widgets');
 
   return ok(results);
 }
@@ -10,14 +10,14 @@ async function browse(request) {
 async function read(request) {
   const { id } = request.params;
 
-  const result = await db.one('select * from widgets where id = $1', id)
+  const result = await db('widgets').where({ id });
   return ok(result);
 }
 
 async function edit(request) {
   const { id, name } = request.params;
 
-  await db.none('update widgets set name=$1 where id=$2', [name, parseInt(id)])
+  await db('widgets').where({ id }).update({ name });
 
   return ok({ status: `success: ${id} changed to ${name}` });
 }
@@ -25,17 +25,17 @@ async function edit(request) {
 async function add(request) {
   const { name } = request.params;
 
-  await db.none('insert into widgets(name) values(${name})', { name })
+  await db('widgets').insert({ name });
 
-  return created({ status: `success: ${name} created` })
+  return created({ status: `success: ${name} created` });
 }
 
 async function destroy(request) {
   const { id } = request.params;
 
-  await db.result('delete from widgets where id = $1', id)
+  await db('widgets').where({ id }).del();
 
-  return ok({ status: `success: ${id} destroyed` })
+  return ok({ status: `success: ${id} destroyed` });
 }
 
 module.exports = { browse, read, edit, add, destroy }
