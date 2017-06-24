@@ -140,6 +140,68 @@ style {
 
 ## Concepts 
 
+### Database
+
+An ORM is at times too much to get data out of the database. Huncwot provides an thin layer of integration with various RDMBS systems using [Knex.js](https://github.com/tgriesser/knex). Thanks to this library you can write usual SQL queries, yet fully integrated with the regular JavaScript data structures.
+
+The database configuration is stored `config/database.json` as a JSON document.
+
+In order to start using the database integration you only need to require `huncwot/db`:
+
+```
+const db = require('huncwot/db');
+```
+
+Let's see how we can perform some basic and frequent SQL queries in Huncwot 
+
+#### Select
+
+Get all elements with all columns from `widgets` table; equivalent to `select * from widgets`:
+
+```
+const results = await db('widgets');
+```
+
+Get all elements with all some columns from `widgets` table; equivalent to `select id, name from widgets`:
+
+```
+const results = await db('widgets').select('id', 'name');
+```
+
+Get a single element from `widgets` table by `id`:
+
+```
+const result = await db('widgets').where({ id })
+```
+
+#### Insert/Update
+
+Insert a single element into `widgets` table:
+
+```
+await db('widgets').insert({ name: 'Widget 1', amount: 2 })
+```
+
+Insert few elements at once into `widgets` table:
+
+```
+await db('widgets').insert([
+  { name: 'Widget 1', amount: 2 },
+  { name: 'Widget 2', amount: 7 },
+  { name: 'Widget 3', amount: 4 }
+])
+```
+
+Update an existing element (identified by `id`) in `widgets` table:
+
+```
+await db('widgets').where({ id: 2 }).update({ name: 'Widget 22' })
+```
+
+### Controllers
+
+TBD
+
 ### View
 
 Huncwot uses [Marko][1] in the view layer to handle both server-side template generation and browser, component-based approach. 
