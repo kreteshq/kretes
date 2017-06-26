@@ -200,7 +200,50 @@ await db('widgets').where({ id: 2 }).update({ name: 'Widget 22' })
 
 ### Controllers
 
-TBD
+A controller is a module which groups functions operating in the context of a single route, i.e. `controllers/widget.js` is (by default) responsible to handle HTTP actions on `/widgets` route. 
+
+Each actions defined in a controller is responsible to connect the information received from the incoming request to underlaying data in your application (i.e. fetching/saving/updating) in order to produce a corresponding view e.g. a HTML page or a JSON payload.
+
+A controller is supposed to define five functions i.e. `browse()`, `read()`, `edit()`, `add()`, `delete()` - in short **BREAD** (which is a kind of extension of CRUD approach). Each of those functions is triggered by a corresponding HTTP method i.e. `browse()` and `read()` by `GET`, `edit()` by `PUT`, `add()` by `POST` and finally `destroy()` by `DELETE`.
+
+Here's an example of a simple controller, stored as `controllers/widgets.js` which always returns data in JSON format:
+
+```js
+const { ok, created } = require('huncwot/response');
+
+async function browse(request) {
+  const results = ... 
+  return ok(results);
+}
+
+async function read(request) {
+  const { id } = request.params;
+  const result = ... 
+  return ok(result);
+}
+
+async function edit(request) {
+  const { id, name } = request.params;
+  ...
+  return ok({ status: `success: ${id} changed to ${name}` });
+}
+
+async function add(request) {
+  const { name } = request.params;
+  ...
+  return created({ status: `success: ${name} created` });
+}
+
+async function destroy(request) {
+  const { id } = request.params;
+  ...
+  return ok({ status: `success: ${id} destroyed` });
+}
+
+module.exports = { browse, read, edit, add, destroy }
+``` 
+
+By default, Huncwot will make those actions available under `/widgets` route through HTTP methods and in accordance to **BREAD** principle.
 
 ### View
 
