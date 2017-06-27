@@ -1,0 +1,29 @@
+class {
+  onCreate() {
+    this.state = { count:0 };
+  }
+  increment() {
+    this.state.count++;
+  }
+  decrement() {
+    this.state.count--;
+  }
+}
+
+style {
+  .count { font-size:3em; }
+  a.button {
+    margin-right: .5em;
+  }
+}
+
+<section class="section">
+  <div class="content has-text-centered">
+    <div.count>${state.count}</div>
+    <div class="block">
+      <a.is-success.button on-click('increment')> + </a>
+      <a.is-danger.button on-click('decrement')> - </a>
+    </div>
+  </div>
+</section>
+
