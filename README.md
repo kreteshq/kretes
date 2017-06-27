@@ -48,7 +48,7 @@ This example shows a regular, server-side application in the style of Express or
 
 Huncwot is being built with *battery included* approach in mind, i.e. it comes with a (eventually large) library of useful modules which are developped in a coherent way. This stands in direct opposition to Koa approach. Huncwot tries to formalize conventions and eliminate valueless choices by providing solid defaults for building web applications that increase the programmers productivity.
 
-## Getting Started 
+## Getting Started
 
 Install `huncwot` globally to use its CLI commands which simplify frequent operations. You also need to install [yarn](https://yarnpkg.com/en/).
 
@@ -56,10 +56,10 @@ Install `huncwot` globally to use its CLI commands which simplify frequent opera
 yarn global add huncwot
 ```
 
-Generate new application 
+Generate new application
 
 ```
-huncwot new my-project 
+huncwot new my-project
 cd my-project
 ```
 
@@ -73,17 +73,17 @@ Visit `https://localhost:5544`
 
 ## Usage
 
-Huncwot can be used as a replacement for Express or Koa, but it also goes beyond that by providing opinionated choices to other layers in the stack (view, ORM, etc) required to build a fully functional web application. 
+Huncwot can be used as a replacement for Express or Koa, but it also goes beyond that by providing opinionated choices to other layers in the stack (view, ORM, etc) required to build a fully functional web application.
 
 There are two essential ways in Huncwot to constract a web application: traditional server-side or modern component-based. Nonenthless, those two approaches can be combined in any proportion.
 
 ### Server-side
 
-Server-side means that the application content is generated on the server. We usually think here in terms of *pages* available at particular paths. Routing is also performed on the server with paths corresponding to pages. 
+Server-side means that the application content is generated on the server. We usually think here in terms of *pages* available at particular paths. Routing is also performed on the server with paths corresponding to pages.
 
 ![page](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/page-approach.png)
 
-Here's a server-side example of a Huncwot application. 
+Here's a server-side example of a Huncwot application.
 
 ```js
 const Huncwot = require('huncwot');
@@ -98,7 +98,7 @@ app.listen(5544);
 
 ### Component-based
 
-Component-based means that *pages* are built by combining components: an independant chunks of HTML with their own styling and behaviour defined in JavaScript. There is usually only a single *page* (rendered on the server) to which components are being attached - this happens in the browser (client-side). Routing is usually performed in the browser with paths corresponding to components. 
+Component-based means that *pages* are built by combining components: an independant chunks of HTML with their own styling and behaviour defined in JavaScript. There is usually only a single *page* (rendered on the server) to which components are being attached - this happens in the browser (client-side). Routing is usually performed in the browser with paths corresponding to components.
 
 ![component](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/component-approach.png)
 
@@ -138,7 +138,7 @@ style {
 </button>
 ```
 
-## Concepts 
+## Concepts
 
 ### Database
 
@@ -152,7 +152,7 @@ In order to start using the database integration you only need to require `huncw
 const db = require('huncwot/db');
 ```
 
-Let's see how we can perform some basic and frequent SQL queries in Huncwot 
+Let's see how we can perform some basic and frequent SQL queries in Huncwot
 
 #### Select
 
@@ -200,7 +200,7 @@ await db('widgets').where({ id: 2 }).update({ name: 'Widget 22' })
 
 ### Controllers
 
-A controller is a module which groups functions operating in the context of a single route, i.e. `controllers/widget.js` is (by default) responsible to handle HTTP actions on `/widgets` route. 
+A controller is a module which groups functions operating in the context of a single route, i.e. `controllers/widget.js` is (by default) responsible to handle HTTP actions on `/widgets` route.
 
 Each actions defined in a controller is responsible to connect the information received from the incoming request to underlaying data in your application (i.e. fetching/saving/updating) in order to produce a corresponding view e.g. a HTML page or a JSON payload.
 
@@ -212,13 +212,13 @@ Here's an example of a simple controller, stored as `controllers/widgets.js` whi
 const { ok, created } = require('huncwot/response');
 
 async function browse(request) {
-  const results = ... 
+  const results = ...
   return ok(results);
 }
 
 async function read(request) {
   const { id } = request.params;
-  const result = ... 
+  const result = ...
   return ok(result);
 }
 
@@ -241,13 +241,13 @@ async function destroy(request) {
 }
 
 module.exports = { browse, read, edit, add, destroy }
-``` 
+```
 
 By default, Huncwot will make those actions available under `/widgets` route through HTTP methods and in accordance to **BREAD** principle.
 
 ### View
 
-Huncwot uses [Marko][1] in the view layer to handle both server-side template generation and browser, component-based approach. 
+Huncwot uses [Marko][1] in the view layer to handle both server-side template generation and browser, component-based approach.
 
 ```js
 const Huncwot = require('huncwot');
@@ -274,13 +274,13 @@ Huncwot provides helper functions to simplify usual operations in the request/re
 </html>
 ```
 
-### Routes 
+### Routes
 
 You can define a route using one of HTTP verbs e.g. `.get()`, `.post()`, `.put()`, `.patch()` or `.delete()` - it takes a string which defines a desired path and a function that defines a action which will be exectued once the route is hit. The action takes the incoming `request` as its parameter and returns a `response` that will be send to the client. The response is represented as a JavaScript object which must have at least `body` and `statusCode` keys. By conventions, a return of string value is considered to be a `200` response of type `plain/text` with `body` set to that string. There is also a `reply` helper function which allows to create responses with `application/json` type out of JavaScript objects.
 
 ### Parameters
 
-There are two kinds of parameters possible in a web application: the ones that are sent as part of the URL after `?`, called *query string* parameters; and the ones that are sent as part of the request `body`, referred to as POST data (usually comes from an HTML form or as JSON). Huncwot does not make any distinction between query string parameters and POST parameters, both are available in the request `params` object. 
+There are two kinds of parameters possible in a web application: the ones that are sent as part of the URL after `?`, called *query string* parameters; and the ones that are sent as part of the request `body`, referred to as POST data (usually comes from an HTML form or as JSON). Huncwot does not make any distinction between query string parameters and POST parameters, both are available in the request `params` object.
 
 ## Modules
 
@@ -297,6 +297,11 @@ app.use(auth({ users: { 'admin': 'secret' }}))
 ```js
 app.use(static('./public'))
 ```
+
+## Examples
+
+* [counter](https://github.com/zaiste/huncwot/tree/master/examples/counter)
+  ([demo](https://huncwot.org))
 
 ## 3-rd Party Integrations
 
@@ -334,10 +339,10 @@ In your project create `views/` directory with the following `index.html`
 
 ## Examples
 
-* [huncwot-component-app](https://github.com/zaiste/huncwot-component-app) a basic Huncwot application using components 
-* [huncwot-server-app](https://github.com/zaiste/huncwot-server-app) a basic server-side Huncwot application 
-* [huncwot-rest-api](https://github.com/zaiste/huncwot-rest-api) a REST API built with Huncwot 
-* [huncwot-graphql-api](https://github.com/zaiste/huncwot-graphql) a GraphQL API built with Huncwot 
+* [huncwot-component-app](https://github.com/zaiste/huncwot-component-app) a basic Huncwot application using components
+* [huncwot-server-app](https://github.com/zaiste/huncwot-server-app) a basic server-side Huncwot application
+* [huncwot-rest-api](https://github.com/zaiste/huncwot-rest-api) a REST API built with Huncwot
+* [huncwot-graphql-api](https://github.com/zaiste/huncwot-graphql) a GraphQL API built with Huncwot
 
 ## Roadmap
 
