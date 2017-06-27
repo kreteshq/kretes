@@ -1,5 +1,7 @@
 .cache/
 *.marko.js
+examples/**/static/
+
 
 # Logs
 logs
