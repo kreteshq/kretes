@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "license": "MIT",
   "dependencies": {
-    "huncwot": "^0.8.0",
-    "lasso": "^2.11.11",
+    "huncwot": "^0.11.0",
+    "lasso": "^2.11.14",
     "lasso-marko": "^2.3.0",
-    "marko": "^4.4.2",
-    "marko-path-router": "^0.3.0"
+    "marko": "^4.4.18",
+    "marko-path-router": "^0.5.0"
   }
 }
