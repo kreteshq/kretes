@@ -12,8 +12,11 @@
 // limitations under the License.
 
 require('marko/node-require');
+
 const { createGzip } = require('zlib');
 const { join } = require('path');
+const { html } = require('./response');
+const color = require('chalk');
 
 const cwd = process.cwd();
 const isProduction = false;
@@ -27,9 +30,19 @@ require('lasso').configure({
   fingerprintsEnabled: isProduction, // Only add fingerprints to URLs in production
 });
 
-function page(name, bindings) {
+async function page(name, bindings) {
   const template = require(join(cwd, 'pages', `${name}.marko`));
-  return template.stream(bindings);
+  const error = require(join(__dirname, 'util', `error.marko`));
+
+  let r;
+  try {
+    r = await template.render(bindings);
+  } catch (_) {
+    console.error(`${color.bold.red('Error:')} there's a problem generating the page '${color.blue(name)}.marko'`);
+    r = await error.render({ _ });
+  }
+
+  return html(r.getOutput());
 }
 
 function gzip(body) {
