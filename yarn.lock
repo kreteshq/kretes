@@ -816,13 +816,7 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-debug@2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.0.tgz#bc596bcabe7617f11d9fa15361eded5608b8499b"
-  dependencies:
-    ms "0.7.2"
-
-debug@^2.1.1, debug@^2.1.3, debug@^2.2.0, debug@^2.6.8:
+debug@2.6.8, debug@^2.1.1, debug@^2.1.3, debug@^2.2.0, debug@^2.6.8:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
   dependencies:
@@ -1097,9 +1091,9 @@ fs-exists-sync@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/fs-exists-sync/-/fs-exists-sync-0.1.0.tgz#982d6893af918e72d08dec9e8673ff2b5a8d6add"
 
-fs-extra@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-4.0.0.tgz#414fb4ca2d2170ba0014159d3a8aec3303418d9e"
+fs-extra@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-4.0.1.tgz#7fc0c6c8957f983f57f306a24e5b9ddd8d0dd880"
   dependencies:
     graceful-fs "^4.1.2"
     jsonfile "^3.0.0"
@@ -1613,9 +1607,9 @@ lasso-caching-fs@^1.0.0, lasso-caching-fs@^1.0.1, lasso-caching-fs@^1.0.2:
   dependencies:
     raptor-async "^1.1.2"
 
-lasso-image@^1.0.11:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/lasso-image/-/lasso-image-1.0.11.tgz#bf48d1ca5e864c2138809fda46db5aa3665f5749"
+lasso-image@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/lasso-image/-/lasso-image-1.0.12.tgz#a633811ea897152f2f9413a4b4b9228ef422763e"
   dependencies:
     image-size "^0.3.3"
     raptor-async "^1.0.1"
@@ -1708,9 +1702,9 @@ lasso-resolve-from@^1.0.1, lasso-resolve-from@^1.2.0:
     raptor-util "^1.0.10"
     resolve-from "^2.0.0"
 
-lasso@^2.11.14:
-  version "2.11.14"
-  resolved "https://registry.yarnpkg.com/lasso/-/lasso-2.11.14.tgz#81c2cbe6c8e29faca19ed03a3a664cd4b17a4550"
+lasso@^2.11.15:
+  version "2.11.15"
+  resolved "https://registry.yarnpkg.com/lasso/-/lasso-2.11.15.tgz#70e02dcec73292aab0428021aa84dae442681c93"
   dependencies:
     app-module-path "^1.1.0"
     app-root-dir "^1.0.2"
@@ -1718,7 +1712,7 @@ lasso@^2.11.14:
     browser-refresh-client "^1.1.4"
     glob "^7.1.1"
     lasso-caching-fs "^1.0.2"
-    lasso-image "^1.0.11"
+    lasso-image "^1.0.12"
     lasso-minify-css "^1.1.4"
     lasso-minify-js "^1.4.0"
     lasso-package-root "^1.0.1"
@@ -2034,13 +2028,13 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-mocha@^3.4.2:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/mocha/-/mocha-3.4.2.tgz#d0ef4d332126dbf18d0d640c9b382dd48be97594"
+mocha@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/mocha/-/mocha-3.5.0.tgz#1328567d2717f997030f8006234bce9b8cd72465"
   dependencies:
     browser-stdout "1.3.0"
     commander "2.9.0"
-    debug "2.6.0"
+    debug "2.6.8"
     diff "3.2.0"
     escape-string-regexp "1.0.5"
     glob "7.1.1"
@@ -2053,10 +2047,6 @@ mocha@^3.4.2:
 ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
-
-ms@0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
 
 ms@2.0.0:
   version "2.0.0"
