@@ -18,17 +18,23 @@ const exec = require('child_process').exec;
 
 const cwd = process.cwd();
 
-async function init({ dir }) {
+async function init({ dir, dbengine }) {
   const themeDir = join(resolve(__dirname, '..'), 'template');
 
   try {
-    process.stdout.write(
-      `Initialising '${dir}'... `
-    );
+    console.log(`Initialising '${dir}'...`);
+    console.log(`Database engine: '${dbengine}'`);
 
     // dynamic files
     const databaseConfig = join(cwd, dir, 'config', 'database.json');
     await fs.outputJson(databaseConfig, generateDatabaseConfig(dir), { spaces: 2 });
+
+    const packageJSON = join(cwd, dir, 'package.json');
+    await fs.outputJson(packageJSON, generatePackageJSON(dir, dbengine), { spaces: 2 });
+
+    await fs.ensureFile(join(cwd, dir, 'db', 'development.sqlite3'))
+    await fs.ensureFile(join(cwd, dir, 'db', 'test.sqlite3'))
+    await fs.ensureFile(join(cwd, dir, 'db', 'production.sqlite3'))
 
     // static files
     await fs.copyAsync(themeDir, join(cwd, dir));
@@ -63,15 +69,58 @@ async function exists(pathname) {
 
 module.exports = {
   handler: init,
-  builder: _ =>
-    _.default('dir', '.')
+  builder: _ => _
+    .option('dbengine', { alias: 'd', default: 'sqlite3' })
+    .default('dir', '.')
 };
 
 // TODO: generalize this function as ~ `generate(...)`
-function generateDatabaseConfig(database) {
+function generateDatabaseConfig(database, dbengine) {
+  switch (dbengine) {
+    case 'postgresql':
+      return {
+        client: "pg",
+        development: { host: "localhost", port: 5432, database },
+        test: { host: "localhost", "port": 5432, database },
+        production: { host: "localhost", port: 5432, database }
+      }
+    default:
+      return {
+        client: "sqlite3",
+        development: { filename: "./db/development.sqlite3" },
+        test: { filename: "./db/test.sqlite3" },
+        production: { filename: "./db/production.sqlite3" },
+      }
+  }
+
+
   return {
     development: { host: "localhost", port: 5432, database },
     test: { "host": "localhost", "port": 5432, database },
     production: { host: "localhost", port: 5432, database }
   }
+}
+
+function generatePackageJSON(name, dbengine) {
+  const dependencies = {
+    "huncwot": "latest",
+    "lasso": "latest",
+    "lasso-marko": "latest",
+    "marko": "latest",
+    "marko-path-router": "latest",
+    "redux": "latest",
+    "knex": "latest",
+  }
+
+  switch (dbengine) {
+    case 'postgresql':
+      Object.assign(dependencies, { "pg": "latest" });
+      break;
+    default:
+      Object.assign(dependencies, { "sqlite3": "latest" })
+      break;
+  }
+
+
+  return { name, version: "0.0.1", dependencies }
 }
