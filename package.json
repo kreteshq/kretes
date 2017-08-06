@@ -7,7 +7,7 @@
   "author": "Zaiste",
   "license": "Apache-2.0",
   "devDependencies": {
-    "chai": "^4.1.0",
+    "chai": "^4.1.1",
     "chai-http": "^3.0.0",
     "mocha": "^3.5.0"
   },
@@ -21,13 +21,13 @@
     "chokidar": "^1.7.0",
     "debug": "^2.6.8",
     "fs-extra": "^4.0.1",
-    "lasso": "^2.11.15",
+    "lasso": "^2.11.16",
     "lasso-marko": "^2.3.0",
-    "marko": "^4.4.21",
+    "marko": "^4.4.22",
     "marko-path-router": "^0.5.0",
     "mime-types": "^2.1.16",
     "path-to-regexp": "^1.7.0",
-    "raw-body": "^2.2.0",
+    "raw-body": "^2.3.0",
     "upath": "^1.0.0",
     "yargs": "^8.0.2"
   },
