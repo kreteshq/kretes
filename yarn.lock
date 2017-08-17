@@ -808,9 +808,15 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-debug@2.6.8, debug@^2.1.1, debug@^2.2.0, debug@^2.6.8:
+debug@2.6.8, debug@^2.1.1, debug@^2.2.0:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
+  dependencies:
+    ms "2.0.0"
+
+debug@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.0.0.tgz#1d2feae53349047b08b264ec41906ba17a8516e4"
   dependencies:
     ms "2.0.0"
 
@@ -1809,9 +1815,9 @@ marko@^4.2.8, marko@^4.4.5:
     try-require "^1.2.1"
     warp10 "^1.0.0"
 
-marko@^4.4.22:
-  version "4.4.22"
-  resolved "https://registry.yarnpkg.com/marko/-/marko-4.4.22.tgz#e16b2fd7da0eec7f26e19a905a17f625ec2afbc6"
+marko@^4.4.26:
+  version "4.4.26"
+  resolved "https://registry.yarnpkg.com/marko/-/marko-4.4.26.tgz#caa1772b2b1c414bcf2409d59b685c31f1f4ddd7"
   dependencies:
     app-module-path "^2.2.0"
     argly "^1.0.0"
