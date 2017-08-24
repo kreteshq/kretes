@@ -92,13 +92,6 @@ function generateDatabaseConfig(database, dbengine) {
         production: { filename: "./db/production.sqlite3" },
       }
   }
-
-
-  return {
-    development: { host: "localhost", port: 5432, database },
-    test: { "host": "localhost", "port": 5432, database },
-    production: { host: "localhost", port: 5432, database }
-  }
 }
 
 function generatePackageJSON(name, dbengine) {
