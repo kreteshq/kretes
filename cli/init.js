@@ -35,7 +35,7 @@ async function init({ dir, dbengine }) {
     await fs.outputJson(packageJSON, generatePackageJSON(dir, dbengine), { spaces: 2 });
 
     const sql = join(cwd, dir, 'db', 'tasks.sql');
-    await fs.outputFile(sql, generateSQL(name));
+    await fs.outputFile(sql, generateSQL(name, dbengine));
 
     await fs.ensureFile(join(cwd, dir, 'db', 'development.sqlite3'))
     await fs.ensureFile(join(cwd, dir, 'db', 'test.sqlite3'))
@@ -172,4 +172,5 @@ VALUES
     ('Build a fantastic web application', 0),
     ('Give back to the community', 0);
 `;
+  }
 }
