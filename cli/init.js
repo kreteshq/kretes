@@ -34,6 +34,9 @@ async function init({ dir, dbengine }) {
     const packageJSON = join(cwd, dir, 'package.json');
     await fs.outputJson(packageJSON, generatePackageJSON(dir, dbengine), { spaces: 2 });
 
+    const sql = join(cwd, dir, 'db', 'tasks.sql');
+    await fs.outputFile(sql, generateSQL(name));
+
     await fs.ensureFile(join(cwd, dir, 'db', 'development.sqlite3'))
     await fs.ensureFile(join(cwd, dir, 'db', 'test.sqlite3'))
     await fs.ensureFile(join(cwd, dir, 'db', 'production.sqlite3'))
@@ -134,4 +137,39 @@ function generatePackageJSON(name, dbengine) {
 
 
   return { name, version: "0.0.1", dependencies }
+}
+
+function generateSQL(name, dbengine) {
+  switch (dbengine) {
+    case 'postgresql':
+      return `DROP DATABASE IF EXISTS ${name}_dev;
+CREATE DATABASE ${name}_dev;
+
+\\c ${name}_dev;
+
+CREATE TABLE tasks (
+  ID SERIAL PRIMARY KEY,
+  name VARCHAR,
+  done BOOLEAN
+);
+
+INSERT INTO tasks (name, done)
+VALUES
+    ('Share the love about Huncwot', false),
+    ('Build a fantastic web application', false),
+    ('Give back to the community', false);
+`;
+    case 'sqlite3':
+      return `CREATE TABLE tasks (
+  ID SERIAL PRIMARY KEY,
+  name VARCHAR,
+  done INTEGER
+);
+
+INSERT INTO tasks (name, done)
+VALUES
+    ('Share the love about Huncwot', 0),
+    ('Build a fantastic web application', 0),
+    ('Give back to the community', 0);
+`;
 }
