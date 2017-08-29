@@ -1815,9 +1815,9 @@ marko@^4.2.8, marko@^4.4.5:
     try-require "^1.2.1"
     warp10 "^1.0.0"
 
-marko@^4.4.26:
-  version "4.4.26"
-  resolved "https://registry.yarnpkg.com/marko/-/marko-4.4.26.tgz#caa1772b2b1c414bcf2409d59b685c31f1f4ddd7"
+marko@^4.4.27:
+  version "4.4.27"
+  resolved "https://registry.yarnpkg.com/marko/-/marko-4.4.27.tgz#77f210078eee7b31c3be95d484f5bcc48f2ec861"
   dependencies:
     app-module-path "^2.2.0"
     argly "^1.0.0"
