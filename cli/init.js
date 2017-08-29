@@ -21,13 +21,15 @@ const cwd = process.cwd();
 async function init({ dir, dbengine }) {
   const themeDir = join(resolve(__dirname, '..'), 'template');
 
+  const name = dir.replace(/-/g, "_");
+
   try {
     console.log(`Initialising '${dir}'...`);
     console.log(`Database engine: '${dbengine}'`);
 
     // dynamic files
     const databaseConfig = join(cwd, dir, 'config', 'database.json');
-    await fs.outputJson(databaseConfig, generateDatabaseConfig(dir), { spaces: 2 });
+    await fs.outputJson(databaseConfig, generateDatabaseConfig(name), { spaces: 2 });
 
     const packageJSON = join(cwd, dir, 'package.json');
     await fs.outputJson(packageJSON, generatePackageJSON(dir, dbengine), { spaces: 2 });
@@ -79,17 +81,33 @@ function generateDatabaseConfig(database, dbengine) {
   switch (dbengine) {
     case 'postgresql':
       return {
-        client: "pg",
-        development: { host: "localhost", port: 5432, database },
-        test: { host: "localhost", "port": 5432, database },
-        production: { host: "localhost", port: 5432, database }
+        development: {
+          client: "pg",
+          host: "localhost", port: 5432, database
+        },
+        test: {
+          client: "pg",
+          host: "localhost", "port": 5432, database
+        },
+        production: {
+          client: "pg",
+          host: "localhost", port: 5432, database
+        }
       }
     default:
       return {
-        client: "sqlite3",
-        development: { filename: "./db/development.sqlite3" },
-        test: { filename: "./db/test.sqlite3" },
-        production: { filename: "./db/production.sqlite3" },
+        development: {
+          client: "sqlite3",
+          filename: "./db/development.sqlite3"
+        },
+        test: {
+          client: "sqlite3",
+          filename: "./db/test.sqlite3"
+        },
+        production: {
+          client: "sqlite3",
+          filename: "./db/production.sqlite3"
+        },
       }
   }
 }
