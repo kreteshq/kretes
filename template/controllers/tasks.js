@@ -2,7 +2,7 @@ const { ok, created } = require('huncwot/response');
 const db = require('huncwot/db');
 
 async function browse(request) {
-  const results = await db('widgets');
+  const results = await db('tasks');
 
   return ok(results);
 }
@@ -10,14 +10,14 @@ async function browse(request) {
 async function read(request) {
   const { id } = request.params;
 
-  const result = await db('widgets').where({ id });
+  const result = await db('tasks').where({ id });
   return ok(result);
 }
 
 async function edit(request) {
   const { id, name } = request.params;
 
-  await db('widgets').where({ id }).update({ name });
+  await db('tasks').where({ id }).update({ name });
 
   return ok({ status: `success: ${id} changed to ${name}` });
 }
@@ -25,7 +25,7 @@ async function edit(request) {
 async function add(request) {
   const { name } = request.params;
 
-  await db('widgets').insert({ name });
+  await db('tasks').insert({ name });
 
   return created({ status: `success: ${name} created` });
 }
@@ -33,7 +33,7 @@ async function add(request) {
 async function destroy(request) {
   const { id } = request.params;
 
-  await db('widgets').where({ id }).del();
+  await db('tasks').where({ id }).del();
 
   return ok({ status: `success: ${id} destroyed` });
 }
