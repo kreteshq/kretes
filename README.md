@@ -11,6 +11,14 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 [Contribution Guide](CONTRIBUTING.md) |
 [Twitter](http://twitter.com/huncwot)
 
+## In a nutshell
+
+* it uses [Marko](http://markojs.com/) for managing pages (entirely server-side generated) & components (server- & client-side generated)
+* in the view layer it supports both HTML and indentation-based syntax à la Jade/Pug (thanks to Marko)
+* it uses [MobX](https://mobx.js.org/) for state management
+* it uses [Knex](http://knexjs.org/) for the database integration which provides a SQL-like abstraction instead of an ORM of any sort
+* it provides a simpler abstraction (inspired by Clojure's [ring](https://github.com/ring-clojure/ring) web library) than Express/Koa for server-side content
+
 ## Hello Huncwot
 
 This is an example of a basic Huncwot application. Save it to a file e.g. `main.js`, run it with `node main.js` and visit the application `https://localhost:5544`.
