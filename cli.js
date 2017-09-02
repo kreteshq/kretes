@@ -13,6 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const cwd = process.cwd();
+require('app-module-path').addPath(cwd);
+
 const argv = require('yargs')
   .version()
   .usage('Usage: huncwot <command> [options]')

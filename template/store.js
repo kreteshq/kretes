@@ -1,10 +1,10 @@
-const { createStore, applyMiddleware } = require('redux');
+const { observable, action } = require('mobx');
 
-const reducer = require('./reducers');
-const { WidgetsService } = require('./services/widgets');
+const store = observable({
+  counter: 7,
+  increment: action(function() {
+    this.counter++;
+  })
+})
 
-module.exports = createStore(reducer,
-  applyMiddleware(
-    WidgetsService()
-  )
-);
+module.exports = store;
