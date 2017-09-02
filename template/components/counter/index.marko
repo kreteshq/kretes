@@ -1,9 +1,18 @@
+import store from 'store';
+import { autorun } from 'mobx';
+
 class {
   onCreate() {
     this.state = { count:0 };
   }
+  onMount() {
+    autorun(() => {
+      this.state = { count: store.counter }
+      this.forceUpdate();
+    });
+  }
   increment() {
-    this.state.count++;
+    store.increment();
   }
 }
 
