@@ -161,7 +161,7 @@ VALUES
 `;
     case 'sqlite3':
       return `CREATE TABLE tasks (
-  ID SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   name VARCHAR,
   done INTEGER
 );

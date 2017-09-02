@@ -16,22 +16,24 @@ const { basename } = require('path');
 const cwd = process.cwd();
 
 function handler(_) {
-  console.log(`Setting up database... ${app}`);
+  console.log(`Setting up database...`);
   const config = require(`${cwd}/config/database.json`);
 
   // XXX properly set environemnt
   const { client, database, username } = config.development;
+  let stdout, stderr;
 
   switch (client) {
     case 'sqlite3':
+      ({ stdout, stderr } = exec(`sqlite3 db/development.sqlite3 < db/tasks.sql`, { cwd }))
       break;
     case 'pg':
-      const { stdout, stderr } = exec(`psql ${database} ${username}`, { cwd })
-      stdout.pipe(process.stdout);
-      stderr.pipe(process.stderr);
-
+      ({ stdout, stderr } = exec(`psql ${database} ${username}`, { cwd }))
       break;
   }
+
+  stdout.pipe(process.stdout);
+  stderr.pipe(process.stderr);
 }
 
 module.exports = {
