@@ -4,15 +4,15 @@ class {
   onMount() {
     const routes = [
       { path: '/', component: require('../home') },
-      { path: '/click-count', component: require('../click-count') },
+      { path: '/counter', component: require('../counter') },
     ]
 
     const render = Router.renderSync({
       routes,
-      initialRoute: '/' 
+      initialRoute: '/'
     })
 
-    render 
+    render
       .appendTo(this.getEl('router-container'))
       .getComponent()
 
@@ -22,7 +22,7 @@ class {
 style {
 }
 
-<section class="hero is-medium is-dark">
+<section class="hero is-dark">
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title">
@@ -38,8 +38,10 @@ style {
     <nav class="tabs is-boxed is-fullwidth">
       <div class="container">
         <ul>
-          <router-link path='/'>Home</router-link>
-          <router-link path='/click-count'>Here be dragons!</router-link>
+          <li><router-link path='/'>Home</router-link></li>
+          <li><router-link path='/counter'>Example 1: Counter</router-link></li>
+          <li><router-link path='/todo'>Example 2: Todo App</router-link></li>
+          <li><router-link path='/hnclone'>Example 3: HackerNews Clone</router-link></li>
         </ul>
       </div>
     </nav>
