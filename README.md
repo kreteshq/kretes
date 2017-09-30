@@ -137,7 +137,7 @@ Component-based means that *pages* are built by combining components: an indepen
 
 Here's a component example
 
-```js
+```marko
 class {
   onCreate() {
     this.state = { count:0 };
@@ -294,7 +294,7 @@ app.listen(5544);
 
 Huncwot provides helper functions to simplify usual operations in the request/response cycle. There is `gzip` which compresses the response along with setting the proper headers, or `page` function which checks `pages/` directory for Marko templates. Before running the example, be sure to have `pages/` directory in the root of your project along with the following `index.marko`
 
-```html
+```marko
 <!doctype html>
 <html>
 <head>
