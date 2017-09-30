@@ -19,8 +19,13 @@ const { join, resolve, extname, parse } = require('path');
 const chokidar = require('chokidar');
 const color = require('chalk');
 
+const { runHttpQuery } = require('apollo-server-core');
+const { resolveGraphiQLString } = require('apollo-server-module-graphiql');
+const { makeExecutableSchema } = require('graphql-tools');
+
 const Huncwot = require('../');
 const { page } = require('../view');
+const { ok, html } = require('../response');
 
 const cwd = process.cwd();
 
@@ -74,7 +79,9 @@ async function init(app) {
     try {
       let handlersPath = `${join(cwd, 'pages', pathname)}.js`; // XXX to avoid Marko autoload
       handlers = require(handlersPath);
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
 
     app.get(route, request => page(pathname, (handlers.get || get)(request)))
 
@@ -97,11 +104,40 @@ async function init(app) {
       console.error(error);
     }
 
-
     for (let [ name, handler ] of Object.entries(handlers)) {
       let { method, route } = translate(name, pathname)
       app[method](route, request => handler(request));
     }
+  }
+
+  // GraphQL
+
+  const typeDefs = require(join(cwd, 'schema.js'))
+  const resolvers = require(join(cwd, 'resolvers'));
+
+  const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+  app.post('/graphql', graphql({ schema }));
+  app.get('/graphql', graphql({ schema }));
+  app.get('/graphiql', graphiql({ endpointURL: 'graphql' }));
+}
+
+function graphql(options) {
+  return async request => {
+    let method = request.request.method;
+    let query = request.params;
+    let response = await runHttpQuery([], { method, options, query });
+
+    return ok(response);
+  }
+}
+
+function graphiql(options) {
+  return async request => {
+    let query = request.params;
+    let response = await resolveGraphiQLString(query, options, request)
+
+    return html(response);
   }
 }
 
