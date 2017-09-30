@@ -11,6 +11,27 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 [Contribution Guide](CONTRIBUTING.md) |
 [Twitter](http://twitter.com/huncwot)
 
+## Table of Contents
+
+* [In a nutshell](#in-a-nutshell)
+* [Hello Huncwot](#hello-huncwot)
+* [Rationale](#rationale)
+* [Getting Started](#getting-started)
+* [Usage](#usage)
+  * [Server-Side](#server-side)
+  * [Component-based](#component-based)
+* [Concepts](#concepts)
+  * [Database](#databse)
+  * [Controller](#controllers)
+  * [View](#view)
+  * [Routes](#routes)
+  * [Parameters](#parameters)
+* [Modules](#modules)
+  * [Auth](#auth)
+  * [Static](#static)
+* [Examples](#examples)
+
+
 ## In a nutshell
 
 * it uses [Marko](http://markojs.com/) for managing pages (entirely server-side generated) & components (server- & client-side generated)
@@ -18,10 +39,13 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 * it uses [MobX](https://mobx.js.org/) for state management
 * it uses [Knex](http://knexjs.org/) for the database integration which provides a SQL-like abstraction instead of an ORM of any sort
 * it provides a simpler abstraction (inspired by Clojure's [ring](https://github.com/ring-clojure/ring) web library) than Express/Koa for server-side content
+* it provides [GraphQL](http://graphql.org/) integration out of the box using [Apollo](https://github.com/apollographql/apollo-server)
 
 ## Hello Huncwot
 
-This is an example of a basic Huncwot application. Save it to a file e.g. `main.js`, run it with `node main.js` and visit the application `https://localhost:5544`.
+This is an example of a basic Huncwot application. Save it to a file e.g. `server.js`, run it with `node server.js` and visit the application `https://localhost:5544`.
+
+> *Note* Don't forget to install `huncwot` by adding it to `package.json` in your project directory followed by `npm install`. If you're starting from scratch, use `npm init` or (better) `huncwot new` described below.
 
 ```js
 const Huncwot = require('huncwot');
