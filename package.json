@@ -15,6 +15,7 @@
     "test": "mocha --reporter list"
   },
   "dependencies": {
+    "apollo-client": "^1.9.3",
     "apollo-server-core": "^1.1.0",
     "apollo-server-module-graphiql": "^1.1.2",
     "app-module-path": "^2.2.0",
@@ -25,6 +26,8 @@
     "debug": "^3.1.0",
     "fs-extra": "^4.0.2",
     "graphql": "^0.11.6",
+    "graphql-tag": "^2.4.2",
+    "graphql-tools": "^1.2.3",
     "lasso": "^2.11.16",
     "lasso-marko": "^2.3.0",
     "marko": "^4.4.28",

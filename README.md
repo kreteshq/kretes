@@ -26,6 +26,7 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
   * [View](#view)
   * [Routes](#routes)
   * [Parameters](#parameters)
+  * [GraphQL](#graphql)
 * [Modules](#modules)
   * [Auth](#auth)
   * [Static](#static)
@@ -39,7 +40,7 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 * it uses [MobX](https://mobx.js.org/) for state management
 * it uses [Knex](http://knexjs.org/) for the database integration which provides a SQL-like abstraction instead of an ORM of any sort
 * it provides a simpler abstraction (inspired by Clojure's [ring](https://github.com/ring-clojure/ring) web library) than Express/Koa for server-side content
-* it provides [GraphQL](http://graphql.org/) integration out of the box using [Apollo](https://github.com/apollographql/apollo-server)
+* it provides [GraphQL](http://graphql.org/) integration out of the box using [Apollo](https://github.com/apollographql/apollo-server) to collocate queries with components
 
 ## Hello Huncwot
 
@@ -313,6 +314,47 @@ You can define a route using one of HTTP verbs e.g. `.get()`, `.post()`, `.put()
 ### Parameters
 
 There are two kinds of parameters possible in a web application: the ones that are sent as part of the URL after `?`, called *query string* parameters; and the ones that are sent as part of the request `body`, referred to as POST data (usually comes from an HTML form or as JSON). Huncwot does not make any distinction between query string parameters and POST parameters, both are available in the request `params` object.
+
+### GraphQL
+
+Huncwot uses [Apollo](http://dev.apollodata.com/) on the client and on the server. Type definitions are stored at the top level in `schema.js`. Resolvers are placed in `resolvers/` directory. Both schema and resolvers are auto-generated with placeholder data using `huncwot new`. GraphQL service endpoint is `/graphql`.
+
+Here's an example of a component with a collocated GraphQL query that communicates with the built-in `/graphql` endpoint.
+
+```marko
+import gql from 'graphql-tag';
+import client from 'services/graphql';
+
+static {
+  const query = gql`
+    query WidgetsQuery {
+      widgets {
+        id
+        name
+      }
+    }
+  `;
+}
+
+class {
+  onCreate() {
+    this.state = { widgets: [] }
+  }
+
+  onMount() {
+    client.query({ query })
+      .then(({ data }) => {
+        this.state.widgets = data.widgets;
+      })
+  }
+}
+
+style {}
+
+<ul>
+  <li for (widget in state.widgets)>${widget.name} - ID: ${widget.id}</li>
+</ul>
+```
 
 ## Modules
 
