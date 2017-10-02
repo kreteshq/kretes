@@ -416,6 +416,7 @@ In your project create `views/` directory with the following `index.html`
 * [huncwot-component-app](https://github.com/zaiste/huncwot-component-app) a basic Huncwot application using components
 * [huncwot-server-app](https://github.com/zaiste/huncwot-server-app) a basic server-side Huncwot application
 * [huncwot-rest-api](https://github.com/zaiste/huncwot-rest-api) a REST API built with Huncwot
+* [huncwot-todo-graphql](https://github.com/zaiste/huncwot-todo-graphql) a simple task manager built with Huncwot and using GraphQL 
 * [huncwot-graphql-api](https://github.com/zaiste/huncwot-graphql) a GraphQL API built with Huncwot
 
 ## Roadmap
