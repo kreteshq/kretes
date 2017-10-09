@@ -9,27 +9,27 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
-    "mocha": "^3.5.3"
+    "mocha": "^4.0.1"
   },
   "scripts": {
     "test": "mocha --reporter list"
   },
   "dependencies": {
     "apollo-client": "^1.9.3",
-    "apollo-server-core": "^1.1.0",
-    "apollo-server-module-graphiql": "^1.1.2",
+    "apollo-server-core": "^1.1.6",
+    "apollo-server-module-graphiql": "^1.1.6",
     "app-module-path": "^2.2.0",
     "basic-auth": "^2.0.0",
-    "bluebird": "^3.5.0",
+    "bluebird": "^3.5.1",
     "chalk": "^2.1.0",
     "chokidar": "^1.7.0",
     "debug": "^3.1.0",
     "fs-extra": "^4.0.2",
-    "graphql": "^0.11.6",
+    "graphql": "^0.11.7",
     "graphql-tag": "^2.4.2",
-    "graphql-tools": "^1.2.3",
+    "graphql-tools": "^2.2.1",
     "lasso": "^2.11.16",
-    "lasso-marko": "^2.3.0",
+    "lasso-marko": "^2.3.1",
     "marko": "^4.4.28",
     "marko-path-router": "^0.5.0",
     "mime-types": "^2.1.17",
