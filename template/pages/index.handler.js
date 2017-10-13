@@ -1,5 +1,5 @@
-function handler(request) {
+function get(request) {
 
 }
 
-module.exports = { handler };
+module.exports = { get };

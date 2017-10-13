@@ -96,7 +96,7 @@ async function init(app) {
     app.get(route, request => page(pathname, (handlers.get || get)(request)))
 
     for (let [ method, handler ] of Object.entries(handlers)) {
-      if (HTTP_METHODS.includes(method)) {
+      if (HTTP_METHODS.includes(method.toUpperCase())) {
         app[method](route, request => page(pathname, handler(request)))
       } else {
         console.info(`Handler file '${join('pages', pathname)}.handler.js' uses unsupported HTTP method name: ${method}`);
