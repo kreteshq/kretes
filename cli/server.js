@@ -196,7 +196,7 @@ function serve({ port, dir }) {
     app.listen(port)
   }
 
-  console.log(`${color.bold.green('Huncwot:')} Server running at ${color.underline.blue(`http://localhost:${port}`)}`);
+  console.log(`${color.bold.green('Huncwot:')} ${VERSION}\nServer running at ${color.underline.blue(`http://localhost:${port}`)}\n---`);
 }
 
 module.exports = {
