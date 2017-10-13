@@ -126,14 +126,25 @@ async function init(app) {
 
   // GraphQL
 
-  const typeDefs = require(join(cwd, 'schema.js'))
-  const resolvers = require(join(cwd, 'resolvers'));
+  try {
+    const typeDefs = require(join(cwd, 'schema.js'))
+    const resolvers = require(join(cwd, 'resolvers'));
 
-  const schema = makeExecutableSchema({ typeDefs, resolvers });
+    const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-  app.post('/graphql', graphql({ schema }));
-  app.get('/graphql', graphql({ schema }));
-  app.get('/graphiql', graphiql({ endpointURL: 'graphql' }));
+    app.post('/graphql', graphql({ schema }));
+    app.get('/graphql', graphql({ schema }));
+    app.get('/graphiql', graphiql({ endpointURL: 'graphql' }));
+  } catch (error) {
+    switch (error.code) {
+      case 'MODULE_NOT_FOUND':
+        console.log('GraphQL is not set up.')
+        break
+      default:
+        console.error(error);
+        exit();
+    }
+  }
 }
 
 function graphql(options) {
