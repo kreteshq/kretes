@@ -29,6 +29,10 @@ const { ok, html } = require('../response');
 
 const cwd = process.cwd();
 
+const VERSION = require('../package.json').version;
+
+const HTTP_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
+
 let concat = (a, b) => a.concat(b);
 
 function scan(directory, recursive = true) {
@@ -77,16 +81,26 @@ async function init(app) {
     let handlers = {};
 
     try {
-      let handlersPath = `${join(cwd, 'pages', pathname)}.js`; // XXX to avoid Marko autoload
+      let handlersPath = `${join(cwd, 'pages', pathname)}.handler.js`;
       handlers = require(handlersPath);
     } catch (error) {
-      console.error(error);
+      switch (error.code) {
+        case 'MODULE_NOT_FOUND':
+          break;
+        default:
+          console.error(error);
+          exit();
+      }
     }
 
     app.get(route, request => page(pathname, (handlers.get || get)(request)))
 
     for (let [ method, handler ] of Object.entries(handlers)) {
-      app[method](route, request => page(pathname, handler(request)))
+      if (HTTP_METHODS.includes(method)) {
+        app[method](route, request => page(pathname, handler(request)))
+      } else {
+        console.info(`Handler file '${join('pages', pathname)}.handler.js' uses unsupported HTTP method name: ${method}`);
+      }
     }
   }
 
