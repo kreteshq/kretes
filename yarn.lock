@@ -6,10 +6,6 @@
   version "0.10.2"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.10.2.tgz#d7c79acbaa17453b6681c80c34b38fcb10c4c08c"
 
-"@types/graphql@^0.11.4":
-  version "0.11.4"
-  resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.11.4.tgz#6e067838246ec741be3950211323726a77147472"
-
 "@types/graphql@^0.9.0":
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-0.9.4.tgz#cdeb6bcbef9b6c584374b81aa7f48ecf3da404fa"
@@ -1239,15 +1235,13 @@ graphql-tools@^1.1.0:
   optionalDependencies:
     "@types/graphql" "^0.9.0"
 
-graphql-tools@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.2.1.tgz#ff4d73d3e52e09b38b3f2f4ed53c29d4baa122b1"
+graphql-tools@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.5.0.tgz#b072faf8e1d621550598a681c08504bae13b1904"
   dependencies:
     apollo-link "^0.7.0"
     deprecated-decorator "^0.1.6"
     uuid "^3.1.0"
-  optionalDependencies:
-    "@types/graphql" "^0.11.4"
 
 graphql@^0.10.0, graphql@^0.10.3:
   version "0.10.5"
@@ -1816,7 +1810,7 @@ marko-path-router@^0.5.0:
     marko "^4.4.5"
     radix-router "^2.0.0"
 
-marko@^4.2.8, marko@^4.4.28, marko@^4.4.5:
+marko@^4.2.8, marko@^4.4.5:
   version "4.4.28"
   resolved "https://registry.yarnpkg.com/marko/-/marko-4.4.28.tgz#e69e6c4a7963994ee89cc7301bd861266479d051"
   dependencies:
@@ -1841,6 +1835,41 @@ marko@^4.2.8, marko@^4.4.28, marko@^4.4.5:
     object-assign "^4.1.0"
     property-handlers "^1.0.0"
     raptor-async "^1.1.2"
+    raptor-json "^1.0.1"
+    raptor-polyfill "^1.0.0"
+    raptor-promises "^1.0.1"
+    raptor-regexp "^1.0.0"
+    raptor-util "^3.2.0"
+    resolve-from "^2.0.0"
+    simple-sha1 "^2.1.0"
+    strip-json-comments "^2.0.1"
+    try-require "^1.2.1"
+    warp10 "^1.0.0"
+
+marko@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/marko/-/marko-4.5.0.tgz#9d15e70e12ffc300b54383530dd04bb0ea41c8eb"
+  dependencies:
+    app-module-path "^2.2.0"
+    argly "^1.0.0"
+    browser-refresh-client "^1.0.0"
+    char-props "~0.1.5"
+    complain "^1.0.0"
+    deresolve "^1.1.2"
+    escodegen "^1.8.1"
+    esprima "^4.0.0"
+    estraverse "^4.2.0"
+    events "^1.0.2"
+    events-light "^1.0.0"
+    he "^1.1.0"
+    htmljs-parser "^2.3.2"
+    lasso-caching-fs "^1.0.1"
+    lasso-modules-client "^2.0.3"
+    lasso-package-root "^1.0.1"
+    listener-tracker "^2.0.0"
+    minimatch "^3.0.2"
+    object-assign "^4.1.0"
+    property-handlers "^1.0.0"
     raptor-json "^1.0.1"
     raptor-polyfill "^1.0.0"
     raptor-promises "^1.0.1"
