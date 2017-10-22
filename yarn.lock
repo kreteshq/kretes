@@ -95,6 +95,10 @@ apollo-tracing@^0.0.x:
   dependencies:
     graphql-tools "^2.2.0"
 
+apollo-utilities@^0.1.1-0:
+  version "0.1.1-1"
+  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-0.1.1-1.tgz#a637c2a5b49e06f20dd9adf7c55ec1ff69a97592"
+
 apollo-utilities@^0.2.0-beta.0:
   version "0.2.0-beta.2"
   resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-0.2.0-beta.2.tgz#95b61e00fa0cb67f6af65921484bca33114d55e1"
@@ -1225,11 +1229,19 @@ graphql-tag@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.5.0.tgz#b43bfd8b5babcd2c205ad680c03e98b238934e0f"
 
-graphql-tools@^2.2.0, graphql-tools@^2.5.1:
+graphql-tools@^2.2.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.5.1.tgz#542c48d4f9a532e09280ae216084813ea7ba4b18"
   dependencies:
     apollo-link "^0.8.0"
+    deprecated-decorator "^0.1.6"
+    uuid "^3.1.0"
+
+graphql-tools@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.6.1.tgz#9f6d1600951a05b18b83c52986c42eee4fd3cb1b"
+  dependencies:
+    apollo-utilities "^0.1.1-0"
     deprecated-decorator "^0.1.6"
     uuid "^3.1.0"
 
@@ -1691,9 +1703,9 @@ lasso-resolve-from@^1.0.1, lasso-resolve-from@^1.2.0:
     raptor-util "^1.0.10"
     resolve-from "^2.0.0"
 
-lasso@^2.11.17:
-  version "2.11.17"
-  resolved "https://registry.yarnpkg.com/lasso/-/lasso-2.11.17.tgz#e19a3dfb302ada6335e462fbdb759c8c417dda29"
+lasso@^2.11.20:
+  version "2.11.20"
+  resolved "https://registry.yarnpkg.com/lasso/-/lasso-2.11.20.tgz#561fc841cb73f0101087c73c7e758d8617dcf981"
   dependencies:
     app-module-path "^1.1.0"
     app-root-dir "^1.0.2"
@@ -2138,9 +2150,9 @@ path-key@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
 
-path-to-regexp@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-2.0.0.tgz#b77a8168c2e78bc31f3d312d71b1ace97df23870"
+path-to-regexp@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-2.1.0.tgz#7e30f9f5b134bd6a28ffc2e3ef1e47075ac5259b"
 
 path-type@^2.0.0:
   version "2.0.0"
