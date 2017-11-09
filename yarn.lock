@@ -2,9 +2,13 @@
 # yarn lockfile v1
 
 
-"@types/async@2.0.44":
-  version "2.0.44"
-  resolved "https://registry.yarnpkg.com/@types/async/-/async-2.0.44.tgz#e846150fd1f5a3243cec7c1f5bb49f58241092ee"
+"@types/async@2.0.45":
+  version "2.0.45"
+  resolved "https://registry.yarnpkg.com/@types/async/-/async-2.0.45.tgz#0cfe971d7ed5542695740338e0455c91078a0e83"
+
+"@types/zen-observable@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.5.3.tgz#91b728599544efbb7386d8b6633693a3c2e7ade5"
 
 abbrev@1:
   version "1.1.1"
@@ -62,17 +66,19 @@ apollo-cache@^1.0.0:
   dependencies:
     apollo-utilities "^1.0.0"
 
-apollo-client@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.0.1.tgz#7f50b5281ff53796f8548c35a85aa73a5d62b2a2"
+apollo-client@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.0.2.tgz#f2b01898c404c867fc2bd8edf7c3ccded2b96fc6"
   dependencies:
+    "@types/zen-observable" "^0.5.3"
     apollo-cache "^1.0.0"
     apollo-link "1.0.0"
     apollo-link-dedup "1.0.0"
     apollo-utilities "^1.0.0"
     symbol-observable "^1.0.2"
+    zen-observable "^0.6.0"
   optionalDependencies:
-    "@types/async" "2.0.44"
+    "@types/async" "2.0.45"
 
 apollo-link-dedup@1.0.0:
   version "1.0.0"
@@ -103,15 +109,11 @@ apollo-tracing@^0.1.0:
   dependencies:
     graphql-extensions "^0.0.x"
 
-apollo-utilities@^0.1.1-0:
-  version "0.1.1-1"
-  resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-0.1.1-1.tgz#a637c2a5b49e06f20dd9adf7c55ec1ff69a97592"
-
 apollo-utilities@^0.2.0-beta.0:
   version "0.2.0-beta.2"
   resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-0.2.0-beta.2.tgz#95b61e00fa0cb67f6af65921484bca33114d55e1"
 
-apollo-utilities@^1.0.0:
+apollo-utilities@^1.0.0, apollo-utilities@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/apollo-utilities/-/apollo-utilities-1.0.1.tgz#34b4df0bd6ed71d0afaa7c62489173dca5d07e92"
 
@@ -1230,11 +1232,11 @@ graphql-tag@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.5.0.tgz#b43bfd8b5babcd2c205ad680c03e98b238934e0f"
 
-graphql-tools@^2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.6.1.tgz#9f6d1600951a05b18b83c52986c42eee4fd3cb1b"
+graphql-tools@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/graphql-tools/-/graphql-tools-2.7.2.tgz#03104a155b15f8441b0e5a7113b12b9512341a9e"
   dependencies:
-    apollo-utilities "^0.1.1-0"
+    apollo-utilities "^1.0.1"
     deprecated-decorator "^0.1.6"
     uuid "^3.1.0"
 
@@ -1676,9 +1678,9 @@ lasso-resolve-from@^1.0.1, lasso-resolve-from@^1.2.0:
     raptor-util "^1.0.10"
     resolve-from "^2.0.0"
 
-lasso@^2.11.20:
-  version "2.11.20"
-  resolved "https://registry.yarnpkg.com/lasso/-/lasso-2.11.20.tgz#561fc841cb73f0101087c73c7e758d8617dcf981"
+lasso@^2.11.21:
+  version "2.11.21"
+  resolved "https://registry.yarnpkg.com/lasso/-/lasso-2.11.21.tgz#3fa26147fffc7f73c5777f6b581eff3ad4a1e20d"
   dependencies:
     app-module-path "^1.1.0"
     app-root-dir "^1.0.2"
