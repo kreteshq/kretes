@@ -15,7 +15,7 @@
     "test": "mocha --reporter list"
   },
   "dependencies": {
-    "apollo-client": "^2.0.2",
+    "apollo-client": "^2.0.3",
     "apollo-server-core": "^1.2.0",
     "apollo-server-module-graphiql": "^1.2.0",
     "app-module-path": "^2.2.0",
@@ -27,15 +27,15 @@
     "fs-extra": "^4.0.2",
     "graphql": "^0.11.7",
     "graphql-tag": "^2.5.0",
-    "graphql-tools": "^2.7.2",
+    "graphql-tools": "^2.8.0",
     "lasso": "^2.11.21",
     "lasso-marko": "^2.3.1",
-    "marko": "^4.5.6",
-    "marko-path-router": "^0.5.0",
+    "marko": "^4.6.0",
+    "marko-path-router": "^0.6.1",
     "mime-types": "^2.1.17",
     "path-to-regexp": "^2.1.0",
     "raw-body": "^2.3.2",
-    "upath": "^1.0.0",
+    "upath": "^1.0.2",
     "yargs": "^10.0.3"
   },
   "bin": {
