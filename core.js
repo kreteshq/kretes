@@ -36,7 +36,8 @@ class Huncwot extends Emitter {
       const context = {
         params: {},
         headers: {},
-        request
+        request,
+        response
       };
 
       try {

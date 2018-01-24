@@ -14,15 +14,20 @@
 const debug = require('debug')('huncwot:index');
 
 const serve = require('./static');
+const security = require('./security');
 const Core = require('./core');
 
 class Huncwot extends Core {
   constructor({
-    staticDir = './static'
+    staticDir = './static',
+    securityOptions = {
+      dnsPrefetchControl: false
+    }
   } = {}) {
     super();
 
     this.middlewareList.push(serve(staticDir))
+    this.middlewareList.push(security(securityOptions))
   }
 }
 

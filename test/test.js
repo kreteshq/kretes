@@ -106,3 +106,31 @@ describe('init', () => {
     expect(response.text).to.eq('<h1>Hello HTML</h1>');
   });
 });
+
+
+describe('security', () => {
+  it('is `off` for dnsPrefetchControl by default', async () => {
+    app.get('/', _ => 'Hello Huncwot')
+
+    const response = await chai.request(server)
+      .get('/');
+
+    expect(response).to.have.header('X-DNS-Prefetch-Control', 'off');
+  });
+
+  it('is `on` for dnsPrefetchControl if set explicitly', async () => {
+    app = new Huncwot({
+      securityOptions: {
+        dnsPrefetchControl: true
+      }
+    });
+
+    server = app.listen(3001);
+    app.get('/', _ => 'Hello Huncwot')
+
+    const response = await chai.request(server)
+      .get('/');
+
+    expect(response).to.have.header('X-DNS-Prefetch-Control', 'on');
+  });
+})
