@@ -21,7 +21,8 @@ class Huncwot extends Core {
   constructor({
     staticDir = './static',
     securityOptions = {
-      dnsPrefetchControl: false
+      dnsPrefetchControl: false,
+      poweredBy: false
     }
   } = {}) {
     super();

@@ -30,12 +30,27 @@ const assert = require('assert');
 
 const Promise = require('bluebird');
 
-function security(opts = { dnsPrefetchControl: false }) {
+function security(opts = {
+  dnsPrefetchControl: false,
+  poweredBy: false
+}) {
   debug('%j', opts);
 
-  const { dnsPrefetchControl } = opts;
+  const { dnsPrefetchControl, poweredBy } = opts;
   return async (context, next) => {
-    context.response.setHeader('X-DNS-Prefetch-Control', dnsPrefetchControl ? 'on' : 'off');
+    const { response } = context;
+
+    response.setHeader('X-DNS-Prefetch-Control', dnsPrefetchControl ? 'on' : 'off');
+    response.setHeader('X-Download-Options', 'noopen')
+    response.setHeader('X-Content-Type-Options', 'nosniff')
+    response.setHeader('X-XSS-Protection', '1; mode=block')
+
+
+    if (poweredBy) {
+      response.setHeader('X-Powered-By', poweredBy);
+    } else {
+      response.removeHeader('X-Powered-By');
+    }
 
     return next();
   }

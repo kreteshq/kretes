@@ -133,4 +133,46 @@ describe('security', () => {
 
     expect(response).to.have.header('X-DNS-Prefetch-Control', 'on');
   });
+
+  it('does not return `Powered-By` by default', async () => {
+    app.get('/', _ => ({
+      statusCode: 200,
+      headers: { 'X-Powered-By': 'Huncwot' },
+      body: 'Powered-By ?'
+    }))
+
+    const response = await chai.request(server)
+      .get('/');
+
+    expect(response).not.to.have.header('X-Powered-By');
+  });
+
+  it('sets `Download-Options` to `noopen` by default', async () => {
+    app.get('/', _ => 'Hello Huncwot')
+
+    const response = await chai.request(server)
+      .get('/');
+
+    expect(response).to.have.header('X-Download-Options', 'noopen');
+  });
+
+
+  it('sets `Content-Type-Options` to `nosniff` by default', async () => {
+    app.get('/', _ => 'Hello Huncwot')
+
+    const response = await chai.request(server)
+      .get('/');
+
+    expect(response).to.have.header('X-Content-Type-Options', 'nosniff');
+  });
+
+  it('sets `XSS-Protection` to `1; mode=block` by default', async () => {
+    app.get('/', _ => 'Hello Huncwot')
+
+    const response = await chai.request(server)
+      .get('/');
+
+    expect(response).to.have.header('X-XSS-Protection', '1; mode=block');
+  });
+
 })
