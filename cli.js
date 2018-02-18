@@ -15,6 +15,12 @@
 
 const cwd = process.cwd();
 require('app-module-path').addPath(cwd);
+const validateNode = require('validate-node-version')('>=7.6.x');
+
+if (!validateNode.satisfies) {
+  console.error(validateNode.message);
+  process.exit(1);
+}
 
 const argv = require('yargs')
   .version()
