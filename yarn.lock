@@ -1509,9 +1509,9 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-marko-path-router@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/marko-path-router/-/marko-path-router-0.7.2.tgz#558329f6007d8d9cffae9ae3f05e1ff18b8c7d9b"
+marko-path-router@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/marko-path-router/-/marko-path-router-0.5.0.tgz#d674aac0c912c25d2c7fa648c8a02e425568db51"
   dependencies:
     marko "^4.4.5"
     radix-router "^2.0.0"
