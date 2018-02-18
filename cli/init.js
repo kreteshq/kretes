@@ -121,7 +121,7 @@ function generatePackageJSON(name, dbengine) {
     "lasso": "latest",
     "lasso-marko": "latest",
     "marko": "latest",
-    "marko-path-router": "latest",
+    "marko-path-router": "0.5.0",
     "mobx": "latest",
     "knex": "latest",
   }
