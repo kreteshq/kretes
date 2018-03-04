@@ -16,7 +16,7 @@ const { basename } = require('path');
 const cwd = process.cwd();
 
 function handler(_) {
-  console.log(`Setting up database...`);
+  console.log('Setting up database...');
   const config = require(`${cwd}/config/database.json`);
 
   // XXX properly set environemnt
@@ -24,12 +24,12 @@ function handler(_) {
   let stdout, stderr;
 
   switch (client) {
-    case 'sqlite3':
-      ({ stdout, stderr } = exec(`sqlite3 db/development.sqlite3 < db/tasks.sql`, { cwd }))
-      break;
-    case 'pg':
-      ({ stdout, stderr } = exec(`psql ${database} ${username}`, { cwd }))
-      break;
+  case 'sqlite3':
+    ({ stdout, stderr } = exec('sqlite3 db/development.sqlite3 < db/tasks.sql', { cwd }));
+    break;
+  case 'pg':
+    ({ stdout, stderr } = exec(`psql ${database} ${username}`, { cwd }));
+    break;
   }
 
   stdout.pipe(process.stdout);

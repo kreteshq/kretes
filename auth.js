@@ -26,18 +26,18 @@ function auth({ users }) {
         },
         statusCode: 401,
         body: ''
-      }
+      };
     }
-  }
+  };
 
   // closure over `users`
   function check({ name, pass }) {
     for (let k in users) {
       if (name === k && pass == users[k]) {
-        return true
+        return true;
       }
     }
-    return false
+    return false;
   }
 }
 

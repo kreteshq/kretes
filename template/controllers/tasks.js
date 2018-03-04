@@ -38,4 +38,4 @@ async function destroy(request) {
   return ok({ status: `success: ${id} destroyed` });
 }
 
-module.exports = { browse, read, edit, add, destroy }
+module.exports = { browse, read, edit, add, destroy };

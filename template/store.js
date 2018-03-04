@@ -5,6 +5,6 @@ const store = observable({
   increment: action(function() {
     this.counter++;
   })
-})
+});
 
 module.exports = store;

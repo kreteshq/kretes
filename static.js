@@ -14,7 +14,7 @@
 const debug = require('debug')('huncwot:static');
 
 const Promise = require('bluebird');
-const fs = Promise.promisifyAll(require("fs-extra"));
+const fs = Promise.promisifyAll(require('fs-extra'));
 const path = require('path');
 const assert = require('assert');
 const mime = require('mime-types');
@@ -44,14 +44,14 @@ function static(root, opts = { index: 'index.html' }) {
             'Content-Length': stats.size,
           },
           body: fs.createReadStream(file)
-        }
+        };
       } catch (error) {
         return next();
       }
     } else {
       return next();
     }
-  }
+  };
 }
 
 module.exports = static;

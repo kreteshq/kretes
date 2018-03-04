@@ -24,7 +24,7 @@ const isProduction = false;
 require('lasso').configure({
   plugins: ['lasso-marko'],
   outputDir: cwd + '/static',
-  urlPrefix: "/",
+  urlPrefix: '/',
   bundlingEnabled: isProduction, // Only enable bundling in production
   minify: isProduction, // Only minify JS and CSS code in production
   fingerprintsEnabled: isProduction, // Only add fingerprints to URLs in production
@@ -32,7 +32,7 @@ require('lasso').configure({
 
 async function page(name, bindings) {
   const template = require(join(cwd, 'pages', `${name}.marko`));
-  const error = require(join(__dirname, 'util', `error.marko`));
+  const error = require(join(__dirname, 'util', 'error.marko'));
 
   let r;
   try {
@@ -49,7 +49,7 @@ function gzip(body) {
   return {
     body: body.pipe(createGzip()),
     encoding: 'gzip'
-  }
+  };
 }
 
 module.exports = {

@@ -14,32 +14,32 @@
 // XXX auto-create those functions?
 
 function ok(body = '', headers = {}) {
-  return { statusCode: 200, headers, body }
+  return { statusCode: 200, headers, body };
 }
 
 function created(body = '', headers = {}) {
-  return { statusCode: 201, headers, body }
+  return { statusCode: 201, headers, body };
 }
 
 function accepted(body = '', headers = {}) {
-  return { statusCode: 202, headers, body }
+  return { statusCode: 202, headers, body };
 }
 
 function noContent(headers = {}) {
-  return { statusCode: 204, headers, body: '' }
+  return { statusCode: 204, headers, body: '' };
 }
 
 function notFound(headers = {}) {
-  return { statusCode: 404, headers, body: '' }
+  return { statusCode: 404, headers, body: '' };
 }
 
-function redirect(url, body = `Redirecting...`, statusCode = 302) {
+function redirect(url, body = 'Redirecting...', statusCode = 302) {
   return {
     statusCode,
     headers: { 'Location': url },
     type: 'text/plain',
     body
-  }
+  };
 }
 
 function json(content, statusCode = 200) {
@@ -47,7 +47,7 @@ function json(content, statusCode = 200) {
     statusCode,
     body: JSON.stringify(content),
     type: 'application/json',
-  }
+  };
 }
 
 function html(content) {
@@ -55,7 +55,7 @@ function html(content) {
     statusCode: 200,
     type: 'text/html',
     body: content,
-  }
+  };
 }
 
 module.exports = {
@@ -66,4 +66,5 @@ module.exports = {
   html,
   json,
   notFound,
-}
+  noContent
+};

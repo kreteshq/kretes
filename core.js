@@ -51,7 +51,7 @@ class Huncwot extends Emitter {
         response.statusCode = 500;
         response.end();
       }
-    })
+    });
 
     return server.listen.apply(server, arguments);
   }
@@ -61,7 +61,7 @@ class Huncwot extends Emitter {
       throw new TypeError('middleware must be a function');
     }
 
-    debug(`use: '%s'`, func.name || '-');
+    debug('use: \'%s\'', func.name || '-');
 
     this.middlewareList.push(func);
 
@@ -91,28 +91,28 @@ class Huncwot extends Emitter {
 
 function route(method, path, func) {
   return async (context, next) => {
-    const { pathname, query } = require('url').parse(context.request.url, true)
+    const { pathname, query } = require('url').parse(context.request.url, true);
     const params = match()(path)(pathname);
 
     if (context.request.method === method && params) {
       Object.assign(context.params, params, query);
-      return await func(context)
+      return await func(context);
     } else {
       return await next();
     }
-  }
+  };
 }
 
 async function handleError(context, next) {
   try {
-    return await next()
+    return await next();
   } catch (error) {
     assert(error instanceof Error, `non-error thrown: ${error}`);
 
     if (error instanceof HTTPError) {
-      return { statusCode: error.statusCode, body: error.message }
+      return { statusCode: error.statusCode, body: error.message };
     } else {
-      return { statusCode: 500, body: error.message }
+      return { statusCode: 500, body: error.message };
     }
   }
 }
@@ -126,16 +126,16 @@ function handleRoute(response) {
       const contentType = context.request.headers['content-type'].split(';')[0];
 
       switch (contentType) {
-        case 'application/x-www-form-urlencoded':
-          Object.assign(context.params, querystring.parse(buffer.toString()))
-          break;
-        case 'application/json':
-          const result = JSON.parse(buffer);
-          if (isObject(result)) {
-            Object.assign(context.params, result);
-          }
-          break;
-        default:
+      case 'application/x-www-form-urlencoded':
+        Object.assign(context.params, querystring.parse(buffer.toString()));
+        break;
+      case 'application/json':
+        const result = JSON.parse(buffer);
+        if (isObject(result)) {
+          Object.assign(context.params, result);
+        }
+        break;
+      default:
       }
     }
 
@@ -196,11 +196,11 @@ function handleRoute(response) {
 
     response.setHeader('Content-Length', Buffer.byteLength(str));
     response.end(str);
-  }
+  };
 }
 
 async function notFound() {
-  throw new HTTPError(404, `There's no such route.`);
+  throw new HTTPError(404, 'There\'s no such route.');
 }
 
 class HTTPError extends Error {

@@ -21,7 +21,7 @@ const cwd = process.cwd();
 async function init({ dir, dbengine }) {
   const themeDir = join(resolve(__dirname, '..'), 'template');
 
-  const name = dir.replace(/-/g, "_");
+  const name = dir.replace(/-/g, '_');
 
   try {
     console.log(`Initialising '${dir}'...`);
@@ -37,9 +37,9 @@ async function init({ dir, dbengine }) {
     const sql = join(cwd, dir, 'db', 'tasks.sql');
     await fs.outputFile(sql, generateSQL(name, dbengine));
 
-    await fs.ensureFile(join(cwd, dir, 'db', 'development.sqlite3'))
-    await fs.ensureFile(join(cwd, dir, 'db', 'test.sqlite3'))
-    await fs.ensureFile(join(cwd, dir, 'db', 'production.sqlite3'))
+    await fs.ensureFile(join(cwd, dir, 'db', 'development.sqlite3'));
+    await fs.ensureFile(join(cwd, dir, 'db', 'test.sqlite3'));
+    await fs.ensureFile(join(cwd, dir, 'db', 'production.sqlite3'));
 
     // static files
     await fs.copyAsync(themeDir, join(cwd, dir));
@@ -47,7 +47,7 @@ async function init({ dir, dbengine }) {
     const isYarnInstalled = await hasbin('yarn');
 
     if (isYarnInstalled) {
-      exec(`yarn`, { cwd: dir }).stdout.pipe(process.stdout);
+      exec('yarn', { cwd: dir }).stdout.pipe(process.stdout);
       console.log('done');
     } else {
       console.error('\nError: `yarn` is not installed. Please check their installation guide at https://yarnpkg.com/en/docs/install to learn how to install `yarn` on your platform');
@@ -60,13 +60,13 @@ async function init({ dir, dbengine }) {
 async function hasbin(name) {
   return await Promise.resolve(process.env.PATH.split(delimiter).map(_ => join(_, name)))
     .map(exists)
-    .reduce((a, b) => a || b)
+    .reduce((a, b) => a || b);
 }
 
 async function exists(pathname) {
   try {
     await fs.accessAsync(pathname);
-    return true
+    return true;
   } catch (error) {
     return false;
   }
@@ -82,67 +82,67 @@ module.exports = {
 // TODO: generalize this function as ~ `generate(...)`
 function generateDatabaseConfig(database, dbengine) {
   switch (dbengine) {
-    case 'postgresql':
-      return {
-        development: {
-          client: "pg",
-          host: "localhost", port: 5432, database
-        },
-        test: {
-          client: "pg",
-          host: "localhost", "port": 5432, database
-        },
-        production: {
-          client: "pg",
-          host: "localhost", port: 5432, database
-        }
+  case 'postgresql':
+    return {
+      development: {
+        client: 'pg',
+        host: 'localhost', port: 5432, database
+      },
+      test: {
+        client: 'pg',
+        host: 'localhost', 'port': 5432, database
+      },
+      production: {
+        client: 'pg',
+        host: 'localhost', port: 5432, database
       }
-    default:
-      return {
-        development: {
-          client: "sqlite3",
-          filename: "./db/development.sqlite3"
-        },
-        test: {
-          client: "sqlite3",
-          filename: "./db/test.sqlite3"
-        },
-        production: {
-          client: "sqlite3",
-          filename: "./db/production.sqlite3"
-        },
-      }
+    };
+  default:
+    return {
+      development: {
+        client: 'sqlite3',
+        filename: './db/development.sqlite3'
+      },
+      test: {
+        client: 'sqlite3',
+        filename: './db/test.sqlite3'
+      },
+      production: {
+        client: 'sqlite3',
+        filename: './db/production.sqlite3'
+      },
+    };
   }
 }
 
 function generatePackageJSON(name, dbengine) {
   const dependencies = {
-    "huncwot": "latest",
-    "lasso": "latest",
-    "lasso-marko": "latest",
-    "marko": "latest",
-    "marko-path-router": "0.5.0",
-    "mobx": "latest",
-    "knex": "latest",
-  }
+    'huncwot': 'latest',
+    'lasso': 'latest',
+    'lasso-marko': 'latest',
+    'marko': 'latest',
+    'marko-path-router': '0.5.0',
+    'mobx': 'latest',
+    'knex': 'latest',
+  };
 
   switch (dbengine) {
-    case 'postgresql':
-      Object.assign(dependencies, { "pg": "latest" });
-      break;
-    default:
-      Object.assign(dependencies, { "sqlite3": "latest" })
-      break;
+  case 'postgresql':
+    Object.assign(dependencies, { 'pg': 'latest' });
+    break;
+  default:
+    Object.assign(dependencies, { 'sqlite3': 'latest' });
+    break;
   }
 
 
-  return { name, version: "0.0.1", dependencies }
+  return { name, version: '0.0.1', dependencies };
 }
 
 function generateSQL(name, dbengine) {
   switch (dbengine) {
-    case 'postgresql':
-      return `DROP DATABASE IF EXISTS ${name}_dev;
+  case 'postgresql':
+    return `DROP DATABASE IF EXISTS ${name}_dev;
 CREATE DATABASE ${name}_dev;
 
 \\c ${name}_dev;
@@ -159,8 +159,8 @@ VALUES
     ('Build a fantastic web application', false),
     ('Give back to the community', false);
 `;
-    case 'sqlite3':
-      return `CREATE TABLE tasks (
+  case 'sqlite3':
+    return `CREATE TABLE tasks (
   id INTEGER PRIMARY KEY,
   name VARCHAR,
   done INTEGER

@@ -23,7 +23,7 @@ function compose(...middlewareList) {
       (acc, fn) => async () => await fn(ctx, acc),
       () => ctx // noop
     )();
-  }
+  };
 }
 
 function match(options = {}) {
@@ -43,12 +43,12 @@ function match(options = {}) {
       }
 
       return params;
-    }
-  }
-};
+    };
+  };
+}
 
 function isObject(_) {
   return (!!_) && (_.constructor === Object);
-};
+}
 
 module.exports = { pick, compose, match, isObject };

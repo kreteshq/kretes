@@ -46,8 +46,8 @@ function scan(directory, recursive = true) {
           return !recursive
             ? []
             : scan(join(directory, el))
-                .reduce(concat, [])
-                .map(_ => join(el, _));
+              .reduce(concat, [])
+              .map(_ => join(el, _));
         }
       })
     )
@@ -70,14 +70,14 @@ async function list(dir, ext) {
       }
 
       return { route, pathname };
-    })
+    });
 }
 
 async function init(app) {
   const pages = await list('./pages', '.marko');
 
   for (let { route, pathname } of pages) {
-    let get = () => ({})
+    let get = () => ({});
     let handlers = {};
 
     try {
@@ -85,19 +85,19 @@ async function init(app) {
       handlers = require(handlersPath);
     } catch (error) {
       switch (error.code) {
-        case 'MODULE_NOT_FOUND':
-          break;
-        default:
-          console.error(error);
-          exit();
+      case 'MODULE_NOT_FOUND':
+        break;
+      default:
+        console.error(error);
+        exit();
       }
     }
 
-    app.get(route, request => page(pathname, (handlers.get || get)(request)))
+    app.get(route, request => page(pathname, (handlers.get || get)(request)));
 
     for (let [ method, handler ] of Object.entries(handlers)) {
       if (HTTP_METHODS.includes(method.toUpperCase())) {
-        app[method](route, request => page(pathname, handler(request)))
+        app[method](route, request => page(pathname, handler(request)));
       } else {
         console.info(`Handler file '${join('pages', pathname)}.handler.js' uses unsupported HTTP method name: ${method}`);
       }
@@ -119,7 +119,7 @@ async function init(app) {
     }
 
     for (let [ name, handler ] of Object.entries(handlers)) {
-      let { method, route } = translate(name, pathname)
+      let { method, route } = translate(name, pathname);
       app[method](route, request => handler(request));
     }
   }
@@ -127,7 +127,7 @@ async function init(app) {
   // GraphQL
 
   try {
-    const typeDefs = require(join(cwd, 'schema.js'))
+    const typeDefs = require(join(cwd, 'schema.js'));
     const resolvers = require(join(cwd, 'resolvers'));
 
     const schema = makeExecutableSchema({ typeDefs, resolvers });
@@ -137,12 +137,12 @@ async function init(app) {
     app.get('/graphiql', graphiql({ endpointURL: 'graphql' }));
   } catch (error) {
     switch (error.code) {
-      case 'MODULE_NOT_FOUND':
-        console.log('GraphQL is not set up.')
-        break
-      default:
-        console.error(error);
-        exit();
+    case 'MODULE_NOT_FOUND':
+      console.log('GraphQL is not set up.');
+      break;
+    default:
+      console.error(error);
+      exit();
     }
   }
 }
@@ -154,16 +154,16 @@ function graphql(options) {
     let response = await runHttpQuery([], { method, options, query });
 
     return ok(response);
-  }
+  };
 }
 
 function graphiql(options) {
   return async request => {
     let query = request.params;
-    let response = await resolveGraphiQLString(query, options, request)
+    let response = await resolveGraphiQLString(query, options, request);
 
     return html(response);
-  }
+  };
 }
 
 function translate(name, resource) {
@@ -184,7 +184,7 @@ function serve({ port, dir }) {
     cwd: '.'
   });
 
-  watcher.on('change', () => {})
+  watcher.on('change', () => {});
 
   let server = join(cwd, 'server.js');
 
@@ -193,7 +193,7 @@ function serve({ port, dir }) {
   } catch (_) {
     const app = new Huncwot();
     init(app);
-    app.listen(port)
+    app.listen(port);
   }
 
   console.log(`${color.bold.green('Huncwot:')} ${VERSION}\nServer running at ${color.underline.blue(`http://localhost:${port}`)}\n---`);
