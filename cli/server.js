@@ -54,8 +54,8 @@ function scan(directory, recursive = true) {
     .reduce(concat, []);
 }
 
-async function list(dir, ext) {
-  return scan(dir)
+async function list(dir, ext, recursive = true) {
+  return scan(dir, recursive)
     .filter(f => extname(f) === ext)
     .map(f => {
       const { dir, name } = parse(f);
@@ -70,6 +70,15 @@ async function list(dir, ext) {
       }
 
       return { route, pathname };
+    });
+}
+
+async function listResources(dir) {
+  return scan(dir)
+    .map(f => {
+      const { dir, name } = parse(f);
+      const path = join(dir, name);
+      return { resource: dir, operation: name, path };
     });
 }
 
@@ -106,21 +115,15 @@ async function init(app) {
 
   // API
 
-  const resources = await list(join(cwd, 'controllers'), '.js');
+  const resources = await listResources(join(cwd, 'controllers'), '.js');
 
-  for (let { _, pathname } of resources) {
-    let handlers = {};
-
+  for (let { resource, operation, path } of resources) {
     try {
-      let handlersPath = `${join(cwd, 'controllers', pathname)}.js`;
-      handlers = require(handlersPath);
+      const handler = require(`${join(cwd, 'controllers', path)}.js`);
+      let { method, route } = translate(operation, resource);
+      app[method](route, request => handler(request));
     } catch (error) {
       console.error(error);
-    }
-
-    for (let [ name, handler ] of Object.entries(handlers)) {
-      let { method, route } = translate(name, pathname);
-      app[method](route, request => handler(request));
     }
   }
 

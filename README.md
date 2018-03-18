@@ -233,21 +233,31 @@ await db('widgets').where({ id: 2 }).update({ name: 'Widget 22' })
 
 ### Controllers
 
-A controller is a module which groups functions operating in the context of a single route, i.e. `controllers/widget.js` is (by default) responsible to handle HTTP actions on `/widgets` route.
+A controller is a module which groups actions. Actions are functions operating in the context of a single route, i.e. `controllers/widgets/*.js` handle HTTP actions for `/widgets` route.
 
-Each actions defined in a controller is responsible to connect the information received from the incoming request to underlaying data in your application (i.e. fetching/saving/updating) in order to produce a corresponding view e.g. a HTML page or a JSON payload.
+Each action defined in a controller is responsible to connect the information received from the incoming request to underlaying data in your application (i.e. fetching/saving/updating) in order to produce a corresponding view e.g. a HTML page or a JSON payload.
 
-A controller is supposed to define five functions i.e. `browse()`, `read()`, `edit()`, `add()`, `delete()` - in short **BREAD** (which is a kind of extension of CRUD approach). Each of those functions is triggered by a corresponding HTTP method i.e. `browse()` and `read()` by `GET`, `edit()` by `PUT`, `add()` by `POST` and finally `destroy()` by `DELETE`.
+Controllers may define up to five action. Each action is placed in a separate file i.e. `browse`, `read`, `edit`, `add`, `delete` - in short **BREAD** (which is a kind of extension of CRUD approach). Each of those functions is triggered by a corresponding HTTP method i.e. `browse()` and `read()` by `GET`, `edit()` by `PUT`, `add()` by `POST` and finally `destroy()` by `DELETE`.
 
-Here's an example of a simple controller, stored as `controllers/widgets.js` which always returns data in JSON format:
+Here's an example of a controller with five actions defined in `controllers/widgets/` directory.
+
+`controllers/widgets/browse.js`:
 
 ```js
-const { ok, created } = require('huncwot/response');
+const { ok } = require('huncwot/response');
 
 async function browse(request) {
   const results = ...
   return ok(results);
 }
+
+module.exports = browse
+```
+
+`controllers/widgets/read.js`
+
+```js
+const { ok } = require('huncwot/response');
 
 async function read(request) {
   const { id } = request.params;
@@ -255,11 +265,27 @@ async function read(request) {
   return ok(result);
 }
 
+module.exports = read
+```
+
+`controllers/widgets/edit.js`:
+
+```js
+const { ok } = require('huncwot/response');
+
 async function edit(request) {
   const { id, name } = request.params;
   ...
   return ok({ status: `success: ${id} changed to ${name}` });
 }
+
+module.exports = edit
+```
+
+`controllers/widgets/add.js`:
+
+```js
+const { created } = require('huncwot/response');
 
 async function add(request) {
   const { name } = request.params;
@@ -267,13 +293,21 @@ async function add(request) {
   return created({ status: `success: ${name} created` });
 }
 
+module.exports = add
+```
+
+`controllers/widgets/destroy.js`:
+
+```js
+const { ok } = require('huncwot/response');
+
 async function destroy(request) {
   const { id } = request.params;
   ...
   return ok({ status: `success: ${id} destroyed` });
 }
 
-module.exports = { browse, read, edit, add, destroy }
+module.exports = destroy
 ```
 
 By default, Huncwot will make those actions available under `/widgets` route through HTTP methods and in accordance to **BREAD** principle.
@@ -416,7 +450,7 @@ In your project create `views/` directory with the following `index.html`
 * [huncwot-component-app](https://github.com/zaiste/huncwot-component-app) a basic Huncwot application using components
 * [huncwot-server-app](https://github.com/zaiste/huncwot-server-app) a basic server-side Huncwot application
 * [huncwot-rest-api](https://github.com/zaiste/huncwot-rest-api) a REST API built with Huncwot
-* [huncwot-todo-graphql](https://github.com/zaiste/huncwot-todo-graphql) a simple task manager built with Huncwot and using GraphQL 
+* [huncwot-todo-graphql](https://github.com/zaiste/huncwot-todo-graphql) a simple task manager built with Huncwot and using GraphQL
 * [huncwot-graphql-api](https://github.com/zaiste/huncwot-graphql) a GraphQL API built with Huncwot
 
 ## Roadmap
