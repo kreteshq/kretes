@@ -117,13 +117,39 @@ function generateDatabaseConfig(database, dbengine) {
 
 function generatePackageJSON(name, dbengine) {
   const dependencies = {
-    'huncwot': 'latest',
-    'lasso': 'latest',
-    'lasso-marko': 'latest',
-    'marko': 'latest',
-    'marko-path-router': '0.5.0',
-    'mobx': 'latest',
-    'knex': 'latest',
+    'apollo-cache-inmemory': '^1.1.11',
+    'apollo-client': '^2.2.7',
+    'apollo-link-http': '^1.5.3',
+    'axios': '^0.18.0',
+    'graphql': '^0.13.2',
+    'graphql-tag': '^2.8.0',
+    'huncwot': '^0.18.3',
+    'knex': '^0.14.4',
+    'sqlite3': '^4.0.0',
+    'vue': '^2.5.16',
+    'vue-apollo': '^3.0.0-beta.5',
+    'vue-router': '^3.0.1',
+    'vuex': '^3.0.1'
+  };
+
+  const devDependencies = {
+    'babel-core': '^6.26.0',
+    'babel-loader': '^7.1.4',
+    'babel-preset-env': '^1.6.1',
+    'babel-preset-stage-3': '^6.24.1',
+    'cross-env': '^5.1.4',
+    'css-loader': '^0.28.11',
+    'file-loader': '^1.1.11',
+    'friendly-errors-webpack-plugin': '^1.6.1',
+    'html-webpack-plugin': '^3.0.6',
+    'node-sass': '^4.7.2',
+    'sass-loader': '^6.0.7',
+    'vue-loader': '^14.2.1',
+    'vue-template-compiler': '^2.5.16',
+    'webpack': '^4.1.1',
+    'webpack-cli': '^2.0.12',
+    'webpack-dev-server': '^3.1.1',
+    'webpack-merge': '^4.1.2'
   };
 
   switch (dbengine) {
@@ -136,7 +162,7 @@ function generatePackageJSON(name, dbengine) {
   }
 
 
-  return { name, version: '0.0.1', dependencies };
+  return { name, version: '0.0.1', dependencies, devDependencies };
 }
 
 function generateSQL(name, dbengine) {

@@ -19,6 +19,9 @@ const { join, resolve, extname, parse } = require('path');
 const chokidar = require('chokidar');
 const color = require('chalk');
 
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+
 const { runHttpQuery } = require('apollo-server-core');
 const { resolveGraphiQLString } = require('apollo-server-module-graphiql');
 const { makeExecutableSchema } = require('graphql-tools');
@@ -130,7 +133,7 @@ async function init(app) {
   // GraphQL
 
   try {
-    const typeDefs = require(join(cwd, 'schema.js'));
+    const typeDefs = require(join(cwd, 'schema'));
     const resolvers = require(join(cwd, 'resolvers'));
 
     const schema = makeExecutableSchema({ typeDefs, resolvers });
@@ -181,7 +184,23 @@ function translate(name, resource) {
   return methods[name];
 }
 
-function serve({ port, dir }) {
+async function bundle() {
+  const config = require(`${cwd}/config/webpack.dev.js`);
+
+  const devServerConfig = Object.assign({}, config.devServer, {
+    stats: { colors: true },
+    quiet: true
+  });
+
+  const compiler = webpack(config);
+  const bundler = new WebpackDevServer(compiler, devServerConfig);
+
+  bundler.listen(8080, 'localhost', function () {
+    console.log(`· Bundling the project using ${color.bold.blue('Webpack')}. Please wait for the next screen...`);
+  });
+};
+
+async function serve({ port, dir }) {
   const watcher = chokidar.watch(dir, {
     ignored: /[\/\\]\./,
     cwd: '.'
@@ -194,12 +213,13 @@ function serve({ port, dir }) {
   try {
     require(server);
   } catch (_) {
+    await bundle();
     const app = new Huncwot();
     init(app);
     app.listen(port);
   }
 
-  console.log(`${color.bold.green('Huncwot:')} ${VERSION}\nServer running at ${color.underline.blue(`http://localhost:${port}`)}\n---`);
+  console.log(`${color.bold.green('Huncwot:')} ${VERSION}`);
 }
 
 module.exports = {

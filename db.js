@@ -16,7 +16,8 @@ const cwd = process.cwd();
 const dbConfig = require(`${cwd}/config/database.json`);
 const connection = dbConfig[process.env.HUNCWOT_ENV || 'development'];
 const client = connection.client || 'sqlite3';
+const useNullAsDefault = connection.useNullAsDefault || false;
 
-const db = require('knex')({ client, connection });
+const db = require('knex')({ client, connection, useNullAsDefault });
 
 module.exports = db;
