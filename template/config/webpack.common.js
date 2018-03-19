@@ -98,7 +98,7 @@ module.exports = {
           'Backend running at http://localhost:5544',
         ],
         notes: [
-          'Huncwot: 0.19.1',
+          'Huncwot: 0.19.2',
         ]
       }
     }),
