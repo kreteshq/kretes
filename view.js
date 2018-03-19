@@ -11,8 +11,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-require('marko/node-require');
-
 const { createGzip } = require('zlib');
 const { join } = require('path');
 const { html } = require('./response');
@@ -20,15 +18,6 @@ const color = require('chalk');
 
 const cwd = process.cwd();
 const isProduction = false;
-
-require('lasso').configure({
-  plugins: ['lasso-marko'],
-  outputDir: cwd + '/static',
-  urlPrefix: '/',
-  bundlingEnabled: isProduction, // Only enable bundling in production
-  minify: isProduction, // Only minify JS and CSS code in production
-  fingerprintsEnabled: isProduction, // Only add fingerprints to URLs in production
-});
 
 async function page(name, bindings) {
   const template = require(join(cwd, 'pages', `${name}.marko`));
