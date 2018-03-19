@@ -13,8 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const cwd = process.cwd();
-require('app-module-path').addPath(cwd);
 const validateNode = require('validate-node-version')('>=7.6.x');
 
 if (!validateNode.satisfies) {
