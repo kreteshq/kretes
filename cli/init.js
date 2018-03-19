@@ -123,7 +123,7 @@ function generatePackageJSON(name, dbengine) {
     'axios': '^0.18.0',
     'graphql': '^0.13.2',
     'graphql-tag': '^2.8.0',
-    'huncwot': '^0.18.3',
+    'huncwot': '^0.19.0',
     'knex': '^0.14.4',
     'sqlite3': '^4.0.0',
     'vue': '^2.5.16',
