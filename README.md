@@ -35,12 +35,12 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 
 ## In a nutshell
 
-* it uses [Marko](http://markojs.com/) for managing pages (entirely server-side generated) & components (server- & client-side generated)
-* in the view layer it supports both HTML and indentation-based syntax à la Jade/Pug (thanks to Marko)
-* it uses [MobX](https://mobx.js.org/) for state management
+* it uses [Vue.js](https://vuejs.org/) on the frontend
+* it uses [Vuex](https://vuex.vuejs.org/en/) for state management
 * it uses [Knex](http://knexjs.org/) for the database integration which provides a SQL-like abstraction instead of an ORM of any sort
 * it provides a simpler abstraction (inspired by Clojure's [ring](https://github.com/ring-clojure/ring) web library) than Express/Koa for server-side content
 * it provides [GraphQL](http://graphql.org/) integration out of the box using [Apollo](https://github.com/apollographql/apollo-server) to collocate queries with components
+* it uses [Webpack 4](https://webpack.js.org/) for bundling assets
 
 ## Hello Huncwot
 
@@ -102,7 +102,7 @@ Start the application using built-in development server
 huncwot server
 ```
 
-Visit `https://localhost:5544`
+Visit `https://localhost:8080`
 
 ## Usage
 
@@ -112,22 +112,8 @@ There are two essential ways in Huncwot to constract a web application: traditio
 
 ### Server-side
 
-Server-side means that the application content is generated on the server. We usually think here in terms of *pages* available at particular paths. Routing is also performed on the server with paths corresponding to pages.
+TBW...
 
-![page](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/page-approach.png)
-
-Here's a server-side example of a Huncwot application.
-
-```js
-const Huncwot = require('huncwot');
-const { page, gzip } = require('huncwot/view');
-
-const app = new Huncwot();
-
-app.get('/', request => gzip(page('index', { name: 'Frank' })))
-
-app.listen(5544);
-```
 
 ### Component-based
 
@@ -136,39 +122,51 @@ Component-based means that *pages* are built by combining components: an indepen
 ![component](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/component-approach.png)
 
 
-Here's a component example
+Here's an example of a Vue.js component
 
-```marko
-class {
-  onCreate() {
-    this.state = { count:0 };
-  }
-  increment() {
-    this.state.count++;
-  }
+```js
+<template>
+  <div class="content">
+    <h2>Counter</h2>
+
+    <div>
+      <span class="counter">{{ $store.state.count }}</span>
+      <span class="notice">(count is: {{ evenOrOdd }})</span>
+    </div>
+
+    <a @click="increment">Increment</a>
+    <a @click="decrement">Decrement</a>
+    <a @click="incrementIfOdd">Increment if odd</a>
+    <a @click="incrementAsync">Increment async</a>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from 'vuex'
+
+export default {
+  computed: mapGetters([
+    'evenOrOdd'
+  ]),
+  methods: mapActions([
+    'increment',
+    'decrement',
+    'incrementIfOdd',
+    'incrementAsync'
+  ])
+}
+</script>
+
+<style scoped>
+.counter {
+  font-size: 5rem;
 }
 
-style {
-  .count {
-    font-size:3em;
-  }
-  .example-button {
-    font-size:1em;
-    padding:0.5em;
-  }
+.notice {
+  color: #666;
+  font-weight: 500;
 }
-
-<h1 class="title">Here be dragons!</h1>
-<h2 class="subtitle">
-  Experience Huncwot magic and carefully follow the instruction.
-</h2>
-
-<div.count>
-  <p class="title count">${state.count}</p>
-</div>
-<button.is-danger.button.is-outlined on-click('increment')>
-  Click me!
-</button>
+</style>
 ```
 
 ## Concepts
@@ -314,32 +312,7 @@ By default, Huncwot will make those actions available under `/widgets` route thr
 
 ### View
 
-Huncwot uses [Marko][1] in the view layer to handle both server-side template generation and browser, component-based approach.
-
-```js
-const Huncwot = require('huncwot');
-const { page, gzip } = require('huncwot/view');
-
-const app = new Huncwot();
-
-app.get('/', request => gzip(page('index', { name: 'Frank' })))
-
-app.listen(5544);
-```
-
-Huncwot provides helper functions to simplify usual operations in the request/response cycle. There is `gzip` which compresses the response along with setting the proper headers, or `page` function which checks `pages/` directory for Marko templates. Before running the example, be sure to have `pages/` directory in the root of your project along with the following `index.marko`
-
-```marko
-<!doctype html>
-<html>
-<head>
-  <title>Marko Example</title>
-</head>
-<body>
-  <h1>Hello ${input.name}</h1>
-</body>
-</html>
-```
+Huncwot uses [Vue.js](https://vuejs.org/) in the view layer to create and mangage components.
 
 ### Routes
 
@@ -353,41 +326,43 @@ There are two kinds of parameters possible in a web application: the ones that a
 
 Huncwot uses [Apollo](http://dev.apollodata.com/) on the client and on the server. Type definitions are stored at the top level in `schema.js`. Resolvers are placed in `resolvers/` directory. Both schema and resolvers are auto-generated with placeholder data using `huncwot new`. GraphQL service endpoint is `/graphql`.
 
-Here's an example of a component with a collocated GraphQL query that communicates with the built-in `/graphql` endpoint.
+Here's an example of a Vue.js component with a collocated GraphQL query that communicates with the built-in `/graphql` endpoint.
 
-```marko
+```js
+<template>
+  <div class="content">
+    <h2>Widgets</h2>
+    <ul>
+      <li v-for="widget in widgets">{{ widget.name }}</li>
+    </ul>
+  </div>
+</template>
+
+<script>
 import gql from 'graphql-tag';
-import client from 'services/graphql';
 
-static {
-  const query = gql`
-    query WidgetsQuery {
-      widgets {
-        id
-        name
-      }
+const query = gql`
+  query {
+    widgets {
+      name
     }
-  `;
-}
-
-class {
-  onCreate() {
-    this.state = { widgets: [] }
   }
+`
 
-  onMount() {
-    client.query({ query })
-      .then(({ data }) => {
-        this.state.widgets = data.widgets;
-      })
+export default {
+  data() {
+    return {
+      widgets: []
+    }
+  },
+
+  apollo: {
+    widgets: {
+      query
+    }
   }
 }
-
-style {}
-
-<ul>
-  <li for (widget in state.widgets)>${widget.name} - ID: ${widget.id}</li>
-</ul>
+</script>
 ```
 
 ## Modules
@@ -466,4 +441,3 @@ https://github.com/zaiste/huncwot/issues
 Detailed bug reports are always great; it's event better if you are able to
 include test cases.
 
-[1]: http://markojs.com/
