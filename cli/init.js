@@ -126,6 +126,7 @@ function generatePackageJSON(name, dbengine) {
     'huncwot': '^0.19.4',
     'knex': '^0.14.4',
     'sqlite3': '^4.0.0',
+    'validate': '^4.0.1',
     'vue': '^2.5.16',
     'vue-apollo': '^3.0.0-beta.5',
     'vue-router': '^3.0.1',
@@ -133,21 +134,25 @@ function generatePackageJSON(name, dbengine) {
   };
 
   const devDependencies = {
+    '@types/node': '^9.6.0',
     'babel-core': '^6.26.0',
     'babel-loader': '^7.1.4',
     'babel-preset-env': '^1.6.1',
     'babel-preset-stage-3': '^6.24.1',
+    'concurrently': '^3.5.1',
     'cross-env': '^5.1.4',
     'css-loader': '^0.28.11',
     'file-loader': '^1.1.11',
     'friendly-errors-webpack-plugin': '^1.6.1',
-    'html-webpack-plugin': '^3.0.6',
+    'html-webpack-plugin': '^3.1.0',
     'node-sass': '^4.7.2',
+    'nodemon': '^1.17.2',
     'sass-loader': '^6.0.7',
-    'vue-loader': '^14.2.1',
+    'typescript': '^2.7.2',
+    'vue-loader': '^14.2.2',
     'vue-template-compiler': '^2.5.16',
-    'webpack': '^4.1.1',
-    'webpack-cli': '^2.0.12',
+    'webpack': '4.2.0',
+    'webpack-cli': '^2.0.13',
     'webpack-dev-server': '^3.1.1',
     'webpack-merge': '^4.1.2'
   };
@@ -161,8 +166,21 @@ function generatePackageJSON(name, dbengine) {
     break;
   }
 
+  const browserslist = [
+    '> 1%',
+    'last 2 versions',
+    'not ie <= 8'
+  ];
 
-  return { name, version: '0.0.1', dependencies, devDependencies };
+  const scripts = {
+    'client': 'webpack-dev-server --mode development --open --config config/webpack.dev.js',
+    'build': 'webpack --progress --hide-modules --config config/webpack.prod.js',
+    'server': 'huncwot server',
+    'watch-ts': 'tsc -w',
+    'start': 'concurrently -k -p "[{name}]" -n "Client,TypeScript,Server" -c "yellow.bold,cyan.bold,green.bold" "yarn run client" "yarn run watch-ts" "yarn run server"'
+  };
+
+  return { name, version: '0.0.1', scripts, dependencies, devDependencies, browserslist };
 }
 
 function generateSQL(name, dbengine) {
