@@ -12,6 +12,9 @@
 // limitations under the License.
 
 const parsePath = require('path-to-regexp');
+const { join } = require('path');
+const Promise = require('bluebird');
+const fs = Promise.promisifyAll(require('fs-extra'));
 
 function pick(obj, keys) {
   return keys.reduce((acc, k) => { acc[k] = obj[k]; return acc; }, {});
@@ -51,4 +54,25 @@ function isObject(_) {
   return (!!_) && (_.constructor === Object);
 }
 
-module.exports = { pick, compose, match, isObject };
+let concat = (a, b) => a.concat(b);
+
+function scan(directory, recursive = true) {
+  return fs
+    .readdirAsync(directory)
+    .map(el =>
+      fs.statAsync(join(directory, el)).then(stat => {
+        if (stat.isFile()) {
+          return el;
+        } else {
+          return !recursive
+            ? []
+            : scan(join(directory, el))
+              .reduce(concat, [])
+              .map(_ => join(el, _));
+        }
+      })
+    )
+    .reduce(concat, []);
+}
+
+module.exports = { pick, compose, match, isObject, scan };
