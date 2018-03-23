@@ -8,8 +8,8 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "chai": "^4.1.2",
-    "chai-http": "^3.0.0",
-    "mocha": "^5.0.4"
+    "chai-http": "^4.0.0",
+    "mocha": "^5.0.5"
   },
   "scripts": {
     "test": "mocha --reporter list",
@@ -22,20 +22,21 @@
     "basic-auth": "^2.0.0",
     "bluebird": "^3.5.1",
     "chalk": "^2.3.2",
-    "chokidar": "^2.0.2",
     "debug": "^3.1.0",
     "fs-extra": "^5.0.0",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.8.0",
     "graphql-tools": "^2.23.1",
+    "knex": "^0.14.4",
     "mime-types": "^2.1.18",
     "path-to-regexp": "^2.2.0",
     "raw-body": "^2.3.2",
+    "sqlite3": "^4.0.0",
     "upath": "^1.0.4",
     "validate-node-version": "^1.1.1",
-    "yargs": "^11.0.0",
-    "webpack": "^4.1.1",
-    "webpack-dev-server": "^3.1.1"
+    "webpack": "^4.2.0",
+    "webpack-dev-server": "^3.1.1",
+    "yargs": "^11.0.0"
   },
   "bin": {
     "huncwot": "cli.js"
