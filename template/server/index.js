@@ -20,3 +20,5 @@ app.get('/headers', _ => {
 app.post('/bim', request => {
   return `Hello POST! ${request.params.name}`;
 });
+
+app.listen(5544);
