@@ -96,10 +96,10 @@ huncwot new my-project
 cd my-project
 ```
 
-Start the application using built-in development server
+Start the application using `yarn` or `npm`
 
 ```
-huncwot server
+yarn run start # OR: npm run start
 ```
 
 Visit `https://localhost:8080`
