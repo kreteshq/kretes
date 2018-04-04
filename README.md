@@ -86,7 +86,7 @@ Huncwot is being built with *battery included* approach in mind, i.e. it comes w
 Install `huncwot` globally to use its CLI commands which simplify frequent operations. You also need to install [yarn](https://yarnpkg.com/en/).
 
 ```
-yarn global add huncwot
+npm install -g huncwot
 ```
 
 Generate new application
