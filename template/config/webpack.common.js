@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const webpack = require('webpack');
 
+const docs = require.resolve('./loaders/docs.js');
+
 module.exports = {
   entry: './client/index.js',
   output: {
@@ -14,7 +16,10 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        options: {
+          loaders: { docs }
+        }
       },
       {
         test: /\.js$/,
