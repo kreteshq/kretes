@@ -34,8 +34,6 @@ class Huncwot extends Core {
   } = {}) {
     super();
 
-    console.log(staticDir);
-
     this.middlewareList.push(serve(staticDir));
     this.middlewareList.push(security(securityOptions));
 
