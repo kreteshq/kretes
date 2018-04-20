@@ -117,16 +117,16 @@ function generateDatabaseConfig(database, dbengine) {
 
 function generatePackageJSON(name, dbengine) {
   const dependencies = {
-    'apollo-cache-inmemory': '^1.1.11',
-    'apollo-client': '^2.2.7',
-    'apollo-link-http': '^1.5.3',
+    'apollo-cache-inmemory': '^1.1.12',
+    'apollo-client': '^2.2.8',
+    'apollo-link-http': '^1.5.4',
     'axios': '^0.18.0',
     'graphql': '^0.13.2',
-    'graphql-tag': '^2.8.0',
-    'huncwot': '^0.19.4',
-    'knex': '^0.14.4',
+    'graphql-tag': '^2.9.1',
+    'huncwot': '^0.20.1',
+    'knex': '^0.14.6',
     'sqlite3': '^4.0.0',
-    'validate': '^4.0.1',
+    'validate': '^4.3.0',
     'vue': '^2.5.16',
     'vue-apollo': '^3.0.0-beta.5',
     'vue-router': '^3.0.1',
@@ -134,7 +134,7 @@ function generatePackageJSON(name, dbengine) {
   };
 
   const devDependencies = {
-    '@types/node': '^9.6.0',
+    '@types/node': '^9.6.6',
     'babel-core': '^6.26.0',
     'babel-loader': '^7.1.4',
     'babel-preset-env': '^1.6.1',
@@ -143,17 +143,17 @@ function generatePackageJSON(name, dbengine) {
     'cross-env': '^5.1.4',
     'css-loader': '^0.28.11',
     'file-loader': '^1.1.11',
-    'friendly-errors-webpack-plugin': '^1.6.1',
-    'html-webpack-plugin': '^3.1.0',
-    'node-sass': '^4.7.2',
-    'nodemon': '^1.17.2',
-    'sass-loader': '^6.0.7',
-    'typescript': '^2.7.2',
+    'friendly-errors-webpack-plugin': '^1.7.0',
+    'html-webpack-plugin': '^3.2.0',
+    'node-sass': '^4.8.3',
+    'nodemon': '^1.17.3',
+    'sass-loader': '^7.0.1',
+    'typescript': '^2.8.3',
     'vue-loader': '^14.2.2',
     'vue-template-compiler': '^2.5.16',
-    'webpack': '4.2.0',
-    'webpack-cli': '^2.0.13',
-    'webpack-dev-server': '^3.1.1',
+    'webpack': '4.6.0',
+    'webpack-cli': '^2.0.14',
+    'webpack-dev-server': '^3.1.3',
     'webpack-merge': '^4.1.2'
   };
 
