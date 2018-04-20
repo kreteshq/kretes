@@ -14,7 +14,6 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 ## Table of Contents
 
 * [In a nutshell](#in-a-nutshell)
-* [Hello Huncwot](#hello-huncwot)
 * [Rationale](#rationale)
 * [Getting Started](#getting-started)
 * [Usage](#usage)
@@ -35,16 +34,62 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 
 ## In a nutshell
 
+* [Universal JavaScript](https://cdb.reacttraining.com/universal-javascript-4761051b7ae9) (some find the term a bit superfluous): Huncwot bridges client- (frontend) and server-side (backend) development to use JavaScript across the board
+* it can be used as a replacement for Express/Koa to build only server-side applications
+* it can be used as a convenient boilerplate for Vue.js to build only client-side applications
 * it uses [Vue.js](https://vuejs.org/) on the frontend
 * it uses [Vuex](https://vuex.vuejs.org/en/) for state management
 * it uses [Knex](http://knexjs.org/) for the database integration which provides a SQL-like abstraction instead of an ORM of any sort
 * it provides a simpler abstraction (inspired by Clojure's [ring](https://github.com/ring-clojure/ring) web library) than Express/Koa for server-side content
+* it provides REST endpoints out-of-the-box
 * it provides [GraphQL](http://graphql.org/) integration out of the box using [Apollo](https://github.com/apollographql/apollo-server) to collocate queries with components
 * it uses [Webpack 4](https://webpack.js.org/) for bundling assets
+* it allows to write [TypeScript](https://www.typescriptlang.org/) on the backend
 
-## Hello Huncwot
+## Rationale
 
-This is an example of a basic Huncwot application. Save it to a file e.g. `server.js`, run it with `node server.js` and visit the application `https://localhost:5544`.
+Huncwot is being built with *battery included* approach in mind, i.e. it comes with a (eventually large) library of useful modules which are developped in a coherent way. This stands in direct opposition to Koa approach. Huncwot tries to formalize conventions and eliminate valueless choices by providing solid defaults for building web applications that increase the programmers productivity.
+
+## Getting Started
+
+Install `huncwot` globally to use its CLI commands which simplify frequent operations. You also need to install [yarn](https://yarnpkg.com/en/).
+
+```
+npm install -g huncwot
+```
+
+Generate new application
+
+```
+huncwot new my-project
+cd my-project
+```
+
+Start the application using `yarn` or `npm`
+
+```
+yarn run start
+```
+
+or
+
+```
+npm run start
+```
+
+Visit `https://localhost:8080`
+
+![Huncwot Init](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/huncwot-init.png)
+
+## Usage
+
+Huncwot can be used as a replacement for Express or Koa, but it also goes beyond that by providing opinionated choices to other layers in the stack (view, ORM, etc) required to build a fully functional web application.
+
+There are two essential ways in Huncwot to constract a web application: traditional server-side or modern component-based. Nonenthless, those two approaches can be combined in any proportion.
+
+### Server-side
+
+This is an example of a basic server-side application in Huncwot. Save it to a file e.g. `server.js`, run it with `node server.js` and visit the application `https://localhost:5544`.
 
 > *Note* Don't forget to install `huncwot` by adding it to `package.json` in your project directory followed by `npm install`. If you're starting from scratch, use `npm init` or (better) `huncwot new` described below.
 
@@ -76,43 +121,6 @@ app.listen(5544);
 ```
 
 This example shows a regular, server-side application in the style of Express or Koa, e.g. you define various routes as a combination of paths and functions attached to it i.e. route handlers. In contrast to Express, Huncwot handlers only take HTTP `request` as input and always return an HTTP response: either defined explicitly as an object with `body`, `status`, etc keys, or implicitly with an inferred type e.g. `text/plain` or as a wrapping function e.g. `ok()` for `200`, or `created()` for `201`.
-
-## Rationale
-
-Huncwot is being built with *battery included* approach in mind, i.e. it comes with a (eventually large) library of useful modules which are developped in a coherent way. This stands in direct opposition to Koa approach. Huncwot tries to formalize conventions and eliminate valueless choices by providing solid defaults for building web applications that increase the programmers productivity.
-
-## Getting Started
-
-Install `huncwot` globally to use its CLI commands which simplify frequent operations. You also need to install [yarn](https://yarnpkg.com/en/).
-
-```
-npm install -g huncwot
-```
-
-Generate new application
-
-```
-huncwot new my-project
-cd my-project
-```
-
-Start the application using `yarn` or `npm`
-
-```
-yarn run start # OR: npm run start
-```
-
-Visit `https://localhost:8080`
-
-## Usage
-
-Huncwot can be used as a replacement for Express or Koa, but it also goes beyond that by providing opinionated choices to other layers in the stack (view, ORM, etc) required to build a fully functional web application.
-
-There are two essential ways in Huncwot to constract a web application: traditional server-side or modern component-based. Nonenthless, those two approaches can be combined in any proportion.
-
-### Server-side
-
-TBW...
 
 
 ### Component-based
