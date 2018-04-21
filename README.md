@@ -21,7 +21,7 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
   * [Component-based](#component-based)
 * [Concepts](#concepts)
   * [Database](#databse)
-  * [Controller](#controllers)
+  * [Handlers](#handlers)
   * [View](#view)
   * [Routes](#routes)
   * [Parameters](#parameters)
@@ -237,17 +237,17 @@ Update an existing element (identified by `id`) in `widgets` table:
 await db('widgets').where({ id: 2 }).update({ name: 'Widget 22' })
 ```
 
-### Controllers
+### Handlers
 
-A controller is a module which groups actions. Actions are functions operating in the context of a single route, i.e. `controllers/widgets/*.js` handle HTTP actions for `/widgets` route.
+A handler is a module which groups actions. Actions are functions operating in the context of a single route, i.e. actions defined in `handlers/widgets/` handle the `/widgets` route.
 
-Each action defined in a controller is responsible to connect the information received from the incoming request to underlaying data in your application (i.e. fetching/saving/updating) in order to produce a corresponding view e.g. a HTML page or a JSON payload.
+Each action defined in a handler is responsible to connect the information received from the incoming request to underlaying data in your application (i.e. fetching/saving/updating) in order to produce a corresponding view e.g. a HTML page or a JSON payload.
 
-Controllers may define up to five action. Each action is placed in a separate file i.e. `browse`, `read`, `edit`, `add`, `delete` - in short **BREAD** (which is a kind of extension of CRUD approach). Each of those functions is triggered by a corresponding HTTP method i.e. `browse()` and `read()` by `GET`, `edit()` by `PUT`, `add()` by `POST` and finally `destroy()` by `DELETE`.
+Handlers may define up to five action. Each action is placed in a separate file i.e. `browse`, `read`, `edit`, `add`, `delete` - in short **BREAD** (which is a kind of extension of CRUD approach). Each of those functions is triggered by a corresponding HTTP method i.e. `browse()` and `read()` by `GET`, `edit()` by `PUT`, `add()` by `POST` and finally `destroy()` by `DELETE`.
 
-Here's an example of a controller with five actions defined in `controllers/widgets/` directory.
+Here's an example of a handler with five actions defined in `handlers/widgets/` directory.
 
-`controllers/widgets/browse.js`:
+Inside `handlers/widgets/browse.js`:
 
 ```js
 const { ok } = require('huncwot/response');
@@ -260,7 +260,7 @@ async function browse(request) {
 module.exports = browse
 ```
 
-`controllers/widgets/read.js`
+Inside `handlers/widgets/read.js`
 
 ```js
 const { ok } = require('huncwot/response');
@@ -274,7 +274,7 @@ async function read(request) {
 module.exports = read
 ```
 
-`controllers/widgets/edit.js`:
+Inside `handlers/widgets/edit.js`:
 
 ```js
 const { ok } = require('huncwot/response');
@@ -288,7 +288,7 @@ async function edit(request) {
 module.exports = edit
 ```
 
-`controllers/widgets/add.js`:
+Inisde `handlers/widgets/add.js`:
 
 ```js
 const { created } = require('huncwot/response');
@@ -302,7 +302,7 @@ async function add(request) {
 module.exports = add
 ```
 
-`controllers/widgets/destroy.js`:
+Inside `handlers/widgets/destroy.js`:
 
 ```js
 const { ok } = require('huncwot/response');
@@ -332,7 +332,13 @@ There are two kinds of parameters possible in a web application: the ones that a
 
 ### GraphQL
 
-Huncwot uses [Apollo](http://dev.apollodata.com/) on the client and on the server. Type definitions are stored at the top level in `schema.js`. Resolvers are placed in `resolvers/` directory. Both schema and resolvers are auto-generated with placeholder data using `huncwot new`. GraphQL service endpoint is `/graphql`.
+Huncwot uses [Apollo](http://dev.apollodata.com/) on the client and on the server. Type definitions are stored at the top level in `graphql/`. Resolvers may be grouped in modules underneath `graphql/` directory. GraphQL service endpoint is `/graphql`.
+
+Both schema and resolvers can be auto-generated with placeholder data using `demo` template of `huncwot new`:
+
+```
+huncwot new --template demo
+```
 
 Here's an example of a Vue.js component with a collocated GraphQL query that communicates with the built-in `/graphql` endpoint.
 
