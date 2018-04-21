@@ -14,7 +14,7 @@
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs-extra'));
 const { join, resolve, delimiter } = require('path');
-const exec = require('child_process').exec;
+const { spawn } = require('child_process');
 
 const cwd = process.cwd();
 
@@ -47,8 +47,7 @@ async function init({ dir, dbengine }) {
     const isYarnInstalled = await hasbin('yarn');
 
     if (isYarnInstalled) {
-      exec('yarn', { cwd: dir }).stdout.pipe(process.stdout);
-      console.log('done');
+      spawn('yarn', { cwd: dir, stdio: 'inherit' });
     } else {
       console.error('\nError: `yarn` is not installed. Please check their installation guide at https://yarnpkg.com/en/docs/install to learn how to install `yarn` on your platform');
     }
