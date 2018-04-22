@@ -397,8 +397,7 @@ app.use(static('./public'))
 
 ## Examples
 
-* [counter](https://github.com/zaiste/huncwot/tree/master/examples/counter)
-  ([demo](https://huncwot.org))
+* [ToDo with Vue.js (Vuex, Vue Router), Node.js and TypeScript](https://github.com/zaiste/huncwot-component-app)
 
 ## 3-rd Party Integrations
 
@@ -433,14 +432,6 @@ In your project create `views/` directory with the following `index.html`
 </body>
 </html>
 ```
-
-## Examples
-
-* [huncwot-component-app](https://github.com/zaiste/huncwot-component-app) a basic Huncwot application using components
-* [huncwot-server-app](https://github.com/zaiste/huncwot-server-app) a basic server-side Huncwot application
-* [huncwot-rest-api](https://github.com/zaiste/huncwot-rest-api) a REST API built with Huncwot
-* [huncwot-todo-graphql](https://github.com/zaiste/huncwot-todo-graphql) a simple task manager built with Huncwot and using GraphQL
-* [huncwot-graphql-api](https://github.com/zaiste/huncwot-graphql) a GraphQL API built with Huncwot
 
 ## Roadmap
 
