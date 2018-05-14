@@ -13,16 +13,14 @@
 
 const debug = require('debug')('huncwot:index');
 const { join } = require('path');
+const Szelmostwo = require('szelmostwo');
+const { serve, security } = require('szelmostwo/middleware');
 
-const Core = require('./core');
-
-const serve = require('./static');
-const security = require('./security');
 const { list, translate } = require('./handlers');
 
 const cwd = process.cwd();
 
-class Huncwot extends Core {
+class Huncwot extends Szelmostwo {
   constructor({
     staticDir = join(cwd, 'static'),
     securityOptions = {
@@ -34,12 +32,12 @@ class Huncwot extends Core {
   } = {}) {
     super();
 
-    this.middlewareList.push(serve(staticDir));
-    this.middlewareList.push(security(securityOptions));
+    this.use(serve(staticDir));
+    this.use(security(securityOptions));
 
     if (graphql) {
       try {
-        const { typeDefs, resolvers }  = require(join(cwd, 'graphql'));
+        const { typeDefs, resolvers } = require(join(cwd, 'graphql'));
         const { graphql, graphiql, makeSchema } = require('./graphql');
 
         const schema = makeSchema({ typeDefs, resolvers });
@@ -49,12 +47,12 @@ class Huncwot extends Core {
         this.get('/graphiql', graphiql({ endpointURL: 'graphql' }));
       } catch (error) {
         switch (error.code) {
-        case 'MODULE_NOT_FOUND':
-          console.log('GraphQL is not set up.');
-          break;
-        default:
-          console.error(error);
-          throw new Error('Unknown GraphQL error occured');
+          case 'MODULE_NOT_FOUND':
+            console.log('GraphQL is not set up.');
+            break;
+          default:
+            console.error(error);
+            throw new Error('Unknown GraphQL error occured');
         }
       }
     }
@@ -74,12 +72,12 @@ class Huncwot extends Core {
         })
         .catch(error => {
           switch (error.code) {
-          case 'ENOENT':
-            console.log('Handlers are not set up.');
-            break;
-          default:
-            console.error(error);
-            throw new Error('Unknown Handler error occured');
+            case 'ENOENT':
+              console.log('Handlers are not set up.');
+              break;
+            default:
+              console.error(error);
+              throw new Error('Unknown Handler error occured');
           }
         });
     }
