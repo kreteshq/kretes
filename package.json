@@ -35,7 +35,7 @@
     "szelmostwo": "^0.0.4",
     "upath": "^1.1.0",
     "validate-node-version": "^1.1.1",
-    "webpack": "^4.10.2",
+    "webpack": "^4.11.1",
     "webpack-dev-server": "^3.1.4",
     "yargs": "^11.0.0"
   },
