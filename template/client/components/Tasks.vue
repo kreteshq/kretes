@@ -30,41 +30,86 @@
       </div>
     </article>
 
+    <input
+      class="input is-medium"
+      autofocus
+      autocomplete="off"
+      placeholder="Enter task's name"
+      v-model="taskName"
+      @keyup.enter="add"
+    >
+
+    <div class="message is-danger" v-show="error">
+      <div class="message-body">
+        Tasks cannot be fetched from the server. Probably you forgot to setup the database. Does <code>db/development.sqlite</code> exist?  
+        If not, run <code>sqlite3 db/development.sqlite3 < db/tasks.sql</code> from the project directory.
+      </div>
+    </div>
+
     <ul>
       <li v-for="task in tasks" :key="task.id">
         <label class="checkbox">
-          <input type="checkbox">
+          <input type="checkbox" v-model="task.completed">
           {{ task.name }}
         </label>
+        <a class="delete" @click="destroy(task.id)"></a>
       </li>
     </ul>
 
+    <div class="is-loading">Loading? {{ loading }}</div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+
+const filters = {
+  all: tasks => tasks,
+  active: tasks => tasks.filter(_ => !_.done),
+  completed: tasks => tasks.filter(_ => _.done)
+}
 
 export default {
   docs: true,
-  data() {
-    return {
-      tasks: []
+  async created() {
+    this.browse();
+  },
+  computed: {
+    ...mapState('tasks', [
+      'tasks',
+      'name',
+      'loading',
+      'error'
+    ]),
+    ...mapGetters('tasks', [
+    ]),
+    taskName: {
+      get() {
+        return this.name;
+      },
+      set(name) {
+        this.setName(name);
+      }
     }
   },
-  async created() {
-    try {
-      const response = await axios.get('/rest/tasks');
-      this.tasks = response.data;
-      console.log(this.tasks);
-    } catch (error) {
-      this.errors.push(error);
-    }
+  methods: {
+    ...mapMutations('tasks', [
+      'setName',
+      'clear'
+    ]),
+    ...mapActions('tasks', [
+      'browse',
+      'add',
+      'destroy'
+    ]),
   }
 }
 
 </script>
 
 <style scoped>
+ .input {
+     margin-bottom: 1rem;
+ }
 
 </style>

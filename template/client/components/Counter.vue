@@ -16,7 +16,7 @@
     </article>
 
     <div>
-      <span class="counter">{{ $store.state.count }}</span>
+      <span class="counter">{{ count }}</span>
       <span class="notice">(count is: {{ evenOrOdd }})</span>
     </div>
 
@@ -30,14 +30,19 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   docs: true,
-  computed: mapGetters([
-    'evenOrOdd'
-  ]),
-  methods: mapActions([
+  computed: {
+    ...mapState('counter', [
+      'count'
+    ]),
+    ...mapGetters('counter', [
+      'evenOrOdd'
+    ]),
+  },
+  methods: mapActions('counter', [
     'increment',
     'decrement',
     'incrementIfOdd',
@@ -46,7 +51,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 .counter {
   font-size: 5rem;
 }
