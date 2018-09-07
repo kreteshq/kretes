@@ -8,7 +8,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
+    "chai-http": "^4.2.0",
     "mocha": "^5.2.0"
   },
   "scripts": {
@@ -16,27 +16,27 @@
     "debug": "node --inspect cli.js"
   },
   "dependencies": {
-    "apollo-client": "^2.3.7",
-    "apollo-server-core": "^2.0.0",
+    "apollo-client": "^2.4.1",
+    "apollo-server-core": "^2.0.6",
     "apollo-server-module-graphiql": "^2.0.0-beta.6",
     "basic-auth": "^2.0.0",
-    "bluebird": "^3.5.1",
+    "bluebird": "^3.5.2",
     "chalk": "^2.4.1",
     "debug": "^3.1.0",
     "fs-extra": "^7.0.0",
-    "graphql": "^0.13.2",
+    "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
-    "graphql-tools": "^3.0.5",
+    "graphql-tools": "^3.1.1",
     "knex": "^0.15.2",
-    "mime-types": "^2.1.19",
-    "path-to-regexp": "^2.2.1",
+    "mime-types": "^2.1.20",
+    "path-to-regexp": "^2.4.0",
     "raw-body": "^2.3.3",
     "sqlite3": "^4.0.2",
     "szelmostwo": "^0.0.4",
     "upath": "^1.1.0",
     "validate-node-version": "^1.1.1",
-    "webpack": "^4.16.3",
-    "webpack-dev-server": "^3.1.5",
+    "webpack": "^4.17.2",
+    "webpack-dev-server": "^3.1.8",
     "yargs": "^12.0.1"
   },
   "bin": {
