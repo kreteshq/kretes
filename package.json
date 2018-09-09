@@ -37,7 +37,7 @@
     "validate-node-version": "^1.1.1",
     "webpack": "^4.17.2",
     "webpack-dev-server": "^3.1.8",
-    "yargs": "^12.0.1"
+    "yargs": "^12.0.2"
   },
   "bin": {
     "huncwot": "cli.js"
