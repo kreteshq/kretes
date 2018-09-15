@@ -34,16 +34,16 @@ async function init({ dir }) {
       spaces: 2
     });
 
-    const packageJSON = join(cwd, dir, 'package.json');
-    await fs.outputJson(packageJSON, generatePackageJSON(dir, dbengine), {
-      spaces: 2
-    });
-
     const sql = join(cwd, dir, 'db', 'tasks.sql');
     await fs.outputFile(sql, generateSQL(name));
 
     // static files
     await fs.copyAsync(themeDir, join(cwd, dir));
+
+    // Overwrites `package.json` copied above
+    const path = join(cwd, dir, 'package.json');
+    const content = generatePackageJSON(dir);
+    await fs.outputJson(path, content, { spaces: 2 });
 
     const isYarnInstalled = await hasbin('yarn');
 
@@ -82,47 +82,6 @@ module.exports = {
 };
 
 // TODO: generalize this function as ~ `generate(...)`
-function generatePackageJSON(name, dbengine) {
-  const dependencies = {
-    'apollo-cache-inmemory': '^1.3.0-beta.6',
-    'apollo-client': '^2.3.7',
-    'apollo-link-http': '^1.5.4',
-    axios: '^0.18.0',
-    graphql: '^0.13.2',
-    'graphql-tag': '^2.9.2',
-    huncwot: '^0.22.0',
-    knex: '^0.15.2',
-    sqlite3: '^4.0.2',
-    validate: '^4.4.1',
-    vue: '^2.5.16',
-    'vue-apollo': '^3.0.0-beta.19',
-    'vue-router': '^3.0.1',
-    vuex: '^3.0.1'
-  };
-
-  const devDependencies = {
-    '@types/node': '^10.5.4',
-    'babel-core': '^6.26.3',
-    'babel-loader': '^7.1.5',
-    'babel-preset-env': '^1.7.0',
-    'babel-preset-stage-3': '^6.24.1',
-    concurrently: '^3.6.1',
-    'cross-env': '^5.2.0',
-    'css-loader': '^1.0.0',
-    'file-loader': '^1.1.11',
-    'friendly-errors-webpack-plugin': '^1.7.0',
-    'html-webpack-plugin': '^3.2.0',
-    'node-sass': '^4.9.2',
-    nodemon: '^1.18.3',
-    'sass-loader': '^7.0.3',
-    typescript: '^2.9.2',
-    'vue-loader': '^15.2.6',
-    'vue-style-loader': '^4.1.1',
-    'vue-template-compiler': '^2.5.16',
-    webpack: '4.16.3',
-    'webpack-cli': '^3.1.0',
-    'webpack-dev-server': '^3.1.5',
-    'webpack-merge': '^4.1.3'
 function generateDatabaseConfig(database) {
   return {
     development: {
@@ -146,27 +105,11 @@ function generateDatabaseConfig(database) {
   };
 }
 
+function generatePackageJSON(name) {
+  const content = require('../template/package.json');
+  const result = Object.assign({ name, version: '0.0.1' }, content);
 
-  const browserslist = ['> 1%', 'last 2 versions', 'not ie <= 8'];
-
-  const scripts = {
-    client:
-      'webpack-dev-server --mode development --open --config config/webpack.dev.js',
-    build: 'webpack --progress --hide-modules --config config/webpack.prod.js',
-    server: 'huncwot server',
-    'watch-ts': 'tsc -w',
-    start:
-      'concurrently -k -p "[{name}]" -n "Client,TypeScript,Server" -c "yellow.bold,cyan.bold,green.bold" "yarn run client" "yarn run watch-ts" "yarn run server"'
-  };
-
-  return {
-    name,
-    version: '0.0.1',
-    scripts,
-    dependencies,
-    devDependencies,
-    browserslist
-  };
+  return result;
 }
 
 function generateSQL(name, dbengine) {
