@@ -1,4 +1,4 @@
-// Copyright 2016 Zaiste & contributors. All rights reserved.
+// Copyright 2018 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@ const { basename } = require('path');
 const cwd = process.cwd();
 
 function handler(_) {
-  const app = basename(cwd);
+  let app = basename(cwd);
+  app = app.split('-').join('_');
   console.log(`Creating database... ${app}`);
   const { stdout, stderr } = exec(`createdb ${app}`, { cwd });
   stdout.pipe(process.stdout);

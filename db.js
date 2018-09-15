@@ -1,4 +1,4 @@
-// Copyright 2016 Zaiste & contributors. All rights reserved.
+// Copyright 2018 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@ const cwd = process.cwd();
 
 const dbConfig = require(`${cwd}/config/database.json`);
 const connection = dbConfig[process.env.HUNCWOT_ENV || 'development'];
-const client = connection.client || 'sqlite3';
+const client = connection.client || 'pg';
 const useNullAsDefault = connection.useNullAsDefault || false;
 
 const db = require('knex')({ client, connection, useNullAsDefault });

@@ -1,4 +1,4 @@
-// Copyright 2016 Zaiste & contributors. All rights reserved.
+// Copyright 2018 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,14 +18,15 @@ const { spawn } = require('child_process');
 
 const cwd = process.cwd();
 
-async function init({ dir, dbengine }) {
+async function init({ dir }) {
   const themeDir = join(resolve(__dirname, '..'), 'template');
 
   const name = dir.replace(/-/g, '_');
 
   try {
     console.log(`Initialising '${dir}'...`);
-    console.log(`Database engine: '${dbengine}'`);
+    // Info about PostgreSQL client running instead ?
+    console.log('Database engine: ');
 
     // dynamic files
     const databaseConfig = join(cwd, dir, 'config', 'database.json');
@@ -39,11 +40,7 @@ async function init({ dir, dbengine }) {
     });
 
     const sql = join(cwd, dir, 'db', 'tasks.sql');
-    await fs.outputFile(sql, generateSQL(name, dbengine));
-
-    await fs.ensureFile(join(cwd, dir, 'db', 'development.sqlite3'));
-    await fs.ensureFile(join(cwd, dir, 'db', 'test.sqlite3'));
-    await fs.ensureFile(join(cwd, dir, 'db', 'production.sqlite3'));
+    await fs.outputFile(sql, generateSQL(name));
 
     // static files
     await fs.copyAsync(themeDir, join(cwd, dir));
@@ -81,52 +78,10 @@ async function exists(pathname) {
 
 module.exports = {
   handler: init,
-  builder: _ =>
-    _.option('dbengine', { alias: 'd', default: 'sqlite3' }).default('dir', '.')
+  builder: _ => _.default('dir', '.')
 };
 
 // TODO: generalize this function as ~ `generate(...)`
-function generateDatabaseConfig(database, dbengine) {
-  switch (dbengine) {
-    case 'postgresql':
-      return {
-        development: {
-          client: 'pg',
-          host: 'localhost',
-          port: 5432,
-          database
-        },
-        test: {
-          client: 'pg',
-          host: 'localhost',
-          port: 5432,
-          database
-        },
-        production: {
-          client: 'pg',
-          host: 'localhost',
-          port: 5432,
-          database
-        }
-      };
-    default:
-      return {
-        development: {
-          client: 'sqlite3',
-          filename: './db/development.sqlite3'
-        },
-        test: {
-          client: 'sqlite3',
-          filename: './db/test.sqlite3'
-        },
-        production: {
-          client: 'sqlite3',
-          filename: './db/production.sqlite3'
-        }
-      };
-  }
-}
-
 function generatePackageJSON(name, dbengine) {
   const dependencies = {
     'apollo-cache-inmemory': '^1.3.0-beta.6',
@@ -168,16 +123,29 @@ function generatePackageJSON(name, dbengine) {
     'webpack-cli': '^3.1.0',
     'webpack-dev-server': '^3.1.5',
     'webpack-merge': '^4.1.3'
+function generateDatabaseConfig(database) {
+  return {
+    development: {
+      client: 'pg',
+      host: 'localhost',
+      port: 5432,
+      database
+    },
+    test: {
+      client: 'pg',
+      host: 'localhost',
+      port: 5432,
+      database
+    },
+    production: {
+      client: 'pg',
+      host: 'localhost',
+      port: 5432,
+      database
+    }
   };
+}
 
-  switch (dbengine) {
-    case 'postgresql':
-      Object.assign(dependencies, { pg: 'latest' });
-      break;
-    default:
-      Object.assign(dependencies, { sqlite3: 'latest' });
-      break;
-  }
 
   const browserslist = ['> 1%', 'last 2 versions', 'not ie <= 8'];
 
@@ -210,7 +178,7 @@ CREATE DATABASE ${name}_dev;
 \\c ${name}_dev;
 
 CREATE TABLE tasks (
-  ID SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name VARCHAR,
   done BOOLEAN
 );
@@ -220,19 +188,6 @@ VALUES
     ('Share the love about Huncwot', false),
     ('Build a fantastic web application', false),
     ('Give back to the community', false);
-`;
-    case 'sqlite3':
-      return `CREATE TABLE tasks (
-  id INTEGER PRIMARY KEY,
-  name VARCHAR,
-  done INTEGER
-);
-
-INSERT INTO tasks (name, done)
-VALUES
-    ('Share the love about Huncwot', 0),
-    ('Build a fantastic web application', 0),
-    ('Give back to the community', 0);
 `;
   }
 }
