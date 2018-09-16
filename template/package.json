@@ -9,21 +9,18 @@
     "start": "npm-run-all compile-ts -p client server watch-ts"
   },
   "dependencies": {
-    "apollo-cache-inmemory": "1.2.6",
+    "apollo-cache-inmemory": "1.2.10",
     "apollo-client": "^2.4.2",
-    "apollo-link-http": "^1.5.4",
+    "apollo-link-http": "^1.5.5",
     "axios": "^0.18.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
     "huncwot": "^0.22.0",
-    "knex": "^0.15.2",
-    "sqlite3": "^4.0.2",
     "validate": "^4.5.1",
     "vue": "^2.5.17",
     "vue-apollo": "^3.0.0-beta.25",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "pg": "latest"
   },
   "browserslist": [
     "> 1%",
@@ -31,14 +28,14 @@
     "not ie <= 8"
   ],
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.0.1",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-proposal-json-strings": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-syntax-import-meta": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@types/node": "^10.9.4",
-    "babel-loader": "^8.0.0",
+    "babel-loader": "^8.0.2",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.0",
     "file-loader": "^2.0.0",
@@ -52,7 +49,7 @@
     "vue-loader": "^15.4.2",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.17",
-    "webpack": "4.18.1",
+    "webpack": "4.19.0",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8",
     "webpack-merge": "^4.1.4"
