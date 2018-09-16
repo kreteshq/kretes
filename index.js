@@ -11,7 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const debug = require('debug')('huncwot:index');
+const debug = require('debug')('huncwot:index'); // eslint-disable-line no-unused-vars
 const { join } = require('path');
 const Szelmostwo = require('szelmostwo');
 const { serve, security } = require('szelmostwo/middleware');
@@ -62,7 +62,13 @@ class Huncwot extends Szelmostwo {
         .then(handlers => {
           for (let { resource, operation, path } of handlers) {
             try {
-              const handler = require(`${join(cwd, 'server', 'handlers', path)}.js`);
+              const handler = require(`${join(
+                cwd,
+                'build',
+                'server',
+                'handlers',
+                path
+              )}.js`);
               let { method, route } = translate(operation, resource);
               this[method](route, request => handler(request));
             } catch (error) {

@@ -1,4 +1,4 @@
-// Copyright 2016 Zaiste & contributors. All rights reserved.
+// Copyright 2018 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,12 +17,17 @@ function auth({ users }) {
   return async (context, next) => {
     const credentials = basicAuth(context.request);
 
-    if (credentials && credentials.name && credentials.pass && check(credentials)) {
+    if (
+      credentials &&
+      credentials.name &&
+      credentials.pass &&
+      check(credentials)
+    ) {
       return next();
     } else {
       return {
         headers: {
-          'WWW-Authenticate': 'Basic realm=Authorization Required',
+          'WWW-Authenticate': 'Basic realm=Authorization Required'
         },
         statusCode: 401,
         body: ''

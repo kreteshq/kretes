@@ -61,7 +61,7 @@ class Huncwot extends Emitter {
       throw new TypeError('middleware must be a function');
     }
 
-    debug('use: \'%s\'', func.name || '-');
+    debug("use: '%s'", func.name || '-');
 
     this.middlewareList.push(func);
 
@@ -126,21 +126,24 @@ function handleRoute(response) {
       const contentType = context.request.headers['content-type'].split(';')[0];
 
       switch (contentType) {
-      case 'application/x-www-form-urlencoded':
-        Object.assign(context.params, querystring.parse(buffer.toString()));
-        break;
-      case 'application/json':
-        const result = JSON.parse(buffer);
-        if (isObject(result)) {
-          Object.assign(context.params, result);
-        }
-        break;
-      default:
+        case 'application/x-www-form-urlencoded':
+          Object.assign(context.params, querystring.parse(buffer.toString()));
+          break;
+        case 'application/json':
+          const result = JSON.parse(buffer);
+          if (isObject(result)) {
+            Object.assign(context.params, result);
+          }
+          break;
+        default:
       }
     }
 
     let r = await next();
-    if (!r) throw new Error('One of your routes does not return a value. You probably forgot a `return` statement.');
+    if (!r)
+      throw new Error(
+        'One of your routes does not return a value. You probably forgot a `return` statement.'
+      );
 
     let body;
     let headers;
@@ -177,7 +180,7 @@ function handleRoute(response) {
     }
 
     if (body instanceof Stream) {
-      if (! response.getHeader('Content-Type'))
+      if (!response.getHeader('Content-Type'))
         response.setHeader('Content-Type', type || 'text/html');
 
       body.pipe(response);
@@ -190,7 +193,7 @@ function handleRoute(response) {
       str = JSON.stringify(body);
       response.setHeader('Content-Type', 'application/json');
     } else {
-      if (! response.getHeader('Content-Type'))
+      if (!response.getHeader('Content-Type'))
         response.setHeader('Content-Type', type || 'text/plain');
     }
 
@@ -200,7 +203,7 @@ function handleRoute(response) {
 }
 
 async function notFound() {
-  throw new HTTPError(404, 'There\'s no such route.');
+  throw new HTTPError(404, "There's no such route.");
 }
 
 class HTTPError extends Error {
