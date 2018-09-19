@@ -16,7 +16,7 @@
     "debug": "node --inspect cli.js"
   },
   "dependencies": {
-    "apollo-server-core": "^2.0.7",
+    "apollo-server-core": "^2.1.0",
     "apollo-server-module-graphiql": "^2.0.0-beta.6",
     "basic-auth": "^2.0.0",
     "bluebird": "^3.5.2",
@@ -25,7 +25,7 @@
     "fs-extra": "^7.0.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
-    "graphql-tools": "^3.1.1",
+    "graphql-tools": "^4.0.0",
     "knex": "^0.15.2",
     "mime-types": "^2.1.20",
     "path-to-regexp": "^2.4.0",
