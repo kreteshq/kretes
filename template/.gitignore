@@ -61,3 +61,7 @@ typings/
 static/
 
 template/static/*
+
+dist/
+build/
+.build
