@@ -397,6 +397,7 @@ app.use(static('./public'))
 
 ## Examples
 
+* [Huncwot Example App](https://github.com/zaiste/huncwot-example-app)
 * [ToDo with Vue.js (Vuex, Vue Router), Node.js and TypeScript](https://github.com/zaiste/huncwot-component-app)
 
 ## 3-rd Party Integrations
