@@ -85,19 +85,16 @@ module.exports = {
 function generateDatabaseConfig(database) {
   return {
     development: {
-      client: 'pg',
       host: 'localhost',
       port: 5432,
       database
     },
     test: {
-      client: 'pg',
       host: 'localhost',
       port: 5432,
       database
     },
     production: {
-      client: 'pg',
       host: 'localhost',
       port: 5432,
       database

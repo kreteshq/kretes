@@ -64,7 +64,7 @@ class Huncwot extends Szelmostwo {
             try {
               const handler = require(`${join(
                 cwd,
-                'build',
+                '.build',
                 'server',
                 'handlers',
                 path

@@ -1,4 +1,4 @@
-// Copyright 2016 Zaiste & contributors. All rights reserved.
+// Copyright 2018 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -35,8 +35,7 @@ async function serve({ port }) {
 }
 
 module.exports = {
-  builder: _ => _
-    .option('port', { alias: 'p', default: 5544 })
-    .default('dir', '.'),
+  builder: _ =>
+    _.option('port', { alias: 'p', default: 5544 }).default('dir', '.'),
   handler: serve
 };

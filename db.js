@@ -13,11 +13,13 @@
 
 const cwd = process.cwd();
 
+const pg = require('pg');
+const sqorn = require('sqorn-pg');
+
 const dbConfig = require(`${cwd}/config/database.json`);
 const connection = dbConfig[process.env.HUNCWOT_ENV || 'development'];
-const client = connection.client || 'pg';
-const useNullAsDefault = connection.useNullAsDefault || false;
 
-const db = require('knex')({ client, connection, useNullAsDefault });
+const pool = new pg.Pool(connection);
+const db = sqorn({ pg, pool });
 
 module.exports = db;

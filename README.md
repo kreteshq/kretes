@@ -37,9 +37,9 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 * [Universal JavaScript](https://cdb.reacttraining.com/universal-javascript-4761051b7ae9) (some find the term a bit superfluous): Huncwot bridges client- (frontend) and server-side (backend) development to use JavaScript across the board
 * it can be used as a replacement for Express/Koa to build only server-side applications
 * it can be used as a convenient boilerplate for Vue.js to build only client-side applications
+* it uses [Sqorn](https://sqorn.org/) for the database integration which provides a SQL-like abstraction instead of an ORM of any sort
 * it uses [Vue.js](https://vuejs.org/) on the frontend
 * it uses [Vuex](https://vuex.vuejs.org/en/) for state management
-* it uses [Knex](http://knexjs.org/) for the database integration which provides a SQL-like abstraction instead of an ORM of any sort
 * it provides a simpler abstraction (inspired by Clojure's [ring](https://github.com/ring-clojure/ring) web library) than Express/Koa for server-side content
 * it provides REST endpoints out-of-the-box
 * it provides [GraphQL](http://graphql.org/) integration out of the box using [Apollo](https://github.com/apollographql/apollo-server) to collocate queries with components
@@ -181,7 +181,11 @@ export default {
 
 ### Database
 
-An ORM is at times too much to get data out of the database. Huncwot provides an thin layer of integration with various RDMBS systems using [Knex.js](https://github.com/tgriesser/knex). Thanks to this library you can write usual SQL queries, yet fully integrated with the regular JavaScript data structures.
+An ORM is at times too much to get data out of the database. Huncwot provides an
+thin layer of integration with various RDMBS systems using
+[Sqorn](https://sqorn.org/). Thanks to this library you can
+write usual SQL queries, yet fully integrated with the regular JavaScript data
+structures. 
 
 The database configuration is stored `config/database.json` as a JSON document.
 
@@ -198,19 +202,19 @@ Let's see how we can perform some basic and frequent SQL queries in Huncwot
 Get all elements with all columns from `widgets` table; equivalent to `select * from widgets`:
 
 ```
-const results = await db('widgets');
+const results = await db`widgets`;
 ```
 
 Get all elements with all some columns from `widgets` table; equivalent to `select id, name from widgets`:
 
 ```
-const results = await db('widgets').select('id', 'name');
+const results = await db`widgets`.return('id', 'name');
 ```
 
 Get a single element from `widgets` table by `id`:
 
 ```
-const result = await db('widgets').where({ id })
+const result = await db`widgets`.where({ id })
 ```
 
 #### Insert/Update
@@ -218,13 +222,13 @@ const result = await db('widgets').where({ id })
 Insert a single element into `widgets` table:
 
 ```
-await db('widgets').insert({ name: 'Widget 1', amount: 2 })
+await db`widgets`.insert({ name: 'Widget 1', amount: 2 })
 ```
 
 Insert few elements at once into `widgets` table:
 
 ```
-await db('widgets').insert([
+await db`widgets`.insert([
   { name: 'Widget 1', amount: 2 },
   { name: 'Widget 2', amount: 7 },
   { name: 'Widget 3', amount: 4 }
@@ -234,7 +238,7 @@ await db('widgets').insert([
 Update an existing element (identified by `id`) in `widgets` table:
 
 ```
-await db('widgets').where({ id: 2 }).update({ name: 'Widget 22' })
+await db`widgets`.where({ id: 2 }).set({ name: 'Widget 22' })
 ```
 
 ### Handlers
