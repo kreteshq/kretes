@@ -10,14 +10,17 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-export default class Container {
-  static register(store) {
-    this.store = store;
-  }
 
-  static fetch() {
-    return this.store;
-  }
-}
+import Container from './container';
+import { makeSetter, makeGetter } from './fields';
 
-Container.store = 'store is empty';
+export default store => {
+  Container.register(store);
+
+  store.set = (path, value) => makeSetter(store, path)(value);
+
+  store.get = (path, ...args) => {
+    const value = makeGetter(store, path)();
+    return value instanceof Function ? value(...args) : value;
+  };
+};
