@@ -57,11 +57,13 @@ export function makeSetter(store, cursor) {
 }
 
 export function makeGetter(store, cursor) {
-  const { statePath, subfieldPath, absPath, isState } = resolve(store, cursor);
+  const { statePath, subfieldPath, absPath } = resolve(store, cursor);
 
   if (statePath in store.getters) {
-    const value = store.getters[statePath];
-    return () => (subfieldPath ? getValue(value, subfieldPath) : value);
+    return () => {
+      const value = store.getters[statePath];
+      return subfieldPath ? getValue(value, subfieldPath) : value;
+    };
   }
 
   if (hasValue(store.state, statePath)) {
