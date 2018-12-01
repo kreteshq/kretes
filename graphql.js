@@ -29,9 +29,13 @@ function graphql(options) {
   return async request => {
     let method = request.request.method;
     let query = request.params;
-    let response = await runHttpQuery([], { method, options, query });
+    let { graphqlResponse, responseInit } = await runHttpQuery([], {
+      method,
+      options,
+      query
+    });
 
-    return ok(response);
+    return ok(graphqlResponse);
   };
 }
 
