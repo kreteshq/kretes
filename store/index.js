@@ -15,13 +15,16 @@ const debug = require('debug')('huncwot:store');
 import HTTP from 'axios';
 import install from './install';
 import { make } from './helpers';
-import { prepareGet, prepareSync } from './fields';
+import { prepareGet, prepareSync, expandSync, expandGet } from './fields';
 
 import { getKeys } from './util';
 import ValueObject from './value_object';
 import { Model } from './model';
 
 import Container from './container';
+
+import { createDecorator } from 'vue-class-component';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 const getStateKeys = state =>
   getKeys(state instanceof Function ? state() : state);
@@ -105,5 +108,109 @@ export const sync = (path, props) =>
   make(path, props, prepareSync, path =>
     expandSync(path, Container.store.state)
   );
+
+export const computed = {
+  get: createDecorator((options, key) => {
+    let ns = options.namespace;
+
+    if (!options.computed) {
+      options.computed = {};
+    }
+    options.computed[key] = get(`${ns}/${key}`);
+  }),
+  sync: createDecorator((options, key) => {
+    let ns = options.namespace;
+
+    if (!options.computed) {
+      options.computed = {};
+    }
+    options.computed[key] = sync(`${ns}/${key}`);
+  })
+};
+
+export const getter = module =>
+  createDecorator((options, key) => {
+    let ns = options.namespace;
+
+    if (!options.computed) {
+      options.computed = {};
+    }
+    options.computed[key] = get(`${ns}/${key}`);
+  });
+
+export const field = module =>
+  createDecorator((options, key) => {
+    let ns = options.namespace;
+
+    if (!options.computed) {
+      options.computed = {};
+    }
+    options.computed[key] = sync(`${ns}/${key}`);
+  });
+
+export const action = module =>
+  createDecorator((options, key) => {
+    let ns = module || options.namespace;
+
+    if (!options.methods) {
+      options.methods = {};
+    }
+    options.methods[key] = mapActions(ns, [key])[key];
+  });
+
+export function namespace(namespace) {
+  const buildNamespace = helper => {
+    const namespacedHelper = (a, b) => {
+      if (typeof b === 'string') {
+        const key = b;
+        const proto = a;
+        return helper(key, { namespace })(proto, key);
+      }
+
+      const type = a;
+      const options = merge(b || {}, { namespace });
+      return helper(type, options);
+    };
+
+    return namespacedHelper;
+  };
+
+  return {
+    getter: buildNamespace(getter),
+    field: buildNamespace(field),
+    action: buildNamespace(action)
+  };
+}
+
+function buildDecorator(bindTo, mapFn) {
+  function makeDecorator(map, namespace) {
+    return createDecorator((componentOptions, key) => {
+      let ns = namespace || componentOptions.namespace;
+
+      if (!componentOptions[bindTo]) {
+        componentOptions[bindTo] = {};
+      }
+
+      const mapObject = { [key]: map };
+
+      componentOptions[bindTo][key] =
+        ns !== undefined ? mapFn(ns, mapObject)[key] : mapFn(mapObject)[key];
+    });
+  }
+
+  function helper(a, b) {
+    if (typeof b === 'string') {
+      const key = b;
+      const proto = a;
+      return makeDecorator(key, undefined)(proto, key);
+    }
+
+    const namespace = extractNamespace(b);
+    const type = a;
+    return makeDecorator(type, namespace);
+  }
+
+  return helper;
+}
 
 export { Model, install };
