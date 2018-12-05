@@ -147,7 +147,9 @@ function buildGetter() {
       }
 
       componentOptions.computed[key] =
-        ns !== undefined ? get(`${ns}/${key}`) : get(`${key}`);
+        ns !== undefined
+          ? get(`${ns}/${alias || key}`)
+          : get(`${alias || key}`);
     });
   }
 
