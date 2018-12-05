@@ -109,55 +109,6 @@ export const sync = (path, props) =>
     expandSync(path, Container.store.state)
   );
 
-export const computed = {
-  get: createDecorator((options, key) => {
-    let ns = options.namespace;
-
-    if (!options.computed) {
-      options.computed = {};
-    }
-    options.computed[key] = get(`${ns}/${key}`);
-  }),
-  sync: createDecorator((options, key) => {
-    let ns = options.namespace;
-
-    if (!options.computed) {
-      options.computed = {};
-    }
-    options.computed[key] = sync(`${ns}/${key}`);
-  })
-};
-
-export const getter = module =>
-  createDecorator((options, key) => {
-    let ns = options.namespace;
-
-    if (!options.computed) {
-      options.computed = {};
-    }
-    options.computed[key] = get(`${ns}/${key}`);
-  });
-
-export const field = module =>
-  createDecorator((options, key) => {
-    let ns = options.namespace;
-
-    if (!options.computed) {
-      options.computed = {};
-    }
-    options.computed[key] = sync(`${ns}/${key}`);
-  });
-
-export const action = module =>
-  createDecorator((options, key) => {
-    let ns = module || options.namespace;
-
-    if (!options.methods) {
-      options.methods = {};
-    }
-    options.methods[key] = mapActions(ns, [key])[key];
-  });
-
 export function namespace(namespace) {
   const buildNamespace = helper => {
     const namespacedHelper = (a, b) => {
@@ -182,8 +133,63 @@ export function namespace(namespace) {
   };
 }
 
+export const action = buildDecorator('methods', mapActions);
+export const field = buildField();
+export const getter = buildGetter();
+
+function buildGetter() {
+  function makeDecorator(alias, namespace) {
+    return createDecorator((componentOptions, key) => {
+      let ns = namespace || componentOptions.namespace;
+
+      if (!componentOptions.computed) {
+        componentOptions.computed = {};
+      }
+
+      componentOptions.computed[key] =
+        ns !== undefined ? get(`${ns}/${key}`) : get(`${key}`);
+    });
+  }
+
+  function helper(alias, isParameter) {
+    if (typeof isParameter === 'string') {
+      return makeDecorator(isParameter)(alias, isParameter);
+    }
+    const { namespace } = isParameter;
+    return makeDecorator(alias, namespace);
+  }
+
+  return helper;
+}
+
+function buildField() {
+  function makeDecorator(alias, namespace) {
+    return createDecorator((componentOptions, key) => {
+      let ns = namespace || componentOptions.namespace;
+
+      if (!componentOptions.computed) {
+        componentOptions.computed = {};
+      }
+
+      componentOptions.computed[key] =
+        ns !== undefined ? sync(`${ns}/${key}`) : sync(`${key}`);
+    });
+  }
+
+  function helper(alias, isParameter) {
+    if (typeof isParameter === 'string') {
+      return makeDecorator(isParameter)(alias, isParameter);
+    }
+
+    const { namespace } = isParameter;
+    return makeDecorator(alias, namespace);
+  }
+
+  return helper;
+}
+
 function buildDecorator(bindTo, mapFn) {
-  function makeDecorator(map, namespace) {
+  function makeDecorator(alias, namespace) {
     return createDecorator((componentOptions, key) => {
       let ns = namespace || componentOptions.namespace;
 
@@ -191,26 +197,34 @@ function buildDecorator(bindTo, mapFn) {
         componentOptions[bindTo] = {};
       }
 
-      const mapObject = { [key]: map };
+      const mapObject = { [key]: alias };
 
       componentOptions[bindTo][key] =
         ns !== undefined ? mapFn(ns, mapObject)[key] : mapFn(mapObject)[key];
     });
   }
 
-  function helper(a, b) {
-    if (typeof b === 'string') {
-      const key = b;
-      const proto = a;
-      return makeDecorator(key, undefined)(proto, key);
+  function helper(alias, isParameter) {
+    if (typeof isParameter === 'string') {
+      return makeDecorator(isParameter)(alias, isParameter);
     }
 
-    const namespace = extractNamespace(b);
-    const type = a;
-    return makeDecorator(type, namespace);
+    const { namespace } = isParameter;
+
+    return makeDecorator(alias, namespace);
   }
 
   return helper;
+}
+
+function merge(a, b) {
+  const res = {};
+  [a, b].forEach(obj => {
+    Object.keys(obj).forEach(key => {
+      res[key] = obj[key];
+    });
+  });
+  return res;
 }
 
 export { Model, install };

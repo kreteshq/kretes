@@ -17,7 +17,10 @@ const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs-extra'));
 
 function pick(obj, keys) {
-  return keys.reduce((acc, k) => { acc[k] = obj[k]; return acc; }, {});
+  return keys.reduce((acc, k) => {
+    acc[k] = obj[k];
+    return acc;
+  }, {});
 }
 
 function compose(...middlewareList) {
@@ -67,8 +70,8 @@ function scan(directory, recursive = true) {
           return !recursive
             ? []
             : scan(join(directory, el))
-              .reduce(concat, [])
-              .map(_ => join(el, _));
+                .reduce(concat, [])
+                .map(_ => join(el, _));
         }
       })
     )

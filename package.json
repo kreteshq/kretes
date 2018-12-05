@@ -35,6 +35,7 @@
     "szelmostwo": "^0.0.5",
     "validate-node-version": "^1.1.1",
     "vue": "^2.5.17",
+    "vue-class-component": "^6.3.2",
     "vuex": "^3.0.1",
     "yargs": "^12.0.5"
   },
