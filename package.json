@@ -16,7 +16,7 @@
     "debug": "node --inspect cli.js"
   },
   "dependencies": {
-    "apollo-server-core": "^2.2.5",
+    "apollo-server-core": "^2.2.6",
     "apollo-server-module-graphiql": "^2.0.0-beta.6",
     "axios": "^0.18.0",
     "basic-auth": "^2.0.1",
@@ -31,7 +31,7 @@
     "path-to-regexp": "^2.4.0",
     "pg": "^7.7.1",
     "raw-body": "^2.3.3",
-    "sqorn-pg": "0.0.38",
+    "sqorn-pg": "0.0.40",
     "szelmostwo": "^0.0.5",
     "validate-node-version": "^1.1.1",
     "vue": "^2.5.17",
