@@ -1,12 +1,9 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-import Home from '../components/Home'
-import Widgets from '../components/Widgets'
-import Counter from '../components/Counter'
-import Tasks from '../components/Tasks'
+import Home from '../components/Home';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -15,21 +12,6 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
-    },
-    {
-      path: '/widgets',
-      name: 'Widgets',
-      component: Widgets
-    },
-    {
-      path: '/counter',
-      name: 'Counter',
-      component: Counter
-    },
-    {
-      path: '/tasks',
-      name: 'Tasks',
-      component: Tasks
     }
   ]
-})
+});

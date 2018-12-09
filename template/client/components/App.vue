@@ -1,39 +1,61 @@
 <template>
-  <div id="app">
-    <article class="message is-info" v-if="this.$options.docs">
-      <div class="message-body">
-        <span v-html="this.$options.__docs"></span>
-      </div>
-    </article>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <div class="text-center">
+          <a href="#" class="flex">
+            <HuncwotLogo class="logo"/>
+          </a>
+          <h1 class="display-1">{{ title }}</h1>
+          <p class="lead">
+            Macro framework for monolithic JavaScript applications,
+            batteries included
+          </p>
 
-    <div class="field control">
-      <router-link to="/" class="button is-outlined">Home</router-link>
-      <router-link to="/widgets" class="button is-outlined">GraphQL: Widgets</router-link>
-      <router-link to="/tasks" class="button is-outlined">REST: Tasks</router-link>
-      <router-link to="/counter" class="button is-outlined">Counter</router-link>
+          <ul class="nav justify-content-center">
+            <li class="nav-item">
+              <a href="https://huncwot.org" class="nav-link">Website</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://github.com/zaiste/huncwot#getting-started" class="nav-link">Guide</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://github.com/zaiste/huncwot" class="nav-link">GitHub</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <hr>
-    <router-view/>
   </div>
 </template>
 
-<script>
-export default {
-  docs: true,
-  name: 'App',
-  data () {
-    return {
-      docs: this.$options.__docs
-    }
-  },
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+import HuncwotLogo from "../../static/huncwot.svg";
+
+@Component({ components: { HuncwotLogo } })
+export default class App extends Vue {
+  title: string = "Huncwot";
 }
 </script>
 
-<style scoped>
+<style>
+body {
+  margin-top: 2rem;
+}
+.logo {
+  display: block;
+  width: 196px;
+  height: 196px;
+  margin: auto;
+}
 
+.display-1 {
+  font-weight: 100;
+}
+
+.lead {
+  font-size: 1.5rem;
+}
 </style>
-
-<docs>
-Root component with routes. It is located in <code>components/App.vue</code> on the client side,
-i.e. within <code>client/</code> directory.
-</docs>
