@@ -17,7 +17,7 @@
     "bulma-timeline": "^3.0.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
-    "huncwot": "0.25.1",
+    "huncwot": "0.26.0",
     "luxon": "^1.8.2",
     "tspath": "^1.3.7",
     "uuid": "^3.3.2",

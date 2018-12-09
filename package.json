@@ -1,6 +1,6 @@
 {
   "name": "huncwot",
-  "version": "0.25.1",
+  "version": "0.26.0",
   "description": "Macro framework for beautiful, monolithic Node.js apps - batteries included, yaay!",
   "main": "index.js",
   "repository": "https://github.com/zaiste/huncwot",
@@ -34,7 +34,7 @@
     "sqorn-pg": "0.0.40",
     "szelmostwo": "^0.0.5",
     "validate-node-version": "^1.1.1",
-    "vue": "^2.5.17",
+    "vue": "2.5.17",
     "vue-class-component": "^6.3.2",
     "vuex": "^3.0.1",
     "yargs": "^12.0.5"
