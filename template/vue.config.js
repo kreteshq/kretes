@@ -25,5 +25,11 @@ module.exports = {
       .use('docs')
       .loader('./config/loaders/docs.js')
       .end();
+
+    const svgRule = config.module.rule('svg');
+
+    svgRule.uses.clear();
+
+    svgRule.use('vue-svg-loader').loader('vue-svg-loader');
   }
 };
