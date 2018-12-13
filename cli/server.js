@@ -31,7 +31,17 @@ async function serve({ port }) {
     app.listen(port);
   }
 
-  console.log(`${color.bold.green('Huncwot:')} ${VERSION}`);
+  console.log(
+    `${color.bold.green('Huncwot:')} ${color.underline(
+      VERSION
+    )} (started on ${color.grey(
+      new Date()
+        .toISOString()
+        .split('.')
+        .shift()
+        .replace('T', ' ')
+    )})`
+  );
 }
 
 module.exports = {
