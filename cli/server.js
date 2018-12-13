@@ -32,7 +32,7 @@ async function serve({ port }) {
   }
 
   console.log(
-    `${color.bold.green('Huncwot:')} ${color.underline(
+    `${color.bold.blue('Huncwot:')} ${color.underline(
       VERSION
     )} (started on ${color.grey(
       new Date()
