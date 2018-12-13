@@ -3,10 +3,14 @@
   "scripts": {
     "client": "vue-cli-service serve client/index.ts",
     "build": "vue-cli-service build client/index.ts",
+    "server:dev": "nodemon --quiet -w server --exec 'tsc && huncwot server'",
     "server": "huncwot server",
     "watch-ts": "tsc -w",
     "compile-ts": "tsc",
-    "start": "npm-run-all compile-ts -p client server watch-ts"
+    "start": "npm-run-all compile-ts -p client server:dev watch-ts",
+    "deploy:client": "rsync -azP --rsh=ssh dist/ YOUR_SERVER:YOUR_PATH",
+    "deploy:server": "rsync -azP --rsh=ssh --exclude 'dist' --exclude 'node_modules' --exclude '.git' --exclude '.build' --exclude 'config/database.json' . YOUR_SERVER:YOUR_PATH"
+
   },
   "dependencies": {
     "@vue/cli-service": "^3.2.0",
