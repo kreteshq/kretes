@@ -11,6 +11,8 @@ Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7
 [Contribution Guide](CONTRIBUTING.md) |
 [Twitter](http://twitter.com/huncwot)
 
+> The documentation is a bit outdated. Check the [Huncwot Example App](https://github.com/zaiste/huncwot-example-app) for inspiration and guidance.
+
 ## Table of Contents
 
 * [In a nutshell](#in-a-nutshell)
