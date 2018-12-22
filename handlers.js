@@ -16,21 +16,21 @@ const { join, parse } = require('path');
 const { scan } = require('./util');
 
 async function list(dir) {
-  return scan(dir)
-    .map(f => {
-      const { dir, name } = parse(f);
-      const path = join(dir, name);
-      return { resource: dir, operation: name, path };
-    });
+  return scan(dir).map(f => {
+    const { dir, name } = parse(f);
+    const path = join(dir, name);
+    return { resource: dir, operation: name, path };
+  });
 }
 
 function translate(name, resource) {
   const methods = {
+    // BFCUD
     browse: { method: 'get', route: `/${resource}` },
-    read: { method: 'get', route: `/${resource}/:id` },
-    edit: { method: 'put', route: `/${resource}/:id` },
-    add: { method: 'post', route: `/${resource}` },
-    destroy: { method: 'delete', route: `/${resource}/:id` },
+    fetch: { method: 'get', route: `/${resource}/:id` },
+    create: { method: 'post', route: `/${resource}` },
+    update: { method: 'put', route: `/${resource}/:id` },
+    destroy: { method: 'delete', route: `/${resource}/:id` }
   };
 
   return methods[name];
