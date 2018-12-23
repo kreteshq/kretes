@@ -19,6 +19,7 @@ const { serve, security } = require('szelmostwo/middleware');
 const { list, translate } = require('./handlers');
 
 const cwd = process.cwd();
+const handlerDir = join(cwd, '.build', 'server', 'handlers');
 
 class Huncwot extends Szelmostwo {
   constructor({
@@ -52,7 +53,7 @@ class Huncwot extends Szelmostwo {
             break;
           default:
             console.error(error);
-            throw new Error('Unknown GraphQL error occured');
+            break;
         }
       }
     }
@@ -62,13 +63,7 @@ class Huncwot extends Szelmostwo {
         .then(handlers => {
           for (let { resource, operation, path } of handlers) {
             try {
-              const handler = require(`${join(
-                cwd,
-                '.build',
-                'server',
-                'handlers',
-                path
-              )}.js`);
+              const handler = require(`${join(handlerDir, path)}.js`);
               let { method, route } = translate(operation, resource);
               this[method](route, request => handler(request));
             } catch (error) {
