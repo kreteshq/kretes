@@ -20,7 +20,7 @@ function handler(_) {
 
   // XXX properly set environemnt
   const { database, username } = config.development;
-  const psql = `psql ${database} ${username} < db/tasks.sql`;
+  const psql = `psql ${database} ${username} < db/setup.sql`;
   const { stdout, stderr } = exec(psql, { cwd });
 
   stdout.pipe(process.stdout);
