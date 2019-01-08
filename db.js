@@ -14,7 +14,7 @@
 const cwd = process.cwd();
 
 const pg = require('pg');
-const sqorn = require('sqorn-pg');
+const sqorn = require('@sqorn/pg');
 
 const dbConfig = require(`${cwd}/config/database.json`);
 const connection = dbConfig[process.env.HUNCWOT_ENV || 'development'];
