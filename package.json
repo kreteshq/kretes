@@ -32,7 +32,7 @@
     "pg": "^7.7.1",
     "raw-body": "^2.3.3",
     "@sqorn/pg": "0.0.45",
-    "szelmostwo": "^0.0.5",
+    "szelmostwo": "^0.1.0",
     "validate-node-version": "^1.1.1",
     "vue": "2.5.21",
     "vue-class-component": "^6.3.2",
