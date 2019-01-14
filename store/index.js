@@ -43,6 +43,7 @@ export const generate = ({ resource, type }) => ({ state }) => {
   const _state = Object.assign(
     {},
     {
+      item: {},
       collection: [],
       error: '',
       loading: true
@@ -61,17 +62,24 @@ export const generate = ({ resource, type }) => ({ state }) => {
 
       commit('collection', collection);
     },
-    async fetch({ commit }, { id, filter, sort, page } = {}) {
-      const path = id ? `/rest/${resource}/${id}` : `/rest/${resource}`;
+    async browse({ commit }, { filter, sort, page } = {}) {
+      const path = `/rest/${resource}`;
 
       try {
-        if (id) {
-          const { data: item } = await HTTP.get(path);
-          commit('item', item);
-        } else {
-          const { data: collection } = await HTTP.get(path);
-          commit('collection', collection);
-        }
+        const { data: collection } = await HTTP.get(path);
+        commit('collection', collection);
+      } catch (error) {
+        commit('error', error.message);
+      }
+    },
+    async fetch({ commit }, id) {
+      const path = `/rest/${resource}/${id}`;
+
+      try {
+        const {
+          data: [item]
+        } = await HTTP.get(path);
+        commit('item', item);
       } catch (error) {
         commit('error', error.message);
       }

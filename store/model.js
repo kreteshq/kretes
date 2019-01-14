@@ -22,8 +22,12 @@ export class Model {
     this.store().dispatch(`${this.entity}/${action}`, item);
   }
 
-  static fetch() {
-    this.dispatch('fetch');
+  static browse({ filter, sort, page } = {}) {
+    this.dispatch('browse', { filter, sort, page });
+  }
+
+  static fetch(id) {
+    this.dispatch('fetch', id);
   }
 
   static create(item) {
