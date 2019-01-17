@@ -12,7 +12,10 @@
 // limitations under the License.
 
 const basicAuth = require('basic-auth');
+const db = require('./db.js');
+
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 function auth({ users }) {
   return async (context, next) => {
@@ -50,3 +53,16 @@ function auth({ users }) {
 module.exports = auth;
 const compare = bcrypt.compare;
 const hash = bcrypt.hash;
+class Session {
+  static async create(person_id) {
+    const token = await new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (error, data) => {
+        error ? reject(error) : resolve(data.toString('base64'));
+      });
+    });
+
+    await db`session`.insert({ token, person_id });
+
+    return token;
+  }
+}
