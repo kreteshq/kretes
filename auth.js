@@ -11,6 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const { unauthorized } = require('./response.js');
 const basicAuth = require('basic-auth');
 const db = require('./db.js');
 
@@ -50,9 +51,21 @@ function auth({ users }) {
   }
 }
 
-module.exports = auth;
+const can = func => {
+  return async request => {
+    const { token } = request.params;
+    const [r] = await db`session`({ token });
+    if (r) {
+      return await func(request);
+    } else {
+      return unauthorized();
+    }
+  };
+};
+
 const compare = bcrypt.compare;
 const hash = bcrypt.hash;
+
 class Session {
   static async create(person_id) {
     const token = await new Promise((resolve, reject) => {
@@ -66,3 +79,5 @@ class Session {
     return token;
   }
 }
+
+module.exports = { auth, can, hash, compare, Session };
