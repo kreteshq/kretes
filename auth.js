@@ -54,9 +54,14 @@ function auth({ users }) {
 const can = func => {
   return async request => {
     const { token } = request.params;
-    const [r] = await db`session`({ token });
-    if (r) {
-      return await func(request);
+
+    if (token) {
+      const [r] = await db`session`({ token });
+      if (r) {
+        return await func(request);
+      } else {
+        return unauthorized();
+      }
     } else {
       return unauthorized();
     }
