@@ -36,7 +36,7 @@ function notFound(headers = {}) {
 function redirect(url, body = 'Redirecting...', statusCode = 302) {
   return {
     statusCode,
-    headers: { 'Location': url },
+    headers: { Location: url },
     type: 'text/plain',
     body
   };
@@ -46,7 +46,7 @@ function json(content, statusCode = 200) {
   return {
     statusCode,
     body: JSON.stringify(content),
-    type: 'application/json',
+    type: 'application/json'
   };
 }
 
@@ -54,9 +54,16 @@ function html(content) {
   return {
     statusCode: 200,
     type: 'text/html',
-    body: content,
+    body: content
   };
 }
+
+const unauthorized = () => ({
+  statusCode: 401,
+  // add WWW-Authenticate
+  headers: {},
+  body: ''
+});
 
 module.exports = {
   ok,
@@ -66,5 +73,6 @@ module.exports = {
   html,
   json,
   notFound,
-  noContent
+  noContent,
+  unauthorized
 };
