@@ -11,13 +11,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+require('json5/lib/register');
+
 const cwd = process.cwd();
 
 const pg = require('pg');
 const sqorn = require('@sqorn/pg');
 
-const dbConfig = require(`${cwd}/config/database.json`);
-const connection = dbConfig[process.env.HUNCWOT_ENV || 'development'];
+const dbConfig = require(`${cwd}/config/default.json5`);
+const connection = dbConfig['db'];
 
 const pool = new pg.Pool(connection);
 const db = sqorn({ pg, pool });
