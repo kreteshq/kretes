@@ -54,7 +54,8 @@ function match(options = {}) {
 }
 
 function isObject(_) {
-  return (!!_) && (_.constructor === Object);
+  return !!_ && typeof _ === 'object';
+  //return !!_ && _.constructor === Object;
 }
 
 let concat = (a, b) => a.concat(b);
