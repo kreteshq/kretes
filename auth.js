@@ -12,6 +12,7 @@
 // limitations under the License.
 
 const basicAuth = require('basic-auth');
+const bcrypt = require('bcrypt');
 
 function auth({ users }) {
   return async (context, next) => {
@@ -47,3 +48,5 @@ function auth({ users }) {
 }
 
 module.exports = auth;
+const compare = bcrypt.compare;
+const hash = bcrypt.hash;
