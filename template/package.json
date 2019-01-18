@@ -3,11 +3,10 @@
   "scripts": {
     "client": "vue-cli-service serve client/index.ts",
     "build": "vue-cli-service build client/index.ts",
-    "server:dev": "nodemon --quiet -w server --exec 'tsc && huncwot server'",
-    "server": "huncwot server",
+    "server": "ROARR_LOG=true huncwot server | npx roarr pretty-print",
+    "server:dev": "nodemon --quiet -w server --exec 'tsc && npm run server'",
     "watch-ts": "tsc -w",
-    "compile-ts": "tsc",
-    "start": "npm-run-all compile-ts -p client server:dev watch-ts",
+    "start": "stmux -w always -e ERROR -m beep,system -- [ [ -t 'Client: Vue.js' 'npm run client' .. -t 'Server' 'npm run server:dev' ] : -t 'TypeScript' -s 1/3 -f \"npm run watch-ts\" ]",
     "deploy:client": "rsync -azP --rsh=ssh dist/ YOUR_SERVER:YOUR_PATH",
     "deploy:server": "rsync -azP --rsh=ssh --exclude 'dist' --exclude 'node_modules' --exclude '.git' --exclude '.build' --exclude 'config/database.json' . YOUR_SERVER:YOUR_PATH"
 
