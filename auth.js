@@ -86,3 +86,31 @@ class Session {
 }
 
 module.exports = { auth, can, hash, compare, Session };
+const login = ({
+  table = 'person',
+  finder = 'email',
+  fields = []
+} = {}) => async ({ params }) => {
+  const { password } = params;
+  const value = params[finder];
+
+  const [person] = await db
+    .from(table)
+    .where({ email: value })
+    .return('id', 'password', finder, ...fields);
+
+  if (person) {
+    const { id: person_id, password: actual_password } = person;
+
+    const match = await compare(password, actual_password);
+
+    if (match) {
+      const token = await Session.create(person_id);
+      return created(Object.assign({ token }, person));
+    } else {
+      return unauthorized();
+    }
+  } else {
+    return unauthorized();
+  }
+};
