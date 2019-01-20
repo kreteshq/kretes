@@ -11,7 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { unauthorized } = require('./response.js');
+const { unauthorized, created } = require('./response.js');
 const basicAuth = require('basic-auth');
 const db = require('./db.js');
 
@@ -85,7 +85,32 @@ class Session {
   }
 }
 
-module.exports = { auth, can, hash, compare, Session };
+const register = ({
+  table = 'person',
+  finder = 'email',
+  fields = []
+}) => async ({ params }) => {
+  const { password } = params;
+  const value = params[finder];
+
+  const hashed_password = await hash(password, 10);
+
+  let person = {};
+  for (let field of fields) {
+    person[field] = params[field];
+  }
+  Object.assign(person, { [finder]: value, password: hashed_password });
+
+  const [{ id: person_id }] = await db
+    .from(table)
+    .insert(person)
+    .return('id');
+
+  const token = await Session.create(person_id);
+
+  return created({ person_id, token });
+};
+
 const login = ({
   table = 'person',
   finder = 'email',
@@ -114,3 +139,5 @@ const login = ({
     return unauthorized();
   }
 };
+
+module.exports = { auth, can, hash, compare, Session, register, login };
