@@ -140,7 +140,8 @@ const login = ({
 
     if (match) {
       const token = await Session.create(person_id);
-      return created(Object.assign({ token }, person));
+      const { password, ...rest } = person; // delete is slow, use spread instead
+      return created(Object.assign({ token }, rest));
     } else {
       return unauthorized();
     }
