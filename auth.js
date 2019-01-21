@@ -1,4 +1,4 @@
-// Copyright 2018 Zaiste & contributors. All rights reserved.
+// Copyright 2019 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -101,14 +101,23 @@ const register = ({
   }
   Object.assign(person, { [finder]: value, password: hashed_password });
 
-  const [{ id: person_id }] = await db
-    .from(table)
-    .insert(person)
-    .return('id');
+  const transaction = await db.transaction();
 
-  const token = await Session.create(person_id);
+  try {
+    const [{ id: person_id }] = await db
+      .from(table)
+      .insert(person)
+      .return('id');
 
-  return created({ person_id, token });
+    const token = await Session.create(person_id);
+
+    await transaction.commit();
+
+    return created({ person_id, token });
+  } catch (error) {
+    await transaction.rollback();
+    throw error;
+  }
 };
 
 const login = ({
