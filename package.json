@@ -17,13 +17,13 @@
   },
   "peerDependencies": {
     "axios": "^0.18.0",
-    "vue": "2.5.22",
+    "vue": "2.6.2",
     "vue-class-component": "^6.3.2",
     "vuex": "^3.1.0"
   },
   "dependencies": {
     "@sqorn/pg": "0.0.45",
-    "apollo-server-core": "^2.3.2",
+    "apollo-server-core": "^2.3.4",
     "apollo-server-module-graphiql": "^2.0.0-beta.6",
     "axios": "^0.18.0",
     "basic-auth": "^2.0.1",
@@ -42,7 +42,7 @@
     "raw-body": "^2.3.3",
     "szelmostwo": "^0.2.0",
     "validate-node-version": "^1.1.1",
-    "vue": "2.5.22",
+    "vue": "2.6.2",
     "vue-class-component": "^6.3.2",
     "vuex": "^3.1.0",
     "yargs": "^12.0.5"
