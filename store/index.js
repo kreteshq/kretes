@@ -66,7 +66,9 @@ export const generate = ({ resource, type }) => ({ state }) => {
       const path = `/rest/${resource}`;
 
       try {
-        const { data: collection } = await HTTP.get(path);
+        const { data: collection } = await HTTP.get(path, {
+          params: { filter }
+        });
         commit('collection', collection);
       } catch (error) {
         commit('error', error.message);
