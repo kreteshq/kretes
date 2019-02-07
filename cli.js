@@ -24,26 +24,23 @@ const argv = require('yargs')
   .version()
   .usage('Usage: huncwot <command> [options]')
   .command(
-    ['new [dir]', 'initialize', 'n'],
+    ['new [dir]', 'init', 'n'],
     'Create new project',
     require('./cli/init')
   )
-  .example(
-    'huncwot new my-project',
-    'Create and initialize `my-project` directory'
-  )
+  .example('$0 new my-project', 'Create and initialize `my-project` directory')
   .command(
     ['server [dir]', 'serve', 'se'],
     'Serve the directory',
     require('./cli/server')
   )
-  .example('huncwot server --port 4000', 'Serve the directory at the port 4000')
+  .example('$0 server --port 4000', 'Serve the directory at the port 4000')
   .command(
     ['start', 'start', 's'],
     'Start the application',
     require('./cli/start')
   )
-  .example('huncwot start', 'Start the application')
+  .example('$0 start', 'Start the application')
   .command(
     ['database [command]', 'db'],
     'Database operations',
