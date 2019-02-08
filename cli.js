@@ -30,17 +30,23 @@ const argv = require('yargs')
   )
   .example('$0 new my-project', 'Create and initialize `my-project` directory')
   .command(
-    ['server [dir]', 'serve', 'se'],
-    'Serve the directory',
-    require('./cli/server')
-  )
-  .example('$0 server --port 4000', 'Serve the directory at the port 4000')
-  .command(
     ['start', 'start', 's'],
     'Start the application',
     require('./cli/start')
   )
   .example('$0 start', 'Start the application')
+  .command(
+    ['client', 'client', 'c'],
+    'Start only the client',
+    require('./cli/client')
+  )
+  .example('$0 client', 'Start only the client')
+  .command(
+    ['server [dir]', 'serve', 'se'],
+    'Serve the directory',
+    require('./cli/server')
+  )
+  .example('$0 server --port 4000', 'Serve the directory at the port 4000')
   .command(
     ['database [command]', 'db'],
     'Database operations',
