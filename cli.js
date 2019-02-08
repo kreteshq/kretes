@@ -46,6 +46,12 @@ const argv = require('yargs')
     'Database operations',
     require('./cli/database')
   )
+  .command(
+    ['deploy', 'deploy', 'de'],
+    'Deploy the application',
+    require('./cli/deploy')
+  )
+  .example('$0 deploy', 'Deploy the application')
   .demandCommand(1, 'You need at least one command before moving on')
   .help('h')
   .alias('h', 'help')
