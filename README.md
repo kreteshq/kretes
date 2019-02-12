@@ -1,14 +1,27 @@
-# [Huncwot](https://huncwot.org) (pre-alpha)
+<p align="center">
+  <img width="250" src="/docs/huncwot-logo.svg">
+</p>
 
+<h1 align="center">
+  <a href="https://huncwot.org">Huncwot</a>
+</h1>
 
-[![Subscribe](https://img.shields.io/badge/%20huncwot%20-%20newsletter%20-blue.svg)](https://landing.mailerlite.com/webforms/landing/a3k0m1)
-[![npm](https://img.shields.io/npm/v/huncwot.svg)](https://www.npmjs.com/package/huncwot)
-[![npm](https://img.shields.io/npm/dm/huncwot.svg)](https://www.npmjs.com/package/huncwot)
+<p align="center">
+  <b>Macro framework for monolithic JavaScript applications, batteries included</b> 
+</p>
 
-Huncwot is a fast, opinionated and minimal Node.js web framework built for ES6/7 era with « batteries included » approach. It exclusively supports Node 7.6+ to avoid a transpilation pipeline of any kind. It is an **integrated** solution that optimizes for programmers productivity by reducing choices and incorporating community conventions.
+<br>
+
+<p align="center">
+  <a href="https://landing.mailerlite.com/webforms/landing/a3k0m1"><img src="https://img.shields.io/badge/%20newsletter%20-%20subscribe%20-blue.svg?style=for-the-badge" alt="Subscribe to Huncwot Newsletter"></a>
+  <a href="https://www.npmjs.com/package/huncwot"><img src="https://img.shields.io/npm/v/huncwot.svg?style=for-the-badge" alt="Huncwot Package on NPM"></a>
+  <a href="https://www.npmjs.com/package/huncwot"><img src="https://img.shields.io/npm/dm/huncwot.svg?style=for-the-badge" alt="Huncwot Package on NPM"></a>
+  <a href="https://discord.gg/fdqx3BD"><img src="https://img.shields.io/badge/Discord-join%20chat-738bd7.svg?style=for-the-badge" Alt="Huncwot channel on Discord"></a>
+</a>
+
+Huncwot is a **macro framework** for **monolithic** web applications built for modern JavaScript with « batteries included » approach. It is an **integrated** solution that optimizes for programmers productivity by reducing choices and incorporating community conventions. 
 
 [Website](https://huncwot.org) |
-[Contribution Guide](CONTRIBUTING.md) |
 [Twitter](http://twitter.com/huncwot)
 
 > The documentation is a bit outdated. Check the [Huncwot Example App](https://github.com/zaiste/huncwot-example-app) for inspiration and guidance.
