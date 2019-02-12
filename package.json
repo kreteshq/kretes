@@ -17,7 +17,7 @@
   },
   "peerDependencies": {
     "axios": "^0.18.0",
-    "vue": "2.6.4",
+    "vue": "2.6.6",
     "vue-class-component": "^6.3.2",
     "vuex": "^3.1.0"
   },
@@ -44,10 +44,10 @@
     "rsyncwrapper": "^3.0.1",
     "szelmostwo": "^0.2.0",
     "validate-node-version": "^1.1.1",
-    "vue": "2.6.4",
+    "vue": "2.6.6",
     "vue-class-component": "^6.3.2",
     "vuex": "^3.1.0",
-    "yargs": "^12.0.5"
+    "yargs": "^13.1.0"
   },
   "bin": {
     "huncwot": "cli.js",

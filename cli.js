@@ -22,7 +22,7 @@ if (!validateNode.satisfies) {
 
 const argv = require('yargs')
   .version()
-  .usage('Usage: huncwot <command> [options]')
+  .usage('Usage: $0 <command> [options]')
   .command(
     ['new [dir]', 'init', 'n'],
     'Create new project',
@@ -47,6 +47,12 @@ const argv = require('yargs')
     require('./cli/server')
   )
   .example('$0 server --port 4000', 'Serve the directory at the port 4000')
+  .command(
+    ['build', 'build', 'b'],
+    'Build the application for production',
+    require('./cli/build')
+  )
+  .example('$0 build', 'Build the application for production')
   .command(
     ['database [command]', 'db'],
     'Database operations',
