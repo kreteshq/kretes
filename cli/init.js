@@ -15,19 +15,27 @@ const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs-extra'));
 const { join, resolve, delimiter } = require('path');
 const { spawn } = require('child_process');
+const { bold, underline, green, magenta, gray } = require('chalk');
 
 const { substitute } = require('../util');
 
 const cwd = process.cwd();
 const username = require('os').userInfo().username;
 
+const VERSION = require('../package.json').version;
+
 async function init({ dir }) {
   const themeDir = join(resolve(__dirname, '..'), 'template');
 
   const name = dir.replace(/-/g, '_');
 
+  console.log(`${bold.blue('Huncwot')} ${underline(gray(VERSION))}`);
   try {
-    console.log(`Initialising '${dir}'...`);
+    console.log(
+      `${gray('1.')} ${green('new')} - creating project structure in ${magenta(
+        dir
+      )} directory ...`
+    );
 
     // static files
     await fs.copyAsync(themeDir, join(cwd, dir));
@@ -48,7 +56,15 @@ async function init({ dir }) {
     const content = generatePackageJSON(dir);
     await fs.outputJson(path, content, { spaces: 2 });
 
+    console.log(
+      `${gray('2.')} ${green('new')} - installing dependencies with ${magenta(
+        'npm install'
+      )} ...`
+    );
     const install = spawn('npm', ['install'], { cwd: dir, stdio: 'inherit' });
+    install.on('close', () =>
+      console.log(`${underline(green('\nFinished.'))}`)
+    );
   } catch (error) {
     console.log('error: ' + error.message);
   }
