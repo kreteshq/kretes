@@ -16,7 +16,10 @@ const fs = Promise.promisifyAll(require('fs-extra'));
 const { join, resolve, delimiter } = require('path');
 const { spawn } = require('child_process');
 
+const { substitute } = require('../util');
+
 const cwd = process.cwd();
+const username = require('os').userInfo().username;
 
 async function init({ dir }) {
   const themeDir = join(resolve(__dirname, '..'), 'template');
@@ -25,21 +28,20 @@ async function init({ dir }) {
 
   try {
     console.log(`Initialising '${dir}'...`);
-    // Info about PostgreSQL client running instead ?
-    console.log('Database engine: ');
-
-    // dynamic files
-    const databaseConfig = join(cwd, dir, 'config', 'database.json');
-    await fs.outputJson(databaseConfig, generateDatabaseConfig(name), {
-      spaces: 2
-    });
-
-    const sql = join(cwd, dir, 'db', 'tasks.sql');
-    await fs.outputFile(sql, generateSQL(name));
 
     // static files
     await fs.copyAsync(themeDir, join(cwd, dir));
 
+    const configTemplate = await fs.readFile(
+      join(themeDir, 'config', 'default.json5'),
+      'utf-8'
+    );
+    const configOutput = join(cwd, dir, 'config', 'default.json5');
+    const compiled = substitute(configTemplate, {
+      database: name,
+      user: username
+    });
+    await fs.outputFile(configOutput, compiled);
     // Overwrites `package.json` copied above
     const path = join(cwd, dir, 'package.json');
     const content = generatePackageJSON(dir);
@@ -81,53 +83,9 @@ module.exports = {
   builder: _ => _.default('dir', '.')
 };
 
-// TODO: generalize this function as ~ `generate(...)`
-function generateDatabaseConfig(database) {
-  return {
-    development: {
-      host: 'localhost',
-      port: 5432,
-      database
-    },
-    test: {
-      host: 'localhost',
-      port: 5432,
-      database
-    },
-    production: {
-      host: 'localhost',
-      port: 5432,
-      database
-    }
-  };
-}
-
 function generatePackageJSON(name) {
   const content = require('../template/package.json');
   const result = Object.assign({ name, version: '0.0.1' }, content);
 
   return result;
-}
-
-function generateSQL(name, dbengine) {
-  switch (dbengine) {
-    case 'postgresql':
-      return `DROP DATABASE IF EXISTS ${name}_dev;
-CREATE DATABASE ${name}_dev;
-
-\\c ${name}_dev;
-
-CREATE TABLE tasks (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR,
-  done BOOLEAN
-);
-
-INSERT INTO tasks (name, done)
-VALUES
-    ('Share the love about Huncwot', false),
-    ('Build a fantastic web application', false),
-    ('Give back to the community', false);
-`;
-  }
 }

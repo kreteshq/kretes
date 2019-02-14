@@ -79,4 +79,30 @@ function scan(directory, recursive = true) {
     .reduce(concat, []);
 }
 
-module.exports = { pick, compose, match, isObject, scan };
+const substitute = (template, data) => {
+  const start = '{{';
+  const end = '}}';
+  const path = '[a-z0-9_$][\\.a-z0-9_]*';
+  const pattern = new RegExp(start + '\\s*(' + path + ')\\s*' + end, 'gi');
+
+  return template.replace(pattern, (tag, token) => {
+    let path = token.split('.');
+    let len = path.length;
+    let lookup = data;
+    let i = 0;
+
+    for (; i < len; i++) {
+      lookup = lookup[path[i]];
+
+      if (lookup === undefined) {
+        throw `substitue: '${path[i]}' not found in '${tag}'`;
+      }
+
+      if (i === len - 1) {
+        return lookup;
+      }
+    }
+  });
+};
+
+module.exports = { pick, compose, match, isObject, scan, substitute };
