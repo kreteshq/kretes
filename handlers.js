@@ -1,4 +1,4 @@
-// Copyright 2018 Zaiste & contributors. All rights reserved.
+// Copyright 2019 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,11 +16,16 @@ const { join, parse } = require('path');
 const { scan } = require('./util');
 
 async function list(dir) {
-  return scan(dir).map(f => {
-    const { dir, name } = parse(f);
-    const path = join(dir, name);
-    return { resource: dir, operation: name, path };
-  });
+  return scan(dir)
+    .filter(f => {
+      const { name } = parse(f);
+      return !name.startsWith('.');
+    })
+    .map(f => {
+      const { dir, name } = parse(f);
+      const path = join(dir, name);
+      return { resource: dir, operation: name, path };
+    });
 }
 
 function translate(name, resource) {
