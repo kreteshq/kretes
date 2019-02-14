@@ -42,39 +42,15 @@ async function init({ dir }) {
       user: username
     });
     await fs.outputFile(configOutput, compiled);
+
     // Overwrites `package.json` copied above
     const path = join(cwd, dir, 'package.json');
     const content = generatePackageJSON(dir);
     await fs.outputJson(path, content, { spaces: 2 });
 
-    const isYarnInstalled = await hasbin('yarn');
-
-    if (isYarnInstalled) {
-      spawn('yarn', { cwd: dir, stdio: 'inherit' });
-    } else {
-      console.error(
-        '\nError: `yarn` is not installed. Please check their installation guide at https://yarnpkg.com/en/docs/install to learn how to install `yarn` on your platform'
-      );
-    }
+    const install = spawn('npm', ['install'], { cwd: dir, stdio: 'inherit' });
   } catch (error) {
     console.log('error: ' + error.message);
-  }
-}
-
-async function hasbin(name) {
-  return await Promise.resolve(
-    process.env.PATH.split(delimiter).map(_ => join(_, name))
-  )
-    .map(exists)
-    .reduce((a, b) => a || b);
-}
-
-async function exists(pathname) {
-  try {
-    await fs.accessAsync(pathname);
-    return true;
-  } catch (error) {
-    return false;
   }
 }
 
