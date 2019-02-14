@@ -11,6 +11,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
+
 const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
 const rsyncwrapper = require('rsyncwrapper');
 const config = require('config');
