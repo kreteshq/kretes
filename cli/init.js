@@ -39,6 +39,8 @@ async function init({ dir }) {
 
     // static files
     await fs.copyAsync(themeDir, join(cwd, dir));
+    await fs.rename(join(themeDir, 'npmrc'), join(cwd, dir, '.npmrc'));
+    await fs.rename(join(themeDir, 'gitignore'), join(cwd, dir, '.gitignore'));
 
     const configTemplate = await fs.readFile(
       join(themeDir, 'config', 'default.json5'),

@@ -1,4 +1,7 @@
-.marko.js
+.cache/
+*.marko.js
+examples/**/static/
+
 
 # Logs
 logs
@@ -40,7 +43,7 @@ jspm_packages/
 typings/
 
 # Optional npm cache directory
-.npm/
+.npm
 
 # Optional eslint cache
 .eslintcache
@@ -56,7 +59,6 @@ typings/
 
 # dotenv environment variables file
 .env
-.cache/
 
 dist/
 build/
