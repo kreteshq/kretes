@@ -7,7 +7,7 @@
     "server:dev": "nodemon --quiet -w server --exec 'tsc && npm run server'",
     "server:build": "tsc",
     "typescript:watch": "tsc -w",
-    "start": "stmux -w always -e ERROR -m beep,system -- [ [ -t 'Client: Vue.js' 'npm run client' .. -t 'Server' 'npm run server:dev' ] : -t 'TypeScript' -s 1/3 -f \"npm run typescript:watch\" ]",
+    "start": "stmux -w always -e ERROR -m beep,system -- [ [ -t 'Client: Vue.js' 'npm run client' .. -t 'Server' 'npm run server:dev' ] : [ -t 'TypeScript' -f 'npm run typescript:watch' .. -t 'Help' 'bash .info.sh'] ]",
     "migrate": "node-pg-migrate -m db/migrations"
   },
   "dependencies": {
