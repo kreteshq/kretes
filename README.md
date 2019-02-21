@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-  <b>Macro framework for monolithic JavaScript applications, batteries included</b> 
+  <b>Macro framework for monolithic JavaScript applications, batteries included</b>
 </p>
 
 <br>
@@ -19,7 +19,7 @@
   <a href="https://discord.gg/fdqx3BD"><img src="https://img.shields.io/badge/Discord-join%20chat-738bd7.svg?style=for-the-badge" Alt="Huncwot channel on Discord"></a>
 </a>
 
-Huncwot is a **macro framework** for **monolithic** web applications built for modern JavaScript with « batteries included » approach. It is an **integrated** solution that optimizes for programmers productivity by reducing choices and incorporating community conventions. 
+Huncwot is a **macro framework** for **monolithic** web applications built for modern JavaScript with « batteries included » approach. It is an **integrated** solution that optimizes for programmers productivity by reducing choices and incorporating community conventions.
 
 [Website](https://huncwot.org) |
 [Twitter](http://twitter.com/huncwot)
@@ -49,17 +49,34 @@ Huncwot is a **macro framework** for **monolithic** web applications built for m
 
 ## In a nutshell
 
-* [Universal JavaScript](https://cdb.reacttraining.com/universal-javascript-4761051b7ae9) (some find the term a bit superfluous): Huncwot bridges client- (frontend) and server-side (backend) development to use JavaScript across the board
-* it can be used as a replacement for Express/Koa to build only server-side applications
-* it can be used as a convenient boilerplate for Vue.js to build only client-side applications
-* it uses [Sqorn](https://sqorn.org/) for the database integration which provides a SQL-like abstraction instead of an ORM of any sort
-* it uses [Vue.js](https://vuejs.org/) on the frontend
-* it uses [Vuex](https://vuex.vuejs.org/en/) for state management
-* it provides a simpler abstraction (inspired by Clojure's [ring](https://github.com/ring-clojure/ring) web library) than Express/Koa for server-side content
-* it provides REST endpoints out-of-the-box
-* it provides [GraphQL](http://graphql.org/) integration out of the box using [Apollo](https://github.com/apollographql/apollo-server) to collocate queries with components
-* it uses [Webpack 4](https://webpack.js.org/) for bundling assets
-* it allows to write [TypeScript](https://www.typescriptlang.org/) on the backend
+Huncwot bridges client-side (*frontend*) and server-side (*backend*) development by using [a single programming language - JavaScript - across the board](https://cdb.reacttraining.com/universal-javascript-4761051b7ae9).
+
+On the server, Huncwot ...
+
+* ... can be used as a replacement for Express/Koa to build server-side applications
+* ... provides a simpler HTTP handler abstraction (inspired by Clojure's [ring](https://github.com/ring-clojure/ring)) than Express/Koa
+* ... provides a REST endpoint out of the box
+* ... provides a GraphQL endpoint out of the box using [Apollo Server](https://github.com/apollographql/apollo-server)
+
+On the client, Huncwot ...
+
+* ... uses [Vue.js](https://vuejs.org/)
+* ... uses [Vuex](https://vuex.vuejs.org/en/) for state management
+* ... uses [Webpack 4](https://webpack.js.org/) for bundling assets
+* ... favors class-style Vue.js components using [vue-class-component](https://github.com/vuejs/vue-class-component)
+* ... can be used as a convenient boilerplate for Vue.js to build client-side applications
+* ... allows to collocate [GraphQL](http://graphql.org/) queries with Vue.js components out of the box using [Apollo](https://github.com/Akryum/vue-apollo)
+* ... favors plain SQL over ORMs as [SQL is one of the most valuable skills](http://www.craigkerstiens.com/2019/02/12/sql-most-valuable-skill/)
+* ... uses [Sqorn](https://sqorn.org/) for the database integration which provides a SQL-like abstractions right inside JavaScript
+* ... uses [vue-i18n](https://github.com/kazupon/vue-i18n) for internationalization
+
+On a general note, Huncwot ...
+
+* ... draws inspiration from Rails while trying to be less *magical*, if any at all
+* ... allows & favors writing [TypeScript](https://www.typescriptlang.org/)
+* ... comes with a CLI (which wraps over `npm scripts`)
+* ... supports only PostgreSQL
+* ... is unwilling to support NoSQL ([Thank you for your help NoSQL, but we got it from here](https://www.memsql.com/blog/why-nosql-databases-wrong-tool-for-modern-application/))
 
 ## Rationale
 
@@ -80,21 +97,27 @@ huncwot new my-project
 cd my-project
 ```
 
-Start the application using `yarn` or `npm`
+Start the application using `huncwot`, `hc` (alias) or `npm`
 
 ```
-yarn run start
+huncwot start
 ```
 
 or
 
 ```
-npm run start
+hc start
+```
+
+or
+
+```
+npm start
 ```
 
 Visit `https://localhost:8080`
 
-![Huncwot Init](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/huncwot-init.png)
+![Huncwot Init](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/huncwot-start.png)
 
 ## Usage
 
@@ -200,7 +223,7 @@ An ORM is at times too much to get data out of the database. Huncwot provides an
 thin layer of integration with various RDMBS systems using
 [Sqorn](https://sqorn.org/). Thanks to this library you can
 write usual SQL queries, yet fully integrated with the regular JavaScript data
-structures. 
+structures.
 
 The database configuration is stored `config/database.json` as a JSON document.
 

@@ -9,7 +9,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
-    "mocha": "^5.2.0"
+    "mocha": "^6.0.0"
   },
   "scripts": {
     "test": "mocha --reporter list",
@@ -18,12 +18,12 @@
   "peerDependencies": {
     "axios": "^0.18.0",
     "vue": "2.6.6",
-    "vue-class-component": "^6.3.2",
+    "vue-class-component": "^7.0.1",
     "vuex": "^3.1.0"
   },
   "dependencies": {
     "@sqorn/pg": "0.0.45",
-    "apollo-server-core": "^2.4.2",
+    "apollo-server-core": "^2.4.3",
     "apollo-server-module-graphiql": "^2.0.0-beta.6",
     "axios": "^0.18.0",
     "basic-auth": "^2.0.1",
@@ -39,15 +39,15 @@
     "json5": "^2.1.0",
     "mime-types": "^2.1.22",
     "path-to-regexp": "^3.0.0",
-    "pg": "^7.8.0",
+    "pg": "^7.8.1",
     "raw-body": "^2.3.3",
     "rsyncwrapper": "^3.0.1",
     "szelmostwo": "^0.2.0",
     "validate-node-version": "^1.1.1",
     "vue": "2.6.6",
-    "vue-class-component": "^6.3.2",
+    "vue-class-component": "^7.0.1",
     "vuex": "^3.1.0",
-    "yargs": "^13.2.0"
+    "yargs": "^13.2.1"
   },
   "bin": {
     "huncwot": "cli.js",
