@@ -62,12 +62,12 @@ export const generate = ({ resource, type }) => ({ state }) => {
 
       commit('collection', collection);
     },
-    async browse({ commit }, { filter, sort, page } = {}) {
+    async browse({ commit }, params = {}) {
       const path = `/rest/${resource}`;
 
       try {
         const { data: collection } = await HTTP.get(path, {
-          params: { filter }
+          params
         });
         commit('collection', collection);
       } catch (error) {
