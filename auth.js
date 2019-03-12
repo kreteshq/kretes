@@ -17,6 +17,7 @@ const db = require('./db.js');
 
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
+const { fromBase64 } = require('base64url');
 
 function auth({ users }) {
   return async (context, next) => {
@@ -75,7 +76,7 @@ class Session {
   static async create(person_id) {
     const token = await new Promise((resolve, reject) => {
       crypto.randomBytes(16, (error, data) => {
-        error ? reject(error) : resolve(data.toString('base64'));
+        error ? reject(error) : resolve(fromBase64(data.toString('base64')));
       });
     });
 
