@@ -86,13 +86,8 @@ class Session {
   }
 }
 
-const register = ({
-  table = 'person',
-  finder = 'email',
-  fields = []
-}) => async ({ params }) => {
+const register = ({ table = 'person', fields = [] }) => async ({ params }) => {
   const { password } = params;
-  const value = params[finder];
 
   const hashed_password = await hash(password, 10);
 
@@ -100,7 +95,7 @@ const register = ({
   for (let field of fields) {
     person[field] = params[field];
   }
-  Object.assign(person, { [finder]: value, password: hashed_password });
+  Object.assign(person, { password: hashed_password });
 
   const transaction = await db.transaction();
 
