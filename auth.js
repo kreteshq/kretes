@@ -116,18 +116,10 @@ const register = ({ table = 'person', fields = [] }) => async ({ params }) => {
   }
 };
 
-const login = ({
-  table = 'person',
-  finder = 'email',
-  fields = []
-} = {}) => async ({ params }) => {
+const login = ({ finder = () => {} } = {}) => async ({ params }) => {
   const { password } = params;
-  const value = params[finder];
 
-  const [person] = await db
-    .from(table)
-    .where({ email: value })
-    .return('id', 'password', finder, ...fields);
+  const [person] = await finder(params);
 
   if (person) {
     const { id: person_id, password: actual_password } = person;
