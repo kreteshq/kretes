@@ -14,6 +14,7 @@
 const { unauthorized, created } = require('./response.js');
 const basicAuth = require('basic-auth');
 const db = require('./db.js');
+const Cookie = require('./cookie.js');
 
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
@@ -109,7 +110,10 @@ const register = ({ table = 'person', fields = [] }) => async ({ params }) => {
 
     await transaction.commit();
 
-    return created({ person_id, token });
+    return created(
+      { person_id, token },
+      { 'Set-Cookie': Cookie.create('__hcsession', token, { httpOnly: true }) }
+    );
   } catch (error) {
     await transaction.rollback();
     throw error;
@@ -129,7 +133,9 @@ const login = ({ finder = () => {} } = {}) => async ({ params }) => {
     if (match) {
       const token = await Session.create(person_id);
       const { password, ...rest } = person; // delete is slow, use spread instead
-      return created(Object.assign({ token }, rest));
+      return created(Object.assign({ token }, rest), {
+        'Set-Cookie': Cookie.create('__hcsession', token, { httpOnly: true })
+      });
     } else {
       return unauthorized();
     }
