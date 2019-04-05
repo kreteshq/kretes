@@ -20,6 +20,10 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const { fromBase64 } = require('base64url');
 
+const compare = bcrypt.compare;
+const hash = bcrypt.hash;
+const sha256 = crypto.createHash('sha256');
+
 function auth({ users }) {
   return async (context, next) => {
     const credentials = basicAuth(context.request);
@@ -57,21 +61,16 @@ const can = func => {
   return async request => {
     const { token } = request.params;
 
+    const hash = sha256.update(token).digest('base64');
+
     if (token) {
-      const [r] = await db`session`({ token });
-      if (r) {
-        return await func(request);
-      } else {
-        return unauthorized();
-      }
+      const [found] = await db`session`({ token: hash });
+      return found ? await func(request) : unauthorized();
     } else {
       return unauthorized();
     }
   };
 };
-
-const compare = bcrypt.compare;
-const hash = bcrypt.hash;
 
 class Session {
   static async create(person_id) {
@@ -81,7 +80,9 @@ class Session {
       });
     });
 
-    await db`session`.insert({ token, person_id });
+    const hash = sha256.update(token).digest('base64');
+
+    await db`session`.insert({ token: hash, person_id });
 
     return token;
   }
