@@ -64,11 +64,10 @@ function auth({ users }) {
 
 const can = func => {
   return async request => {
-    const { token } = request.params;
-
-    const hash = sha256.update(token).digest('base64');
+    const { cookies, headers, params } = request;
 
     if (token) {
+      const hash = sha256.update(token).digest('base64');
       const [found] = await db`session`({ token: hash });
       return found ? await func(request) : unauthorized();
     } else {
