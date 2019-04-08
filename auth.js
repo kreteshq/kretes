@@ -18,11 +18,16 @@ const Cookie = require('./cookie.js');
 
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
-const { fromBase64 } = require('base64url');
 
 const compare = bcrypt.compare;
 const hash = bcrypt.hash;
 const sha256 = crypto.createHash('sha256');
+
+const fromBase64 = base64 =>
+  base64
+    .replace(/=/g, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_');
 
 function auth({ users }) {
   return async (context, next) => {
