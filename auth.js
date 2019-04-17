@@ -21,7 +21,6 @@ const crypto = require('crypto');
 
 const compare = bcrypt.compare;
 const hash = bcrypt.hash;
-const sha256 = crypto.createHash('sha256');
 
 const fromBase64 = base64 =>
   base64
@@ -84,6 +83,7 @@ class Session {
       });
     });
 
+    const sha256 = crypto.createHash('sha256');
     const hash = sha256.update(token).digest('base64');
 
     await db`session`.insert({ token: hash, person_id });
@@ -111,13 +111,19 @@ const register = ({ table = 'person', fields = [] }) => async ({ params }) => {
       .insert(person)
       .return('id');
 
+    // TODO generalize this so people are not force to use `person` table
     const token = await Session.create(person_id);
 
     await transaction.commit();
 
     return created(
       { person_id, token },
-      { 'Set-Cookie': Cookie.create('__hcsession', token, { httpOnly: true }) }
+      {
+        'Set-Cookie': Cookie.create('__hcsession', token, {
+          httpOnly: true,
+          sameSite: true
+        })
+      }
     );
   } catch (error) {
     await transaction.rollback();
@@ -139,7 +145,10 @@ const login = ({ finder = () => {} } = {}) => async ({ params }) => {
       const token = await Session.create(person_id);
       const { password, ...rest } = person; // delete is slow, use spread instead
       return created(Object.assign({ token }, rest), {
-        'Set-Cookie': Cookie.create('__hcsession', token, { httpOnly: true })
+        'Set-Cookie': Cookie.create('__hcsession', token, {
+          httpOnly: true,
+          sameSite: true
+        })
       });
     } else {
       return unauthorized();
