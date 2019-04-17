@@ -1,4 +1,4 @@
-// Copyright 2018 Zaiste & contributors. All rights reserved.
+// Copyright 2019 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,14 +12,13 @@
 // limitations under the License.
 
 const { exec } = require('child_process');
+const config = require('config');
 const cwd = process.cwd();
 
 function handler(_) {
   console.log('Setting up database...');
-  const config = require(`${cwd}/config/database.json`);
 
-  // XXX properly set environemnt
-  const { database, username } = config.development;
+  const { database, username } = config.get('db');
   const psql = `psql ${database} ${username} < db/setup.sql`;
   const { stdout, stderr } = exec(psql, { cwd });
 

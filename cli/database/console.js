@@ -1,4 +1,4 @@
-// Copyright 2018 Zaiste & contributors. All rights reserved.
+// Copyright 2019 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,12 +12,11 @@
 // limitations under the License.
 
 const { spawn } = require('child_process');
+const config = require('config');
 const cwd = process.cwd();
 
 function handler(_) {
-  const config = require(`${cwd}/config/database.json`);
-
-  const { database, username } = config.development;
+  const { database, username } = config.get('db');
   console.log(`Connecting to '${database}' database...`);
 
   const options = { cwd, stdio: 'inherit' };

@@ -1,0 +1,19 @@
+db:
+  database: "{{database}}"
+  username: "{{user}}"
+
+deploy:
+  server:
+    src: .
+    dest: "YOUR DESTINATION"
+    delete: true
+    exclude:
+      - dist
+      - node_modules
+      - .git
+      - static/upload
+      - config/default.yaml
+  client:
+    src: dist/
+    dest: "YOUR DESTINATION"
+    delete: true

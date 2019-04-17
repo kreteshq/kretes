@@ -43,10 +43,10 @@ async function init({ dir }) {
     await fs.rename(join(cwd, dir, 'gitignore'), join(cwd, dir, '.gitignore'));
 
     const configTemplate = await fs.readFile(
-      join(themeDir, 'config', 'default.json5'),
+      join(themeDir, 'config', 'default.yml'),
       'utf-8'
     );
-    const configOutput = join(cwd, dir, 'config', 'default.json5');
+    const configOutput = join(cwd, dir, 'config', 'default.yml');
     const compiled = substitute(configTemplate, {
       database: name,
       user: username

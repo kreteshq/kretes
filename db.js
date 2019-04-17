@@ -1,4 +1,4 @@
-// Copyright 2018 Zaiste & contributors. All rights reserved.
+// Copyright 2019 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,15 +11,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-require('json5/lib/register');
-
-const cwd = process.cwd();
+const config = require('config');
 
 const pg = require('pg');
 const sqorn = require('@sqorn/pg');
 
-const dbConfig = require(`${cwd}/config/default.json5`);
-const connection = dbConfig['db'];
+const connection = config.get('db');
 
 const pool = new pg.Pool(connection);
 const db = sqorn({ pg, pool });
