@@ -19,7 +19,7 @@ const { serve, security } = require('szelmostwo/middleware');
 const { list, translate } = require('./handlers');
 
 const cwd = process.cwd();
-const handlerDir = join(cwd, '.build', 'server', 'handlers');
+const handlerDir = join(cwd, '.build');
 
 class Huncwot extends Szelmostwo {
   constructor({
@@ -29,7 +29,8 @@ class Huncwot extends Szelmostwo {
       poweredBy: false
     },
     graphql = true,
-    handlers = true
+    handlers = true,
+    verbose = false
   } = {}) {
     super();
 
@@ -59,28 +60,16 @@ class Huncwot extends Szelmostwo {
     }
 
     if (handlers) {
-      list(join(cwd, 'server', 'handlers'), '.js')
-        .then(handlers => {
-          for (let { resource, operation, path } of handlers) {
-            try {
-              const handler = require(`${join(handlerDir, path)}.js`);
-              let { method, route } = translate(operation, resource);
-              this[method](route, request => handler(request));
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        })
-        .catch(error => {
-          switch (error.code) {
-            case 'ENOENT':
-              console.log('Handlers are not set up.');
-              break;
-            default:
-              console.error(error);
-              throw new Error('Unknown Handler error occured');
-          }
-        });
+      const handlers = list();
+      for (let { resource, operation, path } of handlers) {
+        try {
+          const handler = require(join(handlerDir, path));
+          let { method, route } = translate(operation, resource);
+          this[method](route, request => handler(request));
+        } catch (error) {
+          console.error(error);
+        }
+      }
     }
   }
 }

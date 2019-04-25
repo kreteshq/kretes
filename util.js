@@ -11,10 +11,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { join } = require('path');
-const Promise = require('bluebird');
-const fs = Promise.promisifyAll(require('fs-extra'));
-
 function pick(obj, keys) {
   return keys.reduce((acc, k) => {
     acc[k] = obj[k];
@@ -25,27 +21,6 @@ function pick(obj, keys) {
 function isObject(_) {
   return !!_ && typeof _ === 'object';
   //return !!_ && _.constructor === Object;
-}
-
-let concat = (a, b) => a.concat(b);
-
-function scan(directory, recursive = true) {
-  return fs
-    .readdirAsync(directory)
-    .map(el =>
-      fs.statAsync(join(directory, el)).then(stat => {
-        if (stat.isFile()) {
-          return el;
-        } else {
-          return !recursive
-            ? []
-            : scan(join(directory, el))
-                .reduce(concat, [])
-                .map(_ => join(el, _));
-        }
-      })
-    )
-    .reduce(concat, []);
 }
 
 const substitute = (template, data) => {
@@ -74,4 +49,4 @@ const substitute = (template, data) => {
   });
 };
 
-module.exports = { pick, isObject, scan, substitute };
+module.exports = { pick, isObject, substitute };

@@ -11,21 +11,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { join, parse } = require('path');
+const fg = require('fast-glob');
 
-const { scan } = require('./util');
+function list() {
+  const actions = fg.sync(['app/**/controller/*.js']);
 
-async function list(dir) {
-  return scan(dir)
-    .filter(f => {
-      const { name } = parse(f);
-      return !name.startsWith('.');
-    })
-    .map(f => {
-      const { dir, name } = parse(f);
-      const path = join(dir, name);
-      return { resource: dir, operation: name, path };
-    });
+  return actions.map(path => {
+    const pattern = /(\w+)\/controller\/(\w+)/;
+    const [_, resource, operation] = pattern.exec(path);
+
+    return { resource, operation, path };
+  });
 }
 
 function translate(name, resource) {
