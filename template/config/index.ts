@@ -2,12 +2,13 @@ import Vue from 'vue'
 import router from './router'
 import store from './store'
 
-import App from './components/App.vue'
 
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import VueApollo from 'vue-apollo';
+
+import App from '~/base/component/App.vue'
 
 Vue.use(VueApollo);
 

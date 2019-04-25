@@ -1,3 +1,7 @@
+const path = require('path');
+
+const resolve = dir => path.join(__dirname, dir);
+
 module.exports = {
   devServer: {
     proxy: {
@@ -14,9 +18,11 @@ module.exports = {
     const docs = config.module;
 
     config.plugin('html').tap(args => {
-      args[0].template = 'client/index.html';
+      args[0].template = 'app/index.html';
       return args;
     });
+
+    config.resolve.alias.set('~', resolve('app'));
 
     docs
       .rule('docs')
@@ -29,7 +35,14 @@ module.exports = {
     const svgRule = config.module.rule('svg');
 
     svgRule.uses.clear();
-
     svgRule.use('vue-svg-loader').loader('vue-svg-loader');
+  },
+
+  css: {
+    loaderOptions: {
+      sass: {
+        data: `@import "app/base/stylesheet/main.scss";`
+      }
+    }
   }
 };

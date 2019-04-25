@@ -32,7 +32,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-import HuncwotLogo from "../../static/huncwot.svg";
+import HuncwotLogo from "~/../static/huncwot.svg";
 
 @Component({ components: { HuncwotLogo } })
 export default class App extends Vue {
