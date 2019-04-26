@@ -16,6 +16,8 @@ const { join } = require('path');
 const Szelmostwo = require('szelmostwo');
 const { serve, security } = require('szelmostwo/middleware');
 
+const { notFound } = require('./response.js');
+
 const { list, translate } = require('./handlers');
 
 const cwd = process.cwd();
@@ -33,9 +35,6 @@ class Huncwot extends Szelmostwo {
     verbose = false
   } = {}) {
     super();
-
-    this.use(serve(staticDir));
-    this.use(security(securityOptions));
 
     if (graphql) {
       try {
@@ -71,6 +70,9 @@ class Huncwot extends Szelmostwo {
         }
       }
     }
+
+    this.get('/', serve(staticDir), _ => notFound());
+    this.get('/', security(securityOptions), _ => notFound());
   }
 }
 

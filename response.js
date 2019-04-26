@@ -1,4 +1,4 @@
-// Copyright 2017 Zaiste & contributors. All rights reserved.
+// Copyright 2019 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,57 +11,52 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// XXX auto-create those functions?
+// TODO auto-create those functions?
 
-function ok(body = '', headers = {}) {
-  return { statusCode: 200, headers, body };
-}
+const ok = (body = '', headers = {}) => ({ status: '200 OK', headers, body });
+const created = (body = '', headers = {}) => ({
+  status: '201 Created',
+  headers,
+  body
+});
+const accepted = (body = '', headers = {}) => ({
+  status: '202 Accepted',
+  headers,
+  body
+});
+const noContent = (headers = {}) => ({
+  status: '204 No Content',
+  headers,
+  body: ''
+});
+const notFound = (headers = {}) => ({
+  status: '404 Not Found',
+  headers,
+  body: ''
+});
+const redirect = (url, body = 'Redirecting...', status = '302 Found') => ({
+  status,
+  headers: { Location: url },
+  type: 'text/plain',
+  body
+});
 
-function created(body = '', headers = {}) {
-  return { statusCode: 201, headers, body };
-}
+const json = (content, status = '200 OK') => ({
+  status,
+  body: JSON.stringify(content),
+  type: 'application/json'
+});
 
-function accepted(body = '', headers = {}) {
-  return { statusCode: 202, headers, body };
-}
-
-function noContent(headers = {}) {
-  return { statusCode: 204, headers, body: '' };
-}
-
-function notFound(headers = {}) {
-  return { statusCode: 404, headers, body: '' };
-}
-
-function redirect(url, body = 'Redirecting...', statusCode = 302) {
-  return {
-    statusCode,
-    headers: { Location: url },
-    type: 'text/plain',
-    body
-  };
-}
-
-function json(content, statusCode = 200) {
-  return {
-    statusCode,
-    body: JSON.stringify(content),
-    type: 'application/json'
-  };
-}
-
-function html(content) {
-  return {
-    statusCode: 200,
-    type: 'text/html',
-    body: content
-  };
-}
+const html = content => ({
+  status: '200 OK',
+  type: 'text/html',
+  body: content
+});
 
 const unauthorized = () => ({
-  statusCode: 401,
-  // add WWW-Authenticate
-  headers: {},
+  status: '401 OK',
+  type: 'text/html',
+  // TODO add WWW-Authenticate
   body: ''
 });
 

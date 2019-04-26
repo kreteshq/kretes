@@ -27,7 +27,11 @@ async function page(name, bindings) {
   try {
     r = await template.render(bindings);
   } catch (_) {
-    console.error(`${color.bold.red('Error:')} there's a problem generating the page '${color.blue(name)}.marko'`);
+    console.error(
+      `${color.bold.red(
+        'Error:'
+      )} there's a problem generating the page '${color.blue(name)}.marko'`
+    );
     r = await error.render({ _ });
   }
 
@@ -43,5 +47,5 @@ function gzip(body) {
 
 module.exports = {
   page,
-  gzip,
+  gzip
 };

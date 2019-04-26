@@ -19,11 +19,11 @@ const path = require('path');
 const assert = require('assert');
 const mime = require('mime-types');
 
+const { ok, html } = require('./response.js');
+
 const { runHttpQuery } = require('apollo-server-core');
 const { resolveGraphiQLString } = require('apollo-server-module-graphiql');
 const { makeExecutableSchema } = require('graphql-tools');
-
-const { ok, html } = require('./response');
 
 function graphql(options) {
   return async request => {

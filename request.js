@@ -13,7 +13,7 @@
 
 const Schema = require('validate');
 
-const { json } = require('./response');
+const { json } = require('./response.js');
 
 const validate = shape => {
   const schema = new Schema(shape);
@@ -23,7 +23,7 @@ const validate = shape => {
     const errors = schema.validate(params);
 
     if (errors.length) {
-      return json(errors.map(_ => _.message), 422);
+      return json(errors.map(_ => _.message), '422 Unprocessable Entity');
     } else {
       return next(request);
     }
