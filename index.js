@@ -30,7 +30,7 @@ class Huncwot extends Szelmostwo {
       dnsPrefetchControl: false,
       poweredBy: false
     },
-    graphql = true,
+    graphql = false,
     handlers = true,
     verbose = false
   } = {}) {
