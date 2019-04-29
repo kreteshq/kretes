@@ -7,7 +7,9 @@
   "author": "Zaiste",
   "license": "Apache-2.0",
   "devDependencies": {
-    "ava": "^1.4.1"
+    "ava": "^1.4.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "1.17.0"
   },
   "scripts": {
     "test": "ava",
