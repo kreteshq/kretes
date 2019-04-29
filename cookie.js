@@ -12,6 +12,7 @@
 // limitations under the License.
 
 const encode = encodeURIComponent;
+// eslint-disable-next-line no-control-regex
 const CookieCutter = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
 
 class Cookie {

@@ -25,7 +25,6 @@ function static(root, opts = { index: 'index.html' }) {
   debug('"%s" %j', root, opts);
   return async (ctx, next) => {
     if (ctx.request.method === 'HEAD' || ctx.request.method == 'GET') {
-
       try {
         let file = path.join(root, ctx.request.url);
         let stats = await fs.statAsync(file);

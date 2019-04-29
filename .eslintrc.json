@@ -11,10 +11,14 @@
     "es6": true,
     "node": true
   },
-  "extends": [
-    "eslint:recommended"
-  ],
+  "extends": "eslint:recommended",
   "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true
+      }
+    ],
     "no-console": "off",
     "indent": [
       "error",
@@ -39,13 +43,8 @@
       "error",
       {
         "vars": "all",
-        "argsIgnorePattern": "_"
-      }
-    ],
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
       }
     ]
   },

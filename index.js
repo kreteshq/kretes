@@ -32,7 +32,7 @@ class Huncwot extends Szelmostwo {
     },
     graphql = false,
     handlers = true,
-    verbose = false
+    _verbose = false
   } = {}) {
     super();
 
