@@ -62,17 +62,26 @@ function auth({ users }) {
   }
 }
 
+const bearer = authorization => {
+  return authorization.startsWith('Bearer ')
+    ? authorization.substring(7)
+    : undefined;
+};
+
 const can = func => {
   return async request => {
-    const { cookies, headers, params } = request;
+    const { cookies = {}, headers = {}, params = {} } = request;
 
-    if (token) {
-      const hash = sha256.update(token).digest('base64');
-      const [found] = await db`session`({ token: hash });
-      return found ? await func(request) : unauthorized();
-    } else {
-      return unauthorized();
-    }
+    const token =
+      cookies.__hcsession || bearer(headers.authorization) || params.token;
+
+    if (!token) return unauthorized();
+
+    const sha256 = crypto.createHash('sha256');
+    const hash = sha256.update(token).digest('base64');
+    const [found] = await db`session`({ token: hash });
+
+    return found ? await func(request) : unauthorized();
   };
 };
 
@@ -144,7 +153,7 @@ const login = ({ finder = () => {} } = {}) => async ({ params }) => {
 
     if (match) {
       const token = await Session.create(person_id);
-      const { password, ...rest } = person; // delete is slow, use spread instead
+      const { password: _, ...rest } = person; // delete is slow, use spread instead
       return created(Object.assign({ token }, rest), {
         'Set-Cookie': Cookie.create('__hcsession', token, {
           httpOnly: true,
