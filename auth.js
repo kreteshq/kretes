@@ -45,7 +45,7 @@ function auth({ users }) {
         headers: {
           'WWW-Authenticate': 'Basic realm=Authorization Required'
         },
-        statusCode: 401,
+        status: '401 Unauthorized',
         body: ''
       };
     }

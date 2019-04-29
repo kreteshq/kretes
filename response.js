@@ -54,8 +54,7 @@ const html = content => ({
 });
 
 const unauthorized = () => ({
-  status: '401 OK',
-  type: 'text/html',
+  status: '401 Unauthorized',
   // TODO add WWW-Authenticate
   body: ''
 });
