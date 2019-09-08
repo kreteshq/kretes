@@ -7,7 +7,7 @@
   "author": "Zaiste",
   "license": "Apache-2.0",
   "devDependencies": {
-    "ava": "^2.2.0",
+    "ava": "^2.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "prettier": "1.18.2"
   },
@@ -23,8 +23,9 @@
   },
   "dependencies": {
     "@sqorn/pg": "0.0.45",
-    "apollo-server-core": "^2.7.1",
+    "apollo-server-core": "^2.9.3",
     "apollo-server-module-graphiql": "^2.0.0-beta.6",
+    "argon2": "^0.24.1",
     "axios": "^0.19.0",
     "basic-auth": "^2.0.1",
     "bcrypt": "^3.0.6",
@@ -34,11 +35,11 @@
     "debug": "^4.1.1",
     "fast-glob": "^3.0.4",
     "fs-extra": "^8.1.0",
-    "graphql": "^14.4.2",
+    "graphql": "^14.5.4",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.5",
     "mime-types": "^2.1.24",
-    "pg": "^7.12.0",
+    "pg": "^7.12.1",
     "rsyncwrapper": "^3.0.1",
     "szelmostwo": "^0.7.1",
     "validate": "^4.5.1",
@@ -46,7 +47,7 @@
     "vue": "2.6.10",
     "vue-class-component": "^7.1.0",
     "vuex": "^3.1.1",
-    "yargs": "^13.3.0"
+    "yargs": "^14.0.0"
   },
   "bin": {
     "huncwot": "cli.js",
