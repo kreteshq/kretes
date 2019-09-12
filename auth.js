@@ -17,11 +17,11 @@ const basicAuth = require('basic-auth');
 const db = require('./db.js');
 const Cookie = require('./cookie.js');
 
-const bcrypt = require('bcrypt');
+const argon2 = require('argon2');
 const crypto = require('crypto');
 
-const compare = bcrypt.compare;
-const hash = bcrypt.hash;
+const compare = argon2.verify;
+const hash = argon2.hash;
 
 const fromBase64 = base64 =>
   base64
@@ -105,7 +105,7 @@ class Session {
 const register = ({ table = 'person', fields = [] }) => async ({ params }) => {
   const { password } = params;
 
-  const hashed_password = await hash(password, 10);
+  const hashed_password = await hash(password);
 
   let person = {};
   for (let field of fields) {
@@ -147,9 +147,9 @@ const login = ({ finder = () => {} } = {}) => async ({ params }) => {
   const [person] = await finder(params);
 
   if (person) {
-    const { id: person_id, password: actual_password } = person;
+    const { id: person_id, password: hashed_password } = person;
 
-    const match = await compare(password, actual_password);
+    const match = await compare(hashed_password, password);
 
     if (match) {
       const token = await Session.create(person_id);
