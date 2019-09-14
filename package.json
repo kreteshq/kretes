@@ -34,7 +34,7 @@
     "debug": "^4.1.1",
     "fast-glob": "^3.0.4",
     "fs-extra": "^8.1.0",
-    "graphql": "^14.5.4",
+    "graphql": "^14.5.5",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.5",
     "mime-types": "^2.1.24",

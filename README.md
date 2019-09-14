@@ -58,6 +58,10 @@ any at all. In Huncwot, you write your applications using
 [TypeScript](https://www.typescriptlang.org/). It also comes with a convenient
 command toolkit (CLI) which wraps over `npm scripts`
 
+As a secondary goal, Huncwot tries to minimize the dependencies. It uses
+external packages only if absolutely necessary (e.g. security, OS abstractions
+etc).
+
 ### :gear: Server-side / Backend
 
 * Huncwot is as a replacement for Express & Koa to build server-side applications.
