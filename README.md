@@ -47,36 +47,55 @@ Huncwot is a **macro framework** for **monolithic** web applications built for m
 * [Examples](#examples)
 
 
-## In a nutshell
+## Features In a Nutshell
 
-Huncwot bridges client-side (*frontend*) and server-side (*backend*) development by using [a single programming language - JavaScript - across the board](https://cdb.reacttraining.com/universal-javascript-4761051b7ae9).
+Huncwot bridges client-side (*frontend*) and server-side (*backend*) development
+by using [a single programming language - JavaScript - across the
+board](https://cdb.reacttraining.com/universal-javascript-4761051b7ae9).
 
-On the server, Huncwot ...
+The framework draws inspiration from Rails while trying to be less *magical*, if
+any at all. In Huncwot, you write your applications using
+[TypeScript](https://www.typescriptlang.org/). It also comes with a convenient
+command toolkit (CLI) which wraps over `npm scripts`
 
-* ... can be used as a replacement for Express/Koa to build server-side applications
-* ... provides a simpler HTTP handler abstraction (inspired by Clojure's [ring](https://github.com/ring-clojure/ring)) than Express/Koa
-* ... provides a REST endpoint out of the box
-* ... provides a GraphQL endpoint out of the box using [Apollo Server](https://github.com/apollographql/apollo-server)
+### :gear: Server-side / Backend
 
-On the client, Huncwot ...
+* Huncwot is as a replacement for Express & Koa to build server-side applications.
+* Huncwot provides a simpler than Express/Koa, data-driven HTTP handler abstraction.
+* Huncwot comes with a built-in REST endpoint.
+* Huncwot comes with a built-in GraphQL endpoint. 
+* Huncwot can collocate [GraphQL](http://graphql.org/) queries with Vue.js components.
+* Huncwot provides a data-driven router
+
+### :bar_chart: Client-side / Frontend
 
 * ... uses [Vue.js](https://vuejs.org/)
 * ... uses [Vuex](https://vuex.vuejs.org/en/) for state management
 * ... uses [Webpack 4](https://webpack.js.org/) for bundling assets
 * ... favors class-style Vue.js components using [vue-class-component](https://github.com/vuejs/vue-class-component)
 * ... can be used as a convenient boilerplate for Vue.js to build client-side applications
-* ... allows to collocate [GraphQL](http://graphql.org/) queries with Vue.js components out of the box using [Apollo](https://github.com/Akryum/vue-apollo)
-* ... favors plain SQL over ORMs as [SQL is one of the most valuable skills](http://www.craigkerstiens.com/2019/02/12/sql-most-valuable-skill/)
-* ... uses [Sqorn](https://sqorn.org/) for the database integration which provides a SQL-like abstractions right inside JavaScript
 * ... uses [vue-i18n](https://github.com/kazupon/vue-i18n) for internationalization
 
-On a general note, Huncwot ...
+### :closed_lock_with_key: Security
 
-* ... draws inspiration from Rails while trying to be less *magical*, if any at all
-* ... allows & favors writing [TypeScript](https://www.typescriptlang.org/)
-* ... comes with a CLI (which wraps over `npm scripts`)
+* Huncwot favors [Argon2](https://en.wikipedia.org/wiki/Argon2) as a hash
+  function for storing passwords over bcrypt and scrypt. bcrypt lacks memory
+  hardness while in scrypt both, memory hardness and iteration count are tied to
+  a single cost factor. On top of that, Argon2 won the Password Hashing
+  Competition in 2015. It is build around AES ciphers, is resistant to ranking
+  tradeoff attacks and more...
+* Huncwot uses the [node-argon2](https://github.com/ranisalt/node-argon2/) package 
+
+### :computer: Command Toolkit
+
+### :minidisc: Storage
+
+* Huncwot favors plain (old?) SQL queries over ORMs as [SQL is one of the most valuable skills](http://www.craigkerstiens.com/2019/02/12/sql-most-valuable-skill/)
+* Huncwot provides a SQL-like, data-driven abstractions for the database integration
+* ... uses [Sqorn](https://sqorn.org/) for the database integration which provides a SQL-like abstractions right inside JavaScript
 * ... supports only PostgreSQL
 * ... is unwilling to support NoSQL ([Thank you for your help NoSQL, but we got it from here](https://www.memsql.com/blog/why-nosql-databases-wrong-tool-for-modern-application/))
+
 
 ## Rationale
 
