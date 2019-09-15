@@ -22,25 +22,18 @@ const Huncwot = require('../');
 const VERSION = require('../package.json').version;
 
 async function serve({ port }) {
-  let server = join(cwd, 'app');
-
+  const app = new Huncwot();
   try {
-    require(server);
-  } catch (_) {
-    const app = new Huncwot();
-    app.listen(port);
+    await app.setup();
+    const routes = require(join(cwd, 'app'));
+
+    app.start({ routes, port });
+  } catch (e) {
+    console.error(e.message);
   }
 
   console.log(
-    `${color.bold.blue('Huncwot:')} ${color.underline(
-      VERSION
-    )} (started on ${color.grey(
-      new Date()
-        .toISOString()
-        .split('.')
-        .shift()
-        .replace('T', ' ')
-    )})`
+    color`{bold.blue ● Huncwot} {bold ${VERSION}} {grey on} {bold localhost:${port}}`
   );
 }
 
