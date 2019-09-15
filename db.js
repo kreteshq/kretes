@@ -13,12 +13,21 @@
 
 const config = require('config');
 
+const { printError } = require('./util');
+
 const pg = require('pg');
 const sqorn = require('@sqorn/pg');
 
 const connection = config.get('db');
 
 const pool = new pg.Pool(connection);
-const db = sqorn({ pg, pool });
 
-module.exports = db;
+pool.connect(error => {
+  if (error) {
+    printError(error, 'Data Layer');
+
+    process.exit(1);
+  }
+});
+
+module.exports = sqorn({ pg, pool });
