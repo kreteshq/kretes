@@ -20,7 +20,7 @@ if (!validateNode.satisfies) {
   process.exit(1);
 }
 
-const argv = require('yargs')
+const _argv = require('yargs')
   .version()
   .usage('Usage: $0 <command> [options]')
   .command(

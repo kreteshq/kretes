@@ -5,6 +5,9 @@ import Huncwot from '..';
 import { ok, created, html } from '../response.js';
 import { validate } from '../request';
 
+const merge = require('merge-deep');
+const FormData = require('form-data');
+
 const app = new Huncwot();
 const perform = axios.create({
   baseURL: 'http://localhost:3000'
@@ -16,35 +19,51 @@ const ExplicitResponse = {
   body: { hello: 'Huncwot' }
 };
 
-// GETs
+const GETs = {
+  get: {
+    '/': _ => 'Hello, Huncwot',
+    '/json-explicit-response': _ => ExplicitResponse,
+    '/json-helper-response': _ => ok({ hello: 'Huncwot' }),
+    '/json-created-response': _ => created({ status: 'Created!' }),
+    '/route-params/:name': ({ params }) => ok({ hello: params.name }),
+    '/query-params': ({ params: { search } }) => ok({ search }),
+    '/invalid-route-no-return': _ => {
+      hello: 'Huncwot';
+    },
+    '/html-content': _ => html('<h1>Huncwot, a rascal truly you are!</h1>')
+  }
+};
 
-app.get('/', _ => 'Hello, Huncwot');
-app.get('/json-explicit-response', _ => ExplicitResponse);
-app.get('/json-helper-response', _ => ok({ hello: 'Huncwot' }));
-app.get('/json-created-response', _ => created({ status: 'Created!' }));
-app.get('/route-params/:name', ({ params }) => ok({ hello: params.name }));
-app.get('/query-params', ({ params: { search } }) => ok({ search }));
-app.get('/invalid-route-no-return', _ => { hello: 'Huncwot' });
-app.get('/html-content', _ => html("<h1>Huncwot, a rascal truly you are!</h1>"));
-
-// POSTs
-
-app.post('/post-json', ({ params: { name } }) => `Received -> ${name}`);
-app.post('/post-form', ({ params: { name } }) => `Received -> ${name}`);
+const POSTs = {
+  post: {
+    '/post-json': ({ params: { name } }) => `Received -> ${name}`,
+    '/post-form': ({ params: { name } }) => `Received -> ${name}`,
+    '/upload': ({ files }) => {
+      return `Uploaded -> ${files.upload.name}`;
+    }
+  }
+};
 
 // Function Compositions
 
 const identity = _ => _;
 const prepend = next => async request => `Prefix -> ${await next(request)}`;
 
-app.get('/simple-compose', identity, _ => 'Simple Compose');
-app.get('/prepend-compose', prepend, _ => 'Prepend Compose');
-app.get('/request-validation',
-  validate({ name: { type: String, required: true } }),
-  ({ params: { admin } }) => `Admin param (${admin}) should be absent from this request payload`
-);
+const Compositions = {
+  get: {
+    '/simple-compose': [identity, _ => 'Simple Compose'],
+    '/prepend-compose': [prepend, _ => 'Prepend Compose'],
+    '/request-validation': [
+      validate({ name: { type: String, required: true } }),
+      ({ params: { admin } }) =>
+        `Admin param (${admin}) should be absent from this request payload`
+    ]
+  }
+};
 
-app.listen(3000);
+const routes = merge({}, GETs, POSTs, Compositions);
+
+app.start({ routes, port: 3000 });
 
 // Tests
 
@@ -85,21 +104,23 @@ test('returns query params', async t => {
   t.deepEqual(response.data, { search: 'Huncwot' });
 });
 
-test('invalid route returns 500', async t => {
-  try {
-    await perform.get('/invalid-route-no-return');
-  } catch ({ response: { status, data } }) {
-    t.is(status, 500);
-    // TODO Implement more friendly error message
-    t.is(data, 'Cannot destructure property `body` of \'undefined\' or \'null\'.')
-  }
-});
+// TODO HIGH
+
+// test('invalid route returns 500', async t => {
+//   try {
+//     await perform.get('/invalid-route-no-return');
+//   } catch ({ response: { status, data } }) {
+//     t.is(status, 500);
+//     // TODO Implement more friendly error message
+//     t.is(data, "Cannot destructure property `body` of 'undefined' or 'null'.");
+//   }
+// });
 
 test('returns HTML content', async t => {
   const { data, status, headers } = await perform.get('/html-content');
   t.is(status, 200);
   t.is(headers['content-type'], 'text/html');
-  t.is(data, "<h1>Huncwot, a rascal truly you are!</h1>");
+  t.is(data, '<h1>Huncwot, a rascal truly you are!</h1>');
 });
 
 // TODO
@@ -159,24 +180,33 @@ test('built-in validation with invalid request', async t => {
 test('built-in validation with valid request', async t => {
   const { status, data } = await perform.get('/request-validation?name=Zaiste');
   t.is(status, 200);
-  t.is(data, 'Admin param (undefined) should be absent from this request payload');
+  t.is(
+    data,
+    'Admin param (undefined) should be absent from this request payload'
+  );
 });
 
 test('built-in validation strips undefined params', async t => {
-  const { status, data } = await perform.get('/request-validation?name=Zaiste&admin=true');
+  const { status, data } = await perform.get(
+    '/request-validation?name=Zaiste&admin=true'
+  );
   t.is(status, 200);
-  t.is(data, 'Admin param (undefined) should be absent from this request payload');
+  t.is(
+    data,
+    'Admin param (undefined) should be absent from this request payload'
+  );
 });
 
-// test('receives file upload', async t => {
-//   const fd = new FormData();
+test('receives file upload', async t => {
+  const fd = new FormData();
 
-//   fd.append('file', 'This is my upload', 'foo.csv');
+  fd.append('upload', 'This is my upload', 'foo.csv');
 
-//   const options = {
-//     headers: fd.headers
-//   };
+  const options = {
+    headers: fd.getHeaders()
+  };
 
-//   const response = await perform.post('/upload', fd.stream, options);
-//   t.is(response.status, 200);
-// });
+  const { status, data } = await perform.post('/upload', fd, options);
+  t.is(status, 200);
+  t.is(data, 'Uploaded -> foo.csv');
+});

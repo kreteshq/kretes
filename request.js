@@ -23,7 +23,7 @@ const validate = shape => {
     const errors = schema.validate(params);
 
     if (errors.length) {
-      return json(errors.map(_ => _.message), '422 Unprocessable Entity');
+      return json(errors.map(_ => _.message), 422);
     } else {
       return next(request);
     }
