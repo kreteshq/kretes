@@ -20,6 +20,8 @@ const { join } = require('path');
 const { parse } = require('url');
 const Busboy = require('busboy');
 const Router = require('trek-router');
+const color = require('chalk');
+const Youch = require('youch');
 
 const { serve, security } = require('./middleware');
 const { list, translate } = require('./handlers');
@@ -48,11 +50,7 @@ class Middleware extends Array {
   }
 
   async compose(context, last) {
-    try {
-      return await this.next(context, last, 0);
-    } catch (error) {
-      return error;
-    }
+    return await this.next(context, last, 0);
   }
 }
 
@@ -165,8 +163,24 @@ class Huncwot {
         .compose(context)
         .then(result => handle(context, result))
         .catch(error => {
-          response.statusCode = 500;
-          response.end(error.message);
+          response.statusCode = error.status = 500; // ugly, but needed for the `finally` section
+
+          const youch = new Youch(error, request);
+
+          youch.toHTML().then(html => {
+            response.writeHead(500, { 'Content-Type': 'text/html' }).end(html);
+          });
+        })
+        .finally(() => {
+          // TODO remove at runtime in `production`, keep only in `development`
+          const { request, response } = context;
+          const { method } = request;
+          const { pathname, _query } = parse(context.request.url, true); // TODO Test perf vs RegEx
+          const { statusCode, statusMessage } = response;
+
+          console.log(
+            color`{green ●} {magenta ${method}} ${pathname} -> {red ${statusCode}} ${statusMessage}`
+          );
         });
     });
 
