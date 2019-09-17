@@ -20,11 +20,11 @@ const { join } = require('path');
 const { parse } = require('url');
 const Busboy = require('busboy');
 const Router = require('trek-router');
-const color = require('chalk');
 const Youch = require('youch');
 
 const { serve, security } = require('./middleware');
 const { list, translate } = require('./handlers');
+const Logger = require('./logger');
 
 const cwd = process.cwd();
 const handlerDir = join(cwd, '.build');
@@ -162,26 +162,23 @@ class Huncwot {
       this.middlewareList
         .compose(context)
         .then(handle(context))
+        .then(() => Logger.printRequestResponse(context))
         .catch(error => {
           response.statusCode = error.status = 500; // ugly, but needed for the `finally` section
+
+          // TODO remove at runtime in `production`, keep only in `development`
+          Logger.printRequestResponse(context);
+          Logger.printError(error, 'HTTP');
 
           const youch = new Youch(error, request);
 
           youch.toHTML().then(html => {
             response.writeHead(500, { 'Content-Type': 'text/html' }).end(html);
           });
-        })
-        .finally(() => {
-          // TODO remove at runtime in `production`, keep only in `development`
-          const { request, response } = context;
-          const { method } = request;
-          const { pathname, _query } = parse(context.request.url, true); // TODO Test perf vs RegEx
-          const { statusCode, statusMessage } = response;
-
-          console.log(
-            color`{green ●} {magenta ${method}} ${pathname} -> {red ${statusCode}} ${statusMessage}`
-          );
         });
+    }).on('error', error => {
+      Logger.printError(error);
+      process.exit(1);
     });
 
     return server.listen(port, fn);

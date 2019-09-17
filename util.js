@@ -11,10 +11,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const color = require('chalk');
-const stackParser = require('error-stack-parser');
-const explain = require('./explainer');
-
 function pick(obj, keys) {
   return keys.reduce((acc, k) => {
     acc[k] = obj[k];
@@ -53,17 +49,4 @@ const substitute = (template, data) => {
   });
 };
 
-const printError = (error, layer = 'General') => {
-  console.error(
-    color`{red ●} {bold.red Error}{gray /}${layer}: {bold ${error.message}}
-  {gray Explanation} \n  ${explain.for(error)}
-\n  {gray Stack trace}`
-  );
-
-  for (let message of stackParser.parse(error)) {
-    console.error(color`  - {yellow ${message.functionName}}
-    {bold ${message.fileName}}:{bold.underline.cyan ${message.lineNumber}}`);
-  }
-};
-
-module.exports = { pick, isObject, substitute, printError };
+module.exports = { pick, isObject, substitute };

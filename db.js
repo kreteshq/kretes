@@ -13,7 +13,7 @@
 
 const config = require('config');
 
-const { printError } = require('./util');
+const Logger = require('./logger');
 
 const pg = require('pg');
 const sqorn = require('@sqorn/pg');
@@ -24,7 +24,7 @@ const pool = new pg.Pool(connection);
 
 pool.connect(error => {
   if (error) {
-    printError(error, 'Data Layer');
+    Logger.printError(error, 'Data Layer');
 
     process.exit(1);
   }
