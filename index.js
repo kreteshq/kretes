@@ -161,7 +161,7 @@ class Huncwot {
 
       this.middlewareList
         .compose(context)
-        .then(result => handle(context, result))
+        .then(handle(context))
         .catch(error => {
           response.statusCode = error.status = 500; // ugly, but needed for the `finally` section
 
@@ -188,8 +188,11 @@ class Huncwot {
   }
 }
 
-const handle = async (context, result = '') => {
-  let { request, response } = context;
+const handle = context => result => {
+  if (null === result || undefined === result)
+    throw new Error('No Return Statement in The Handler');
+
+  let { response } = context;
 
   let body, headers, type, encoding;
 
@@ -203,8 +206,6 @@ const handle = async (context, result = '') => {
   }
 
   response.statusCode = result.statusCode || 200;
-
-  const buffer = [];
 
   for (var key in headers) {
     response.setHeader(key, headers[key]);
