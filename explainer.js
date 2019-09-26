@@ -34,9 +34,6 @@ module.exports = {
       let matches = error.message.match(pattern);
       if (matches) return wrap(explanation(matches), '  ');
     }
-    return wrap(
-      '<There is no explanation for this error yet. If you know the cause of this error, consider submitting a Pull Request with your own explanation.>',
-      '  '
-    );
+    return wrap('(missing)', '  ');
   }
 };
