@@ -20,11 +20,12 @@ const { join } = require('path');
 const { parse } = require('url');
 const Busboy = require('busboy');
 const Router = require('trek-router');
-const Youch = require('youch');
+const httpstatus = require('http-status');
 
 const { serve, security } = require('./middleware');
 const { list, translate } = require('./handlers');
 const Logger = require('./logger');
+const HTMLifiedError = require('./error');
 
 const cwd = process.cwd();
 const handlerDir = join(cwd, '.build');
@@ -164,15 +165,16 @@ class Huncwot {
         .then(handle(context))
         .then(() => Logger.printRequestResponse(context))
         .catch(error => {
-          response.statusCode = error.status = 500; // ugly, but needed for the `finally` section
+          response.statusCode = 500;
+          error.status = `500 ${httpstatus[500]}`;
 
           // TODO remove at runtime in `production`, keep only in `development`
           Logger.printRequestResponse(context);
           Logger.printError(error, 'HTTP');
 
-          const youch = new Youch(error, request);
+          const htmlifiedError = new HTMLifiedError(error, request);
 
-          youch.toHTML().then(html => {
+          htmlifiedError.generate().then(html => {
             response.writeHead(500, { 'Content-Type': 'text/html' }).end(html);
           });
         });
@@ -187,7 +189,7 @@ class Huncwot {
 
 const handle = context => result => {
   if (null === result || undefined === result)
-    throw new Error('No Return Statement in The Handler');
+    throw new Error('No return statement in the handler');
 
   let { response } = context;
 
