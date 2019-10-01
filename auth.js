@@ -62,7 +62,7 @@ function auth({ users }) {
   }
 }
 
-const bearer = authorization =>
+const bearer = (authorization = '') =>
   authorization.startsWith('Bearer ') ? authorization.substring(7) : undefined;
 
 const can = func => async request => {
