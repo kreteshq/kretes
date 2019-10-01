@@ -23,15 +23,16 @@ const VERSION = require('../package.json').version;
 
 async function serve({ port }) {
   const app = new Huncwot();
+
+  let routes = {};
   try {
     await app.setup();
-    const routes = require(join(cwd, 'app'));
-
-    app.start({ routes, port });
+    routes = require(join(cwd, '.build/config/server/routes'));
   } catch (e) {
     console.error(e.message);
   }
 
+  app.start({ routes, port });
   console.log(
     color`{bold.blue ● Huncwot} {bold ${VERSION}} {grey on} {bold localhost:${port}}`
   );
