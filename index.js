@@ -98,7 +98,7 @@ class Huncwot {
           const handler = require(join(handlerDir, path));
           let { method, route } = translate(operation, resource);
 
-          console.log("-->", method, route);
+          console.log('-->', method, route);
           this.add(method, route, [request => handler(request)]);
         } catch (error) {
           console.error(error);
@@ -108,7 +108,7 @@ class Huncwot {
 
     this.add('GET', '/', [serve(staticDir)]);
     this.add('GET', '/', [security(securityOptions)]);
-    this.add('GET', '/', [_request => "Hello, Huncwot"]); // TODO remove that, properly handle non-existent HTML in public/
+    this.add('GET', '/', [_request => 'Hello, Huncwot']); // TODO remove that, properly handle non-existent HTML in public/
   }
 
   async setup() {
@@ -246,7 +246,9 @@ const handle = context => result => {
 
 const handleRequest = async context => {
   const { headers } = context.request;
+
   context.headers = headers;
+  context.cookies = parseCookies(headers.cookie);
 
   const buffer = await streamToString(context.request);
   if (buffer.length > 0) {
@@ -303,6 +305,40 @@ const streamToString = async stream => {
     stream.on('error', reject);
     stream.on('end', () => resolve(chunks));
   });
+};
+
+const parseCookies = (cookieHeader = '') => {
+  const cookies = cookieHeader.split(/; */);
+  const decode = decodeURIComponent;
+
+  if (cookies[0] === '') return {};
+
+  const result = {};
+  for (let cookie of cookies) {
+    const isKeyValue = cookie.includes('=');
+
+    if (!isKeyValue) {
+      result[cookie.trim()] = true;
+      continue;
+    }
+
+    let [key, value] = cookie.split('=');
+
+    key.trim();
+    value.trim();
+
+    if ('"' === value[0]) value = value.slice(1, -1);
+
+    try {
+      value = decode(value);
+    } catch (error) {
+      // neglect
+    }
+
+    result[key] = value;
+  }
+
+  return result;
 };
 
 module.exports = Huncwot;
