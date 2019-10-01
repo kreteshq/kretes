@@ -245,12 +245,11 @@ const handle = context => result => {
 };
 
 const handleRequest = async context => {
+  const { headers } = context.request;
+  context.headers = headers;
+
   const buffer = await streamToString(context.request);
-
   if (buffer.length > 0) {
-    const headers = context.request.headers;
-    context.headers = headers;
-
     const contentType = headers['content-type'].split(';')[0];
 
     switch (contentType) {
