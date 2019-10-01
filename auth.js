@@ -74,8 +74,10 @@ const can = func => async request => {
   if (!token) return unauthorized();
 
   const sha256 = crypto.createHash('sha256');
-  const hash = sha256.update(token).digest('base64');
-  const [found] = await db`session`({ token: hash });
+  const hashedToken = sha256.update(token).digest('base64');
+  // const [found] = await db`session`({ token: hash });
+  const [found] = await db.from`person`.join`session`
+    .on`person.id = session.person_id`.where`token = ${hashedToken}`;
 
   return found ? await func(request) : unauthorized();
 };
