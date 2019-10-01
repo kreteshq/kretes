@@ -23,7 +23,7 @@ const Router = require('trek-router');
 const httpstatus = require('http-status');
 
 const { serve, security } = require('./middleware');
-const { list, translate } = require('./handlers');
+const { build, translate } = require('./controller');
 const Logger = require('./logger');
 const HTMLifiedError = require('./error');
 
@@ -63,7 +63,7 @@ class Huncwot {
       poweredBy: false
     },
     graphql = false,
-    handlers = true,
+    implicitControllers = true,
     _verbose = false
   } = {}) {
     this.middlewareList = new Middleware();
@@ -91,13 +91,15 @@ class Huncwot {
       }
     }
 
-    if (handlers) {
-      const handlers = list();
+    if (implicitControllers) {
+      const handlers = build();
       for (let { resource, operation, path } of handlers) {
         try {
           const handler = require(join(handlerDir, path));
           let { method, route } = translate(operation, resource);
-          this[method](route, request => handler(request));
+
+          console.log("-->", method, route);
+          this.add(method, route, [request => handler(request)]);
         } catch (error) {
           console.error(error);
         }
@@ -106,6 +108,7 @@ class Huncwot {
 
     this.add('GET', '/', [serve(staticDir)]);
     this.add('GET', '/', [security(securityOptions)]);
+    this.add('GET', '/', [_request => "Hello, Huncwot"]); // TODO remove that, properly handle non-existent HTML in public/
   }
 
   async setup() {

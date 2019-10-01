@@ -13,31 +13,27 @@
 
 const fg = require('fast-glob');
 
-function list() {
-  const actions = fg.sync(['app/**/controller/*.js']);
+const build = () => {
+  const handlers = fg.sync(['features/**/controller/*.js']);
 
-  return actions.map(path => {
+  return handlers.map(path => {
     const pattern = /(\w+)\/controller\/(\w+)/;
     const [_, resource, operation] = pattern.exec(path);
 
     return { resource, operation, path };
   });
-}
+};
 
-function translate(name, resource) {
-  const methods = {
-    // BFCUD
+const translate = (name, resource) =>
+  ({
     browse: { method: 'get', route: `/${resource}` },
     fetch: { method: 'get', route: `/${resource}/:id` },
     create: { method: 'post', route: `/${resource}` },
     update: { method: 'put', route: `/${resource}/:id` },
     destroy: { method: 'delete', route: `/${resource}/:id` }
-  };
-
-  return methods[name];
-}
+  }[name]);
 
 module.exports = {
-  list,
+  build,
   translate
 };
