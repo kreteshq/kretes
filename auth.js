@@ -62,27 +62,22 @@ function auth({ users }) {
   }
 }
 
-const bearer = authorization => {
-  return authorization.startsWith('Bearer ')
-    ? authorization.substring(7)
-    : undefined;
-};
+const bearer = authorization =>
+  authorization.startsWith('Bearer ') ? authorization.substring(7) : undefined;
 
-const can = func => {
-  return async request => {
-    const { cookies = {}, headers = {}, params = {} } = request;
+const can = func => async request => {
+  const { cookies = {}, headers = {}, params = {} } = request;
 
-    const token =
-      cookies.__hcsession || bearer(headers.authorization) || params.token;
+  const token =
+    cookies.__hcsession || bearer(headers.authorization) || params.token;
 
-    if (!token) return unauthorized();
+  if (!token) return unauthorized();
 
-    const sha256 = crypto.createHash('sha256');
-    const hash = sha256.update(token).digest('base64');
-    const [found] = await db`session`({ token: hash });
+  const sha256 = crypto.createHash('sha256');
+  const hash = sha256.update(token).digest('base64');
+  const [found] = await db`session`({ token: hash });
 
-    return found ? await func(request) : unauthorized();
-  };
+  return found ? await func(request) : unauthorized();
 };
 
 class Session {
