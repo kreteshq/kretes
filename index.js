@@ -249,6 +249,8 @@ const handleRequest = async context => {
 
   if (buffer.length > 0) {
     const headers = context.request.headers;
+    context.headers = headers;
+
     const contentType = headers['content-type'].split(';')[0];
 
     switch (contentType) {
