@@ -28,7 +28,7 @@ Huncwot is a **macro framework** for **monolithic** web applications built for m
 
 ## Table of Contents
 
-* [In a nutshell](#in-a-nutshell)
+* [Features In A Nutshell](#features-in-a-nutshell)
 * [Rationale](#rationale)
 * [Getting Started](#getting-started)
 * [Usage](#usage)
@@ -47,7 +47,7 @@ Huncwot is a **macro framework** for **monolithic** web applications built for m
 * [Examples](#examples)
 
 
-## Features In a Nutshell
+## Features In A Nutshell
 
 Huncwot bridges client-side (*frontend*) and server-side (*backend*) development
 by using [a single programming language - JavaScript - across the
@@ -100,6 +100,9 @@ etc).
 * ... supports only PostgreSQL
 * ... is unwilling to support NoSQL ([Thank you for your help NoSQL, but we got it from here](https://www.memsql.com/blog/why-nosql-databases-wrong-tool-for-modern-application/))
 
+### :cake: Conventions & Conveniences
+
+* Huncwot enforces the [Folder-By-Feature Directory Structure](#folder-by-feature-directory-structure)
 
 ## Rationale
 
@@ -141,6 +144,27 @@ npm start
 Visit `https://localhost:8080`
 
 ![Huncwot Init](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/huncwot-start.png)
+
+## Features In Detail
+
+### Folder-By-Feature Directory Structure
+
+The directory structure in Huncwot is organized around your application
+**features**, and not **by type**. This means that artifacts, either client-side or
+server-side are kept togheter. In other words, this approach groups together
+entities (classes, functions) that actually work together. This leads to high
+modularity of your application and better cohesion.
+
+The *Folder-By-Feature* approach makes it easier to find files in your
+application directory. It is especially visible once your project grows -
+folder-by-feature is a better long-term approach due its scalability.
+
+To some extend, the *Folder-By-Feature* approach is similar to how recent
+frontend libraries and frameworks (React, Vue, etc) group together HTML,
+JavaScript and Stylesheets. In Huncwot, this simply goes one step further by
+applying a similar technique to the entire application so that it covers both
+frontend and backend.
+
 
 ## Usage
 
