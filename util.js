@@ -49,4 +49,7 @@ const substitute = (template, data) => {
   });
 };
 
-module.exports = { pick, isObject, substitute };
+const compose = (...functions) => args =>
+  functions.reduceRight((arg, fn) => fn(arg), args);
+
+module.exports = { pick, isObject, substitute, compose };
