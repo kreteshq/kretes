@@ -65,7 +65,7 @@ function auth({ users }) {
 const bearer = (authorization = '') =>
   authorization.startsWith('Bearer ') ? authorization.substring(7) : undefined;
 
-const protect = (verifyPermissions = () => {}) => action => async request => {
+const authenticate = action => async request => {
   const { cookies = {}, headers = {}, params = {} } = request;
 
   const token =
@@ -80,12 +80,39 @@ const protect = (verifyPermissions = () => {}) => action => async request => {
 
   if (found) {
     request.user = found;
-    request.permissions = verifyPermissions(found);
 
     return await action(request);
   } else {
     // HTTP 401 Unauthorized is for authentication, not authorization (!)
     return unauthorized();
+  }
+};
+
+const establishPermissions = ({
+  using: investigate
+}) => action => async request => {
+  const { user } = request;
+
+  request.permissions = investigate(user);
+
+  return await action(request);
+};
+
+const authorize = ({
+  permission = 'read',
+  entity = 'all'
+}) => action => async request => {
+  const { permissions } = request;
+
+  try {
+    permissions.throwUnlessCan(permission, entity);
+
+    return action(request);
+  } catch (error) {
+    return {
+      statusCode: 403,
+      body: error.message
+    };
   }
 };
 
@@ -172,4 +199,13 @@ const login = ({ finder = () => {} } = {}) => async ({ params }) => {
   }
 };
 
-module.exports = { auth, protect, hash, compare, Session, register, login };
+module.exports = {
+  auth,
+  authenticate,
+  establishPermissions,
+  hash,
+  compare,
+  Session,
+  register,
+  login
+};
