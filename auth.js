@@ -65,7 +65,7 @@ function auth({ users }) {
 const bearer = (authorization = '') =>
   authorization.startsWith('Bearer ') ? authorization.substring(7) : undefined;
 
-const can = func => async request => {
+const protect = (verifyPermissions = () => {}) => action => async request => {
   const { cookies = {}, headers = {}, params = {} } = request;
 
   const token =
@@ -75,11 +75,18 @@ const can = func => async request => {
 
   const sha256 = crypto.createHash('sha256');
   const hashedToken = sha256.update(token).digest('base64');
-  // const [found] = await db`session`({ token: hash });
-  const [found] = await db.from`person`.join`session`
+  const [found] = await db`person`.join`session`
     .on`person.id = session.person_id`.where`token = ${hashedToken}`;
 
-  return found ? await func(request) : unauthorized();
+  if (found) {
+    request.user = found;
+    request.permissions = verifyPermissions(found);
+
+    return await action(request);
+  } else {
+    // HTTP 401 Unauthorized is for authentication, not authorization (!)
+    return unauthorized();
+  }
 };
 
 class Session {
@@ -165,4 +172,4 @@ const login = ({ finder = () => {} } = {}) => async ({ params }) => {
   }
 };
 
-module.exports = { auth, can, hash, compare, Session, register, login };
+module.exports = { auth, protect, hash, compare, Session, register, login };
