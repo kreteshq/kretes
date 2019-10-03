@@ -11,14 +11,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { unauthorized, created } = require('./response.js');
+const { ForbiddenError } = require('@casl/ability');
 const basicAuth = require('basic-auth');
-
-const db = require('./db.js');
-const Cookie = require('./cookie.js');
-
 const argon2 = require('argon2');
 const crypto = require('crypto');
+
+const {
+  unauthorized,
+  created,
+  Forbidden,
+  InternalServerError
+} = require('./response.js');
+const db = require('./db.js');
+const Cookie = require('./cookie.js');
 
 const compare = argon2.verify;
 const hash = argon2.hash;
@@ -88,31 +93,26 @@ const authenticate = action => async request => {
   }
 };
 
-const establishPermissions = ({
-  using: investigate
-}) => action => async request => {
-  const { user } = request;
+// authorization: a noun, as it leads to creating a process once
+// both
 
-  request.permissions = investigate(user);
-
-  return await action(request);
-};
-
-const authorize = ({
+const authorization = ({ using: rules }) => ({
   permission = 'read',
   entity = 'all'
 }) => action => async request => {
-  const { permissions } = request;
+  const { user } = request;
+  const permissions = rules(user);
 
   try {
     permissions.throwUnlessCan(permission, entity);
 
     return action(request);
   } catch (error) {
-    return {
-      statusCode: 403,
-      body: error.message
-    };
+    if (error instanceof ForbiddenError) {
+      return Forbidden(error.message);
+    } else {
+      return InternalServerError(error.message);
+    }
   }
 };
 
@@ -202,7 +202,7 @@ const login = ({ finder = () => {} } = {}) => async ({ params }) => {
 module.exports = {
   auth,
   authenticate,
-  establishPermissions,
+  authorization,
   hash,
   compare,
   Session,
