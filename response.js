@@ -82,6 +82,20 @@ const unauthorized = () => {
   };
 };
 
+const Forbidden = message => {
+  return {
+    statusCode: 403,
+    body: message
+  };
+};
+
+const InternalServerError = message => {
+  return {
+    statusCode: 500,
+    body: message
+  };
+};
+
 module.exports = {
   ok,
   created,
@@ -91,5 +105,7 @@ module.exports = {
   json,
   notFound,
   noContent,
-  unauthorized
+  unauthorized,
+  Forbidden,
+  InternalServerError
 };
