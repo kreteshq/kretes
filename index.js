@@ -99,27 +99,31 @@ class Huncwot {
           let { method, route } = translate(operation, resource);
 
           console.log('-->', method, route);
-          this.add(method, route, [request => handler(request)]);
+          this.add(method, route, ...handler);
         } catch (error) {
           console.error(error);
         }
       }
     }
 
-    this.add('GET', '/', [serve(staticDir)]);
-    this.add('GET', '/', [security(securityOptions)]);
-    this.add('GET', '/', [_request => 'Hello, Huncwot']); // TODO remove that, properly handle non-existent HTML in public/
+    this.add('GET', '/', serve(staticDir));
+    this.add('GET', '/', security(securityOptions));
+    this.add('GET', '/', _request => 'Hello, Huncwot'); // TODO remove that, properly handle non-existent HTML in public/
   }
 
   async setup() {
     // TODO
   }
 
-  add(method, path, fns) {
-    const func = fns.pop();
-    const handler = fns.length === 0 ? func : compose(...fns)(func);
+  add(method, path, ...fns) {
+    const action = fns.pop();
 
-    this.router.add(method.toUpperCase(), path, handler);
+    // pipeline is a handler composed over middlewares,
+    // `action` function must be explicitly extracted from the pipeline
+    // as it has different signature, thus cannot be composed
+    const pipeline = fns.length === 0 ? action : compose(...fns)(action);
+
+    this.router.add(method.toUpperCase(), path, pipeline);
 
     const middleware = async (context, next) => {
       const method = context.request.method;
@@ -149,7 +153,11 @@ class Huncwot {
   start({ routes = {}, port = 5544, fn = () => {} }) {
     for (let [method, route] of Object.entries(routes)) {
       for (let [path, handler] of Object.entries(route)) {
-        this.add(method, path, Array.isArray(handler) ? handler : [handler]);
+        if (Array.isArray(handler)) {
+          this.add(method, path, ...handler);
+        } else {
+          this.add(method, path, handler);
+        }
       }
     }
 
