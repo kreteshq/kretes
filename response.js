@@ -41,7 +41,7 @@ const noContent = (headers = {}) => {
   };
 };
 
-const notFound = (headers = {}) => {
+const NotFound = (headers = {}) => {
   return {
     status: 404,
     headers,
@@ -103,7 +103,7 @@ module.exports = {
   redirect,
   html,
   json,
-  notFound,
+  NotFound,
   noContent,
   unauthorized,
   Forbidden,

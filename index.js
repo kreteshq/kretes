@@ -24,6 +24,7 @@ const httpstatus = require('http-status');
 
 const { serve, security } = require('./middleware');
 const { build, translate } = require('./controller');
+const { NotFound } = require('./response');
 const Logger = require('./logger');
 const HTMLifiedError = require('./error');
 
@@ -120,6 +121,14 @@ class Huncwot {
     // TODO
   }
 
+  use(middleware) {
+    if (typeof middleware !== 'function')
+      throw new TypeError('middleware must be a function!');
+    this.middlewareList.push(middleware);
+
+    return this;
+  }
+
   add(method, path, ...fns) {
     const action = fns.pop();
 
@@ -130,7 +139,22 @@ class Huncwot {
 
     this.router.add(method.toUpperCase(), path, pipeline);
 
-    const middleware = async (context, next) => {
+
+    return this;
+  }
+
+  start({ routes = {}, port = 5544, fn = () => {} }) {
+    for (let [method, route] of Object.entries(routes)) {
+      for (let [path, handler] of Object.entries(route)) {
+        if (Array.isArray(handler)) {
+          this.add(method, path, ...handler);
+        } else {
+          this.add(method, path, handler);
+        }
+      }
+    }
+
+    const RouterMiddleware = async (context, next) => {
       const method = context.request.method;
       const { pathname, query } = parse(context.request.url, true); // TODO Test perf vs RegEx
 
@@ -150,28 +174,11 @@ class Huncwot {
       }
     };
 
-    this.middlewareList.push(middleware);
+    this.middlewareList.push(RouterMiddleware);
 
-    return this;
-  }
-
-  start({ routes = {}, port = 5544, fn = () => {} }) {
-    for (let [method, route] of Object.entries(routes)) {
-      for (let [path, handler] of Object.entries(route)) {
-        if (Array.isArray(handler)) {
-          this.add(method, path, ...handler);
-        } else {
-          this.add(method, path, handler);
-        }
-      }
-    }
-
-    // append 404 handler: it must be put at the end and only once
+    // append 404 middleware handler: it must be put at the end and only once
     // TODO Move to `catch` for pattern matching ?
-    this.middlewareList.push(({ response }, _next) => {
-      response.statusCode = 404;
-      response.end();
-    });
+    this.middlewareList.push(() => NotFound());
 
     const server = http.createServer((request, response) => {
       const context = { params: {}, headers: {}, request, response };
