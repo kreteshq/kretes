@@ -99,10 +99,11 @@ class Huncwot {
           let { method, route } = translate(operation, resource);
 
           console.log('-->', method, route);
+
           if (Array.isArray(handler)) {
-            this.add(method, path, ...handler);
+            this.add(method, route, ...handler);
           } else {
-            this.add(method, path, handler);
+            this.add(method, route, handler);
           }
         } catch (error) {
           console.error(error);
@@ -110,9 +111,9 @@ class Huncwot {
       }
     }
 
-    this.add('GET', '/', serve(staticDir));
-    this.add('GET', '/', security(securityOptions));
-    this.add('GET', '/', _request => 'Hello, Huncwot'); // TODO remove that, properly handle non-existent HTML in public/
+    // this.add('GET', '/', [ serve(staticDir) ]);
+    // this.add('GET', '/', [ security(securityOptions) ]);
+    this.add('GET', '/', async _request => 'Hello, Huncwot'); // TODO remove that, properly handle non-existent HTML in public/
   }
 
   async setup() {
