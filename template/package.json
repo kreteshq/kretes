@@ -45,7 +45,7 @@
     "@babel/plugin-syntax-import-meta": "^7.2.0",
     "@babel/preset-env": "^7.6.2",
     "@roarr/cli": "^1.4.0",
-    "@types/node": "^12.7.9",
+    "@types/node": "^12.7.11",
     "@vue/cli-plugin-babel": "^3.11.0",
     "@vue/cli-plugin-pwa": "^3.11.0",
     "@vue/cli-plugin-typescript": "^3.11.0",

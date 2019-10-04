@@ -99,7 +99,11 @@ class Huncwot {
           let { method, route } = translate(operation, resource);
 
           console.log('-->', method, route);
-          this.add(method, route, ...handler);
+          if (Array.isArray(handler)) {
+            this.add(method, path, ...handler);
+          } else {
+            this.add(method, path, handler);
+          }
         } catch (error) {
           console.error(error);
         }
