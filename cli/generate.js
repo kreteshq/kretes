@@ -12,6 +12,6 @@
 // limitations under the License.
 
 module.exports = {
-  builder: _ => _.commandDir('database', { alias: 'db' }),
+  builder: _ => _.commandDir('generate', { alias: 'g' }),
   handler: _ => {}
 };

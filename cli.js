@@ -64,6 +64,11 @@ const _argv = require('yargs')
     require('./cli/deploy')
   )
   .example('$0 deploy', 'Deploy the application')
+  .command(
+    ['generate [command]', 'g'],
+    'Generate various artifacts',
+    require('./cli/generate')
+  )
   .demandCommand(1, 'You need at least one command before moving on')
   .help('h')
   .alias('h', 'help')

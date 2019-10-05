@@ -11,7 +11,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const { spawn } = require('child_process');
+const config = require('config');
+const cwd = process.cwd();
+
+const handler = ({ password }) => {
+  const options = { cwd, stdio: 'inherit', shell: true };
+  spawn(`echo ${password} | argon2-cli -e`, [], options);
+};
+
 module.exports = {
-  builder: _ => _.commandDir('database', { alias: 'db' }),
-  handler: _ => {}
+  command: 'password-hash [password]',
+  builder: {},
+  handler
 };
