@@ -60,9 +60,16 @@
     "skipLibCheck": true
   },
   "include": [
-    "app/**/*.ts",
-    "app/**/*.js",
-    "app/**/*.vue",
-    "config/**/*.ts"
+    "config/client/*.ts",
+    "config/server/*.ts",
+    "features/**/*.ts",
+    "features/**/*.js",
+    "features/**/*.vue"
+  ],
+  "files": [
+    "config/client/vue.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

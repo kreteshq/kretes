@@ -1,11 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "client": "vue-cli-service serve config/index.ts",
-    "client:build": "vue-cli-service build config/index.ts",
+    "client": "vue-cli-service serve config/client/index.ts",
+    "client:build": "vue-cli-service build config/client/index.ts",
     "client:deploy": "rsync -azP --rsh=ssh dist/ YOUR_LOCATION",
     "server": "ROARR_LOG=true huncwot server | npx roarr pretty-print",
-    "server:dev": "nodemon --quiet -w server --exec 'tsc && npm run server'",
+    "server:dev": "nodemon --quiet",
     "server:build": "tsc",
     "server:deploy": "rsync -azP --rsh=ssh --exclude 'dist' --exclude 'node_modules' --exclude '.git' --exclude '.build' --exclude 'config/database.json' . YOUR_LOCATION",
     "typescript:watch": "tsc -w",
@@ -71,5 +71,17 @@
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2",
     "webpack-merge": "^4.2.2"
+  },
+  "nodemonConfig": {
+    "exec": "tsc && huncwot server",
+    "watch": [
+      "config/server",
+      "features"
+    ],
+    "ignore": [
+      "features/component",
+      "features/store",
+      "features/model"
+    ]
   }
 }

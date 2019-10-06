@@ -139,7 +139,6 @@ class Huncwot {
 
     this.router.add(method.toUpperCase(), path, pipeline);
 
-
     return this;
   }
 

@@ -18,7 +18,7 @@ module.exports = {
     const docs = config.module;
 
     config.plugin('html').tap(args => {
-      args[0].template = 'app/index.html';
+      args[0].template = 'config/client/index.html';
       return args;
     });
 
@@ -41,7 +41,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        data: `@import "app/base/stylesheet/main.scss";`
+        data: `@import "features/base/stylesheet/main.scss";`
       }
     }
   }
