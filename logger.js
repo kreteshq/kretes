@@ -2,6 +2,7 @@ const util = require('util');
 const color = require('chalk');
 const { parse } = require('url');
 const stackParser = require('error-stack-parser');
+const httpstatus = require('http-status');
 
 const explain = require('./explainer');
 
@@ -11,10 +12,11 @@ class Logger {
     const { method } = request;
     const { pathname, _query } = parse(context.request.url, true); // TODO Test perf vs RegEx
     const { statusCode } = response;
-    const statusMessage = 'Internal Server Error';
 
     console.log(
-      color`{green ●} {magenta ${method}} {bold ${pathname}} → {red ${statusCode}} ${statusMessage}
+      color`{green ●} {magenta ${method}} {bold ${pathname}} → {red ${statusCode}} ${
+        httpstatus[statusCode]
+      }
   {gray Params}
 ${util
   .inspect(params, { compact: false, colors: true, sorted: true })
