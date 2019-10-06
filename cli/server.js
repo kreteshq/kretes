@@ -27,7 +27,7 @@ async function serve({ port }) {
   let routes = {};
   try {
     await app.setup();
-    routes = require(join(cwd, '.build/config/server/routes'));
+    routes = require(join(cwd, '.build/config/server/routes')).default;
   } catch (e) {
     console.error(e.message);
   }
