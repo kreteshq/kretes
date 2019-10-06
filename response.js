@@ -43,7 +43,7 @@ const noContent = (headers = {}) => {
 
 const NotFound = (headers = {}) => {
   return {
-    status: 404,
+    statusCode: 404,
     headers,
     body: ''
   };
