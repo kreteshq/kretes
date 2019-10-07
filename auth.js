@@ -17,8 +17,8 @@ const argon2 = require('argon2');
 const crypto = require('crypto');
 
 const {
-  unauthorized,
-  created,
+  Unauthorized,
+  Created,
   Forbidden,
   InternalServerError
 } = require('./response.js');
@@ -50,7 +50,7 @@ function auth({ users }) {
         headers: {
           'WWW-Authenticate': 'Basic realm=Authorization Required'
         },
-        status: '401 Unauthorized',
+        statusCode: 401,
         body: ''
       };
     }
@@ -76,7 +76,7 @@ const authenticate = action => async request => {
   const token =
     cookies.__hcsession || bearer(headers.authorization) || params.token;
 
-  if (!token) return unauthorized();
+  if (!token) return Unauthorized();
 
   const sha256 = crypto.createHash('sha256');
   const hashedToken = sha256.update(token).digest('base64');
@@ -89,7 +89,7 @@ const authenticate = action => async request => {
     return await action(request);
   } else {
     // HTTP 401 Unauthorized is for authentication, not authorization (!)
-    return unauthorized();
+    return Unauthorized();
   }
 };
 
@@ -157,7 +157,7 @@ const register = ({ table = 'person', fields = [] }) => async ({ params }) => {
 
     await transaction.commit();
 
-    return created(
+    return Created(
       { person_id, token },
       {
         'Set-Cookie': Cookie.create('__hcsession', token, {
@@ -185,17 +185,17 @@ const login = ({ finder = () => {} } = {}) => async ({ params }) => {
     if (match) {
       const token = await Session.create(person_id);
       const { password: _, ...rest } = person; // delete is slow, use spread instead
-      return created(Object.assign({ token }, rest), {
+      return Created(Object.assign({ token }, rest), {
         'Set-Cookie': Cookie.create('__hcsession', token, {
           httpOnly: true,
           sameSite: true
         })
       });
     } else {
-      return unauthorized();
+      return Unauthorized();
     }
   } else {
-    return unauthorized();
+    return Unauthorized();
   }
 };
 

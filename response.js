@@ -13,19 +13,19 @@
 
 // TODO auto-create those functions?
 
-const ok = (body = '', headers = {}) => {
+const OK = (body = '', headers = {}) => {
   return { headers, body };
 };
 
-const created = (body = '', headers = {}) => {
+const Created = (resource = '', headers = {}) => {
   return {
     statusCode: 201,
     headers,
-    body
+    body: resource
   };
 };
 
-const accepted = (body = '', headers = {}) => {
+const Accepted = (body = '', headers = {}) => {
   return {
     statusCode: 202,
     headers,
@@ -33,7 +33,7 @@ const accepted = (body = '', headers = {}) => {
   };
 };
 
-const noContent = (headers = {}) => {
+const NoContent = (headers = {}) => {
   return {
     statusCode: 204,
     headers,
@@ -74,7 +74,7 @@ const html = content => {
   };
 };
 
-const unauthorized = () => {
+const Unauthorized = () => {
   return {
     statusCode: 401,
     // TODO add WWW-Authenticate
@@ -97,15 +97,15 @@ const InternalServerError = message => {
 };
 
 module.exports = {
-  ok,
-  created,
-  accepted,
+  OK,
+  Created,
+  Accepted,
   redirect,
   html,
   json,
   NotFound,
-  noContent,
-  unauthorized,
+  NoContent,
+  Unauthorized,
   Forbidden,
   InternalServerError
 };

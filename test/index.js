@@ -2,7 +2,7 @@ import test from 'ava';
 import axios from 'axios';
 
 import Huncwot from '..';
-import { ok, created, html } from '../response.js';
+import { OK, Created, html } from '../response.js';
 import { validate } from '../request';
 
 const merge = require('merge-deep');
@@ -14,7 +14,7 @@ const perform = axios.create({
 });
 
 const ExplicitResponse = {
-  status: '200 OK',
+  statusCode: 200,
   headers: {},
   body: { hello: 'Huncwot' }
 };
@@ -23,10 +23,10 @@ const GETs = {
   get: {
     '/': _ => 'Hello, Huncwot',
     '/json-explicit-response': _ => ExplicitResponse,
-    '/json-helper-response': _ => ok({ hello: 'Huncwot' }),
-    '/json-created-response': _ => created({ status: 'Created!' }),
-    '/route-params/:name': ({ params }) => ok({ hello: params.name }),
-    '/query-params': ({ params: { search } }) => ok({ search }),
+    '/json-helper-response': _ => OK({ hello: 'Huncwot' }),
+    '/json-created-response': _ => Created({ status: 'Created!' }),
+    '/route-params/:name': ({ params }) => OK({ hello: params.name }),
+    '/query-params': ({ params: { search } }) => OK({ search }),
     '/invalid-route-no-return': _ => {
       hello: 'Huncwot';
     },
@@ -79,7 +79,7 @@ test('returns json for explicit response', async t => {
   t.deepEqual(response.data, { hello: 'Huncwot' });
 });
 
-test('returns json for `ok` helper response', async t => {
+test('returns json for `OK` helper response', async t => {
   const response = await perform.get('/json-helper-response');
   t.is(response.status, 200);
   t.deepEqual(response.data, { hello: 'Huncwot' });

@@ -180,7 +180,7 @@ This is an example of a basic server-side application in Huncwot. Save it to a f
 
 ```js
 const Huncwot = require('huncwot');
-const { ok } = require('huncwot/response');
+const { OK } = require('huncwot/response');
 
 const app = new Huncwot();
 
@@ -189,7 +189,7 @@ app.get('/', _ => 'Hello Huncwot')
 
 // explicit `return` with a 200 response of `application/json` type
 app.get('/json', _ => {
-  return ok({ a: 1, b: 2 });
+  return OK({ a: 1, b: 2 });
 })
 
 // set your own headers
@@ -205,7 +205,7 @@ app.post('/bim', request => {
 app.listen(5544);
 ```
 
-This example shows a regular, server-side application in the style of Express or Koa, e.g. you define various routes as a combination of paths and functions attached to it i.e. route handlers. In contrast to Express, Huncwot handlers only take HTTP `request` as input and always return an HTTP response: either defined explicitly as an object with `body`, `status`, etc keys, or implicitly with an inferred type e.g. `text/plain` or as a wrapping function e.g. `ok()` for `200`, or `created()` for `201`.
+This example shows a regular, server-side application in the style of Express or Koa, e.g. you define various routes as a combination of paths and functions attached to it i.e. route handlers. In contrast to Express, Huncwot handlers only take HTTP `request` as input and always return an HTTP response: either defined explicitly as an object with `body`, `status`, etc keys, or implicitly with an inferred type e.g. `text/plain` or as a wrapping function e.g. `OK()` for `200`, or `created()` for `201`.
 
 
 ### Component-based
@@ -339,11 +339,11 @@ Here's an example of a handler with five actions defined in `handlers/widgets/` 
 Inside `handlers/widgets/browse.js`:
 
 ```js
-const { ok } = require('huncwot/response');
+const { OK } = require('huncwot/response');
 
 async function browse(request) {
   const results = ...
-  return ok(results);
+  return OK(results);
 }
 
 module.exports = browse
@@ -352,12 +352,12 @@ module.exports = browse
 Inside `handlers/widgets/read.js`
 
 ```js
-const { ok } = require('huncwot/response');
+const { OK } = require('huncwot/response');
 
 async function read(request) {
   const { id } = request.params;
   const result = ...
-  return ok(result);
+  return OK(result);
 }
 
 module.exports = read
@@ -366,12 +366,12 @@ module.exports = read
 Inside `handlers/widgets/edit.js`:
 
 ```js
-const { ok } = require('huncwot/response');
+const { OK } = require('huncwot/response');
 
 async function edit(request) {
   const { id, name } = request.params;
   ...
-  return ok({ status: `success: ${id} changed to ${name}` });
+  return OK({ status: `success: ${id} changed to ${name}` });
 }
 
 module.exports = edit
@@ -394,12 +394,12 @@ module.exports = add
 Inside `handlers/widgets/destroy.js`:
 
 ```js
-const { ok } = require('huncwot/response');
+const { OK } = require('huncwot/response');
 
 async function destroy(request) {
   const { id } = request.params;
   ...
-  return ok({ status: `success: ${id} destroyed` });
+  return OK({ status: `success: ${id} destroyed` });
 }
 
 module.exports = destroy

@@ -1,4 +1,4 @@
-const { ok } = require('huncwot/response');
+const { OK } = require('huncwot/response');
 
 const routes = {
   GET: {
@@ -7,7 +7,7 @@ const routes = {
 
     // explicit `return` with a 200 response of `application/json` type
     '/json': (_: any) => {
-      return ok({ a: 1, b: 2 });
+      return OK({ a: 1, b: 2 });
     },
 
     // set your own headers
