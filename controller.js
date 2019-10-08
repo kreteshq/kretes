@@ -17,7 +17,7 @@ const build = () => {
   const handlers = fg.sync(['features/**/controller/*.js']);
 
   return handlers.map(path => {
-    const pattern = /(\w+)\/controller\/(\w+)/;
+    const pattern = /([\.\w]+)\/controller\/(\w+)/;
     const [_, resource, operation] = pattern.exec(path);
 
     return { resource, operation, path };
