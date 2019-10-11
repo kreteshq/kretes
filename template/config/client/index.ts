@@ -7,7 +7,7 @@ import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import VueApollo from 'vue-apollo';
 
-import App from 'Base/Component/App.vue'
+import { App } from 'Base/Component';
 
 Vue.use(VueApollo);
 
