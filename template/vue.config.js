@@ -23,6 +23,10 @@ module.exports = {
     });
 
     config.resolve.alias.set('~', resolve('app'));
+    config.resolve.alias.delete("@");
+    config.resolve
+      .plugin("tsconfig-paths")
+      .use(require("tsconfig-paths-webpack-plugin"));
 
     docs
       .rule('docs')
