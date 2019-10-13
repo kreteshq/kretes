@@ -1,4 +1,4 @@
-// Copyright 2016 Zaiste & contributors. All rights reserved.
+// Copyright 2019 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 
 const { createGzip } = require('zlib');
 const { join } = require('path');
-const { html } = require('./response');
+const { HTMLPage } = require('./response');
 const color = require('chalk');
 
 const cwd = process.cwd();
@@ -35,7 +35,7 @@ async function page(name, bindings) {
     r = await error.render({ _ });
   }
 
-  return html(r.getOutput());
+  return HTMLPage(r.getOutput());
 }
 
 function gzip(body) {

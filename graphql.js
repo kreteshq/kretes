@@ -19,7 +19,7 @@ const path = require('path');
 const assert = require('assert');
 const mime = require('mime-types');
 
-const { OK, html } = require('./response.js');
+const { OK, HTMLPage } = require('./response.js');
 
 const { runHttpQuery } = require('apollo-server-core');
 const { resolveGraphiQLString } = require('apollo-server-module-graphiql');
@@ -44,7 +44,7 @@ function graphiql(options) {
     let query = request.params;
     let response = await resolveGraphiQLString(query, options, request);
 
-    return html(response);
+    return HTMLPage(response);
   };
 }
 

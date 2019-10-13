@@ -495,7 +495,7 @@ app.use(static('./public'))
 
 ```js
 const Huncwot = require('huncwot');
-const { html } = require('huncwot/response');
+const { HTMLPage } = require('huncwot/response');
 const nunjucks = require('nunjucks');
 
 const app = new Huncwot();
@@ -503,7 +503,7 @@ const app = new Huncwot();
 nunjucks.configure('views', { autoescape: true });
 
 app.get('/', request => {
-  return html(nunjucks.render('index.html', { username: 'Zaiste' }));
+  return HTMLPage(nunjucks.render('index.html', { username: 'Zaiste' }));
 })
 
 app.listen(3000);

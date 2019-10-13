@@ -49,16 +49,16 @@ const NotFound = (headers = {}) => {
   };
 };
 
-const redirect = (url, body = 'Redirecting...', status = '302 Found') => {
+const Redirect = (url, body = 'Redirecting...', statusCode = 302) => {
   return {
-    status,
+    statusCode,
     headers: { Location: url },
     type: 'text/plain',
     body
   };
 };
 
-const json = (content, statusCode = 200) => {
+const JSONPayload = (content, statusCode = 200) => {
   return {
     statusCode,
     body: JSON.stringify(content),
@@ -66,7 +66,7 @@ const json = (content, statusCode = 200) => {
   };
 };
 
-const html = content => {
+const HTMLPage = content => {
   return {
     statusCode: 200,
     type: 'text/html',
@@ -100,9 +100,9 @@ module.exports = {
   OK,
   Created,
   Accepted,
-  redirect,
-  html,
-  json,
+  Redirect,
+  HTMLPage,
+  JSONPayload,
   NotFound,
   NoContent,
   Unauthorized,
