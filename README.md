@@ -70,6 +70,7 @@ etc).
 * Huncwot comes with a built-in GraphQL endpoint. 
 * Huncwot can collocate [GraphQL](http://graphql.org/) queries with Vue.js components.
 * Huncwot provides a data-driven router
+* Huncwot allows to conveniently [set the preferred response format](#set-the-preferred-response-format)
 
 ### :bar_chart: Client-side / Frontend
 
@@ -164,6 +165,35 @@ frontend libraries and frameworks (React, Vue, etc) group together HTML,
 JavaScript and Stylesheets. In Huncwot, this simply goes one step further by
 applying a similar technique to the entire application so that it covers both
 frontend and backend.
+
+### Set The Preferred Response Format
+
+Huncwot determines the preferred response format from either the HTTP `Accept`
+header or `format` query string parameter, submitted by the client. The `format`
+query parameter takes precendence over the HTTP `Accept` header.
+
+Based on the preferred format, you can construct actions that handle several
+possibilities at once using just the JavaScript's `switch` statement - no
+special syntax needed.
+
+```js
+const browse = ({ format }) => {
+  // ... the action body
+  
+  switch (format) {
+    case 'html':
+      // provide a response as a HTML Page
+      return HTMLPage(...)
+    case 'csv':
+      // provide a response as in CSV format 
+      return CSVPayload(...)
+    default: 
+      // format not specified
+      return JSONPayload(...)
+  }
+
+}
+```
 
 
 ## Usage
