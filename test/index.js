@@ -2,7 +2,7 @@ import test from 'ava';
 import axios from 'axios';
 
 import Huncwot from '..';
-import { OK, Created, html } from '../response.js';
+import { OK, Created, HTMLPage } from '../response.js';
 import { validate } from '../request';
 
 const merge = require('merge-deep');
@@ -30,7 +30,9 @@ const GETs = {
     '/invalid-route-no-return': _ => {
       hello: 'Huncwot';
     },
-    '/html-content': _ => html('<h1>Huncwot, a rascal truly you are!</h1>')
+    '/html-content': _ => HTMLPage('<h1>Huncwot, a rascal truly you are!</h1>'),
+    '/accept-header-1': ({ format }) => OK(format),
+    '/explicit-format': ({ format }) => OK(format)
   }
 };
 
@@ -131,6 +133,22 @@ test('sets security headers by default', async t => {
   //t.is(headers['X-Content-Type-Options'], 'nosniff');
   //t.is(headers['X-XSS-Protection'], '1; mode=block');
   t.is(true, true);
+});
+
+test('respects `Accept` header', async t => {
+  const { data, status, headers } = await perform.get('/accept-header-1', {
+    headers: {
+      'Accept': 'text/plain'
+    }
+  });
+  t.is(status, 200);
+  t.is(data, 'plain');
+});
+
+test('respects explicit format query param', async t => {
+  const { data, status, headers } = await perform.get('/explicit-format?format=csv');
+  t.is(status, 200);
+  t.is(data, 'csv');
 });
 
 // Tests for POST

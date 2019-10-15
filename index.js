@@ -165,8 +165,9 @@ class Huncwot {
       }
 
       if (handler !== undefined) {
+        context.params = { ...query, ...params };
         await handleRequest(context);
-        context.params = { ...context.params, ...query, ...params };
+        context.params = { ...context.params };
         return await handler(context);
       } else {
         return await next();
@@ -265,9 +266,12 @@ const handle = context => result => {
 
 const handleRequest = async context => {
   const { headers } = context.request;
+  const { format } = context.params;
+
 
   context.headers = headers;
   context.cookies = parseCookies(headers.cookie);
+  context.format = format ? format : parseAcceptHeader(headers);
 
   const buffer = await streamToString(context.request);
   if (buffer.length > 0) {
@@ -358,6 +362,15 @@ const parseCookies = (cookieHeader = '') => {
   }
 
   return result;
+};
+
+const parseAcceptHeader = headers => {
+  const { accept } = headers;
+
+  const preferredType = accept.split(',').shift();
+  const format = preferredType.split('/').pop();
+
+  return format;
 };
 
 module.exports = Huncwot;
