@@ -93,7 +93,7 @@ const server = async ({ port }) => {
     'features'
   ], {
     ignored: [
-      'features/**/Component/*',
+      'features/**/View/*',
       'features/**/Store.ts',
       'features/**/Store/*',
       'features/**/Model.ts',
