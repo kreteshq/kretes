@@ -14,14 +14,26 @@
 const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
 const cwd = process.cwd();
 
-const { join } = require('path');
+const { join, parse } = require('path');
 const color = require('chalk');
+const { TypescriptCompiler } = require('@poppinss/chokidar-ts');
+
+const compiler = new TypescriptCompiler(
+  require('typescript/lib/typescript'),
+  'tsconfig.json',
+  cwd
+);
+
+const { error, config } = compiler.parseConfig();
 
 const Huncwot = require('../');
 
 const VERSION = require('../package.json').version;
 
-async function serve({ port }) {
+let sockets = [];
+
+const start = async ({ port }) => {
+  //
   const app = new Huncwot();
 
   let routes = {};
@@ -32,14 +44,56 @@ async function serve({ port }) {
     console.error(e.message);
   }
 
-  app.start({ routes, port });
+  const server = app.start({ routes, port });
+
+  server.on('connection', (socket) => {
+    sockets.push(socket);
+  });
+
   console.log(
-    color`{bold.blue ● Huncwot} {bold ${VERSION}} {grey on} {bold localhost:${port}}`
+    color`{bold.blue ┌ Huncwot} {bold ${VERSION}} {grey on} {bold localhost:${port}}\n{bold.blue └ }{grey Started: }`
   );
-}
+
+  return server;
+};
+
+const server = async ({ port }) => {
+  let app;
+
+  compiler.on('initial:build', async (hasError, diagnostics) => {
+    // start the HTTP server
+    console.log('initial', hasError, diagnostics[0].messageText);
+
+    app = await start({ port });
+  });
+
+  compiler.on('subsequent:build', (filePath, hasError, diagnostics) => {
+    console.clear();
+    console.log(color`  {underline ${filePath}} {green reloaded}`);
+
+    // restart the HTTP server
+    sockets
+      .filter(socket => !socket.destroyed)
+      .forEach(socket => socket.destroy());
+
+    sockets = [];
+
+    app.close(async () => {
+      app = await start({ port });
+    });
+
+    // clean the `require` cache
+    const { dir, name } = parse(filePath);
+
+    const cacheKey = `${join(cwd, '.build', dir, name)}.js`;
+    delete require.cache[cacheKey];
+  });
+
+  compiler.watch(config);
+};
 
 module.exports = {
   builder: _ =>
     _.option('port', { alias: 'p', default: 5544 }).default('dir', '.'),
-  handler: serve
+  handler: server
 };
