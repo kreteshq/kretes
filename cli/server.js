@@ -51,7 +51,7 @@ const start = async ({ port }) => {
   });
 
   console.log(
-    color`{bold.blue ┌ Huncwot} {bold ${VERSION}} {grey on} {bold localhost:${port}}\n{bold.blue └ }{grey Started: }`
+    color`{bold.blue ┌ Huncwot} {bold ${VERSION}} {grey on} {bold localhost:${port}}\n{bold.blue └ }{grey Started: }${new Date().toLocaleTimeString()}`
   );
 
   return server;
@@ -62,7 +62,6 @@ const server = async ({ port }) => {
 
   compiler.on('initial:build', async (hasError, diagnostics) => {
     // start the HTTP server
-    console.log('initial', hasError, diagnostics[0].messageText);
 
     app = await start({ port });
   });
@@ -89,7 +88,18 @@ const server = async ({ port }) => {
     delete require.cache[cacheKey];
   });
 
-  compiler.watch(config);
+  compiler.watch(config, [
+    'config/server',
+    'features'
+  ], {
+    ignored: [
+      'features/**/Component/*',
+      'features/**/Store.ts',
+      'features/**/Store/*',
+      'features/**/Model.ts',
+      'features/**/Model/*'
+    ]
+  });
 };
 
 module.exports = {
