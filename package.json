@@ -6,6 +6,9 @@
   "repository": "https://github.com/zaiste/huncwot",
   "author": "Zaiste",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">= 8"
+  },
   "devDependencies": {
     "ava": "^2.4.0",
     "eslint-plugin-prettier": "^3.1.1",
@@ -49,11 +52,11 @@
     "mustache": "^3.1.0",
     "pg": "^7.12.1",
     "rsyncwrapper": "^3.0.1",
+    "semver": "^6.3.0",
     "stack-trace": "0.0.10",
     "trek-router": "^1.2.0",
     "typescript": "^3.6.4",
     "validate": "^5.1.0",
-    "validate-node-version": "^1.1.1",
     "vue": "2.6.10",
     "vue-class-component": "^7.1.0",
     "vuex": "^3.1.1",

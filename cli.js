@@ -13,10 +13,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const validateNode = require('validate-node-version')('>=7.6.x');
+const { valid, satisfies, validRange } = require('semver');
+const { engines: { node: version } } = require('./package.json');
 
-if (!validateNode.satisfies) {
-  console.error(validateNode.message);
+const expected = validRange(version);
+const actual = valid(process.version);
+
+if (!satisfies(actual, expected)) {
+  console.error(`Expected node ${expected}, but found ${actual}`);
   process.exit(1);
 }
 
