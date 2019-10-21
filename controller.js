@@ -12,23 +12,24 @@
 // limitations under the License.
 
 const fg = require('fast-glob');
-const { sep } = require('path');
+const { sep, parse } = require('path');
 
 const build = () => {
-  const handlers = fg.sync(['features/**/controller/**/*.(js|ts)']);
+  const handlers = fg.sync(['features/**/Controller/**/*.(js|ts)']);
 
   return handlers.map(path => {
-    const pattern = /([\.\w]+)\/controller\/([\w\/]+).(js|ts)/;
+    const pattern = /([\.\w]+)\/Controller\/([\w\/]+).(js|ts)/;
     const [_, resource, operation] = pattern.exec(path);
-    console.log(path, operation);
+
+    const { dir } = parse(path);
 
     if (operation.includes(sep)) {
       const segments = operation.split(sep);
       const action = segments.pop();
 
-      return { resource: [resource, ...segments].join('/'), operation: action, path };
+      return { resource: [resource, ...segments].join('/'), operation: action, dir };
     } else {
-      return { resource, operation, path };
+      return { resource, operation, dir };
     }
   });
 };
