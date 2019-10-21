@@ -94,12 +94,10 @@ class Huncwot {
 
     if (implicitControllers) {
       const handlers = build();
-      for (let { resource, operation, path } of handlers) {
+      for (let { resource, operation, dir } of handlers) {
         try {
-          const handler = require(join(handlerDir, path));
-          let { method, route } = translate(operation, resource);
-
-          console.log('-->', method, route);
+          const handler = require(`${join(handlerDir, dir, operation)}.js`);
+          let { method, route } = translate(operation, resource.toLowerCase());
 
           if (Array.isArray(handler)) {
             this.add(method, route, ...handler);
