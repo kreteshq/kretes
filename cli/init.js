@@ -13,9 +13,9 @@
 
 const Promise = require('bluebird');
 const fs = Promise.promisifyAll(require('fs-extra'));
-const { join, resolve, delimiter } = require('path');
+const { join, resolve } = require('path');
 const { spawn } = require('child_process');
-const { bold, underline, green, magenta, gray } = require('chalk');
+const color = require('chalk');
 
 const { substitute } = require('../util');
 
@@ -29,12 +29,10 @@ async function init({ dir }) {
 
   const name = dir.replace(/-/g, '_');
 
-  console.log(`${bold.blue('Huncwot')} ${underline(gray(VERSION))}`);
+  console.log(color`┌ {bold.blue Huncwot} {bold ${VERSION}}`);
   try {
     console.log(
-      `${gray('1.')} ${green('new')} - creating project structure in ${magenta(
-        dir
-      )} directory ...`
+      color`├ {cyan new}: creating project structure in {magenta ${dir}} directory ...`
     );
 
     // static files
@@ -59,14 +57,10 @@ async function init({ dir }) {
     await fs.outputJson(path, content, { spaces: 2 });
 
     console.log(
-      `${gray('2.')} ${green('new')} - installing dependencies with ${magenta(
-        'npm install'
-      )} ...`
+      color`└ {cyan new}: installing dependencies with {magenta npm install} ...`
     );
     const install = spawn('npm', ['install'], { cwd: dir, stdio: 'inherit' });
-    install.on('close', () =>
-      console.log(`${underline(green('\nFinished.'))}`)
-    );
+    install.on('close', () => {});
   } catch (error) {
     console.log('error: ' + error.message);
   }
