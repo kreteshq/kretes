@@ -20,7 +20,7 @@ const { TypescriptCompiler } = require('@poppinss/chokidar-ts');
 
 const compiler = new TypescriptCompiler(
   require('typescript/lib/typescript'),
-  'tsconfig.json',
+  'config/server/tsconfig.json',
   cwd
 );
 
