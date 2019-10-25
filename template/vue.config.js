@@ -1,6 +1,5 @@
-const path = require('path');
-
-const resolve = dir => path.join(__dirname, dir);
+// const path = require('path');
+// const resolve = dir => path.join(__dirname, dir);
 
 module.exports = {
   devServer: {
@@ -22,11 +21,15 @@ module.exports = {
       return args;
     });
 
-    config.resolve.alias.set('~', resolve('app'));
-    config.resolve.alias.delete("@");
+    config.plugin('fork-ts-checker').tap(args => {
+      args[0].tsconfig = 'config/client/tsconfig.json';
+      return args;
+    });
+
+    config.resolve.alias.delete('@');
     config.resolve
-      .plugin("tsconfig-paths")
-      .use(require("tsconfig-paths-webpack-plugin"));
+      .plugin('tsconfig-paths')
+      .use(require('tsconfig-paths-webpack-plugin'));
 
     docs
       .rule('docs')
@@ -45,7 +48,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        data: `@import "features/base/stylesheet/main.scss";`
+        data: '@import "features/base/stylesheet/main.scss";'
       }
     }
   }
