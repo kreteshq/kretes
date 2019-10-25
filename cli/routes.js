@@ -13,17 +13,31 @@
 
 const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
 const color = require('chalk');
+const { join } = require('path');
+
+const cwd = process.cwd();
 
 const { build, translate } = require('../controller.js');
 
 const routes = () => {
-  console.log(color`╒ {cyan Implicit Routes} {grey (inferred from the app directory tree)}`);
+  console.log(color`╒ {cyan Routes on the {underline server}}`);
+  console.log('│');
 
   for (let { resource, operation } of build()) {
     let { method, route } = translate(operation, resource.toLowerCase());
 
-    console.log(color`├ {magenta ${method.toUpperCase()}} ${route}`);
+    console.log(color`├ {magenta ${method.toUpperCase().padEnd(13, ' ')}} ${route}`);
   }
+  console.log('└─');
+
+  console.log(color`╒ {cyan Routes on the {underline client}}`);
+  let routes = [];
+  //routes = require(join(cwd, '.build/config/client/routes')).default;
+
+  for (let { path } of routes) {
+    console.log(color`├ {magenta GET} ${path}`);
+  }
+
   console.log('└─');
 };
 
