@@ -7,10 +7,7 @@ type Query {
 }
 `;
 
-const typeDefs = [
-  Query,
-  Widget
-];
+const typeDefs = [Query, Widget];
 
 const resolvers = {
   Query: {

@@ -279,13 +279,14 @@ const handleRequest = async context => {
       case 'application/x-www-form-urlencoded':
         Object.assign(context.params, querystring.parse(buffer));
         break;
-      case 'application/json':
+      case 'application/json': {
         const result = JSON.parse(buffer);
         if (isObject(result)) {
           Object.assign(context.params, result);
         }
         break;
-      case 'multipart/form-data':
+      }
+      case 'multipart/form-data': {
         context.files = {};
 
         const busboy = new Busboy({ headers });
@@ -313,6 +314,7 @@ const handleRequest = async context => {
         await new Promise(resolve => busboy.on('finish', resolve));
 
         break;
+      }
       default:
     }
   }
