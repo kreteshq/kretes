@@ -18,16 +18,7 @@ const { join, parse } = require('path');
 const color = require('chalk');
 const { TypescriptCompiler } = require('@poppinss/chokidar-ts');
 
-const compiler = new TypescriptCompiler(
-  require('typescript/lib/typescript'),
-  `tsconfig.json`,
-  cwd
-);
-
-const { error, config } = compiler.parseConfig();
-
 const Huncwot = require('../');
-
 const VERSION = require('../package.json').version;
 
 let sockets = [];
@@ -58,6 +49,14 @@ const start = async ({ port }) => {
 };
 
 const server = async ({ port }) => {
+  const compiler = new TypescriptCompiler(
+    require('typescript/lib/typescript'),
+    `config/server/tsconfig.json`,
+    cwd
+  );
+
+  const { error, config } = compiler.parseConfig();
+
   let app;
 
   compiler.on('initial:build', async (hasError, diagnostics) => {

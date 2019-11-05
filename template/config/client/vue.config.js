@@ -1,5 +1,4 @@
-// const path = require('path');
-// const resolve = dir => path.join(__dirname, dir);
+const TypeScriptConfig = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   devServer: {
@@ -14,7 +13,14 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    const docs = config.module;
+    config.module
+      .rule('ts')
+      .use('ts-loader')
+      .loader('ts-loader')
+      .tap(options => {
+        Object.assign(options || {}, { configFile: 'config/client/tsconfig.json' })
+        return options
+      })
 
     config.plugin('html').tap(args => {
       args[0].template = 'config/client/index.html';
@@ -27,20 +33,14 @@ module.exports = {
     });
 
     config.resolve.alias.delete('@');
-    config.resolve
-      .plugin('tsconfig-paths')
-      .use(require('tsconfig-paths-webpack-plugin'));
-
-    docs
-      .rule('docs')
-      .resourceQuery(/blockType=docs/)
-      .type('javascript/auto')
-      .use('docs')
-      .loader('./config/loaders/docs.js')
-      .end();
+    config.resolve.plugin('tsconfig-paths').use(
+      new TypeScriptConfig({
+        configFile: 'config/client/tsconfig.json',
+        baseUrl: '.'
+      })
+    );
 
     const svgRule = config.module.rule('svg');
-
     svgRule.uses.clear();
     svgRule.use('vue-svg-loader').loader('vue-svg-loader');
   },

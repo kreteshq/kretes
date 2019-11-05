@@ -4,7 +4,7 @@
       <div class="col-6">
         <div class="text-center">
           <a href="#" class="flex">
-            <HuncwotLogo class="logo"/>
+            <HuncwotLogo class="logo" />
           </a>
           <h1 class="display-1">{{ title }}</h1>
           <p class="lead">
@@ -30,12 +30,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Base } from "@huncwot/vue";
 
-import HuncwotLogo from "~/../static/huncwot.svg";
+import HuncwotLogo from "../../../static/huncwot.svg";
 
 @Component({ components: { HuncwotLogo } })
-export default class App extends Vue {
+export default class App extends Base {
   title: string = "Huncwot";
 }
 </script>
