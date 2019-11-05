@@ -19,15 +19,7 @@
     "cross-env": "^6.0.3",
     "node-pg-migrate": "^3.23.3",
     "stmux": "^1.7.1",
-    "typescript": "^3.6.4",
-    "prettier": "^1.18.2",
-    "@vue/cli-plugin-babel": "^4.0.0",
-    "@vue/cli-plugin-router": "^4.0.0",
-    "@vue/cli-plugin-typescript": "^4.0.0",
-    "@vue/cli-plugin-vuex": "^4.0.0",
-    "@vue/cli-service": "^4.0.0",
-    "tsconfig-paths-webpack-plugin": "^3.2.0",
-    "vue-template-compiler": "^2.6.10",
-    "vue-svg-loader": "^0.12.0"
+    "typescript": "^3.7.2",
+    "prettier": "^1.18.2"
   }
 }

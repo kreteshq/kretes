@@ -33,6 +33,7 @@ const _argv = require('yargs')
     require('./cli/init')
   )
   .example('$0 new my-project', 'Create and initialize `my-project` directory')
+  .command(['add [name]', 'a'], 'Add an integration', require('./cli/add'))
   .command(
     ['start', 'start', 's'],
     'Start the application',

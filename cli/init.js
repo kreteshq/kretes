@@ -25,7 +25,7 @@ const username = require('os').userInfo().username;
 const VERSION = require('../package.json').version;
 
 async function init({ dir }) {
-  const themeDir = join(resolve(__dirname, '..'), 'template');
+  const themeDir = join(resolve(__dirname, '..'), 'template', 'base');
 
   const name = dir.replace(/-/g, '_');
 
@@ -60,7 +60,7 @@ async function init({ dir }) {
       color`└ {cyan new}: installing dependencies with {magenta npm install} ...`
     );
     const install = spawn('npm', ['install'], { cwd: dir, stdio: 'inherit' });
-    install.on('close', () => {});
+    install.on('close', () => { });
   } catch (error) {
     console.log('error: ' + error.message);
   }
