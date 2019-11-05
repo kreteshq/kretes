@@ -3,11 +3,11 @@
   "version": "0.49.0",
   "description": "Macro framework for monolithic Node.js apps - batteries included",
   "main": "index.js",
-  "repository": "https://github.com/zaiste/huncwot",
+  "repository": "https://github.com/huncwotjs/huncwot",
   "author": "Zaiste",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">= 8"
+    "node": ">= 12"
   },
   "devDependencies": {
     "ava": "^2.4.0",
