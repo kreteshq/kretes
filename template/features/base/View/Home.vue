@@ -7,9 +7,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Base } from "@huncwot/vue";
 
-export default class Home extends Vue {
+export default class Home extends Base {
   message = "This is the most basic component.";
 }
 </script>
