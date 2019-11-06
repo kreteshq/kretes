@@ -71,7 +71,7 @@ module.exports = {
 };
 
 function generatePackageJSON(name) {
-  const content = require('../template/package.json');
+  const content = require('../template/base/package.json');
   const result = Object.assign({ name, version: '0.0.1' }, content);
 
   return result;

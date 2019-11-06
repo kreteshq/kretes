@@ -30,12 +30,8 @@ const cwd = process.cwd();
 const VERSION = require('../package.json').version;
 
 async function add({ name }) {
-  const configDirectory = join(
-    resolve(__dirname, '..'),
-    'template',
-    'vue',
-    'config'
-  );
+  const parent = resolve(__dirname, '..');
+  const configDirectory = join(parent, 'template', 'vue', 'config');
 
   console.log(color`┌ {bold.blue Huncwot} {bold ${VERSION}}`);
   try {
