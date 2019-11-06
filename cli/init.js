@@ -11,8 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const Promise = require('bluebird');
-const fs = Promise.promisifyAll(require('fs-extra'));
+const fs = require('fs-extra');
 const { join, resolve } = require('path');
 const { spawn } = require('child_process');
 const color = require('chalk');
@@ -36,7 +35,7 @@ async function init({ dir }) {
     );
 
     // static files
-    await fs.copyAsync(themeDir, join(cwd, dir));
+    await fs.copy(themeDir, join(cwd, dir));
     await fs.rename(join(cwd, dir, 'npmrc'), join(cwd, dir, '.npmrc'));
     await fs.rename(join(cwd, dir, 'gitignore'), join(cwd, dir, '.gitignore'));
 

@@ -12,7 +12,7 @@
   "devDependencies": {
     "ava": "^2.4.0",
     "eslint-plugin-prettier": "^3.1.1",
-    "form-data": "^2.5.1",
+    "form-data": "^3.0.0",
     "prettier": "1.18.2"
   },
   "scripts": {
@@ -31,7 +31,6 @@
     "argon2": "0.24.1",
     "axios": "^0.19.0",
     "basic-auth": "^2.0.1",
-    "bluebird": "^3.7.1",
     "busboy": "^0.3.1",
     "chalk": "^2.4.2",
     "config": "^3.2.4",
@@ -52,7 +51,7 @@
     "semver": "^6.3.0",
     "stack-trace": "0.0.10",
     "trek-router": "^1.2.0",
-    "typescript": "^3.6.4",
+    "typescript": "^3.7.2",
     "validate": "^5.1.0",
     "yargs": "^14.2.0"
   },

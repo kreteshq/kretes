@@ -13,8 +13,7 @@
 
 const debug = require('debug')('huncwot:graphql');
 
-const Promise = require('bluebird');
-const fs = Promise.promisifyAll(require('fs-extra'));
+const fs = require('fs-extra');
 const path = require('path');
 const assert = require('assert');
 const mime = require('mime-types');

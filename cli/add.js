@@ -21,8 +21,7 @@ const merge = (target, source) => {
   return target;
 };
 
-const Promise = require('bluebird');
-const fs = Promise.promisifyAll(require('fs-extra'));
+const fs = require('fs-extra');
 const { join, resolve } = require('path');
 const { spawn } = require('child_process');
 const color = require('chalk');
@@ -42,8 +41,7 @@ async function add({ name }) {
   try {
     console.log(color`├ {cyan new}: adding {magenta Vue} integration ...`);
 
-    // copy config files
-    await fs.copyAsync(configDirectory, cwd);
+    await fs.copy(configDirectory, join(cwd, 'config'));
 
     const content = mergePackageJSONDependencies();
     await fs.outputJson(join(cwd, 'package.json'), content, { spaces: 2 });
