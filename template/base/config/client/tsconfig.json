@@ -9,7 +9,7 @@
       "scripthost"
     ],
     "allowJs": false,
-    "outDir": "../../.build",
+    "outDir": "../../dist",
     "rootDir": "../../",
     "baseUrl": "../..",
     "strict": true,

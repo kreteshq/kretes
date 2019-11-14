@@ -6,7 +6,7 @@
       "esnext"
     ],
     "allowJs": false,
-    "outDir": "../../.build",
+    "outDir": "../../dist",
     "rootDir": "../../",
     "strict": true,
     "moduleResolution": "node",

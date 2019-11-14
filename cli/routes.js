@@ -32,7 +32,6 @@ const routes = () => {
 
   console.log(color`╒ {cyan Routes on the {underline client}}`);
   let routes = [];
-  //routes = require(join(cwd, '.build/config/client/routes')).default;
 
   for (let { path } of routes) {
     console.log(color`├ {magenta GET} ${path}`);

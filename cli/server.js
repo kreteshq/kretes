@@ -30,7 +30,7 @@ const start = async ({ port }) => {
   let routes = {};
   try {
     await app.setup();
-    routes = require(join(cwd, '.build/config/server/routes')).default;
+    routes = require(join(cwd, 'dist/config/server/routes')).default;
   } catch (e) {
     console.error(e.message);
   }
@@ -83,7 +83,7 @@ const server = async ({ port }) => {
     // clean the `require` cache
     const { dir, name } = parse(filePath);
 
-    const cacheKey = `${join(cwd, '.build', dir, name)}.js`;
+    const cacheKey = `${join(cwd, 'dist', dir, name)}.js`;
     delete require.cache[cacheKey];
   });
 

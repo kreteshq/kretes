@@ -29,7 +29,7 @@ const Logger = require('./logger');
 const HTMLifiedError = require('./error');
 
 const cwd = process.cwd();
-const handlerDir = join(cwd, '.build');
+const handlerDir = join(cwd, 'dist');
 
 const isObject = _ => !!_ && _.constructor === Object;
 const compose = (...functions) => args =>
