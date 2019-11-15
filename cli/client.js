@@ -12,12 +12,54 @@
 // limitations under the License.
 
 const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
+const util = require('util');
 const { spawn } = require('child_process');
+const { join } = require('path');
+const fs = require('fs-extra');
+
+const cwd = process.cwd();
 
 const client = async () => {
-  spawn('npm', ['run', 'client'], {
-    stdio: 'inherit'
+
+  const template = join(cwd, 'config/client', 'index.html');
+  const tmpl = (await fs.readFile(template)).toString('utf8');
+  const bodyCloseTag = tmpl.lastIndexOf('</body>');
+  let prefix = '';
+
+  const bundles = ['index.js'];
+
+  const injected = [
+    tmpl.slice(0, bodyCloseTag),
+    ...bundles.map(
+      b => `<script type="module" src="${prefix || ''}${b}"></script>\n`
+    ),
+    tmpl.slice(bodyCloseTag, tmpl.length)
+  ].join('');
+
+  await new Promise(resolve => {
+    const child = spawn('npx', ['pika', 'install', '--dest', 'modules'], {
+      stdio: 'inherit'
+    });
+    child.on('exit', _ => resolve());
   });
+
+  await fs.copy(join(cwd, 'modules'), join(cwd, 'public', 'modules'));
+  await fs.outputFile(join(cwd, 'public', 'index.html'), injected);
+
+  spawn(
+    'npx',
+    [
+      'rollup',
+      '--config',
+      'config/client/rollup.config.js',
+      '--format',
+      'esm',
+      '--watch'
+    ],
+    {
+      stdio: 'inherit'
+    }
+  );
 };
 
 module.exports = {
