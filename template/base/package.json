@@ -1,8 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "stmux -w always -e ERROR -m beep,system -- [ -t 'Client' 'huncwot client' .. -t 'Server' 'huncwot server' ]",
-    "migrate": "node-pg-migrate -m db/migrations"
+    "start": "stmux -w always -e ERROR -m beep,system -- [ -t 'Client' 'huncwot client' .. -t 'Server' 'huncwot server' ]"
   },
   "dependencies": {
     "huncwot": "0.49.0"

@@ -74,10 +74,11 @@ const _argv = require('yargs')
     'Generate various artifacts',
     require('./cli/generate')
   )
+  .command(['routes', 'r'], 'Display routes', require('./cli/routes'))
   .command(
-    ['routes', 'r'],
-    'Display routes',
-    require('./cli/routes')
+    ['migrate', 'm'],
+    'Run database migrations',
+    require('./cli/migrate')
   )
   .demandCommand(1, 'You need at least one command before moving on')
   .help('h')
