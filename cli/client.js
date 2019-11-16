@@ -12,7 +12,6 @@
 // limitations under the License.
 
 const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
-const util = require('util');
 const { spawn } = require('child_process');
 const { join } = require('path');
 const fs = require('fs-extra');
@@ -20,6 +19,7 @@ const fs = require('fs-extra');
 const cwd = process.cwd();
 
 const client = async () => {
+  await fs.ensureDir(join(cwd, 'modules'));
 
   const template = join(cwd, 'config/client', 'index.html');
   const tmpl = (await fs.readFile(template)).toString('utf8');
@@ -36,12 +36,20 @@ const client = async () => {
     tmpl.slice(bodyCloseTag, tmpl.length)
   ].join('');
 
-  await new Promise(resolve => {
-    const child = spawn('npx', ['pika', 'install', '--dest', 'modules'], {
-      stdio: 'inherit'
+  try {
+    await new Promise((resolve, reject) => {
+      const child = spawn('npx', ['pika', 'install', '--dest', 'modules'], {
+        stdio: ['inherit', 'inherit', 'ignore']
+      });
+      child.on('exit', code => {
+        if (code) reject('exit code 1');
+      });
+
+      resolve();
     });
-    child.on('exit', _ => resolve());
-  });
+  } catch (error) {
+    console.log(error);
+  }
 
   await fs.copy(join(cwd, 'modules'), join(cwd, 'public', 'modules'));
   await fs.outputFile(join(cwd, 'public', 'index.html'), injected);

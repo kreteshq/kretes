@@ -10,12 +10,16 @@
   "dependencies": {
     "huncwot": "0.49.0"
   },
+  "@pika/web": {
+    "webDependencies": []
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
   ],
   "devDependencies": {
+    "@pika/web": "^0.6.1",
     "@wessberg/rollup-plugin-ts": "^1.1.78",
     "cross-env": "^6.0.3",
     "node-pg-migrate": "^3.23.3",
