@@ -17,7 +17,7 @@ const merge = (target, source) => {
       Object.assign(source[key], merge(target[key], source[key]));
   }
 
-  Object.assign(target || {}, source)
+  Object.assign(target || {}, source);
   return target;
 };
 
@@ -29,14 +29,26 @@ const color = require('chalk');
 const cwd = process.cwd();
 const VERSION = require('../package.json').version;
 
+const AvailableTemplates = ['vue'];
+
 async function add({ name }) {
+  if (!AvailableTemplates.includes(name)) {
+    console.log(color`┌ {bold.blue Huncwot} {bold ${VERSION}}`);
+    console.log(
+      color`└ {red error}: Template '{magenta ${name}}' not recognized.`
+    );
+    return;
+  }
+
   const parent = resolve(__dirname, '..');
-  const configDirectory = join(parent, 'template', 'vue', 'config');
+  const rootDirectory = join(parent, 'template', 'vue');
+  const configDirectory = join(rootDirectory, 'config');
 
   console.log(color`┌ {bold.blue Huncwot} {bold ${VERSION}}`);
   try {
     console.log(color`├ {cyan new}: adding {magenta Vue} integration ...`);
 
+    await fs.copy(rootDirectory, cwd);
     await fs.copy(configDirectory, join(cwd, 'config'));
 
     const content = mergePackageJSONDependencies();
