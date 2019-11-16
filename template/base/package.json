@@ -1,10 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "client": "VUE_CLI_SERVICE_CONFIG_PATH=$PWD/config/client/vue.config.js vue-cli-service serve config/client/index.ts",
-    "build": "tsc && vue-cli-service build config/client/index.ts",
-    "server": "ROARR_LOG=true huncwot server | npx roarr pretty-print",
-    "start": "stmux -w always -e ERROR -m beep,system -- [ -t 'Client: Vue.js' 'npm run client' .. -t 'Server' 'huncwot server' ]",
+    "start": "stmux -w always -e ERROR -m beep,system -- [ -t 'Client' 'huncwot client' .. -t 'Server' 'huncwot server' ]",
     "migrate": "node-pg-migrate -m db/migrations"
   },
   "dependencies": {
