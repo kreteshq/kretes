@@ -16,10 +16,13 @@
     "not ie <= 8"
   ],
   "devDependencies": {
+    "@wessberg/rollup-plugin-ts": "^1.1.78",
     "cross-env": "^6.0.3",
     "node-pg-migrate": "^3.23.3",
     "stmux": "^1.7.1",
     "typescript": "^3.7.2",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "rollup-plugin-livereload": "^1.0.4",
+    "rollup-plugin-serve": "^1.0.1"
   }
 }
