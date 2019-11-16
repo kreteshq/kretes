@@ -1,4 +1,3 @@
-import App from "./App.vue";
-import Home from "./Home.vue";
+const App = 'Hello, World';
 
-export { App, Home };
+export { App };
