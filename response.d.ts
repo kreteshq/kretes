@@ -35,5 +35,5 @@ declare module 'huncwot/response' {
 
   function OK(_: any): Response;
 
-  export { Routes, Request, Response, OK }
+  export { Handler, Routes, Request, Response, OK }
 }
