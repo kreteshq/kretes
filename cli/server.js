@@ -50,22 +50,27 @@ const start = async ({ port }) => {
 
 const server = async ({ port }) => {
   const compiler = new TypescriptCompiler(
-    require('typescript/lib/typescript'),
-    `config/server/tsconfig.json`,
-    cwd
+    cwd,
+    'config/server/tsconfig.json',
+    require('typescript/lib/typescript')
   );
+  const { error, config } = compiler.configParser().parse();
 
-  const { error, config } = compiler.parseConfig();
+  if (error || !config || config.errors.length) {
+    return;
+  }
+
+  const watcher = compiler.watcher(config)
 
   let app;
 
-  compiler.on('initial:build', async (hasError, diagnostics) => {
+  watcher.on('watcher:ready', async () => {
     // start the HTTP server
 
     app = await start({ port });
   });
 
-  compiler.on('subsequent:build', (filePath, hasError, diagnostics) => {
+  watcher.on('subsequent:build', ({ path: filePath }) => {
     console.clear();
     console.log(color`  {underline ${filePath}} {green reloaded}`);
 
@@ -87,10 +92,7 @@ const server = async ({ port }) => {
     delete require.cache[cacheKey];
   });
 
-  compiler.watch(config, [
-    'config/server',
-    'features'
-  ], {
+  watcher.watch(['config/server', 'features'], {
     ignored: [
       'features/**/View/*',
       'features/**/Store.ts',
