@@ -28,7 +28,7 @@
     "@sqorn/pg": "0.0.45",
     "apollo-server-core": "^2.9.9",
     "apollo-server-module-graphiql": "^2.0.0-beta.6",
-    "argon2": "0.24.1",
+    "argon2": "0.25.1",
     "axios": "^0.19.0",
     "basic-auth": "^2.0.1",
     "busboy": "^0.3.1",
@@ -46,7 +46,7 @@
     "merge-deep": "^3.0.2",
     "mime-types": "^2.1.25",
     "mustache": "^3.1.0",
-    "pg": "^7.12.1",
+    "pg": "^7.13.0",
     "rsyncwrapper": "^3.0.1",
     "semver": "^6.3.0",
     "stack-trace": "0.0.10",
@@ -54,7 +54,7 @@
     "typescript": "^3.7.2",
     "validate": "^5.1.0",
     "ws": "^7.2.0",
-    "yargs": "^15.0.1"
+    "yargs": "^15.0.2"
   },
   "bin": {
     "huncwot": "cli.js",
