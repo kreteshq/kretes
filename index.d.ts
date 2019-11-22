@@ -1,4 +1,4 @@
-declare module 'huncwot/response' {
+declare module 'huncwot' {
   interface Request {
     params: {
       [name: string]: any
@@ -33,7 +33,11 @@ declare module 'huncwot/response' {
     },
   }
 
+  export { Handler, Routes, Request, Response }
+}
+
+declare module 'huncwot/response' {
   function OK(_: any): Response;
 
-  export { Handler, Routes, Request, Response, OK }
+  export { OK };
 }
