@@ -1,6 +1,7 @@
+import { Handler } from 'huncwot';
 import { OK } from 'huncwot/response';
 
-const browse = ({ params }) => {
+const browse: Handler = ({ params }) => {
   return OK('Hello, Huncwot!');
 }
 

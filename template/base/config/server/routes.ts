@@ -1,4 +1,5 @@
-import { OK, Routes } from 'huncwot/response';
+import { Routes } from 'huncwot';
+import { OK } from 'huncwot/response';
 
 const routes: Routes = {
   GET: {
