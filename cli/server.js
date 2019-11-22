@@ -12,9 +12,9 @@
 // limitations under the License.
 
 const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
-const cwd = process.cwd();
+const CWD = process.cwd();
 
-const { join, parse } = require('path');
+const { join, parse, sep } = require('path');
 const color = require('chalk');
 const { TypescriptCompiler } = require('@poppinss/chokidar-ts');
 
@@ -30,14 +30,14 @@ const start = async ({ port }) => {
   let routes = {};
   try {
     await app.setup();
-    routes = require(join(cwd, 'dist/config/server/routes')).default;
+    routes = require(join(CWD, 'dist/config/server/routes')).default;
   } catch (e) {
     console.error(e.message);
   }
 
   const server = app.start({ routes, port });
 
-  server.on('connection', (socket) => {
+  server.on('connection', socket => {
     sockets.push(socket);
   });
 
@@ -50,7 +50,7 @@ const start = async ({ port }) => {
 
 const server = async ({ port }) => {
   const compiler = new TypescriptCompiler(
-    cwd,
+    CWD,
     'config/server/tsconfig.json',
     require('typescript/lib/typescript')
   );
@@ -60,7 +60,7 @@ const server = async ({ port }) => {
     return;
   }
 
-  const watcher = compiler.watcher(config)
+  const watcher = compiler.watcher(config);
 
   let app;
 
@@ -70,9 +70,15 @@ const server = async ({ port }) => {
     app = await start({ port });
   });
 
-  watcher.on('subsequent:build', ({ path: filePath }) => {
+  watcher.on('subsequent:build', ({ path: filePath, diagnostics }) => {
     console.clear();
     console.log(color`  {underline ${filePath}} {green reloaded}`);
+    diagnostics.forEach(({ file, messageText }) => {
+      const location = file.fileName.split(`${CWD}${sep}`)[1];
+      console.log(
+        color`  {red.bold Errors:}\n  {grey in} {underline ${location}}\n   → ${messageText}`
+      );
+    });
 
     // restart the HTTP server
     sockets
@@ -88,11 +94,11 @@ const server = async ({ port }) => {
     // clean the `require` cache
     const { dir, name } = parse(filePath);
 
-    const cacheKey = `${join(cwd, 'dist', dir, name)}.js`;
+    const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
     delete require.cache[cacheKey];
   });
 
-  watcher.watch(['config/server', 'features'], {
+  const output = watcher.watch(['config/server', 'features'], {
     ignored: [
       'features/**/View/*',
       'features/**/Store.ts',
@@ -100,6 +106,14 @@ const server = async ({ port }) => {
       'features/**/Model.ts',
       'features/**/Model/*'
     ]
+  });
+
+  if (output.diagnostics.length > 0) console.log(color`  {red.bold Errors:}`);
+  output.diagnostics.forEach(({ file, messageText }) => {
+    const location = file.fileName.split(`${CWD}${sep}`)[1];
+    console.log(
+      color`  {grey in} {underline ${location}}\n   → ${messageText}`
+    );
   });
 };
 
