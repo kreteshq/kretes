@@ -22,7 +22,7 @@ const merge = (target, source) => {
 };
 
 const fs = require('fs-extra');
-const { join, resolve } = require('path');
+const { join } = require('path');
 const { spawn } = require('child_process');
 const color = require('chalk');
 
@@ -40,25 +40,37 @@ async function add({ name }) {
     return;
   }
 
-  const parent = resolve(__dirname, '..');
-  const rootDirectory = join(parent, 'template', 'vue');
-  const configDirectory = join(rootDirectory, 'config');
-
   console.log(color`┌ {bold.blue Huncwot} {bold ${VERSION}}`);
   try {
-    console.log(color`├ {cyan new}: adding {magenta Vue} integration ...`);
-
-    await fs.copy(rootDirectory, cwd);
-    await fs.copy(configDirectory, join(cwd, 'config'));
+    console.log(color`├ {cyan setup}: {magenta Vue.js} module`);
 
     const content = mergePackageJSONDependencies();
     await fs.outputJson(join(cwd, 'package.json'), content, { spaces: 2 });
 
+    console.log(color`├ {cyan setup}: installing {magenta @huncwot/vue}`);
+
+    await new Promise((resolve, reject) => {
+      const child = spawn('npm', ['install'], { cwd: '.', stdio: 'inherit' });
+      child.on('exit', code => {
+        if (code) reject('exit code 1');
+        resolve();
+      });
+    });
+
     console.log(
-      color`└ {cyan new}: installing dependencies for the {magenta Vue} integration ...`
+      color`├ {cyan setup}: configuring as the {magenta Vue.js} application`
     );
-    const install = spawn('npm', ['install'], { cwd: '.', stdio: 'inherit' });
-    install.on('close', () => { });
+
+    await new Promise((resolve, reject) => {
+      const child = spawn('npx', ['huncwot-vue'], {
+        cwd: '.',
+        stdio: 'inherit'
+      });
+      child.on('exit', code => {
+        if (code) reject('exit code 1');
+        resolve();
+      });
+    });
   } catch (error) {
     console.log('error: ' + error.message);
   }
@@ -71,7 +83,10 @@ module.exports = {
 
 const mergePackageJSONDependencies = () => {
   const actual = require(join(cwd, 'package.json'));
-  const update = require('../template/vue/package.json');
 
-  return merge(actual, update);
+  return merge(actual, {
+    dependencies: {
+      '@huncwot/vue': '0.0.1'
+    }
+  });
 };
