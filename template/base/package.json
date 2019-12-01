@@ -16,7 +16,7 @@
   ],
   "devDependencies": {
     "@pika/web": "^0.6.1",
-    "@wessberg/rollup-plugin-ts": "^1.1.80",
+    "@wessberg/rollup-plugin-ts": "^1.1.83",
     "cross-env": "^6.0.3",
     "node-pg-migrate": "^3.23.3",
     "stmux": "^1.7.1",
