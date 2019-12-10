@@ -80,6 +80,11 @@ const _argv = require('yargs')
     'Run database migrations',
     require('./cli/migrate')
   )
+  .command(
+    ['background', 'bg'],
+    'Run background processing',
+    require('./cli/background')
+  )
   .demandCommand(1, 'You need at least one command before moving on')
   .help('h')
   .alias('h', 'help')
