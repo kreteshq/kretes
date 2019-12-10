@@ -21,7 +21,7 @@ const handler = ({ password }) => {
 };
 
 module.exports = {
-  command: 'password-hash [password]',
+  command: 'password-hash <password>',
   builder: {},
   handler
 };
