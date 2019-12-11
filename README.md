@@ -216,6 +216,8 @@ Each task must be placed in a separate file within the `tasks/` directory at the
 
 This background processing mechanism is integrated directly into PostgreSQL (it requires PostgreSQL 10 or higher). You may wonder why not use Redis or something similar. The answer is **simplicity**. Putting the job/task queues in a relational database is minimally less performant than Redis while providing a significant convenience for the application maintenance: there is less elements to install, manage and configure when running your application.
 
+Also, you can use SQL, a familiar interface to query about tasks & queues statuses instead of learning yet another domain specific language as, for example, in the case of Redis. Simplicity for the win.
+
 You can run the background processing mechanism using the `background` command:
 
 ```bash
