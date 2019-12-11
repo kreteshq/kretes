@@ -33,11 +33,33 @@ declare module 'huncwot' {
     },
   }
 
-  export { Handler, Routes, Request, Response }
+  interface Payload {
+    [key: string]: any
+  }
+  type Task = (input: Payload) => Promise<void>;
+  type Queue = any;
+
+  export { Handler, Routes, Request, Response, Payload, Task }
 }
 
 declare module 'huncwot/response' {
+  import { Response } from 'huncwot';
+
   function OK(_: any): Response;
 
   export { OK };
+}
+
+declare module 'huncwot/background' {
+  import { Task, Payload, Queue } from 'huncwot';
+
+  interface ScheduleInput {
+    task: Task
+    payload?: Payload
+    queue?: Queue
+    runAt?: string
+    maxAttempts?: number
+  }
+
+  function schedule(_: ScheduleInput): Promise<void>;
 }
