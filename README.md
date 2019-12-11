@@ -231,14 +231,16 @@ hc bg
 From now on you can schedule tasks. The process of scheduling consists of putting the task name along with its input payload on a task queue. This is usually done from within your application in response to some activity, e.g. you send a welcome email once a user registers, etc.
 
 ```ts
-Worker.schedule(SendEmail)
+Background.schedule({ task: SendEmail });
 ```
 
 For some tasks you may need to provide some input data (the payload) so that they execute properly:
 
 ```ts
-Worker.schedule(SendEmail)
-  .with({ to: 'admin@example.com' })
+Background.schedule({
+  task: SendEmail
+  payload: { to: 'admin@example.com' }
+});
 ```
 
 By default the task is scheduled on a new queue, i.e. the queue name is randomly generated. This means that the worker executes tasks in parallel if there is enough throughput (CPUs).
@@ -246,8 +248,10 @@ By default the task is scheduled on a new queue, i.e. the queue name is randomly
 You may need to force an execution order for certain tasks. In this case you need to schedule those tasks on the same queue so that they run serially:
 
 ```ts
-Worker.schedule(SendEmail)
-  .on(Queue.for('email'))
+Background.schedule({
+  task: SendEmail,
+  queue: Queue.for('email')
+});
 ```
 
 Lastly, you can schedule tasks via the CLI. This is useful while in development to quickly test if tasks execute as planned:
