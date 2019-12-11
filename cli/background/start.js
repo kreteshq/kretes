@@ -14,7 +14,7 @@ const pgPool = new Pool(connection);
 const handler = async () => {
   const runner = await run({
     pgPool,
-    taskDirectory: `${CWD}/tasks`
+    taskDirectory: `${CWD}/dist/tasks`
   });
 };
 
