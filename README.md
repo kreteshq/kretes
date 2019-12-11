@@ -67,7 +67,7 @@ etc).
 * Huncwot is as a replacement for Express & Koa to build server-side applications.
 * Huncwot provides a simpler than Express/Koa, data-driven HTTP handler abstraction.
 * Huncwot comes with a built-in REST endpoint.
-* Huncwot comes with a built-in GraphQL endpoint. 
+* Huncwot comes with a built-in GraphQL endpoint.
 * Huncwot can collocate [GraphQL](http://graphql.org/) queries with Vue.js components.
 * Huncwot provides a data-driven router
 * Huncwot allows to conveniently [set the preferred response format](#set-the-preferred-response-format)
@@ -89,7 +89,13 @@ etc).
   a single cost factor. On top of that, Argon2 won the Password Hashing
   Competition in 2015. It is build around AES ciphers, is resistant to ranking
   tradeoff attacks and more...
-* Huncwot uses the [node-argon2](https://github.com/ranisalt/node-argon2/) package 
+* Huncwot uses the [node-argon2](https://github.com/ranisalt/node-argon2/) package
+
+### :factory: Background Processing
+
+* Huncwot provides a simple and efficient background processing for Node.js
+* The task/job queues are handled by PostgreSQL and stored in the same database that the application itself
+* Huncwot uses the [graphile-worker](https://github.com/graphile/worker) package (a high performance Node.js task/job queue) underneath
 
 ### :computer: Command Toolkit
 
@@ -103,11 +109,12 @@ etc).
 
 ### :cake: Conventions & Conveniences
 
+* Huncwot fights hard against the accidental compelexity: let's focus on business needs of our applications instead of constantly configuring, patching and putting together various software elements.
 * Huncwot enforces the [Folder-By-Feature Directory Structure](#folder-by-feature-directory-structure)
 
 ## Rationale
 
-Huncwot is being built with *battery included* approach in mind, i.e. it comes with a (eventually large) library of useful modules which are developped in a coherent way. This stands in direct opposition to Koa approach. Huncwot tries to formalize conventions and eliminate valueless choices by providing solid defaults for building web applications that increase the programmers productivity.
+Huncwot is being built with *battery included* approach in mind, i.e. it comes with a (eventually large) library of useful modules which are developed in a coherent way. This stands in direct opposition to Koa approach. Huncwot tries to formalize conventions and eliminate valueless choices by providing solid defaults for building web applications that increase the programmers productivity.
 
 ## Getting Started
 
@@ -124,22 +131,16 @@ huncwot new my-project
 cd my-project
 ```
 
-Start the application using `huncwot`, `hc` (alias) or `npm`
+Start the application using the `start` command:
 
 ```
 huncwot start
 ```
 
-or
+or with the `hc` alias:
 
 ```
 hc start
-```
-
-or
-
-```
-npm start
 ```
 
 Visit `https://localhost:8080`
@@ -152,7 +153,7 @@ Visit `https://localhost:8080`
 
 The directory structure in Huncwot is organized around your application
 **features**, and not **by type**. This means that artifacts, either client-side or
-server-side are kept togheter. In other words, this approach groups together
+server-side are kept together. In other words, this approach groups together
 entities (classes, functions) that actually work together. This leads to high
 modularity of your application and better cohesion.
 
@@ -170,7 +171,7 @@ frontend and backend.
 
 Huncwot determines the preferred response format from either the HTTP `Accept`
 header or `format` query string parameter, submitted by the client. The `format`
-query parameter takes precendence over the HTTP `Accept` header.
+query parameter takes precedence over the HTTP `Accept` header.
 
 Based on the preferred format, you can construct actions that handle several
 possibilities at once using just the JavaScript's `switch` statement - no
@@ -179,15 +180,15 @@ special syntax needed.
 ```js
 const browse = ({ format }) => {
   // ... the action body
-  
+
   switch (format) {
     case 'html':
       // provide a response as a HTML Page
       return HTMLPage(...)
     case 'csv':
-      // provide a response as in CSV format 
+      // provide a response as in CSV format
       return CSVPayload(...)
-    default: 
+    default:
       // format not specified
       return JSONPayload(...)
   }
@@ -195,12 +196,78 @@ const browse = ({ format }) => {
 }
 ```
 
+### Background Processing
+
+Huncwot provides a simple and efficient background processing in Node.js using the [graphile-worker](https://github.com/graphile/worker) package.
+
+The task are written in TypeScript and put by name on the task queues along with the necessary payload.
+
+```ts
+const SendEmail: Task = async input => {
+  const { name } = input;
+
+  console.log(`Hello, ${name}`);
+}
+```
+
+By convention, the task names in Huncwot are written in Camel Case with the first letter uppercase: think, this is a `SendEmail` task.
+
+Each task must be placed in a separate file within the `tasks/` directory at the root of your Huncwot project, e.g. `tasks/SendEmail.ts` for the task above.
+
+This background processing mechanism is integrated directly into PostgreSQL (it requires PostgreSQL 10 or higher). You may wonder why not use Redis or something similar. The answer is **simplicity**. Putting the job/task queues in a relational database is minimally less performant than Redis while providing a significant convenience for the application maintenance: there is less elements to install, manage and configure when running your application.
+
+You can run the background processing mechanism using the `background` command:
+
+```bash
+huncwot background
+```
+
+There is also a convenient `bg` alias for that:
+
+```
+hc bg
+```
+
+From now on you can schedule tasks. The process of scheduling consists of putting the task name along with its input payload on a task queue. This is usually done from within your application in response to some activity, e.g. you send a welcome email once a user registers, etc.
+
+```ts
+Worker.schedule(SendEmail)
+```
+
+For some tasks you may need to provide some input data (the payload) so that they execute properly:
+
+```ts
+Worker.schedule(SendEmail)
+  .with({ to: 'admin@example.com' })
+```
+
+By default the task is scheduled on a new queue, i.e. the queue name is randomly generated. This means that the worker executes tasks in parallel if there is enough throughput (CPUs).
+
+You may need to force an execution order for certain tasks. In this case you need to schedule those tasks on the same queue so that they run serially:
+
+```ts
+Worker.schedule(SendEmail)
+  .on(Queue.for('email'))
+```
+
+Lastly, you can schedule tasks via the CLI. This is useful while in development to quickly test if tasks execute as planned:
+
+```bash
+huncwot background schedule <name> [payload]
+```
+
+The `name` parameter is a mandatory task name, e.g. `SendEmail` while the `payload` parameter is an optional JSON payload as `string`.
+
+```bash
+hc bg schedule SendEmail '{ "to": "admin@example.com" }'
+```
+
 
 ## Usage
 
 Huncwot can be used as a replacement for Express or Koa, but it also goes beyond that by providing opinionated choices to other layers in the stack (view, ORM, etc) required to build a fully functional web application.
 
-There are two essential ways in Huncwot to constract a web application: traditional server-side or modern component-based. Nonenthless, those two approaches can be combined in any proportion.
+There are two essential ways in Huncwot to construct a web application: traditional server-side or modern component-based. Nonetheless, those two approaches can be combined in any proportion.
 
 ### Server-side
 
@@ -240,7 +307,7 @@ This example shows a regular, server-side application in the style of Express or
 
 ### Component-based
 
-Component-based means that *pages* are built by combining components: an independant chunks of HTML with their own styling and behaviour defined in JavaScript. There is usually only a single *page* (rendered on the server) to which components are being attached - this happens in the browser (client-side). Routing is usually performed in the browser with paths corresponding to components.
+Component-based means that *pages* are built by combining components: an independent chunks of HTML with their own styling and behavior defined in JavaScript. There is usually only a single *page* (rendered on the server) to which components are being attached - this happens in the browser (client-side). Routing is usually performed in the browser with paths corresponding to components.
 
 ![component](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/component-approach.png)
 
