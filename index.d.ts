@@ -5,7 +5,7 @@ declare module 'huncwot' {
     }
   }
 
-  type Response = string | { body: string };
+  type Response = string | { body: string } | Promise<string> | Promise<{ body: string }>;
 
   type Handler = (request: Request) => Response;
 
