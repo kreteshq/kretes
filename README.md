@@ -21,31 +21,22 @@
 
 Huncwot is a **macro framework** for **monolithic** web applications built for modern JavaScript with « batteries included » approach. It is an **integrated** solution that optimizes for programmers productivity by reducing choices and incorporating community conventions.
 
+
+
 [Website](https://huncwot.org) |
 [Twitter](http://twitter.com/huncwot)
 
-> The documentation is a bit outdated. Check the [Huncwot Example App](https://github.com/zaiste/huncwot-example-app) for inspiration and guidance.
-
 ## Table of Contents
 
-* [Features In A Nutshell](#features-in-a-nutshell)
 * [Rationale](#rationale)
+* [Features In A Nutshell](#features-in-a-nutshell)
 * [Getting Started](#getting-started)
-* [Usage](#usage)
-  * [Server-Side](#server-side)
-  * [Component-based](#component-based)
-* [Concepts](#concepts)
-  * [Database](#databse)
-  * [Handlers](#handlers)
-  * [View](#view)
-  * [Routes](#routes)
-  * [Parameters](#parameters)
-  * [GraphQL](#graphql)
-* [Modules](#modules)
-  * [Auth](#auth)
-  * [Static](#static)
-* [Examples](#examples)
 
+## Rationale
+
+Huncwot is being built with *battery included* approach in mind, i.e. it comes with a (eventually large) library of useful modules which are developed in a coherent way. This stands in direct opposition to Koa approach. Huncwot tries to formalize conventions and eliminate valueless choices by providing solid defaults for building web applications that increase the programmers productivity.
+
+The framework fights against [the accidental complexity](https://wiki.c2.com/?AccidentalComplexity). Let's focus on business needs of our applications instead of constantly configuring, patching and putting together various software elements.
 
 ## Features In A Nutshell
 
@@ -62,59 +53,45 @@ As a secondary goal, Huncwot tries to minimize the dependencies. It uses
 external packages only if absolutely necessary (e.g. security, OS abstractions
 etc).
 
-### :gear: Server-side / Backend
+### :gear: Server-side (Backend)
 
-* Huncwot is as a replacement for Express & Koa to build server-side applications.
-* Huncwot provides a simpler than Express/Koa, data-driven HTTP handler abstraction.
-* Huncwot comes with a built-in REST endpoint.
-* Huncwot comes with a built-in GraphQL endpoint.
-* Huncwot can collocate [GraphQL](http://graphql.org/) queries with Vue.js components.
+* A replacement for Express & Koa to build server-side applications
+* [Data-driven HTTP handler abstractions](#data--driven-http-handler-abstractions)
+* Use [wrappers for common HTTP responses](#wrappers-for-common-http-responses)
+* Conveniently [set the preferred response format](#set-the-preferred-response-format)
+* Huncwot comes with a built-in REST endpoint
+* Huncwot comes with a built-in GraphQL endpoint
+* Huncwot can collocate [GraphQL](http://graphql.org/) queries with Vue.js components
 * Huncwot provides a data-driven router
-* Huncwot allows to conveniently [set the preferred response format](#set-the-preferred-response-format)
 
-### :bar_chart: Client-side / Frontend
+### :bar_chart: Client-side (Frontend)
 
-* ... uses [Vue.js](https://vuejs.org/)
-* ... uses [Vuex](https://vuex.vuejs.org/en/) for state management
-* ... uses [Webpack 4](https://webpack.js.org/) for bundling assets
-* ... favors class-style Vue.js components using [vue-class-component](https://github.com/vuejs/vue-class-component)
-* ... can be used as a convenient boilerplate for Vue.js to build client-side applications
-* ... uses [vue-i18n](https://github.com/kazupon/vue-i18n) for internationalization
+* Application structure integrated with popular UI libraries & frameworks such as Vue.js, React, Preact or Svelte
+
 
 ### :closed_lock_with_key: Security
 
-* Huncwot favors [Argon2](https://en.wikipedia.org/wiki/Argon2) as a hash
-  function for storing passwords over bcrypt and scrypt. bcrypt lacks memory
-  hardness while in scrypt both, memory hardness and iteration count are tied to
-  a single cost factor. On top of that, Argon2 won the Password Hashing
-  Competition in 2015. It is build around AES ciphers, is resistant to ranking
-  tradeoff attacks and more...
-* Huncwot uses the [node-argon2](https://github.com/ranisalt/node-argon2/) package
+* [Argon2](https://en.wikipedia.org/wiki/Argon2) as a hash function for storing passwords (instead of bcrypt or scrypt)
 
 ### :factory: Background Processing
 
-* Huncwot provides a simple and efficient background processing for Node.js
-* The task/job queues are handled by PostgreSQL and stored in the same database that the application itself
-* Huncwot uses the [graphile-worker](https://github.com/graphile/worker) package (a high performance Node.js task/job queue) underneath
+* A simple and efficient background processing for Node.js out of the box
+* The task/job queues are handled by PostgreSQL and stored in the same database as the application itself
+* CLI tools for starting the background process and scheduling tasks
 
 ### :computer: Command Toolkit
 
-### :minidisc: Storage
+### :minidisc: Persistance
 
-* Huncwot favors plain (old?) SQL queries over ORMs as [SQL is one of the most valuable skills](http://www.craigkerstiens.com/2019/02/12/sql-most-valuable-skill/)
-* Huncwot provides a SQL-like, data-driven abstractions for the database integration
+* Use A SQL Query Builder instead of an ORM as [SQL is one of the most valuable skills](http://www.craigkerstiens.com/2019/02/12/sql-most-valuable-skill/)
+* A SQL-like, data-driven abstractions for the database integration
 * ... uses [Sqorn](https://sqorn.org/) for the database integration which provides a SQL-like abstractions right inside JavaScript
 * ... supports only PostgreSQL
 * ... is unwilling to support NoSQL ([Thank you for your help NoSQL, but we got it from here](https://www.memsql.com/blog/why-nosql-databases-wrong-tool-for-modern-application/))
 
 ### :cake: Conventions & Conveniences
 
-* Huncwot fights hard against the accidental compelexity: let's focus on business needs of our applications instead of constantly configuring, patching and putting together various software elements.
-* Huncwot enforces the [Folder-By-Feature Directory Structure](#folder-by-feature-directory-structure)
-
-## Rationale
-
-Huncwot is being built with *battery included* approach in mind, i.e. it comes with a (eventually large) library of useful modules which are developed in a coherent way. This stands in direct opposition to Koa approach. Huncwot tries to formalize conventions and eliminate valueless choices by providing solid defaults for building web applications that increase the programmers productivity.
+* [Folder-By-Feature Directory Structure](#folder-by-feature-directory-structure)
 
 ## Getting Started
 
@@ -151,21 +128,93 @@ Visit `https://localhost:8080`
 
 ### Folder-By-Feature Directory Structure
 
-The directory structure in Huncwot is organized around your application
-**features**, and not **by type**. This means that artifacts, either client-side or
-server-side are kept together. In other words, this approach groups together
-entities (classes, functions) that actually work together. This leads to high
-modularity of your application and better cohesion.
+The directory structure in Huncwot is organized around your application **features**, and not **by type**. This means that artifacts, either client-side or server-side are kept together. In other words, this approach groups together entities (classes, functions) that actually work together. This leads to high modularity of your application and better cohesion.
 
-The *Folder-By-Feature* approach makes it easier to find files in your
-application directory. It is especially visible once your project grows -
-folder-by-feature is a better long-term approach due its scalability.
+The *Folder-By-Feature* approach makes it easier to find files in your application directory. It is especially visible once your project grows - folder-by-feature is a better long-term approach due its scalability.
 
-To some extend, the *Folder-By-Feature* approach is similar to how recent
-frontend libraries and frameworks (React, Vue, etc) group together HTML,
-JavaScript and Stylesheets. In Huncwot, this simply goes one step further by
-applying a similar technique to the entire application so that it covers both
-frontend and backend.
+To some extend, the *Folder-By-Feature* approach is similar to how recent frontend libraries and frameworks (React, Vue, etc) group together HTML, JavaScript and Stylesheets. In Huncwot, this simply goes one step further by applying a similar technique to the entire application so that it covers both frontend and backend.
+
+### Built-in Authentication
+
+bcrypt lacks memory hardness while in scrypt both, memory hardness and iteration count are tied to a single cost factor. On top of that, Argon2 won the Password Hashing Competition in 2015. It is build around AES ciphers, is resistant to ranking tradeoff attacks and more...
+
+### Data-driven Handler Abstractions
+
+Contrary to Express.js (and similar frameworks), a **handler** in Huncwot is a *one argument* function. This argument is the incoming request.
+
+```js
+// An example of a handler
+const browse = request => {
+  return { ... } // <- the return value is used by Huncwot to create an HTTP response
+}
+```
+
+In Express, and the majority of other Node.js frameworks, handlers take two arguments. The first one is the request and the second one is the response.
+
+In Huncwot, the response is simply everything that is being returned by the handler. This way, it may be slightly more natural to think about the process of handling requests and generating responses: handlers are functions, which take requests as their input and produce responses as their output.
+
+```js
+const fetch = request => {
+  return { body: 'Hello, Huncwot!' }
+}
+```
+
+The return value can be a string. In that case the response `Content-Type` header is set to `text/plain`, e.g.
+
+```js
+const say = request => {
+  return 'This is nice'
+}
+```
+
+Usually the value returned by a handler is an object with (at least) the `body` property. Optionally, you can also specify the `headers`, `statusCode` or `type` properties. This constitutes the `Handler` type.
+
+```ts
+import { Handler } from 'huncwot';
+
+const fetch: Handler = request => {
+  return {
+    body: '<h1>Hello World</h1>',
+    type: 'text/html',
+    statusCode: 200,
+    headers: {}
+  }
+}
+```
+
+Huncwot uses plain objects (a regular data structure in JavaScript) to represent HTTP responses. That's why we say it's a data-driven (and declarative) approach. This is inspired by the ring library from the Clojure community.
+
+In some relatively rare cases, the response can be also a stream. Huncwot sets the `type` automatically to `application/octet-stream` in that event.
+
+### Wrappers For Common HTTP Responses
+
+It would be arduous to create an object with the specific fields each time an HTTP response is needed. Huncwot provides convenient wrappers in that situation.
+
+Instead of writing:
+
+```ts
+import { Handler } from 'huncwot';
+
+const fetch: Handler = request => {
+  return {
+    body: '<h1>Hello World</h1>',
+    type: 'text/html',
+    statusCode: 200,
+    headers: {}
+  }
+}
+```
+
+you can use the `HTMLPage` wrapper and write this:
+
+```ts
+import { Handler } from 'huncwot';
+import { HTMLPage } from 'huncwot/response';
+
+const fetch: Handler = request => {
+  return HTMLPage('<h1>Hello World</h1>')
+}
+```
 
 ### Set The Preferred Response Format
 
@@ -311,60 +360,6 @@ app.listen(5544);
 This example shows a regular, server-side application in the style of Express or Koa, e.g. you define various routes as a combination of paths and functions attached to it i.e. route handlers. In contrast to Express, Huncwot handlers only take HTTP `request` as input and always return an HTTP response: either defined explicitly as an object with `body`, `status`, etc keys, or implicitly with an inferred type e.g. `text/plain` or as a wrapping function e.g. `OK()` for `200`, or `created()` for `201`.
 
 
-### Component-based
-
-Component-based means that *pages* are built by combining components: an independent chunks of HTML with their own styling and behavior defined in JavaScript. There is usually only a single *page* (rendered on the server) to which components are being attached - this happens in the browser (client-side). Routing is usually performed in the browser with paths corresponding to components.
-
-![component](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/component-approach.png)
-
-
-Here's an example of a Vue.js component
-
-```js
-<template>
-  <div class="content">
-    <h2>Counter</h2>
-
-    <div>
-      <span class="counter">{{ $store.state.count }}</span>
-      <span class="notice">(count is: {{ evenOrOdd }})</span>
-    </div>
-
-    <a @click="increment">Increment</a>
-    <a @click="decrement">Decrement</a>
-    <a @click="incrementIfOdd">Increment if odd</a>
-    <a @click="incrementAsync">Increment async</a>
-  </div>
-</template>
-
-<script>
-import { mapGetters, mapActions } from 'vuex'
-
-export default {
-  computed: mapGetters([
-    'evenOrOdd'
-  ]),
-  methods: mapActions([
-    'increment',
-    'decrement',
-    'incrementIfOdd',
-    'incrementAsync'
-  ])
-}
-</script>
-
-<style scoped>
-.counter {
-  font-size: 5rem;
-}
-
-.notice {
-  color: #666;
-  font-weight: 500;
-}
-</style>
-```
-
 ## Concepts
 
 ### Database
@@ -437,82 +432,6 @@ Each action defined in a handler is responsible to connect the information recei
 
 Handlers may define up to five action. Each action is placed in a separate file i.e. `browse`, `read`, `edit`, `add`, `delete` - in short **BREAD** (which is a kind of extension of CRUD approach). Each of those functions is triggered by a corresponding HTTP method i.e. `browse()` and `read()` by `GET`, `edit()` by `PUT`, `add()` by `POST` and finally `destroy()` by `DELETE`.
 
-Here's an example of a handler with five actions defined in `handlers/widgets/` directory.
-
-Inside `handlers/widgets/browse.js`:
-
-```js
-const { OK } = require('huncwot/response');
-
-async function browse(request) {
-  const results = ...
-  return OK(results);
-}
-
-module.exports = browse
-```
-
-Inside `handlers/widgets/read.js`
-
-```js
-const { OK } = require('huncwot/response');
-
-async function read(request) {
-  const { id } = request.params;
-  const result = ...
-  return OK(result);
-}
-
-module.exports = read
-```
-
-Inside `handlers/widgets/edit.js`:
-
-```js
-const { OK } = require('huncwot/response');
-
-async function edit(request) {
-  const { id, name } = request.params;
-  ...
-  return OK({ status: `success: ${id} changed to ${name}` });
-}
-
-module.exports = edit
-```
-
-Inisde `handlers/widgets/add.js`:
-
-```js
-const { created } = require('huncwot/response');
-
-async function add(request) {
-  const { name } = request.params;
-  ...
-  return created({ status: `success: ${name} created` });
-}
-
-module.exports = add
-```
-
-Inside `handlers/widgets/destroy.js`:
-
-```js
-const { OK } = require('huncwot/response');
-
-async function destroy(request) {
-  const { id } = request.params;
-  ...
-  return OK({ status: `success: ${id} destroyed` });
-}
-
-module.exports = destroy
-```
-
-By default, Huncwot will make those actions available under `/widgets` route through HTTP methods and in accordance to **BREAD** principle.
-
-### View
-
-Huncwot uses [Vue.js](https://vuejs.org/) in the view layer to create and mangage components.
 
 ### Routes
 
@@ -522,109 +441,10 @@ You can define a route using one of HTTP verbs e.g. `.get()`, `.post()`, `.put()
 
 There are two kinds of parameters possible in a web application: the ones that are sent as part of the URL after `?`, called *query string* parameters; and the ones that are sent as part of the request `body`, referred to as POST data (usually comes from an HTML form or as JSON). Huncwot does not make any distinction between query string parameters and POST parameters, both are available in the request `params` object.
 
-### GraphQL
-
-Huncwot uses [Apollo](http://dev.apollodata.com/) on the client and on the server. Type definitions are stored at the top level in `graphql/`. Resolvers may be grouped in modules underneath `graphql/` directory. GraphQL service endpoint is `/graphql`.
-
-Both schema and resolvers can be auto-generated with placeholder data using `demo` template of `huncwot new`:
-
-```
-huncwot new --template demo
-```
-
-Here's an example of a Vue.js component with a collocated GraphQL query that communicates with the built-in `/graphql` endpoint.
-
-```js
-<template>
-  <div class="content">
-    <h2>Widgets</h2>
-    <ul>
-      <li v-for="widget in widgets">{{ widget.name }}</li>
-    </ul>
-  </div>
-</template>
-
-<script>
-import gql from 'graphql-tag';
-
-const query = gql`
-  query {
-    widgets {
-      name
-    }
-  }
-`
-
-export default {
-  data() {
-    return {
-      widgets: []
-    }
-  },
-
-  apollo: {
-    widgets: {
-      query
-    }
-  }
-}
-</script>
-```
-
-## Modules
-
-Huncwot comes with a set of modules that enable common functionalities
-
-### Auth
-
-```js
-app.use(auth({ users: { 'admin': 'secret' }}))
-```
-
-### Static
-
-```js
-app.use(static('./public'))
-```
-
 ## Examples
 
 * [Huncwot Example App](https://github.com/zaiste/huncwot-example-app)
 * [ToDo with Vue.js (Vuex, Vue Router), Node.js and TypeScript](https://github.com/zaiste/huncwot-component-app)
-
-## 3-rd Party Integrations
-
-### [nunjucks](https://mozilla.github.io/nunjucks/) integration
-
-```js
-const Huncwot = require('huncwot');
-const { HTMLPage } = require('huncwot/response');
-const nunjucks = require('nunjucks');
-
-const app = new Huncwot();
-
-nunjucks.configure('views', { autoescape: true });
-
-app.get('/', request => {
-  return HTMLPage(nunjucks.render('index.html', { username: 'Zaiste' }));
-})
-
-app.listen(3000);
-```
-
-In your project create `views/` directory with the following `index.html`
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Nunjucks Example</title>
-</head>
-<body>
-  <h1>Hello {{ username }}</h1>
-</body>
-</html>
-```
 
 ## Troubleshooting
 
