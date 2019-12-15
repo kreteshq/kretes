@@ -175,6 +175,27 @@ class Huncwot {
       }
     };
 
+    const CORSMiddleware = async (context, next) => {
+      const method = context.request.method;
+
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      };
+
+      if (method === 'OPTIONS') {
+        return {
+          statusCode: 200,
+          body: '',
+          headers,
+        };
+      }
+
+      return await next({ headers });
+    };
+
+    this.middlewareList.push(CORSMiddleware);
     this.middlewareList.push(RouterMiddleware);
 
     // append 404 middleware handler: it must be put at the end and only once
@@ -227,6 +248,12 @@ const handle = context => result => {
     type = result.type;
     encoding = result.encoding;
   }
+
+  Object.assign(headers, {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  });
 
   response.statusCode = result.statusCode || 200;
 
