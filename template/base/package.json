@@ -18,7 +18,7 @@
     "@pika/web": "^0.6.1",
     "@wessberg/rollup-plugin-ts": "^1.1.83",
     "cross-env": "^6.0.3",
-    "node-pg-migrate": "^3.23.3",
+    "node-pg-migrate": "^4.0.0",
     "stmux": "^1.7.1",
     "typescript": "^3.7.3",
     "prettier": "^1.19.1",

@@ -65,6 +65,7 @@ class Huncwot {
     },
     graphql = false,
     implicitControllers = true,
+    WebRPC = true,
     _verbose = false
   } = {}) {
     this.middlewareList = new Middleware();
@@ -104,6 +105,8 @@ class Huncwot {
           } else {
             this.add(method, route, handler);
           }
+
+          if (WebRPC) this.add('POST', `/rpc/${resource}/${operation}`, ...Array.isArray(handler) ? handler : [handler]);
         } catch (error) {
           console.error(error);
         }
