@@ -60,5 +60,9 @@
   "bin": {
     "huncwot": "cli.js",
     "hc": "cli.js"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 128
   }
 }

@@ -27,7 +27,11 @@ const build = () => {
       const segments = operation.split(sep);
       const action = segments.pop();
 
-      return { resource: [resource, ...segments].join('/'), operation: action, dir };
+      return {
+        resource: [resource, ...segments].join('/'),
+        operation: action,
+        dir
+      };
     } else {
       return { resource, operation, dir };
     }

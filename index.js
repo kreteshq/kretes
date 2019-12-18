@@ -32,8 +32,7 @@ const cwd = process.cwd();
 const handlerDir = join(cwd, 'dist');
 
 const isObject = _ => !!_ && _.constructor === Object;
-const compose = (...functions) => args =>
-  functions.reduceRight((arg, fn) => fn(arg), args);
+const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
 
 class Middleware extends Array {
   async next(context, last, current, done, called, func) {
@@ -123,8 +122,7 @@ class Huncwot {
   }
 
   use(middleware) {
-    if (typeof middleware !== 'function')
-      throw new TypeError('middleware must be a function!');
+    if (typeof middleware !== 'function') throw new TypeError('middleware must be a function!');
     this.middlewareList.push(middleware);
 
     return this;
@@ -143,7 +141,7 @@ class Huncwot {
     return this;
   }
 
-  start({ routes = {}, port = 5544, fn = () => {} }) {
+  start({ routes = {}, port = 5544, fn = () => { } }) {
     for (let [method, route] of Object.entries(routes)) {
       for (let [path, handler] of Object.entries(route)) {
         if (Array.isArray(handler)) {
@@ -188,7 +186,7 @@ class Huncwot {
         return {
           statusCode: 200,
           body: '',
-          headers,
+          headers
         };
       }
 
@@ -202,39 +200,40 @@ class Huncwot {
     // TODO Move to `catch` for pattern matching ?
     this.middlewareList.push(() => NotFound());
 
-    const server = http.createServer((request, response) => {
-      const context = { params: {}, headers: {}, request, response };
+    const server = http
+      .createServer((request, response) => {
+        const context = { params: {}, headers: {}, request, response };
 
-      this.middlewareList
-        .compose(context)
-        .then(handle(context))
-        .then(() => Logger.printRequestResponse(context))
-        .catch(error => {
-          response.statusCode = 500;
-          error.status = `500 ${httpstatus[500]}`;
+        this.middlewareList
+          .compose(context)
+          .then(handle(context))
+          .then(() => Logger.printRequestResponse(context))
+          .catch(error => {
+            response.statusCode = 500;
+            error.status = `500 ${httpstatus[500]}`;
 
-          // TODO remove at runtime in `production`, keep only in `development`
-          Logger.printRequestResponse(context);
-          Logger.printError(error, 'HTTP');
+            // TODO remove at runtime in `production`, keep only in `development`
+            Logger.printRequestResponse(context);
+            Logger.printError(error, 'HTTP');
 
-          const htmlifiedError = new HTMLifiedError(error, request);
+            const htmlifiedError = new HTMLifiedError(error, request);
 
-          htmlifiedError.generate().then(html => {
-            response.writeHead(500, { 'Content-Type': 'text/html' }).end(html);
+            htmlifiedError.generate().then(html => {
+              response.writeHead(500, { 'Content-Type': 'text/html' }).end(html);
+            });
           });
-        });
-    }).on('error', error => {
-      Logger.printError(error);
-      process.exit(1);
-    });
+      })
+      .on('error', error => {
+        Logger.printError(error);
+        process.exit(1);
+      });
 
     return server.listen(port, fn);
   }
 }
 
 const handle = context => result => {
-  if (null === result || undefined === result)
-    throw new Error('No return statement in the handler');
+  if (null === result || undefined === result) throw new Error('No return statement in the handler');
 
   let { response } = context;
 
@@ -271,8 +270,7 @@ const handle = context => result => {
   }
 
   if (body instanceof Stream) {
-    if (!response.getHeader('Content-Type'))
-      response.setHeader('Content-Type', type || 'text/html');
+    if (!response.getHeader('Content-Type')) response.setHeader('Content-Type', type || 'text/html');
 
     body.pipe(response);
     return;
@@ -284,8 +282,7 @@ const handle = context => result => {
     str = JSON.stringify(body);
     response.setHeader('Content-Type', 'application/json');
   } else {
-    if (!response.getHeader('Content-Type'))
-      response.setHeader('Content-Type', type || 'text/plain');
+    if (!response.getHeader('Content-Type')) response.setHeader('Content-Type', type || 'text/plain');
   }
 
   response.setHeader('Content-Length', Buffer.byteLength(str));
@@ -295,7 +292,6 @@ const handle = context => result => {
 const handleRequest = async context => {
   const { headers } = context.request;
   const { format } = context.params;
-
 
   context.headers = headers;
   context.cookies = parseCookies(headers.cookie);
@@ -334,7 +330,7 @@ const handleRequest = async context => {
               }
             };
           });
-          file.on('end', () => {});
+          file.on('end', () => { });
         });
         busboy.on('field', (fieldname, val) => {
           context.params = { ...context.params, [fieldname]: val };
