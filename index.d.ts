@@ -45,9 +45,11 @@ declare module 'huncwot' {
 declare module 'huncwot/response' {
   import { Response } from 'huncwot';
 
-  function OK(_: any): Response;
+  function OK(body?: any, headers?: any): Response;
+  function Created(body?: any, headers?: any): Response;
+  function NotFound(headers?: any): Response;
 
-  export { OK };
+  export { OK, Created, NotFound };
 }
 
 declare module 'huncwot/background' {
