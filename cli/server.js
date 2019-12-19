@@ -17,9 +17,12 @@ const CWD = process.cwd();
 const { join, parse, sep } = require('path');
 const color = require('chalk');
 const { TypescriptCompiler } = require('@poppinss/chokidar-ts');
+const fs = require('fs-extra');
 
 const Huncwot = require('../');
 const VERSION = require('../package.json').version;
+const { parser } = require('../parser');
+const { generateRPCOnClient } = require('../rpc');
 
 let sockets = [];
 
@@ -70,7 +73,7 @@ const server = async ({ port }) => {
     app = await start({ port });
   });
 
-  watcher.on('subsequent:build', ({ path: filePath, diagnostics }) => {
+  watcher.on('subsequent:build', async ({ path: filePath, diagnostics }) => {
     console.clear();
     console.log(color`  {underline ${filePath}} {green reloaded}`);
     diagnostics.forEach(({ file, messageText }) => {
@@ -96,6 +99,17 @@ const server = async ({ port }) => {
 
     const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
     delete require.cache[cacheKey];
+
+    if (dir.includes('Service') && name == 'Interface') {
+      const interfaceFile = await fs.readFile(`${join(CWD, dir, name)}.ts`);
+      const results = parser(interfaceFile.toString());
+      const [interface, methods] = Object.entries(results).shift();
+      const entityName = interface.split('ServiceInterface').shift();
+
+      const generated = generateRPCOnClient({ name: entityName, methods });
+
+      await fs.writeFile(join(CWD, 'features', entityName, 'Requester.ts'), generated);
+    }
   });
 
   const output = watcher.watch(['config/server', 'features'], {
