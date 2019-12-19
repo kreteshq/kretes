@@ -52,11 +52,7 @@ const start = async ({ port }) => {
 };
 
 const server = async ({ port }) => {
-  const compiler = new TypescriptCompiler(
-    CWD,
-    'config/server/tsconfig.json',
-    require('typescript/lib/typescript')
-  );
+  const compiler = new TypescriptCompiler(CWD, 'config/server/tsconfig.json', require('typescript/lib/typescript'));
   const { error, config } = compiler.configParser().parse();
 
   if (error || !config || config.errors.length) {
@@ -78,15 +74,11 @@ const server = async ({ port }) => {
     console.log(color`  {underline ${filePath}} {green reloaded}`);
     diagnostics.forEach(({ file, messageText }) => {
       const location = file.fileName.split(`${CWD}${sep}`)[1];
-      console.log(
-        color`  {red.bold Errors:}\n  {grey in} {underline ${location}}\n   → ${messageText}`
-      );
+      console.log(color`  {red.bold Errors:}\n  {grey in} {underline ${location}}\n   → ${messageText}`);
     });
 
     // restart the HTTP server
-    sockets
-      .filter(socket => !socket.destroyed)
-      .forEach(socket => socket.destroy());
+    sockets.filter(socket => !socket.destroyed).forEach(socket => socket.destroy());
 
     sockets = [];
 
@@ -125,14 +117,11 @@ const server = async ({ port }) => {
   if (output.diagnostics.length > 0) console.log(color`  {red.bold Errors:}`);
   output.diagnostics.forEach(({ file, messageText }) => {
     const location = file.fileName.split(`${CWD}${sep}`)[1];
-    console.log(
-      color`  {grey in} {underline ${location}}\n   → ${messageText}`
-    );
+    console.log(color`  {grey in} {underline ${location}}\n   → ${messageText}`);
   });
 };
 
 module.exports = {
-  builder: _ =>
-    _.option('port', { alias: 'p', default: 5544 }).default('dir', '.'),
+  builder: _ => _.option('port', { alias: 'p', default: 5544 }).default('dir', '.'),
   handler: server
 };
