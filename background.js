@@ -1,13 +1,7 @@
-const db = require('./db');
+const db = require('./db.js');
 
 module.exports = {
-  async schedule({
-    task,
-    payload = {},
-    queue = null,
-    runAt = null,
-    maxAttempts = null
-  }) {
+  async schedule({ task, payload = {}, queue = null, runAt = null, maxAttempts = null }) {
     await db.sql`
     SELECT * FROM graphile_worker.add_job(
       identifier => ${task.name}::text,
