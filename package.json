@@ -53,7 +53,7 @@
     "semver": "^7.1.1",
     "stack-trace": "0.0.10",
     "trek-router": "^1.2.0",
-    "typescript": "^3.7.3",
+    "typescript": "^3.7.4",
     "validate": "^5.1.0",
     "ws": "^7.2.1",
     "yargs": "^15.0.2"
