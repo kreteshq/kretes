@@ -22,7 +22,7 @@ const Busboy = require('busboy');
 const Router = require('trek-router');
 const httpstatus = require('http-status');
 
-const { serve, security } = require('./middleware');
+const { serve } = require('./middleware');
 const { build, translate } = require('./controller');
 const { NotFound } = require('./response');
 const Logger = require('./logger');
@@ -69,6 +69,7 @@ class Huncwot {
   } = {}) {
     this.middlewareList = new Middleware();
     this.router = new Router();
+    this.staticDir = staticDir;
 
     if (graphql) {
       try {
@@ -112,9 +113,7 @@ class Huncwot {
       }
     }
 
-    // this.add('GET', '/', [ serve(staticDir) ]);
     // this.add('GET', '/', [ security(securityOptions) ]);
-    this.add('GET', '/', async _request => 'Hello, Huncwot'); // TODO remove that, properly handle non-existent HTML in public/
   }
 
   async setup() {
@@ -195,6 +194,7 @@ class Huncwot {
 
     this.middlewareList.push(CORSMiddleware);
     this.middlewareList.push(RouterMiddleware);
+    this.use(serve(this.staticDir));
 
     // append 404 middleware handler: it must be put at the end and only once
     // TODO Move to `catch` for pattern matching ?
@@ -248,11 +248,14 @@ const handle = context => result => {
     encoding = result.encoding;
   }
 
-  Object.assign(headers, {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type'
-  });
+  Object.assign(
+    {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    },
+    headers
+  );
 
   response.statusCode = result.statusCode || 200;
 

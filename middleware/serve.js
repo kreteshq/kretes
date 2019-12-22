@@ -18,18 +18,20 @@ const fs = require('fs-extra');
 const path = require('path');
 const assert = require('assert');
 const mime = require('mime-types');
+const { parse } = require('url');
 
 const serve = (root, opts = { index: 'index.html' }) => {
   assert(root, 'you need to specify `root` directory');
   debug('"%s" %j', root, opts);
 
-  return next => async context => {
-    const { method, url } = context;
-    debug('"%s" -> %s', method, url);
+  return async (context, next) => {
+    const method = context.request.method;
+    const { pathname } = parse(context.request.url, true); // TODO Test perf vs RegEx
+    debug('"%s" -> %s', method, pathname);
 
     if (method.toUpperCase() === 'HEAD' || method.toUpperCase() == 'GET') {
       try {
-        let file = path.join(root, url);
+        let file = path.join(root, pathname);
         let stats = await fs.stat(file);
 
         if (stats.isDirectory()) {
