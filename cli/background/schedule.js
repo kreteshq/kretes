@@ -6,10 +6,10 @@ const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
 const config = require('config');
 const { Client } = require('pg');
 
-const connection = config.get('db');
-const db = new Client(connection);
+const handler = async ({ task, payload = '{}', options = {} }) => {
+  const connection = config.get('db');
+  const db = new Client(connection);
 
-const handler = async ({ task, payload = '{}', options = {}}) => {
   await db.connect();
   await db.query(
     `
@@ -20,13 +20,7 @@ const handler = async ({ task, payload = '{}', options = {}}) => {
         run_at => coalesce($4::timestamptz, now()),
         max_attempts => coalesce($5::int, 25)
     );`,
-    [
-      task,
-      payload,
-      options.queueName || null,
-      options.runAt ? options.runAt.toISOString() : null,
-      options.maxAttempts || null
-    ]
+    [task, payload, options.queueName || null, options.runAt ? options.runAt.toISOString() : null, options.maxAttempts || null]
   );
   await db.end();
 };

@@ -7,12 +7,12 @@ const config = require('config');
 const { Pool } = require('pg');
 const { run } = require('graphile-worker');
 
-const CWD = process.cwd();
-const connection = config.get('db');
-const pgPool = new Pool(connection);
-
 const handler = async () => {
-  const runner = await run({
+  const CWD = process.cwd();
+  const connection = config.get('db');
+  const pgPool = new Pool(connection);
+
+  const _runner = await run({
     pgPool,
     taskDirectory: `${CWD}/dist/tasks`
   });
