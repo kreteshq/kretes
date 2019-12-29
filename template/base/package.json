@@ -19,7 +19,7 @@
     "@wessberg/rollup-plugin-ts": "^1.1.83",
     "cross-env": "^6.0.3",
     "node-pg-migrate": "^4.2.0",
-    "stmux": "^1.7.1",
+    "stmux": "^1.8.0",
     "typescript": "^3.7.4",
     "prettier": "^1.19.1",
     "rollup-plugin-livereload": "^1.0.4",
