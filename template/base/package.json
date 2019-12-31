@@ -4,7 +4,7 @@
     "start": "stmux -w always -e ERROR -m beep,system -- [ -t 'Client' 'huncwot client' .. -t 'Server' 'huncwot server' ]"
   },
   "dependencies": {
-    "huncwot": "0.50.1"
+    "huncwot": "0.51.0"
   },
   "@pika/web": {
     "webDependencies": []
