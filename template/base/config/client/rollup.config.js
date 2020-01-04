@@ -14,7 +14,8 @@ const modules = () => ({
 export default {
   input: 'config/client/index.ts',
   output: {
-    dir: "public"
+    dir: "public",
+    sourcemap: true
   },
   watch: {
     chokidar: true,
