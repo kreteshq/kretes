@@ -1,0 +1,81 @@
+// See https://go.microsoft.com/fwlink/?LinkId=733558
+// for the documentation about the tasks.json format
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start",
+      "detail": "Start the framework (client & server)",
+      "problemMatcher": [],
+      "dependsOn": [
+        "Server",
+        "Client",
+        "Background"
+      ]
+    },
+    {
+      "label": "Server",
+      "detail": "Start the server in the `development` mode",
+      "type": "shell",
+      "command": "/usr/local/bin/node --inspect ${workspaceFolder}/node_modules/huncwot/cli.js server",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
+    },
+    {
+      "label": "Client",
+      "detail": "Start the client in the `development` mode",
+      "type": "shell",
+      "isBackground": true,
+      "command": "/usr/local/bin/node ${workspaceFolder}/node_modules/huncwot/cli.js client",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
+    },
+    {
+      "label": "Update",
+      "detail": "Update the dependencies in `package.json`",
+      "type": "shell",
+      "isBackground": true,
+      "command": "/usr/local/bin/npx ncu",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
+    },
+    {
+      "label": "Install",
+      "detail": "Install (or refresh) the dependencies from `package.json`",
+      "type": "shell",
+      "isBackground": true,
+      "command": "/usr/local/bin/npm install",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
+    }
+  ]
+}

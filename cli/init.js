@@ -30,19 +30,17 @@ async function init({ dir }) {
 
   console.log(color`┌ {bold.blue Huncwot} {bold ${VERSION}}`);
   try {
-    console.log(
-      color`├ {cyan new}: creating project structure in {magenta ${dir}} directory ...`
-    );
+    console.log(color`├ {cyan new}: creating project structure in {magenta ${dir}} directory ...`);
 
     // static files
     await fs.copy(themeDir, join(cwd, dir));
     await fs.rename(join(cwd, dir, 'npmrc'), join(cwd, dir, '.npmrc'));
     await fs.rename(join(cwd, dir, 'gitignore'), join(cwd, dir, '.gitignore'));
 
-    const configTemplate = await fs.readFile(
-      join(themeDir, 'config', 'default.yml'),
-      'utf-8'
-    );
+    // rename directories
+    await fs.rename(join(cwd, dir, 'vscode'), join(cwd, dir, '.vscode'));
+
+    const configTemplate = await fs.readFile(join(themeDir, 'config', 'default.yml'), 'utf-8');
     const configOutput = join(cwd, dir, 'config', 'default.yml');
     const compiled = substitute(configTemplate, {
       database: name,
