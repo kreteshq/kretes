@@ -16,7 +16,8 @@
   <a href="https://landing.mailerlite.com/webforms/landing/a3k0m1"><img src="https://img.shields.io/badge/%20newsletter%20-%20subscribe%20-blue.svg?style=for-the-badge" alt="Subscribe to Huncwot Newsletter"></a>
   <a href="https://www.npmjs.com/package/huncwot"><img src="https://img.shields.io/npm/v/huncwot.svg?style=for-the-badge" alt="Huncwot Package on NPM"></a>
   <a href="https://www.npmjs.com/package/huncwot"><img src="https://img.shields.io/npm/dm/huncwot.svg?style=for-the-badge" alt="Huncwot Package on NPM"></a>
-  <a href="https://discord.gg/fdqx3BD"><img src="https://img.shields.io/badge/Discord-join%20chat-738bd7.svg?style=for-the-badge" Alt="Huncwot channel on Discord"></a>
+  <a href="https://discord.gg/fdqx3BD"><img src="https://img.shields.io/badge/Discord-join%20chat-738bd7.svg?style=for-the-badge" alt="Huncwot channel on Discord"></a>
+  <a href="https://www.youtube.com/playlist?list=PLhXZp00uXBk72m_G7E2Bshzd7PDpaInE1"><img src="https://img.shields.io/badge/YouTube-Watch%20Screencasts-red?style=for-the-badge" alt="Huncwot related screencasts on YouTube"></a>
 </a>
 
 Huncwot is a **macro framework** for **monolithic** web applications built for modern JavaScript with « batteries included » approach. It is an **integrated** solution that optimizes for programmers productivity by reducing choices and incorporating community conventions.
