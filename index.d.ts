@@ -2,6 +2,15 @@ declare module 'huncwot' {
   interface Request {
     params: {
       [name: string]: any
+    },
+    files: {
+      [name: string]: {
+        name: string
+        length: number
+        data: any
+        encoding: string
+        mimetype: string
+      }
     }
   }
 
