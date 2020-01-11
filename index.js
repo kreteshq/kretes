@@ -300,7 +300,7 @@ const handleRequest = async context => {
   context.cookies = parseCookies(headers.cookie);
   context.format = format ? format : parseAcceptHeader(headers);
 
-  const buffer = await streamToString(context.request);
+  const buffer = await toBuffer(context.request);
   if (buffer.length > 0) {
     const contentType = headers['content-type'].split(';')[0];
 
@@ -348,6 +348,14 @@ const handleRequest = async context => {
     }
   }
 };
+
+const toBuffer = async stream => {
+  const chunks = []
+  for await (let chunk of stream) {
+    chunks.push(chunk)
+  }
+  return Buffer.concat(chunks)
+}
 
 const streamToString = async stream => {
   let chunks = '';
