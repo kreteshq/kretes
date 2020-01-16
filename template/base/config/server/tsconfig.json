@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ESNext",
     "module": "commonjs",
     "lib": [
-      "esnext"
+      "ESNext"
     ],
     "allowJs": false,
     "outDir": "../../dist",
@@ -18,7 +18,8 @@
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "sourceMap": true
   },
   "include": [
     "*.ts",

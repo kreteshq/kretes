@@ -4,7 +4,7 @@
     "start": "stmux -w always -e ERROR -m beep,system -- [ -t 'Client' 'huncwot client' .. -t 'Server' 'huncwot server' ]"
   },
   "dependencies": {
-    "huncwot": "0.51.0"
+    "huncwot": "0.52.0"
   },
   "@pika/web": {
     "webDependencies": []
@@ -16,7 +16,7 @@
   ],
   "devDependencies": {
     "@pika/web": "^0.6.1",
-    "@wessberg/rollup-plugin-ts": "^1.2.5",
+    "@wessberg/rollup-plugin-ts": "^1.2.13",
     "chokidar": "^3.3.1",
     "cross-env": "^6.0.3",
     "node-pg-migrate": "^4.2.1",
