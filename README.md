@@ -60,6 +60,7 @@ etc).
 * [Data-driven HTTP handler abstractions](#data--driven-http-handler-abstractions)
 * Use [wrappers for common HTTP responses](#wrappers-for-common-http-responses)
 * Conveniently [set the preferred response format](#set-the-preferred-response-format)
+* Create [reusable workflows through the function composition](#reusable-workflows-through-the-function-composition)
 * Huncwot comes with a built-in REST endpoint
 * Huncwot comes with a built-in GraphQL endpoint
 * Huncwot can collocate [GraphQL](http://graphql.org/) queries with Vue.js components
@@ -243,6 +244,22 @@ const browse = ({ format }) => {
       return JSONPayload(...)
   }
 
+}
+```
+
+### Reusable workflows through the function composition
+
+Handlers can be composed from simple functions so that the shared bevahior can be extracted into reusable chunks of code. Such composition creates workflows that can contain validation, logging, profiling, permission checking or throttling.
+
+```js
+import { validate } from 'huncwot/request';
+
+GET: {
+  '/request-validation': [
+    validate({ name: { type: String, required: true } }),
+    ({ params: { admin } }) =>
+      `Admin param (${admin}) should be absent from this request payload`
+  ]
 }
 ```
 

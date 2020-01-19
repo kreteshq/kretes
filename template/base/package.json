@@ -22,7 +22,7 @@
     "node-pg-migrate": "^4.2.1",
     "npm-check-updates": "^4.0.1",
     "stmux": "^1.8.0",
-    "typescript": "^3.7.4",
+    "typescript": "^3.7.5",
     "prettier": "^1.19.1",
     "rollup-plugin-livereload": "^1.0.4",
     "rollup-plugin-serve": "^1.0.1"
