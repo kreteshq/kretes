@@ -401,9 +401,7 @@ const parseCookies = (cookieHeader = '') => {
   return result;
 };
 
-const parseAcceptHeader = headers => {
-  const { accept } = headers;
-
+const parseAcceptHeader = ({ accept = '*/*' }) => {
   const preferredType = accept.split(',').shift();
   const format = preferredType.split('/').pop();
 
