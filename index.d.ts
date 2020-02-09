@@ -14,9 +14,8 @@ declare module 'huncwot' {
     }
   }
 
-  type Response = string | { body: string } | Promise<string> | Promise<{ body: string }>;
-
-  type Handler = (request: Request) => Response;
+  type Response = string | { body: string };
+  type Handler = (request: Request) => Response | Promise<Response>;
 
   interface Routes {
     DELETE?: {
