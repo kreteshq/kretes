@@ -100,6 +100,8 @@ class Huncwot {
           const handler = require(`${join(handlerDir, dir, operation)}.js`);
           let { method, route } = translate(operation, resource.toLowerCase());
 
+          route = route.replace('_', ':');
+
           if (Array.isArray(handler)) {
             this.add(method, route, ...handler);
           } else {
