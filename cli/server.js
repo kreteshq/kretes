@@ -117,7 +117,7 @@ const server = async ({ port }) => {
   if (output.diagnostics.length > 0) console.log(color`  {red.bold Errors:}`);
   output.diagnostics.forEach(({ file, messageText }) => {
     const location = file.fileName.split(`${CWD}${sep}`)[1];
-    console.log(color`  {grey in} {underline ${location}}\n   → ${messageText}`);
+    console.log(color`  {grey in} {underline ${location}}\n   → ${messageText.messageText}`);
   });
 };
 
