@@ -17,6 +17,12 @@ declare module 'huncwot' {
   type Response = string | { body: string };
   type Handler = (request: Request) => Response | Promise<Response>;
 
+  interface Resource {
+    feature: string
+    alias?: string
+    children?: Resource[]
+  };
+
   interface Routes {
     DELETE?: {
       [name: string]: Handler
@@ -39,6 +45,7 @@ declare module 'huncwot' {
     PUT?: {
       [name: string]: Handler
     },
+    Resources?: Resource[]
   }
 
   interface Payload {

@@ -34,6 +34,19 @@ const handlerDir = join(cwd, 'dist');
 const isObject = _ => !!_ && _.constructor === Object;
 const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
 
+const lookupHandler = ({ feature, action }) => {
+  const path = join(cwd, 'dist', 'features', feature, 'Controller', `${action}.js`);
+
+  try {
+    return require(path);
+  } catch (error) {
+    console.error(`'features/${feature}/Controller/${action}.js' could not be loaded.`);
+
+    // return a handler that just informs about the missing handler
+    return _ => `You need to create 'features/${feature}/Controller/${action}.js'`;
+  }
+}
+
 class Middleware extends Array {
   async next(context, last, current, done, called, func) {
     if ((done = current > this.length)) return;
@@ -142,14 +155,45 @@ class Huncwot {
     return this;
   }
 
+  buildResourceDependencies(resources, parent = null) {
+    for (let { feature, alias, children } of resources) {
+      const path = `${(alias || feature).toLowerCase()}`;
+      const scopedPath = parent ? `${parent}/:id/${path}` : path;
+
+      try {
+        // add member routes
+        this.add('GET', `/${path}/:id`, lookupHandler({ feature, action: 'fetch' }));
+        this.add('PUT', `/${path}/:id`, lookupHandler({ feature, action: 'update' }));
+        this.add('DELETE', `/${path}/:id`, lookupHandler({ feature, action: 'destroy' }));
+
+        // add collection routes (potentially scoped)
+        this.add('GET', `/${scopedPath}`, lookupHandler({ feature, action: 'browse' }));
+        this.add('POST', `/${scopedPath}`, lookupHandler({ feature, action: 'create' }));
+
+        if (children) { // recursively go in with `parent` set
+          this.buildResourceDependencies(children, (alias || feature).toLowerCase());
+        }
+      } catch (error) {
+        console.error(`There is no feature ${feature} -> ${error.message}`);
+      }
+
+      // recursion goes up here
+    }
+  }
+
   start({ routes = {}, port = 5544, fn = () => { } }) {
     for (let [method, route] of Object.entries(routes)) {
-      for (let [path, handler] of Object.entries(route)) {
-        if (Array.isArray(handler)) {
-          this.add(method, path, ...handler);
-        } else {
-          this.add(method, path, handler);
+      if (method !== 'Resources') {
+        for (let [path, handler] of Object.entries(route)) {
+          if (Array.isArray(handler)) {
+            this.add(method, path, ...handler);
+          } else {
+            this.add(method, path, handler);
+          }
         }
+      } else {
+        const resources = route;
+        this.buildResourceDependencies(resources);
       }
     }
 
