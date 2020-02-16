@@ -18,6 +18,7 @@ const { join, parse, sep } = require('path');
 const color = require('chalk');
 const { TypescriptCompiler } = require('@poppinss/chokidar-ts');
 const fs = require('fs-extra');
+const transformPaths = require('@zerollup/ts-transform-paths');
 
 const Huncwot = require('../');
 const VERSION = require('../package.json').version;
@@ -58,6 +59,14 @@ const server = async ({ port }) => {
   if (error || !config || config.errors.length) {
     return;
   }
+
+  compiler.use((ts, _config) => {
+    const { options, fileNames } = config;
+    const host = ts.createCompilerHost(options);
+    const program = ts.createProgram(fileNames, options, host);
+    const r = transformPaths(program, config);
+    return context => r.before(context);
+  }, 'before');
 
   const watcher = compiler.watcher(config);
 
