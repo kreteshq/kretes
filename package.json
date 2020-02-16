@@ -1,6 +1,6 @@
 {
   "name": "huncwot",
-  "version": "0.52.1",
+  "version": "0.53.0",
   "description": "Macro framework for monolithic Node.js apps - batteries included",
   "main": "index.js",
   "repository": "https://github.com/huncwotjs/huncwot",
