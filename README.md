@@ -20,8 +20,7 @@
   <a href="https://www.youtube.com/playlist?list=PLhXZp00uXBk72m_G7E2Bshzd7PDpaInE1"><img src="https://img.shields.io/badge/YouTube-Watch%20Screencasts-red?style=for-the-badge" alt="Huncwot related screencasts on YouTube"></a>
 </a>
 
-Huncwot is a **macro framework** for **monolithic** web applications built for modern JavaScript with « batteries included » approach. It is an **integrated** solution that optimizes for programmers productivity by reducing choices and incorporating community conventions.
-
+Huncwot /huːn’tswɒt/ is a **macro framework** for **monolithic** web applications built for modern JavaScript with « batteries included » approach. It is an **integrated** solution that optimizes for programmers productivity by reducing choices and incorporating community conventions.
 
 
 [Website](https://huncwot.org) |
