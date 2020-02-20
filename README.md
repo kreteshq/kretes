@@ -152,7 +152,9 @@ const browse = request => {
 
 In Express, and the majority of other Node.js frameworks, handlers take two arguments. The first one is the request and the second one is the response.
 
-In Huncwot, the response is simply everything that is being returned by the handler. This way, it may be slightly more natural to think about the process of handling requests and generating responses: handlers are functions, which take requests as their input and produce responses as their output.
+
+
+In Huncwot, the response is simply everything that is being returned by the handler. This way, it may be slightly more natural to think about the process of handling requests and generating responses: handlers are functions, which take requests as their input and produce responses as their output. The response is represented as a JavaScript object which must have at least the `body` key.
 
 ```js
 const fetch = request => {
@@ -160,7 +162,7 @@ const fetch = request => {
 }
 ```
 
-The return value can be a string. In that case the response `Content-Type` header is set to `text/plain`, e.g.
+The return value can be a string. In that case the response is `200 OK` with the `Content-Type` header set to `text/plain`, e.g.
 
 ```js
 const say = request => {
@@ -261,6 +263,34 @@ GET: {
   ]
 }
 ```
+
+### Server-side Router
+
+In Huncwot, you can define implicit routes that are derived from the application features. These are called *Resource* routes and they can be configured in `config/server/routes.ts` under the `Resources` key.
+
+```
+```
+
+Each resource expects a controller in the `features/<feature name>/Controller` directory. This controller consists of 1 to 5 actions that may be defined in separate files.
+
+Let's say we have a `Game` feature. If we define a `Game` resource as described above, this configuration will implicitly generate the five following routes:
+
+Name | File in `features/` | HTTP Method | Default Path
+--- | --- | :---: | ---
+*C*reate | `Game/Controller/create.ts` | `POST` | `/game`
+*B*rowse | `Game/Controller/browse.ts` | `GET` | `/game`
+*F*etch | `Game/Controller/fetch.ts` | `GET` | `/game/:id`
+*U*pdate | `Game/Controller/update.ts` | `PUT` | `/game/:id`
+*D*estroy | `Game/Controller/destroy.ts` | `DELETE` | `/game/:id`
+
+The action names create a C**BF**UD acronym, an extension of CRUD approach, where we explicitly differentiate between reading a single element and reading a potentially filtered collection of elements.
+
+Actions are responsible to connect the information received from the incoming request to underlaying data in your application (i.e. fetching/saving/updating) in order to produce a corresponding view e.g. a HTML page or a JSON payload.
+
+### Parameters
+
+There are two kinds of parameters possible in a web application: the ones that are sent as part of the URL after `?`, called *query string* parameters; and the ones that are sent as part of the request `body`, referred to as POST data (usually comes from an HTML form or as JSON). Huncwot does not make any distinction between query string parameters and POST parameters, both are available in the request `params` object.
+
 
 ### Background Processing
 
@@ -441,22 +471,6 @@ Update an existing element (identified by `id`) in `widgets` table:
 await db`widgets`.where({ id: 2 }).set({ name: 'Widget 22' })
 ```
 
-### Handlers
-
-A handler is a module which groups actions. Actions are functions operating in the context of a single route, i.e. actions defined in `handlers/widgets/` handle the `/widgets` route.
-
-Each action defined in a handler is responsible to connect the information received from the incoming request to underlaying data in your application (i.e. fetching/saving/updating) in order to produce a corresponding view e.g. a HTML page or a JSON payload.
-
-Handlers may define up to five action. Each action is placed in a separate file i.e. `browse`, `read`, `edit`, `add`, `delete` - in short **BREAD** (which is a kind of extension of CRUD approach). Each of those functions is triggered by a corresponding HTTP method i.e. `browse()` and `read()` by `GET`, `edit()` by `PUT`, `add()` by `POST` and finally `destroy()` by `DELETE`.
-
-
-### Routes
-
-You can define a route using one of HTTP verbs e.g. `.get()`, `.post()`, `.put()`, `.patch()` or `.delete()` - it takes a string which defines a desired path and a function that defines a action which will be exectued once the route is hit. The action takes the incoming `request` as its parameter and returns a `response` that will be send to the client. The response is represented as a JavaScript object which must have at least `body` and `statusCode` keys. By conventions, a return of string value is considered to be a `200` response of type `plain/text` with `body` set to that string. There is also a `reply` helper function which allows to create responses with `application/json` type out of JavaScript objects.
-
-### Parameters
-
-There are two kinds of parameters possible in a web application: the ones that are sent as part of the URL after `?`, called *query string* parameters; and the ones that are sent as part of the request `body`, referred to as POST data (usually comes from an HTML form or as JSON). Huncwot does not make any distinction between query string parameters and POST parameters, both are available in the request `params` object.
 
 ## Examples
 
