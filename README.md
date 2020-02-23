@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-  <b>Macro framework for monolithic JavaScript applications, batteries included</b>
+  <b>Programming environment for JavaScript applications, batteries included</b>
 </p>
 
 <br>
@@ -277,11 +277,11 @@ Let's say we have a `Game` feature. If we define a `Game` resource as described 
 
 Name | File in `features/` | HTTP Method | Default Path
 --- | --- | :---: | ---
-*C*reate | `Game/Controller/create.ts` | `POST` | `/game`
-*B*rowse | `Game/Controller/browse.ts` | `GET` | `/game`
-*F*etch | `Game/Controller/fetch.ts` | `GET` | `/game/:id`
-*U*pdate | `Game/Controller/update.ts` | `PUT` | `/game/:id`
-*D*estroy | `Game/Controller/destroy.ts` | `DELETE` | `/game/:id`
+**C**reate | `Game/Controller/create.ts` | `POST` | `/game`
+**B**rowse | `Game/Controller/browse.ts` | `GET` | `/game`
+**F**etch | `Game/Controller/fetch.ts` | `GET` | `/game/:id`
+**U**pdate | `Game/Controller/update.ts` | `PUT` | `/game/:id`
+**D**estroy | `Game/Controller/destroy.ts` | `DELETE` | `/game/:id`
 
 The action names create a C**BF**UD acronym, an extension of CRUD approach, where we explicitly differentiate between reading a single element and reading a potentially filtered collection of elements.
 
