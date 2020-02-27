@@ -14,4 +14,4 @@ Start the application with
 npm start
 ```
 
-and go to [localhost:8080](http://localhost:8080) to see the application running
+and go to [localhost:10001](http://localhost:10001) to see the application running
