@@ -17,7 +17,7 @@
       "label": "Server",
       "detail": "Start the server in the `development` mode",
       "type": "shell",
-      "command": "/usr/local/bin/node --inspect ${workspaceFolder}/node_modules/huncwot/cli.js server",
+      "command": "node --inspect ${workspaceFolder}/node_modules/huncwot/cli.js server",
       "isBackground": true,
       "problemMatcher": [],
       "presentation": {
@@ -34,7 +34,7 @@
       "detail": "Start the client in the `development` mode",
       "type": "shell",
       "isBackground": true,
-      "command": "/usr/local/bin/node ${workspaceFolder}/node_modules/huncwot/cli.js client",
+      "command": "node ${workspaceFolder}/node_modules/huncwot/cli.js client",
       "problemMatcher": [],
       "presentation": {
         "echo": false,
@@ -50,7 +50,7 @@
       "detail": "Update the dependencies in `package.json`",
       "type": "shell",
       "isBackground": true,
-      "command": "/usr/local/bin/npx ncu",
+      "command": "npx ncu",
       "problemMatcher": [],
       "presentation": {
         "echo": false,
@@ -66,7 +66,7 @@
       "detail": "Install (or refresh) the dependencies from `package.json`",
       "type": "shell",
       "isBackground": true,
-      "command": "/usr/local/bin/npm install",
+      "command": "npm install",
       "problemMatcher": [],
       "presentation": {
         "echo": false,
