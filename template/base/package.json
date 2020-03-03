@@ -4,7 +4,7 @@
     "start": "stmux -w always -e ERROR -m beep,system -- [ -t 'Client' 'huncwot client' .. -t 'Server' 'huncwot server' ]"
   },
   "dependencies": {
-    "huncwot": "0.53.1"
+    "huncwot": "^0.53.1"
   },
   "snowpack": {
     "webDependencies": []
