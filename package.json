@@ -17,7 +17,8 @@
   },
   "scripts": {
     "test": "ava",
-    "debug": "node --inspect cli.js"
+    "debug": "node --inspect cli.js",
+    "prepack": "node scripts/prepack"
   },
   "peerDependencies": {
     "axios": "^0.19.2"
