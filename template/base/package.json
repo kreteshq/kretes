@@ -4,7 +4,7 @@
     "start": "stmux -w always -e ERROR -m beep,system -- [ -t 'Client' 'huncwot client' .. -t 'Server' 'huncwot server' ]"
   },
   "dependencies": {
-    "huncwot": "^0.53.1"
+    "huncwot": "^0.53.2"
   },
   "snowpack": {
     "webDependencies": []
@@ -19,8 +19,8 @@
     "chokidar": "^3.3.1",
     "cross-env": "^7.0.0",
     "node-pg-migrate": "^4.2.2",
-    "npm-check-updates": "^4.0.1",
-    "snowpack": "^1.4.0",
+    "npm-check-updates": "^4.0.2",
+    "snowpack": "^1.5.0",
     "stmux": "^1.8.0",
     "typescript": "^3.8.2",
     "prettier": "^1.19.1",
