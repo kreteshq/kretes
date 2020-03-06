@@ -11,6 +11,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const { join } = require('path');
+const { compile } = require('pure-engine');
+const fs = require('fs-extra');
+
+const cwd = process.cwd();
 // TODO auto-create those functions?
 
 const OK = (body = '', headers = {}) => {
@@ -66,7 +71,17 @@ const JSONPayload = (content, statusCode = 200) => {
   };
 };
 
-const HTMLPage = content => {
+const HTMLStream = content => {
+  const Readable = require('stream').Readable;
+
+  const s = new Readable();
+  s.push(content);
+  s.push(null);
+
+  return s;
+};
+
+const HTMLString = content => {
   return {
     statusCode: 200,
     type: 'text/html',
@@ -96,16 +111,31 @@ const InternalServerError = message => {
   };
 };
 
+const Page = async (location, context) => {
+  const [name, feature] = location.split('@');
+
+  const path = feature ? join(cwd, 'features', feature, 'Page', `${name}.html`) : join(cwd, 'views', `${name}.html`);
+  const content = await fs.readFile(path);
+
+  const { template } = await compile(content.toString(), {
+    paths: ['.', join(cwd, 'views')]
+  });
+  return HTMLString(template(context, _ => _));
+};
+
 module.exports = {
   OK,
   Created,
   Accepted,
   Redirect,
-  HTMLPage,
+  HTMLString,
+  HTMLStream,
   JSONPayload,
   NotFound,
   NoContent,
   Unauthorized,
   Forbidden,
-  InternalServerError
+  InternalServerError,
+  Format,
+  Page
 };

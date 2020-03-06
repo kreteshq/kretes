@@ -52,6 +52,7 @@
     "mustache": "^4.0.0",
     "nearley": "^2.19.1",
     "pg": "^7.18.2",
+    "pure-engine": "^0.15.5",
     "rsyncwrapper": "^3.0.1",
     "semver": "^7.1.3",
     "stack-trace": "0.0.10",

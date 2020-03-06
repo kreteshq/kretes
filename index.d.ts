@@ -14,7 +14,7 @@ declare module 'huncwot' {
     }
   }
 
-  type Response = string | { body: string };
+  type Response = string | { body: string } | Buffer;
   type Handler = (request: Request) => Response | Promise<Response>;
 
   interface Resource {
@@ -60,11 +60,18 @@ declare module 'huncwot' {
 declare module 'huncwot/response' {
   import { Response } from 'huncwot';
 
+  interface Mapping {
+    [key: string]: any;
+  }
+
   function OK(body?: any, headers?: any): Response;
   function Created(body?: any, headers?: any): Response;
   function NotFound(headers?: any): Response;
+  function HTMLString(body?: any): Response;
+  function HTMLStream(body?: any): Response;
+  function Page(location: string, mapping: Mapping): Response;
 
-  export { OK, Created, NotFound };
+  export { OK, Created, NotFound, HTMLString, HTMLStream, Page };
 }
 
 declare module 'huncwot/background' {
