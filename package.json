@@ -1,7 +1,7 @@
 {
   "name": "huncwot",
-  "version": "0.53.2",
-  "description": "Macro framework for monolithic Node.js apps - batteries included",
+  "version": "0.54.0",
+  "description": "Programming environment for modular, monolithic JavaScript apps - batteries included",
   "main": "index.js",
   "repository": "https://github.com/huncwotjs/huncwot",
   "author": "Zaiste",
