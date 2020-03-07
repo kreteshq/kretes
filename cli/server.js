@@ -14,7 +14,6 @@
 const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
 const CWD = process.cwd();
 
-const config = require('config');
 const { join, parse, sep, extname } = require('path');
 const color = require('chalk');
 const { TypescriptCompiler } = require('@poppinss/chokidar-ts');
@@ -29,7 +28,6 @@ const { parser } = require('../parser');
 const { generateRPCOnClient } = require('../rpc');
 const Logger = require('../logger');
 
-const connection = config.get('db');
 
 const reloadSQL = async (pool, file) => {
   const content = await fs.readFile(file);
@@ -72,6 +70,8 @@ const start = async ({ port }) => {
 };
 
 const server = async ({ port }) => {
+  const globalConfig = require('config');
+  const connection = globalConfig.get('db');
   const pool = new pg.Pool(connection);
 
   try {

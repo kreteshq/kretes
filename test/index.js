@@ -1,9 +1,9 @@
-import test from 'ava';
-import axios from 'axios';
+const test = require('ava');
+const axios = require('axios');
 
-import Huncwot from '..';
-import { OK, Created, HTMLPage } from '../response.js';
-import { validate } from '../request';
+const Huncwot = require('..');
+const { OK, Created, HTMLString } = require('../response.js');
+const { validate } = require('../request');
 
 const merge = require('merge-deep');
 const FormData = require('form-data');
@@ -30,7 +30,7 @@ const GETs = {
     '/invalid-route-no-return': _ => {
       hello: 'Huncwot';
     },
-    '/html-content': _ => HTMLPage('<h1>Huncwot, a rascal truly you are!</h1>'),
+    '/html-content': _ => HTMLString('<h1>Huncwot, a rascal truly you are!</h1>'),
     '/accept-header-1': ({ format }) => OK(format),
     '/explicit-format': ({ format }) => OK(format)
   }
