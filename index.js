@@ -352,7 +352,7 @@ const handleRequest = async context => {
 
     switch (contentType) {
       case 'application/x-www-form-urlencoded':
-        Object.assign(context.params, querystring.parse(buffer));
+        Object.assign(context.params, querystring.parse(buffer.toString()));
         break;
       case 'application/json': {
         const result = JSON.parse(buffer);

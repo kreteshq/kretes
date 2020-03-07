@@ -136,6 +136,5 @@ module.exports = {
   Unauthorized,
   Forbidden,
   InternalServerError,
-  Format,
   Page
 };
