@@ -14,16 +14,35 @@
 const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
 const CWD = process.cwd();
 
-const { join, parse, sep } = require('path');
+const config = require('config');
+const { join, parse, sep, extname } = require('path');
 const color = require('chalk');
 const { TypescriptCompiler } = require('@poppinss/chokidar-ts');
 const fs = require('fs-extra');
 const transformPaths = require('@zerollup/ts-transform-paths');
+const pg = require('pg');
+const fg = require('fast-glob');
 
 const Huncwot = require('../');
 const VERSION = require('../package.json').version;
 const { parser } = require('../parser');
 const { generateRPCOnClient } = require('../rpc');
+const Logger = require('../logger');
+
+const connection = config.get('db');
+
+const reloadSQL = async (pool, file) => {
+  const content = await fs.readFile(file);
+  const isSQLFunction = content.toString().split(" ")[0].toLowerCase() === 'function'
+  if (isSQLFunction) {
+    const query = `create or replace ${content.toString()}`;
+    try {
+      const r = await pool.query(query);
+    } catch (error) {
+      console.error(error.message)
+    }
+  }
+};
 
 let sockets = [];
 
@@ -53,6 +72,15 @@ const start = async ({ port }) => {
 };
 
 const server = async ({ port }) => {
+  const pool = new pg.Pool(connection);
+
+  try {
+    await pool.connect();
+  } catch (error) {
+    Logger.printError(error, 'Data Layer');
+    process.exit(1);
+  }
+
   const compiler = new TypescriptCompiler(CWD, 'config/server/tsconfig.json', require('typescript/lib/typescript'));
   const { error, config } = compiler.configParser().parse();
 
@@ -73,9 +101,16 @@ const server = async ({ port }) => {
   let app;
 
   watcher.on('watcher:ready', async () => {
-    // start the HTTP server
+    const stream = fg.stream([`${CWD}/features/**/*.sql`], { dot: true });
+    for await (const entry of stream) await reloadSQL(pool, entry);
 
+    // start the HTTP server
     app = await start({ port });
+  });
+
+  // files other than `.ts` have changed
+  watcher.on('change', async filePath => {
+    if (extname(filePath) == '.sql') reloadSQL(pool, filePath);
   });
 
   watcher.on('subsequent:build', async ({ path: filePath, diagnostics }) => {
