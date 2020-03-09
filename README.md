@@ -96,7 +96,7 @@ etc).
 
 ## Getting Started
 
-Install `huncwot` globally to use its CLI commands which simplify frequent operations. You also need to install [yarn](https://yarnpkg.com/en/).
+Install `huncwot` globally to use its CLI commands which simplify frequent operations. 
 
 ```
 npm install -g huncwot
