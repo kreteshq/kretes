@@ -69,153 +69,153 @@ app.start({ routes, port: 3000 });
 
 // Tests
 
-test('returns string with implicit return', async t => {
+test('returns string with implicit return', async assert => {
   const response = await perform.get('/');
-  t.is(response.status, 200);
-  t.is(response.data, 'Hello, Huncwot');
+  assert.is(response.status, 200);
+  assert.is(response.data, 'Hello, Huncwot');
 });
 
-test('returns json for explicit response', async t => {
+test('returns json for explicit response', async assert => {
   const response = await perform.get('/json-explicit-response');
-  t.is(response.status, 200);
-  t.deepEqual(response.data, { hello: 'Huncwot' });
+  assert.is(response.status, 200);
+  assert.deepEqual(response.data, { hello: 'Huncwot' });
 });
 
-test('returns json for `OK` helper response', async t => {
+test('returns json for `OK` helper response', async assert => {
   const response = await perform.get('/json-helper-response');
-  t.is(response.status, 200);
-  t.deepEqual(response.data, { hello: 'Huncwot' });
+  assert.is(response.status, 200);
+  assert.deepEqual(response.data, { hello: 'Huncwot' });
 });
 
-test('returns json for `created` helper response', async t => {
+test('returns json for `created` helper response', async assert => {
   const { status, data, headers } = await perform.get('/json-created-response');
-  t.is(status, 201);
-  t.is(headers['content-type'], 'application/json');
-  t.deepEqual(data, { status: 'Created!' });
+  assert.is(status, 201);
+  assert.is(headers['content-type'], 'application/json');
+  assert.deepEqual(data, { status: 'Created!' });
 });
 
-test('returns route params', async t => {
+test('returns route params', async assert => {
   const response = await perform.get('/route-params/Huncwot');
-  t.is(response.status, 200);
-  t.deepEqual(response.data, { hello: 'Huncwot' });
+  assert.is(response.status, 200);
+  assert.deepEqual(response.data, { hello: 'Huncwot' });
 });
 
-test('returns query params', async t => {
+test('returns query params', async assert => {
   const response = await perform.get('/query-params?search=Huncwot');
-  t.is(response.status, 200);
-  t.deepEqual(response.data, { search: 'Huncwot' });
+  assert.is(response.status, 200);
+  assert.deepEqual(response.data, { search: 'Huncwot' });
 });
 
 // TODO HIGH
 
-// test('invalid route returns 500', async t => {
+// test('invalid route returns 500', async assert => {
 //   try {
 //     await perform.get('/invalid-route-no-return');
 //   } catch ({ response: { status, data } }) {
-//     t.is(status, 500);
+//     assert.is(status, 500);
 //     // TODO Implement more friendly error message
-//     t.is(data, "Cannot destructure property `body` of 'undefined' or 'null'.");
+//     assert.is(data, "Cannot destructure property `body` of 'undefined' or 'null'.");
 //   }
 // });
 
-test('returns HTML content', async t => {
+test('returns HTML content', async assert => {
   const { data, status, headers } = await perform.get('/html-content');
-  t.is(status, 200);
-  t.is(headers['content-type'], 'text/html');
-  t.is(data, '<h1>Huncwot, a rascal truly you are!</h1>');
+  assert.is(status, 200);
+  assert.is(headers['content-type'], 'text/html');
+  assert.is(data, '<h1>Huncwot, a rascal truly you are!</h1>');
 });
 
 // TODO
-test('sets security headers by default', async t => {
+test('sets security headers by default', async assert => {
   const { headers } = await perform.get('/');
-  //t.is(headers['X-DNS-Prefetch-Controll'], 'off');
-  //t.is(headers['X-Download-Options'], 'noopen');
-  //t.is(headers['X-Content-Type-Options'], 'nosniff');
-  //t.is(headers['X-XSS-Protection'], '1; mode=block');
-  t.is(true, true);
+  //assert.is(headers['X-DNS-Prefetch-Controll'], 'off');
+  //assert.is(headers['X-Download-Options'], 'noopen');
+  //assert.is(headers['X-Content-Type-Options'], 'nosniff');
+  //assert.is(headers['X-XSS-Protection'], '1; mode=block');
+  assert.is(true, true);
 });
 
-test('respects `Accept` header', async t => {
+test('respects `Accept` header', async assert => {
   const { data, status, headers } = await perform.get('/accept-header-1', {
     headers: {
       'Accept': 'text/plain'
     }
   });
-  t.is(status, 200);
-  t.is(data, 'plain');
+  assert.is(status, 200);
+  assert.is(data, 'plain');
 });
 
-test('respects explicit format query param', async t => {
+test('respects explicit format query param', async assert => {
   const { data, status, headers } = await perform.get('/explicit-format?format=csv');
-  t.is(status, 200);
-  t.is(data, 'csv');
+  assert.is(status, 200);
+  assert.is(data, 'csv');
 });
 
 // Tests for POST
 
-test('accepts POST params as JSON', async t => {
+test('accepts POST params as JSON', async assert => {
   const response = await perform.post('/post-json', {
     name: 'Zaiste'
   });
-  t.is(response.status, 200);
-  t.is(response.data, 'Received -> Zaiste');
+  assert.is(response.status, 200);
+  assert.is(response.data, 'Received -> Zaiste');
 });
 
-test('accepts POST params as Form', async t => {
+test('accepts POST params as Form', async assert => {
   const { stringify } = require('querystring');
 
   const { status, data } = await perform.post(
     '/post-form',
     stringify({ name: 'Szelma' })
   );
-  t.is(status, 200);
-  t.is(data, 'Received -> Szelma');
+  assert.is(status, 200);
+  assert.is(data, 'Received -> Szelma');
 });
 
 // Tests for function composistions (aka middleware-like)
 
-test('compose functions & return string', async t => {
+test('compose functions & return string', async assert => {
   const { status, data } = await perform.get('/simple-compose');
-  t.is(status, 200);
-  t.is(data, 'Simple Compose');
+  assert.is(status, 200);
+  assert.is(data, 'Simple Compose');
 });
 
-test('compose functions & append string', async t => {
+test('compose functions & append string', async assert => {
   const response = await perform.get('/prepend-compose');
-  t.is(response.status, 200);
-  t.is(response.data, 'Prefix -> Prepend Compose');
+  assert.is(response.status, 200);
+  assert.is(response.data, 'Prefix -> Prepend Compose');
 });
 
-test('built-in validation with invalid request', async t => {
+test('built-in validation with invalid request', async assert => {
   try {
     await perform.get('/request-validation');
   } catch ({ response: { status, data } }) {
-    t.is(status, 422);
-    t.deepEqual(data, ['name is required.']);
+    assert.is(status, 422);
+    assert.deepEqual(data, ['name is required.']);
   }
 });
 
-test('built-in validation with valid request', async t => {
+test('built-in validation with valid request', async assert => {
   const { status, data } = await perform.get('/request-validation?name=Zaiste');
-  t.is(status, 200);
-  t.is(
+  assert.is(status, 200);
+  assert.is(
     data,
     'Admin param (undefined) should be absent from this request payload'
   );
 });
 
-test('built-in validation strips undefined params', async t => {
+test('built-in validation strips undefined params', async assert => {
   const { status, data } = await perform.get(
     '/request-validation?name=Zaiste&admin=true'
   );
-  t.is(status, 200);
-  t.is(
+  assert.is(status, 200);
+  assert.is(
     data,
     'Admin param (undefined) should be absent from this request payload'
   );
 });
 
-test('receives file upload', async t => {
+test('receives file upload', async assert => {
   const fd = new FormData();
 
   fd.append('upload', 'This is my upload', 'foo.csv');
@@ -225,6 +225,6 @@ test('receives file upload', async t => {
   };
 
   const { status, data } = await perform.post('/upload', fd, options);
-  t.is(status, 200);
-  t.is(data, 'Uploaded -> foo.csv');
+  assert.is(status, 200);
+  assert.is(data, 'Uploaded -> foo.csv');
 });
