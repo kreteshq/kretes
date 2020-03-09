@@ -12,8 +12,8 @@
 // limitations under the License.
 
 const { join } = require('path');
-const { compile } = require('pure-engine');
 const fs = require('fs-extra');
+const { render } = require('./render')
 
 const cwd = process.cwd();
 // TODO auto-create those functions?
@@ -116,11 +116,8 @@ const Page = async (location, context) => {
 
   const path = feature ? join(cwd, 'features', feature, 'Page', `${name}.html`) : join(cwd, 'views', `${name}.html`);
   const content = await fs.readFile(path);
-
-  const { template } = await compile(content.toString(), {
-    paths: ['.', join(cwd, 'views')]
-  });
-  return HTMLString(template(context, _ => _));
+  const html = await render(content.toString(), context);
+  return HTMLString(html);
 };
 
 module.exports = {
