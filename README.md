@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-  <b>Programming environment for JavaScript applications, batteries included</b>
+  <b><a href="https://code.visualstudio.com/">Visual Studio Code</a>-based programming environment for TypeScript applications, on the front-end & on the back-end - batteries included.</b>
 </p>
 
 <br>
