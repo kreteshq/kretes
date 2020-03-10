@@ -1,6 +1,6 @@
 {
   "name": "huncwot",
-  "version": "0.54.0",
+  "version": "0.55.0",
   "description": "Programming environment for modular, monolithic JavaScript apps - batteries included",
   "main": "index.js",
   "repository": "https://github.com/huncwotjs/huncwot",
@@ -60,8 +60,8 @@
     "trek-router": "^1.2.0",
     "typescript": "^3.8.3",
     "validate": "^5.1.0",
-    "ws": "^7.2.1",
-    "yargs": "^15.1.0"
+    "ws": "^7.2.3",
+    "yargs": "^15.3.0"
   },
   "bin": {
     "huncwot": "cli.js",
