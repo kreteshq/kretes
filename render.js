@@ -11,15 +11,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { join } = require('path');
 const { compile } = require('pure-engine');
 const escape = require('escape-html');
 
-const cwd = process.cwd();
-
-const render = async (source, context) => {
+const render = async (source, options = {}) => {
+  const { context = {}, paths = [] } = options
   const { template } = await compile(source, {
-    paths: ['.', join(cwd, 'views')]
+    paths: ['.', ...paths]
   });
   return template(context, escape);
 }

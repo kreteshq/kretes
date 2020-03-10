@@ -11,7 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { join } = require('path');
+const { dirname, join } = require('path');
 const fs = require('fs-extra');
 const { render } = require('./render')
 
@@ -112,12 +112,29 @@ const InternalServerError = message => {
 };
 
 const Page = async (location, context) => {
-  const [name, feature] = location.split('@');
-
-  const path = feature ? join(cwd, 'features', feature, 'Page', `${name}.html`) : join(cwd, 'views', `${name}.html`);
-  const content = await fs.readFile(path);
-  const html = await render(content.toString(), context);
-  return HTMLString(html);
+  if (location.endsWith('.html')) {
+    const dir = dirname(location);
+    const paths = [dir];
+    const content = await fs.readFile(location);
+    const html = await render(content.toString(), { context, paths });
+    return HTMLString(html);
+  } else if (location.includes('@')) {
+    const [name, feature] = location.split('@');
+    const views = join(cwd, 'views');
+    const dir = join(cwd, 'features', feature, 'Page')
+    const path = join(dir, `${name}.html`);
+    const paths = [dir, views]
+    const content = await fs.readFile(path);
+    const html = await render(content.toString(), { context, paths });
+    return HTMLString(html);
+  } else {
+    const views = join(cwd, 'views');
+    const path = join(views, `${location}.html`);
+    const paths = [views]
+    const content = await fs.readFile(path);
+    const html = await render(content.toString(), { context, paths });
+    return HTMLString(html);
+  }
 };
 
 module.exports = {
