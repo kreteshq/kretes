@@ -20,7 +20,7 @@
   <a href="https://www.youtube.com/playlist?list=PLhXZp00uXBk72m_G7E2Bshzd7PDpaInE1"><img src="https://img.shields.io/badge/YouTube-Watch%20Screencasts-red?style=for-the-badge" alt="Huncwot related screencasts on YouTube"></a>
 </a>
 
-Huncwot /huːn’tswɒt/ is a **macro framework** for **monolithic** web applications built for modern JavaScript with « batteries included » approach. It is an **integrated** solution that optimizes for programmers productivity by reducing choices and incorporating community conventions.
+Huncwot /huːn’tswɒt/ is a **programming environment** for **monolithic** web applications built for modern JavaScript with « batteries included » approach. It is an **integrated** solution that optimizes for programmers productivity by reducing choices and incorporating community conventions.
 
 
 [Website](https://huncwot.org) |
@@ -36,7 +36,7 @@ Huncwot /huːn’tswɒt/ is a **macro framework** for **monolithic** web applica
 
 Huncwot is being built with *battery included* approach in mind, i.e. it comes with a (eventually large) library of useful modules which are developed in a coherent way. This stands in direct opposition to Koa approach. Huncwot tries to formalize conventions and eliminate valueless choices by providing solid defaults for building web applications that increase the programmers productivity.
 
-The framework fights against [the accidental complexity](https://wiki.c2.com/?AccidentalComplexity). Let's focus on business needs of our applications instead of constantly configuring, patching and putting together various software elements.
+Huncwot fights against [the accidental complexity](https://wiki.c2.com/?AccidentalComplexity). Let's focus on business needs of our applications instead of constantly configuring, patching and putting together various software elements.
 
 ## Features In A Nutshell
 
@@ -44,7 +44,7 @@ Huncwot bridges client-side (*frontend*) and server-side (*backend*) development
 by using [a single programming language - JavaScript - across the
 board](https://cdb.reacttraining.com/universal-javascript-4761051b7ae9).
 
-The framework draws inspiration from Rails while trying to be less *magical*, if
+The project draws inspiration from Rails while trying to be less *magical*, if
 any at all. In Huncwot, you write your applications using
 [TypeScript](https://www.typescriptlang.org/). It also comes with a convenient
 command toolkit (CLI) which wraps over `npm scripts`
@@ -106,8 +106,19 @@ Generate new application
 
 ```
 huncwot new my-project
-cd my-project
 ```
+
+Open the application in Visual Studio Code
+
+```
+code my-project
+```
+
+Use the `Tasks: Run Task` from the Command Palette to select a Huncwot command
+
+> It is a good idea to bind `CTRL-T` to `Tasks: Run Task` for convenience.
+
+![Huncwot Zap: Run Task](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/zaps/huncwot-run-task.gif)
 
 Start the application using the `start` command:
 
