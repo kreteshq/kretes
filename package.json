@@ -48,6 +48,7 @@
     "graphql-tag": "^2.10.3",
     "graphql-tools": "^4.0.7",
     "http-status": "^1.4.2",
+    "js-yaml": "^3.13.1",
     "merge-deep": "^3.0.2",
     "mime-types": "^2.1.26",
     "mustache": "^4.0.0",

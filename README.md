@@ -96,7 +96,7 @@ etc).
 
 ## Getting Started
 
-Install `huncwot` globally to use its CLI commands which simplify frequent operations. 
+Install `huncwot` globally to use its CLI commands which simplify frequent operations.
 
 ```
 npm install -g huncwot
@@ -208,14 +208,14 @@ const fetch: Handler = request => {
 }
 ```
 
-you can use the `HTMLPage` wrapper and write this:
+you can use the `HTMLString` wrapper and write this:
 
 ```ts
 import { Handler } from 'huncwot';
-import { HTMLPage } from 'huncwot/response';
+import { HTMLString } from 'huncwot/response';
 
 const fetch: Handler = request => {
-  return HTMLPage('<h1>Hello World</h1>')
+  return HTMLString('<h1>Hello World</h1>')
 }
 ```
 
@@ -236,7 +236,7 @@ const browse = ({ format }) => {
   switch (format) {
     case 'html':
       // provide a response as a HTML Page
-      return HTMLPage(...)
+      return HTMLString(...)
     case 'csv':
       // provide a response as in CSV format
       return CSVPayload(...)
