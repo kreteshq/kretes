@@ -152,7 +152,7 @@ test('respects explicit format query param', async assert => {
   assert.is(data, 'csv');
 });
 
-test.only('renders an error page for an unexisting page handler', async assert => {
+test('renders an error page for an unexisting page handler', async assert => {
   try {
     await perform.get('/error')
   } catch (exception) {
