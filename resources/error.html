@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Huncwot - Error</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/prism.css" inline>
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css" inline>
+</head>
+<body>
+  <section class="exception">
+    <h2 class="exception-name">{name}</h2>
+    <h2 class="message"> {message}</h2>
+  </section>
+  <section class="container">
+    <section class="main">
+      <div class="frames">
+        <div class="frame-stack">
+          <div class="frames-list">
+            <for frame in frames>
+              { frame.index }
+              <div class="frame-row { classes }">
+                <div class="frame-row-filepath">
+                  { frame.file }:{ frame.line }:{ frame.column }
+                </div>
+                <div class="frame-row-code">
+                  { frame.method }
+                </div>
+                <div class="frame-context"
+                  data-start="{frame.context.start}"
+                  data-line="{frame.line}"
+                  data-file="{frame.file}"
+                  data-method="{frame.method}"
+                  data-line-column="{ frame.line }:{ frame.column }"
+                  >
+                  { frame.context.pre }
+                  { frame.context.line }
+                  { frame.context.post }
+                </div>
+              </div>
+            </for>
+          </div>
+        </div>
+        <div class="frame-preview">
+          <div id="frame-file-name"></div>
+          <pre class="line-numbers"><code class="language-js" id="snippet"></code></pre>
+          <div id="frame-function-name"></div>
+        </div>
+      </div>
+    </section>
+    <section class="request">
+      <h2 class="request-subsection">Request</h2>
+      <table>
+        <tr>
+          <td class="title">URL</td>
+          <td>{ request.url }</td>
+        </tr>
+        <tr>
+          <td class="title">Method</td>
+          <td>{ request.method }</td>
+        </tr>
+      </table>
+      <h2 class="request-subsection">Headers</h2>
+      <table>
+        <for header in request.headers>
+          <tr>
+            <td class="title"> { header.key } </td>
+            <td> { header.value } </td>
+          </tr>
+        </for>
+      </table>
+      <h2 class="request-subsection">Cookies</h2>
+      <table>
+        <for cookie in request.cookies>
+          <tr>
+            <td class="title"> { cookie.key } </td>
+            <td> { cookie.value } </td>
+          </tr>
+        </for>
+      </table>
+    </section>
+  </section>
+  <script src="assets/js/prism.js" inline></script>
+</body>
+</html>

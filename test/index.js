@@ -2,7 +2,7 @@ const test = require('ava');
 const axios = require('axios');
 
 const Huncwot = require('..');
-const { OK, Created, HTMLString } = require('../response.js');
+const { OK, Created, HTMLString, Page } = require('../response.js');
 const { validate } = require('../request');
 
 const merge = require('merge-deep');
@@ -27,6 +27,7 @@ const GETs = {
     '/json-created-response': _ => Created({ status: 'Created!' }),
     '/route-params/:name': ({ params }) => OK({ hello: params.name }),
     '/query-params': ({ params: { search } }) => OK({ search }),
+    '/error': _ => Page('index@Unknown'),
     '/invalid-route-no-return': _ => {
       'Huncwot';
     },
@@ -149,6 +150,18 @@ test('respects explicit format query param', async assert => {
   const { data, status } = await perform.get('/explicit-format?format=csv');
   assert.is(status, 200);
   assert.is(data, 'csv');
+});
+
+test('renders an error page for an unexisting page handler', async assert => {
+  try {
+    await perform.get('/error')
+  } catch (exception) {
+    const { response } = exception
+    assert.truthy(response.data.includes('ENOENT'));
+    assert.truthy(response.data.includes('Request'));
+    assert.truthy(response.data.includes('Headers'));
+    assert.truthy(response.data.includes('Cookies'));
+  }
 });
 
 // Tests for POST

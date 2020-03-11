@@ -54,7 +54,6 @@
     "js-yaml": "^3.13.1",
     "merge-deep": "^3.0.2",
     "mime-types": "^2.1.26",
-    "mustache": "^4.0.0",
     "nearley": "^2.19.1",
     "pg": "^7.18.2",
     "pure-engine": "^0.15.5",
