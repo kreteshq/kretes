@@ -13,7 +13,7 @@
 
 const { dirname, join } = require('path');
 const fs = require('fs-extra');
-const { render } = require('./render');
+const { render } = require('./view');
 
 const cwd = process.cwd();
 // TODO auto-create those functions?
