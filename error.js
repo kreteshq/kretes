@@ -1,11 +1,10 @@
-const Mustache = require('mustache');
+const { compile } = require('pure-engine');
+const escape = require('escape-html');
 const path = require('path');
 const stackTrace = require('stack-trace');
 const fs = require('fs-extra');
 const cookie = require('cookie');
 const startingSlashRegex = /\\|\//;
-
-const T_error = fs.readFileSync(path.join(__dirname, 'resources/error.mustache'), 'utf-8');
 
 class HTMLifiedError {
   constructor(error, request) {
@@ -140,7 +139,11 @@ class HTMLifiedError {
 
     data.request = this.convertRequestToObject();
 
-    return Mustache.render(T_error, data);
+    const resources = path.join(__dirname, 'resources')
+    const filepath = path.join(resources, 'error.html')
+    const content = await fs.readFile(filepath);
+    const { template } = await compile(content.toString(), { paths: [resources] });
+    return template(data, escape);
   }
 }
 
