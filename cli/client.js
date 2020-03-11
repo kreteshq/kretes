@@ -30,9 +30,7 @@ const client = async () => {
 
   const injected = [
     tmpl.slice(0, bodyCloseTag),
-    ...bundles.map(
-      b => `<script type="module" src="${prefix || ''}${b}"></script>\n`
-    ),
+    ...bundles.map(b => `<script type="module" src="${prefix || ''}${b}"></script>\n`),
     tmpl.slice(bodyCloseTag, tmpl.length)
   ].join('');
 
@@ -56,14 +54,7 @@ const client = async () => {
 
   spawn(
     'npx',
-    [
-      'rollup',
-      '--config',
-      'config/client/rollup.config.js',
-      '--format',
-      'esm',
-      '--watch'
-    ],
+    ['rollup', '--config', 'config/client/rollup.config.js', '--format', 'esm', '--watch'],
     {
       stdio: 'inherit'
     }

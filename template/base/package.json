@@ -15,12 +15,12 @@
     "not ie <= 8"
   ],
   "devDependencies": {
-    "@wessberg/rollup-plugin-ts": "^1.2.19",
+    "@wessberg/rollup-plugin-ts": "^1.2.21",
     "chokidar": "^3.3.1",
     "cross-env": "^7.0.2",
     "node-pg-migrate": "^4.2.2",
     "npm-check-updates": "^4.0.4",
-    "snowpack": "^1.5.2",
+    "snowpack": "^1.6.0",
     "stmux": "^1.8.0",
     "typescript": "^3.8.3",
     "prettier": "^1.19.1",

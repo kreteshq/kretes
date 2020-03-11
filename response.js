@@ -13,7 +13,7 @@
 
 const { dirname, join } = require('path');
 const fs = require('fs-extra');
-const { render } = require('./render')
+const { render } = require('./render');
 
 const cwd = process.cwd();
 // TODO auto-create those functions?
@@ -121,16 +121,16 @@ const Page = async (location, context) => {
   } else if (location.includes('@')) {
     const [name, feature] = location.split('@');
     const views = join(cwd, 'views');
-    const dir = join(cwd, 'features', feature, 'Page')
+    const dir = join(cwd, 'features', feature, 'Page');
     const path = join(dir, `${name}.html`);
-    const paths = [dir, views]
+    const paths = [dir, views];
     const content = await fs.readFile(path);
     const html = await render(content.toString(), { context, paths });
     return HTMLString(html);
   } else {
     const views = join(cwd, 'views');
     const path = join(views, `${location}.html`);
-    const paths = [views]
+    const paths = [views];
     const content = await fs.readFile(path);
     const html = await render(content.toString(), { context, paths });
     return HTMLString(html);

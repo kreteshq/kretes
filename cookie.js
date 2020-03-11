@@ -21,12 +21,10 @@ class Cookie {
     value,
     { maxAge, domain, path, expires, httpOnly, secure, sameSite } = {}
   ) {
-    if (name && !CookieCutter.test(name))
-      throw new TypeError('cookie name is invalid');
+    if (name && !CookieCutter.test(name)) throw new TypeError('cookie name is invalid');
 
     const content = encode(value);
-    if (content && !CookieCutter.test(content))
-      throw new TypeError('cookie value is invalid');
+    if (content && !CookieCutter.test(content)) throw new TypeError('cookie value is invalid');
 
     let cookie = `${name}=${content}`;
 
@@ -49,8 +47,7 @@ class Cookie {
     }
 
     if (expires) {
-      if (typeof expires.toUTCString !== 'function')
-        throw new TypeError('expires is invalid');
+      if (typeof expires.toUTCString !== 'function') throw new TypeError('expires is invalid');
 
       cookie += `; Expires=${expires.toUTCString()}`;
     }
@@ -59,8 +56,7 @@ class Cookie {
     if (secure) cookie += '; Secure';
 
     if (sameSite) {
-      let _sameSite =
-        typeof sameSite === 'string' ? sameSite.toLowerCase() : sameSite;
+      let _sameSite = typeof sameSite === 'string' ? sameSite.toLowerCase() : sameSite;
 
       if (_sameSite === true) cookie += '; SameSite=Strict';
       else if (_sameSite === 'lax') cookie += '; SameSite=Lax';

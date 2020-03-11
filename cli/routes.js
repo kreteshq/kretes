@@ -13,9 +13,6 @@
 
 const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
 const color = require('chalk');
-const { join } = require('path');
-
-const cwd = process.cwd();
 
 const { build, translate } = require('../controller.js');
 

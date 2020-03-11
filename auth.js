@@ -16,12 +16,7 @@ const basicAuth = require('basic-auth');
 const argon2 = require('argon2');
 const crypto = require('crypto');
 
-const {
-  Unauthorized,
-  Created,
-  Forbidden,
-  InternalServerError
-} = require('./response.js');
+const { Unauthorized, Created, Forbidden, InternalServerError } = require('./response.js');
 const db = require('./db.js');
 const Cookie = require('./cookie.js');
 
@@ -38,12 +33,7 @@ function auth({ users }) {
   return async (context, next) => {
     const credentials = basicAuth(context.request);
 
-    if (
-      credentials &&
-      credentials.name &&
-      credentials.pass &&
-      check(credentials)
-    ) {
+    if (credentials && credentials.name && credentials.pass && check(credentials)) {
       return next();
     } else {
       return {
@@ -73,15 +63,14 @@ const bearer = (authorization = '') =>
 const authenticate = action => async request => {
   const { cookies = {}, headers = {}, params = {} } = request;
 
-  const token =
-    cookies.__hcsession || bearer(headers.authorization) || params.token;
+  const token = cookies.__hcsession || bearer(headers.authorization) || params.token;
 
   if (!token) return Unauthorized();
 
   const sha256 = crypto.createHash('sha256');
   const hashedToken = sha256.update(token).digest('base64');
-  const [found] = await db`person`.join`session`
-    .on`person.id = session.person_id`.where`token = ${hashedToken}`;
+  const [found] = await db`person`.join`session`.on`person.id = session.person_id`
+    .where`token = ${hashedToken}`;
 
   if (found) {
     request.user = found;

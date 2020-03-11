@@ -17,7 +17,6 @@ const { HTMLPage } = require('./response');
 const color = require('chalk');
 
 const cwd = process.cwd();
-const isProduction = false;
 
 async function page(name, bindings) {
   const template = require(join(cwd, 'pages', `${name}.marko`));
@@ -28,9 +27,9 @@ async function page(name, bindings) {
     r = await template.render(bindings);
   } catch (_) {
     console.error(
-      `${color.bold.red(
-        'Error:'
-      )} there's a problem generating the page '${color.blue(name)}.marko'`
+      `${color.bold.red('Error:')} there's a problem generating the page '${color.blue(
+        name
+      )}.marko'`
     );
     r = await error.render({ _ });
   }

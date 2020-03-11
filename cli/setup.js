@@ -34,9 +34,7 @@ const AvailableTemplates = ['vue'];
 async function add({ name }) {
   if (!AvailableTemplates.includes(name)) {
     console.log(color`┌ {bold.blue Huncwot} {bold ${VERSION}}`);
-    console.log(
-      color`└ {red error}: Template '{magenta ${name}}' not recognized.`
-    );
+    console.log(color`└ {red error}: Template '{magenta ${name}}' not recognized.`);
     return;
   }
 
@@ -57,9 +55,7 @@ async function add({ name }) {
       });
     });
 
-    console.log(
-      color`├ {cyan setup}: configuring as the {magenta Vue.js} application`
-    );
+    console.log(color`├ {cyan setup}: configuring as the {magenta Vue.js} application`);
 
     await new Promise((resolve, reject) => {
       const child = spawn('npx', ['huncwot-vue'], {

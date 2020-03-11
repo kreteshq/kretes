@@ -20,8 +20,8 @@ const render = async (source, options = {}) => {
     paths: ['.', ...paths]
   });
   return template(context, escape);
-}
+};
 
 module.exports = {
   render
-}
+};

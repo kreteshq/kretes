@@ -40,7 +40,7 @@ function static(root, opts = { index: 'index.html' }) {
           statusCode: 200,
           headers: {
             'Content-Type': mime.lookup(type) || 'application/octet-stream',
-            'Content-Length': stats.size,
+            'Content-Length': stats.size
           },
           body: fs.createReadStream(file)
         };

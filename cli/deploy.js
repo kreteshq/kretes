@@ -41,23 +41,23 @@ const deploy = async ({ showCommand }) => {
   const { server, client } = config.get('deploy');
   try {
     console.log(
-      `${bold.blue('Huncwot:')} ${underline(VERSION)} ${green(
-        'rsync'
-      )} - deploying ${magenta('server')} ...`
+      `${bold.blue('Huncwot:')} ${underline(VERSION)} ${green('rsync')} - deploying ${magenta(
+        'server'
+      )} ...`
     );
     await rsync(server, showCommand);
 
     console.log(
-      `${bold.blue('Huncwot:')} ${underline(VERSION)} ${green(
-        'rsync'
-      )} - deploying ${magenta('client')} ...`
+      `${bold.blue('Huncwot:')} ${underline(VERSION)} ${green('rsync')} - deploying ${magenta(
+        'client'
+      )} ...`
     );
     await rsync(client, showCommand);
   } catch (error) {
     switch (error.message) {
       case 'rsync exited with code 3':
         console.log(
-          "[rsync] Errors selecting input/output files, dirs: Probably these files/dirs don't exist"
+          '[rsync] Errors selecting input/output files, dirs: Probably these files/dirs don\'t exist'
         );
         break;
       default:

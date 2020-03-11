@@ -26,9 +26,9 @@ test('it escapes html', async assert => {
 
 test('it accepts paths', async assert => {
   const source = '<import foo from="./foo.html"/><foo/>';
-  const dir = tmpdir()
-  const path = join(dir, 'foo.html')
-  await writeFile(path, 'bar')
-  const html = await render(source, { paths: [dir] })
-  assert.deepEqual(html, 'bar')
-})
+  const dir = tmpdir();
+  const path = join(dir, 'foo.html');
+  await writeFile(path, 'bar');
+  const html = await render(source, { paths: [dir] });
+  assert.deepEqual(html, 'bar');
+});

@@ -28,16 +28,19 @@ const { parser } = require('../parser');
 const { generateRPCOnClient } = require('../rpc');
 const Logger = require('../logger');
 
-
 const reloadSQL = async (pool, file) => {
   const content = await fs.readFile(file);
-  const isSQLFunction = content.toString().split(" ")[0].toLowerCase() === 'function'
+  const isSQLFunction =
+    content
+      .toString()
+      .split(' ')[0]
+      .toLowerCase() === 'function';
   if (isSQLFunction) {
     const query = `create or replace ${content.toString()}`;
     try {
-      const r = await pool.query(query);
+      const _r = await pool.query(query);
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
   }
 };
@@ -81,7 +84,11 @@ const server = async ({ port }) => {
     process.exit(1);
   }
 
-  const compiler = new TypescriptCompiler(CWD, 'config/server/tsconfig.json', require('typescript/lib/typescript'));
+  const compiler = new TypescriptCompiler(
+    CWD,
+    'config/server/tsconfig.json',
+    require('typescript/lib/typescript')
+  );
   const { error, config } = compiler.configParser().parse();
 
   if (error || !config || config.errors.length) {
@@ -118,7 +125,9 @@ const server = async ({ port }) => {
     console.log(color`  {underline ${filePath}} {green reloaded}`);
     diagnostics.forEach(({ file, messageText }) => {
       const location = file.fileName.split(`${CWD}${sep}`)[1];
-      console.log(color`  {red.bold Errors:}\n  {grey in} {underline ${location}}\n   → ${messageText}`);
+      console.log(
+        color`  {red.bold Errors:}\n  {grey in} {underline ${location}}\n   → ${messageText}`
+      );
     });
 
     // restart the HTTP server

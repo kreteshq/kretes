@@ -11,8 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const debug = require('debug')('szelmostwo:security');
-const assert = require('assert');
+const debug = require('debug')('szelmostwo:security'); // eslint-disable-line no-unused-vars
 
 const security = (
   opts = {
@@ -26,10 +25,7 @@ const security = (
   return next => async context => {
     const { response } = context._;
 
-    response.setHeader(
-      'X-DNS-Prefetch-Control',
-      dnsPrefetchControl ? 'on' : 'off'
-    );
+    response.setHeader('X-DNS-Prefetch-Control', dnsPrefetchControl ? 'on' : 'off');
     response.setHeader('X-Download-Options', 'noopen');
     response.setHeader('X-Content-Type-Options', 'nosniff');
     response.setHeader('X-XSS-Protection', '1; mode=block');

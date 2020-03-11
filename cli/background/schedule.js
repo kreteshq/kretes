@@ -20,7 +20,13 @@ const handler = async ({ task, payload = '{}', options = {} }) => {
         run_at => coalesce($4::timestamptz, now()),
         max_attempts => coalesce($5::int, 25)
     );`,
-    [task, payload, options.queueName || null, options.runAt ? options.runAt.toISOString() : null, options.maxAttempts || null]
+    [
+      task,
+      payload,
+      options.queueName || null,
+      options.runAt ? options.runAt.toISOString() : null,
+      options.maxAttempts || null
+    ]
   );
   await db.end();
 };

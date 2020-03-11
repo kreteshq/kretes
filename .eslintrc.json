@@ -1,9 +1,6 @@
 {
   "parserOptions": {
-    "ecmaVersion": 2017,
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
+    "ecmaVersion": 2018
   },
   "env": {
     "browser": true,
@@ -11,14 +8,15 @@
     "es6": true,
     "node": true
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "prettier"
+  ],
   "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true
-      }
-    ],
+    "prettier/prettier": "error",
     "no-console": "off",
     "indent": [
       "error",
@@ -47,8 +45,5 @@
         "varsIgnorePattern": "^_"
       }
     ]
-  },
-  "plugins": [
-    "prettier"
-  ]
+  }
 }

@@ -32,20 +32,22 @@ class HTMLifiedError {
   async parse() {
     const stack = stackTrace.parse(this.error);
 
-    return await Promise.all(stack.map(async frame => {
-      if (this.isNode(frame)) {
+    return await Promise.all(
+      stack.map(async frame => {
+        if (this.isNode(frame)) {
+          return frame;
+        }
+
+        const context = await this.provideSnippetForFrame(frame);
+        frame.context = context;
+
         return frame;
-      }
-
-      const context = await this.provideSnippetForFrame(frame);
-      frame.context = context;
-
-      return frame;
-    }))
+      })
+    );
   }
 
   getContext(frame) {
-    if (!frame.context) return {}
+    if (!frame.context) return {};
 
     const { pre, line, post } = frame.context;
     return {
@@ -53,7 +55,7 @@ class HTMLifiedError {
       pre: pre.join('\n'),
       line,
       post: post.join('\n')
-    }
+    };
   }
 
   constructCSSClasses(frame, index) {
@@ -66,9 +68,13 @@ class HTMLifiedError {
   }
 
   convertFrameToObject(frame) {
-    const relativeFileName = frame.getFileName().indexOf(process.cwd()) > -1
-      ? frame.getFileName().replace(process.cwd(), '').replace(startingSlashRegex, '')
-      : frame.getFileName()
+    const relativeFileName =
+      frame.getFileName().indexOf(process.cwd()) > -1
+        ? frame
+          .getFileName()
+          .replace(process.cwd(), '')
+          .replace(startingSlashRegex, '')
+        : frame.getFileName();
 
     return {
       file: relativeFileName,
@@ -80,34 +86,37 @@ class HTMLifiedError {
       isModule: this.isNodeModule(frame),
       isNative: this.isNode(frame),
       isApp: this.isApp(frame)
-    }
+    };
   }
 
   isNode(frame) {
-    if (frame.isNative()) return true
+    if (frame.isNative()) return true;
 
-    const filename = frame.getFileName() || ''
-    return !path.isAbsolute(filename) && filename[0] !== '.'
+    const filename = frame.getFileName() || '';
+    return !path.isAbsolute(filename) && filename[0] !== '.';
   }
 
   isApp(frame) {
-    return !this.isNode(frame) && !this.isNodeModule(frame)
+    return !this.isNode(frame) && !this.isNodeModule(frame);
   }
 
   isNodeModule(frame) {
-    return (frame.getFileName() || '').indexOf('node_modules' + path.sep) > -1
+    return (frame.getFileName() || '').indexOf('node_modules' + path.sep) > -1;
   }
 
   convertFramesToObjects(stack, callback) {
-    callback = callback || this._serializeFrame.bind(this)
+    callback = callback || this._serializeFrame.bind(this);
 
     const { message, name, status } = this.error;
     return {
       message,
       name,
       status,
-      frames: stack instanceof Array === true ? stack.filter((frame) => frame.getFileName()).map(callback) : []
-    }
+      frames:
+        stack instanceof Array === true
+          ? stack.filter(frame => frame.getFileName()).map(callback)
+          : []
+    };
   }
 
   convertRequestToObject() {

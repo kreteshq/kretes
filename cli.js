@@ -38,7 +38,11 @@ const _argv = require('yargs')
   .example('$0 client', 'Start only the client')
   .command(['server [dir]', 'serve', 'se'], 'Serve the directory', require('./cli/server'))
   .example('$0 server --port 4000', 'Serve the directory at the port 4000')
-  .command(['build', 'build', 'b'], 'Build the application for production', require('./cli/build'))
+  .command(
+    ['build', 'build', 'b'],
+    'Build the application for production',
+    require('./cli/build')
+  )
   .example('$0 build', 'Build the application for production')
   .command(['database [command]', 'db'], 'Database operations', require('./cli/database'))
   .command(['deploy', 'deploy', 'de'], 'Deploy the application', require('./cli/deploy'))

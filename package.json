@@ -11,6 +11,8 @@
   },
   "devDependencies": {
     "ava": "^3.5.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
     "form-data": "^3.0.0",
     "prettier": "1.19.1"
@@ -18,7 +20,8 @@
   "scripts": {
     "test": "ava",
     "debug": "node --inspect cli.js",
-    "prepack": "node scripts/prepack"
+    "prepack": "node scripts/prepack",
+    "lint": "eslint ."
   },
   "peerDependencies": {
     "axios": "^0.19.2"
@@ -70,6 +73,6 @@
   },
   "prettier": {
     "singleQuote": true,
-    "printWidth": 128
+    "printWidth": 96
   }
 }

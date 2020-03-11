@@ -11,14 +11,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const debug = require('debug')('huncwot:graphql');
+const debug = require('debug')('huncwot:graphql'); // eslint-disable-line no-unused-vars
 
-const fs = require('fs-extra');
-const path = require('path');
-const assert = require('assert');
-const mime = require('mime-types');
-
-const { OK, HTMLPage } = require('./response.js');
+const { OK, HTMLString } = require('./response.js');
 
 const { runHttpQuery } = require('apollo-server-core');
 const { resolveGraphiQLString } = require('apollo-server-module-graphiql');
@@ -43,7 +38,7 @@ function graphiql(options) {
     let query = request.params;
     let response = await resolveGraphiQLString(query, options, request);
 
-    return HTMLPage(response);
+    return HTMLString(response);
   };
 }
 

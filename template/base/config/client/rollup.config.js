@@ -1,4 +1,4 @@
-import ts from "@wessberg/rollup-plugin-ts";
+import ts from '@wessberg/rollup-plugin-ts';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
 
@@ -9,12 +9,12 @@ const modules = () => ({
     }
     return null;
   }
-})
+});
 
 export default {
   input: 'config/client/index.ts',
   output: {
-    dir: "public",
+    dir: 'public',
     sourcemap: true
   },
   watch: {
@@ -23,8 +23,8 @@ export default {
   },
   plugins: [
     modules(),
-    ts({ tsconfig: "config/client/tsconfig.json" }),
+    ts({ tsconfig: 'config/client/tsconfig.json' }),
     serve('public'),
     livereload('public')
-  ],
-}
+  ]
+};

@@ -45,7 +45,7 @@ const lookupHandler = ({ feature, action }) => {
     // return a handler that just informs about the missing handler
     return _ => `You need to create 'features/${feature}/Controller/${action}.js'`;
   }
-}
+};
 
 class Middleware extends Array {
   async next(context, last, current, done, called, func) {
@@ -121,7 +121,12 @@ class Huncwot {
             this.add(method, route, handler);
           }
 
-          if (WebRPC) this.add('POST', `/rpc/${resource}/${operation}`, ...(Array.isArray(handler) ? handler : [handler]));
+          if (WebRPC)
+            this.add(
+              'POST',
+              `/rpc/${resource}/${operation}`,
+              ...(Array.isArray(handler) ? handler : [handler])
+            );
         } catch (error) {
           console.error(error);
         }
@@ -170,7 +175,8 @@ class Huncwot {
         this.add('GET', `/${scopedPath}`, lookupHandler({ feature, action: 'browse' }));
         this.add('POST', `/${scopedPath}`, lookupHandler({ feature, action: 'create' }));
 
-        if (children) { // recursively go in with `parent` set
+        if (children) {
+          // recursively go in with `parent` set
           this.buildResourceDependencies(children, (alias || feature).toLowerCase());
         }
       } catch (error) {
@@ -181,7 +187,7 @@ class Huncwot {
     }
   }
 
-  start({ routes = {}, port = 5544, fn = () => { } }) {
+  start({ routes = {}, port = 5544, fn = () => {} }) {
     for (let [method, route] of Object.entries(routes)) {
       if (method !== 'Resources') {
         for (let [path, handler] of Object.entries(route)) {
@@ -279,7 +285,8 @@ class Huncwot {
 }
 
 const handle = context => result => {
-  if (null === result || undefined === result) throw new Error('No return statement in the handler');
+  if (null === result || undefined === result)
+    throw new Error('No return statement in the handler');
 
   let { response } = context;
 
@@ -319,7 +326,8 @@ const handle = context => result => {
   }
 
   if (body instanceof Stream) {
-    if (!response.getHeader('Content-Type')) response.setHeader('Content-Type', type || 'text/html');
+    if (!response.getHeader('Content-Type'))
+      response.setHeader('Content-Type', type || 'text/html');
 
     body.pipe(response);
     return;
@@ -331,7 +339,8 @@ const handle = context => result => {
     str = JSON.stringify(body);
     response.setHeader('Content-Type', 'application/json');
   } else {
-    if (!response.getHeader('Content-Type')) response.setHeader('Content-Type', type || 'text/plain');
+    if (!response.getHeader('Content-Type'))
+      response.setHeader('Content-Type', type || 'text/plain');
   }
 
   response.setHeader('Content-Length', Buffer.byteLength(str));
@@ -379,7 +388,7 @@ const handleRequest = async context => {
               }
             };
           });
-          file.on('end', () => { });
+          file.on('end', () => {});
         });
         busboy.on('field', (fieldname, val) => {
           context.params = { ...context.params, [fieldname]: val };
@@ -396,12 +405,12 @@ const handleRequest = async context => {
 };
 
 const toBuffer = async stream => {
-  const chunks = []
+  const chunks = [];
   for await (let chunk of stream) {
-    chunks.push(chunk)
+    chunks.push(chunk);
   }
-  return Buffer.concat(chunks)
-}
+  return Buffer.concat(chunks);
+};
 
 const streamToString = async stream => {
   let chunks = '';

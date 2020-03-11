@@ -49,12 +49,12 @@ export class ${name}Requester extends Requester implements ${name}ServiceInterfa
   }
 
   ${Object.entries(methods).map(([method, { input, output }]) => {
-  return `${method} = async (${input}): ${output} => {
+    return `${method} = async (${input}): ${output} => {
     const url = this.hostname + '/rpc/${name}/${method}';
     let response = await this.send(url, this.prepareRequest())
     return await this.parse<${name}>(response);
   }`;
-})}
+  })}
 
 }
 `;

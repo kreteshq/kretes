@@ -6,11 +6,12 @@ const httpstatus = require('http-status');
 
 const explain = require('./explainer');
 
-const displayStatusCode = statusCode => ({
-  2: color`{green ${statusCode}}`,
-  3: color`{cyan ${statusCode}}`,
-  4: color`{blue ${statusCode}}`
-}[~~(statusCode / 100)]);
+const displayStatusCode = statusCode =>
+  ({
+    2: color`{green ${statusCode}}`,
+    3: color`{cyan ${statusCode}}`,
+    4: color`{blue ${statusCode}}`
+  }[~~(statusCode / 100)]);
 
 class Logger {
   static printRequestResponse(context) {
@@ -24,9 +25,7 @@ class Logger {
         httpstatus[statusCode]
       }
 └ {gray Params}
-${util
-  .inspect(params, { compact: false, colors: true, sorted: true })
-  .slice(2, -2)}`
+${util.inspect(params, { compact: false, colors: true, sorted: true }).slice(2, -2)}`
     );
   }
 

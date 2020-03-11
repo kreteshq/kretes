@@ -30,7 +30,9 @@ async function init({ dir }) {
 
   console.log(color`┌ {bold.blue Huncwot} {bold ${VERSION}}`);
   try {
-    console.log(color`├ {cyan new}: creating project structure in {magenta ${dir}} directory ...`);
+    console.log(
+      color`├ {cyan new}: creating project structure in {magenta ${dir}} directory ...`
+    );
 
     // static files
     await fs.copy(themeDir, join(cwd, dir));
@@ -53,11 +55,9 @@ async function init({ dir }) {
     const content = generatePackageJSON(dir);
     await fs.outputJson(path, content, { spaces: 2 });
 
-    console.log(
-      color`└ {cyan new}: installing dependencies with {magenta npm install} ...`
-    );
+    console.log(color`└ {cyan new}: installing dependencies with {magenta npm install} ...`);
     const install = spawn('npm', ['install'], { cwd: dir, stdio: 'inherit' });
-    install.on('close', () => { });
+    install.on('close', () => {});
   } catch (error) {
     console.log('error: ' + error.message);
   }

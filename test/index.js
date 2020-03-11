@@ -28,7 +28,7 @@ const GETs = {
     '/route-params/:name': ({ params }) => OK({ hello: params.name }),
     '/query-params': ({ params: { search } }) => OK({ search }),
     '/invalid-route-no-return': _ => {
-      hello: 'Huncwot';
+      'Huncwot';
     },
     '/html-content': _ => HTMLString('<h1>Huncwot, a rascal truly you are!</h1>'),
     '/accept-header-1': ({ format }) => OK(format),
@@ -127,7 +127,7 @@ test('returns HTML content', async assert => {
 
 // TODO
 test('sets security headers by default', async assert => {
-  const { headers } = await perform.get('/');
+  //const { headers } = await perform.get('/');
   //assert.is(headers['X-DNS-Prefetch-Controll'], 'off');
   //assert.is(headers['X-Download-Options'], 'noopen');
   //assert.is(headers['X-Content-Type-Options'], 'nosniff');
@@ -136,9 +136,9 @@ test('sets security headers by default', async assert => {
 });
 
 test('respects `Accept` header', async assert => {
-  const { data, status, headers } = await perform.get('/accept-header-1', {
+  const { data, status } = await perform.get('/accept-header-1', {
     headers: {
-      'Accept': 'text/plain'
+      Accept: 'text/plain'
     }
   });
   assert.is(status, 200);
@@ -146,7 +146,7 @@ test('respects `Accept` header', async assert => {
 });
 
 test('respects explicit format query param', async assert => {
-  const { data, status, headers } = await perform.get('/explicit-format?format=csv');
+  const { data, status } = await perform.get('/explicit-format?format=csv');
   assert.is(status, 200);
   assert.is(data, 'csv');
 });
@@ -164,10 +164,7 @@ test('accepts POST params as JSON', async assert => {
 test('accepts POST params as Form', async assert => {
   const { stringify } = require('querystring');
 
-  const { status, data } = await perform.post(
-    '/post-form',
-    stringify({ name: 'Szelma' })
-  );
+  const { status, data } = await perform.post('/post-form', stringify({ name: 'Szelma' }));
   assert.is(status, 200);
   assert.is(data, 'Received -> Szelma');
 });
@@ -198,21 +195,13 @@ test('built-in validation with invalid request', async assert => {
 test('built-in validation with valid request', async assert => {
   const { status, data } = await perform.get('/request-validation?name=Zaiste');
   assert.is(status, 200);
-  assert.is(
-    data,
-    'Admin param (undefined) should be absent from this request payload'
-  );
+  assert.is(data, 'Admin param (undefined) should be absent from this request payload');
 });
 
 test('built-in validation strips undefined params', async assert => {
-  const { status, data } = await perform.get(
-    '/request-validation?name=Zaiste&admin=true'
-  );
+  const { status, data } = await perform.get('/request-validation?name=Zaiste&admin=true');
   assert.is(status, 200);
-  assert.is(
-    data,
-    'Admin param (undefined) should be absent from this request payload'
-  );
+  assert.is(data, 'Admin param (undefined) should be absent from this request payload');
 });
 
 test('receives file upload', async assert => {

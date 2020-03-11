@@ -12,7 +12,6 @@
 // limitations under the License.
 
 const { spawn } = require('child_process');
-const config = require('config');
 const cwd = process.cwd();
 
 const handler = ({ password }) => {
