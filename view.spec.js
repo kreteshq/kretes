@@ -1,5 +1,5 @@
 const test = require('ava');
-const { render } = require('./render');
+const { render } = require('./view');
 const { join } = require('path');
 const { tmpdir } = require('os');
 const { writeFile } = require('fs-extra');

@@ -1,9 +1,8 @@
-const { compile } = require('pure-engine');
-const escape = require('escape-html');
 const path = require('path');
 const stackTrace = require('stack-trace');
 const fs = require('fs-extra');
 const cookie = require('cookie');
+const { render } = require('./view');
 const startingSlashRegex = /\\|\//;
 
 class HTMLifiedError {
@@ -140,19 +139,18 @@ class HTMLifiedError {
   async generate() {
     const stack = await this.parse();
 
-    const data = this.convertFramesToObjects(stack, (frame, index) => {
+    const context = this.convertFramesToObjects(stack, (frame, index) => {
       const serializedFrame = this.convertFrameToObject(frame);
       serializedFrame.classes = this.constructCSSClasses(serializedFrame, index);
       return serializedFrame;
     });
 
-    data.request = this.convertRequestToObject();
+    context.request = this.convertRequestToObject();
 
     const resources = path.join(__dirname, 'resources')
     const filepath = path.join(resources, 'error.html')
     const content = await fs.readFile(filepath);
-    const { template } = await compile(content.toString(), { paths: [resources] });
-    return template(data, escape);
+    return render(content.toString(), { context, paths: [resources] });
   }
 }
 

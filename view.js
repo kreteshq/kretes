@@ -1,4 +1,4 @@
-// Copyright 2019 Zaiste & contributors. All rights reserved.
+// Copyright 2020 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,40 +11,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { createGzip } = require('zlib');
-const { join } = require('path');
-const { HTMLPage } = require('./response');
-const color = require('chalk');
+const { compile } = require('pure-engine');
+const escape = require('escape-html');
 
-const cwd = process.cwd();
-
-async function page(name, bindings) {
-  const template = require(join(cwd, 'pages', `${name}.marko`));
-  const error = require(join(__dirname, 'util', 'error.marko'));
-
-  let r;
-  try {
-    r = await template.render(bindings);
-  } catch (_) {
-    console.error(
-      `${color.bold.red('Error:')} there's a problem generating the page '${color.blue(
-        name
-      )}.marko'`
-    );
-    r = await error.render({ _ });
-  }
-
-  return HTMLPage(r.getOutput());
-}
-
-function gzip(body) {
-  return {
-    body: body.pipe(createGzip()),
-    encoding: 'gzip'
-  };
-}
+const render = async (source, options = {}) => {
+  const { context = {}, paths = [] } = options
+  const { template } = await compile(source, {
+    paths: ['.', ...paths]
+  });
+  return template(context, escape);
+};
 
 module.exports = {
-  page,
-  gzip
+  render
 };
