@@ -39,7 +39,7 @@ const substitute = (template, data) => {
       lookup = lookup[path[i]];
 
       if (lookup === undefined) {
-        throw `substitue: '${path[i]}' not found in '${tag}'`;
+        throw new Error(`substitue: '${path[i]}' not found in '${tag}'`);
       }
 
       if (i === len - 1) {

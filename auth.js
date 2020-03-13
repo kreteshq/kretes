@@ -49,7 +49,7 @@ function auth({ users }) {
   // closure over `users`
   function check({ name, pass }) {
     for (let k in users) {
-      if (name === k && pass == users[k]) {
+      if (name === k && pass === users[k]) {
         return true;
       }
     }
@@ -75,7 +75,7 @@ const authenticate = action => async request => {
   if (found) {
     request.user = found;
 
-    return await action(request);
+    return action(request);
   } else {
     // HTTP 401 Unauthorized is for authentication, not authorization (!)
     return Unauthorized();

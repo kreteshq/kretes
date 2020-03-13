@@ -30,7 +30,7 @@ class HTMLifiedError {
   async parse() {
     const stack = stackTrace.parse(this.error);
 
-    return await Promise.all(
+    return Promise.all(
       stack.map(async frame => {
         if (this.isNode(frame)) {
           return frame;

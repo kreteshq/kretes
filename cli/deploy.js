@@ -21,7 +21,7 @@ const { bold, underline, green, magenta } = require('chalk');
 const VERSION = require('../package.json').version;
 
 const rsync = async (options, showCommand = false) => {
-  return await new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     rsyncwrapper(
       { ...options, recursive: true, ssh: true, args: ['-azP'] },
       (error, stdout, stderr, cmd) => {

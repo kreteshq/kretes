@@ -50,7 +50,7 @@ async function add({ name }) {
     await new Promise((resolve, reject) => {
       const child = spawn('npm', ['install'], { cwd: '.', stdio: 'inherit' });
       child.on('exit', code => {
-        if (code) reject('exit code 1');
+        if (code) reject(new Error('exit code 1'));
         resolve();
       });
     });
@@ -63,7 +63,7 @@ async function add({ name }) {
         stdio: 'inherit'
       });
       child.on('exit', code => {
-        if (code) reject('exit code 1');
+        if (code) reject(new Error('exit code 1'));
         resolve();
       });
     });
