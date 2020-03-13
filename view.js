@@ -17,6 +17,7 @@ const escape = require('escape-html');
 const render = async (source, options = {}) => {
   const { context = {}, paths = [] } = options
   const { template } = await compile(source, {
+    cache: process.env.NODE_ENV === 'production',
     paths: ['.', ...paths]
   });
   return template(context, escape);
