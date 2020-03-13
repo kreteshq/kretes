@@ -49,7 +49,7 @@ function auth({ users }) {
   // closure over `users`
   function check({ name, pass }) {
     for (let k in users) {
-      if (name === k && pass == users[k]) {
+      if (name === k && pass === users[k]) {
         return true;
       }
     }

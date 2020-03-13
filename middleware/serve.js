@@ -29,7 +29,7 @@ const serve = (root, opts = { index: 'index.html' }) => {
     const { pathname } = parse(context.request.url, true); // TODO Test perf vs RegEx
     debug('"%s" -> %s', method, pathname);
 
-    if (method.toUpperCase() === 'HEAD' || method.toUpperCase() == 'GET') {
+    if (method.toUpperCase() === 'HEAD' || method.toUpperCase() === 'GET') {
       try {
         let file = path.join(root, pathname);
         let stats = await fs.stat(file);
