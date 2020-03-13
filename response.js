@@ -12,7 +12,7 @@
 // limitations under the License.
 
 const { dirname, join } = require('path');
-const fs = require('fs-extra');
+const { read } = require('./filesystem');
 const { render } = require('./view');
 
 const cwd = process.cwd();
@@ -111,11 +111,13 @@ const InternalServerError = message => {
   };
 };
 
+const cache = process.env.NODE_ENV === 'production';
+
 const Page = async (location, context) => {
   if (location.endsWith('.html')) {
     const dir = dirname(location);
     const paths = [dir];
-    const content = await fs.readFile(location);
+    const content = await read(location, { cache });
     const html = await render(content.toString(), { context, paths });
     return HTMLString(html);
   } else if (location.includes('@')) {
@@ -124,14 +126,14 @@ const Page = async (location, context) => {
     const dir = join(cwd, 'features', feature, 'Page');
     const path = join(dir, `${name}.html`);
     const paths = [dir, views];
-    const content = await fs.readFile(path);
+    const content = await read(path, { cache });
     const html = await render(content.toString(), { context, paths });
     return HTMLString(html);
   } else {
     const views = join(cwd, 'views');
     const path = join(views, `${location}.html`);
     const paths = [views];
-    const content = await fs.readFile(path);
+    const content = await read(path, { cache });
     const html = await render(content.toString(), { context, paths });
     return HTMLString(html);
   }
