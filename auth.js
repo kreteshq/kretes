@@ -75,7 +75,7 @@ const authenticate = action => async request => {
   if (found) {
     request.user = found;
 
-    return await action(request);
+    return action(request);
   } else {
     // HTTP 401 Unauthorized is for authentication, not authorization (!)
     return Unauthorized();

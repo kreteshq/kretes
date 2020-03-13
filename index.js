@@ -58,13 +58,13 @@ class Middleware extends Array {
       func(context, async () => {
         if (called) throw new Error('next() already called');
         called = true;
-        return await this.next(context, last, current + 1);
+        return this.next(context, last, current + 1);
       })
     );
   }
 
   async compose(context, last) {
-    return await this.next(context, last, 0);
+    return this.next(context, last, 0);
   }
 }
 
@@ -218,9 +218,9 @@ class Huncwot {
         context.params = { ...query, ...params };
         await handleRequest(context);
         context.params = { ...context.params };
-        return await handler(context);
+        return handler(context);
       } else {
-        return await next();
+        return next();
       }
     };
 
@@ -241,7 +241,7 @@ class Huncwot {
         };
       }
 
-      return await next({ headers });
+      return next({ headers });
     };
 
     this.middlewareList.push(CORSMiddleware);

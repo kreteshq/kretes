@@ -52,7 +52,7 @@ export class ${name}Requester extends Requester implements ${name}ServiceInterfa
     return `${method} = async (${input}): ${output} => {
     const url = this.hostname + '/rpc/${name}/${method}';
     let response = await this.send(url, this.prepareRequest())
-    return await this.parse<${name}>(response);
+    return this.parse<${name}>(response);
   }`;
   })}
 
