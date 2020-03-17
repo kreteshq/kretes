@@ -18,13 +18,13 @@
     "@wessberg/rollup-plugin-ts": "^1.2.21",
     "chokidar": "^3.3.1",
     "cross-env": "^7.0.2",
-    "node-pg-migrate": "^4.2.2",
+    "node-pg-migrate": "^4.2.3",
     "npm-check-updates": "^4.0.4",
     "snowpack": "^1.6.0",
     "stmux": "^1.8.0",
     "typescript": "^3.8.3",
     "prettier": "^1.19.1",
-    "rollup": "^2.0.3",
+    "rollup": "^2.0.6",
     "rollup-plugin-livereload": "^1.0.4",
     "rollup-plugin-serve": "^1.0.1"
   }
