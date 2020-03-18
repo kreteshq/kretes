@@ -11,16 +11,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const security = () => {
+const cors = () => {
   return async (context, next) => {
-    const { response } = context;
-
-    response.setHeader('X-Download-Options', 'noopen');
-    response.setHeader('X-Content-Type-Options', 'nosniff');
-    response.setHeader('X-XSS-Protection', '1; mode=block');
-
-    return next(context);
+    const method = context.request.method;
+  
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    };
+  
+    if (method === 'OPTIONS') {
+      return {
+        statusCode: 200,
+        body: '',
+        headers
+      };
+    }
+  
+    return next({ headers });
   };
-};
+}
 
-module.exports = security;
+module.exports = cors;
