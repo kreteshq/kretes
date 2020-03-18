@@ -13,7 +13,7 @@
 
 const cors = () => {
   return async (context, next) => {
-    const method = context.request.method;
+    const { method } = context.request;
   
     const headers = {
       'Access-Control-Allow-Origin': '*',
