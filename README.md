@@ -276,6 +276,18 @@ GET: {
 }
 ```
 
+You can also add global middlewares.
+
+```js
+let id = 0, sequence = () => id++
+
+app.use(async (context, next) => {
+  const { request } = context
+  request.id = sequence()
+  return next(context)
+})
+```
+
 ### Server-side Router
 
 In Huncwot, you can define implicit routes that are derived from the application features. These are called *Resource* routes and they can be configured in `config/server/routes.ts` under the `Resources` key.
@@ -519,4 +531,3 @@ https://github.com/zaiste/huncwot/issues
 
 Detailed bug reports are always great; it's event better if you are able to
 include test cases.
-

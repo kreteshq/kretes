@@ -9,6 +9,7 @@ const merge = require('merge-deep');
 const FormData = require('form-data');
 
 const app = new Huncwot();
+
 const perform = axios.create({
   baseURL: 'http://localhost:3000'
 });
@@ -33,7 +34,8 @@ const GETs = {
     },
     '/html-content': _ => HTMLString('<h1>Huncwot, a rascal truly you are!</h1>'),
     '/accept-header-1': ({ format }) => OK(format),
-    '/explicit-format': ({ format }) => OK(format)
+    '/explicit-format': ({ format }) => OK(format),
+    '/id': ({ request }) => OK(request.id)
   }
 };
 
@@ -66,6 +68,13 @@ const Compositions = {
 
 const routes = merge({}, GETs, POSTs, Compositions);
 
+let id = 0, sequence = () => id++
+
+app.use(async (context, next) => {
+  const { request } = context
+  request.id = `id-${sequence()}`
+  return next(context)
+})
 app.start({ routes, port: 3000 });
 
 // Tests
@@ -183,6 +192,12 @@ test('accepts POST params as Form', async assert => {
 });
 
 // Tests for function composistions (aka middleware-like)
+
+test('compose middlewares with .use', async assert => {
+  const response = await perform.get('/id');
+  assert.is(response.status, 200);
+  assert.truthy(response.data.startsWith('id-'))
+})
 
 test('compose functions & return string', async assert => {
   const { status, data } = await perform.get('/simple-compose');
