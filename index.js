@@ -181,7 +181,7 @@ class Huncwot {
     }
   }
 
-  start({ routes = {}, port = 5544, fn = () => {} }) {
+  async start({ routes = {}, port = 5544 }) {
     for (let [method, route] of Object.entries(routes)) {
       if (method !== 'Resources') {
         for (let [path, handler] of Object.entries(route)) {
@@ -255,7 +255,12 @@ class Huncwot {
         process.exit(1);
       });
 
-    return server.listen(port, fn);
+    return new Promise((resolve, reject) => {
+      server.listen(port, (err) => {
+        if (err) return reject(err);
+        resolve();
+      });
+    })
   }
 }
 
