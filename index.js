@@ -76,6 +76,7 @@ class Huncwot {
     WebRPC = true,
     _verbose = false
   } = {}) {
+    this.server = null;
     this.middlewares = new Middleware();
     this.router = new Router();
     this.staticDir = staticDir;
@@ -227,7 +228,7 @@ class Huncwot {
     // TODO Move to `catch` for pattern matching ?
     this.use(() => NotFound());
 
-    const server = http
+    this.server = http
       .createServer((request, response) => {
         const context = { params: {}, headers: {}, request, response };
 
@@ -256,7 +257,7 @@ class Huncwot {
       });
 
     return new Promise((resolve, reject) => {
-      server.listen(port, (err) => {
+      this.server.listen(port, (err) => {
         if (err) return reject(err);
         resolve();
       });
