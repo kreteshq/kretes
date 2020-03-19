@@ -70,16 +70,20 @@ const routes = merge({}, GETs, POSTs, Compositions);
 
 
 test.before(async () => {
-  let id = 0, sequence = () => id++
+  let id = 0, sequence = () => id++;
   app.use(async (context, next) => {
-    const { request } = context
-    request.id = `id-${sequence()}`
-    return next(context)
-  })
+    const { request } = context;
+    request.id = `id-${sequence()}`;
+    return next(context);
+  });
   await app.start({
     routes,
     port: 3000
   });
+})
+
+test.after(async () => {
+  await app.stop();
 })
 
 // Tests
