@@ -22,7 +22,7 @@ const Busboy = require('busboy');
 const Router = require('trek-router');
 const httpstatus = require('http-status');
 
-const { serve } = require('./middleware');
+const { cors, security, serve } = require('./middleware');
 const { build, translate } = require('./controller');
 const { NotFound } = require('./response');
 const Logger = require('./logger');
@@ -71,16 +71,12 @@ class Middleware extends Array {
 class Huncwot {
   constructor({
     staticDir = join(cwd, 'static'),
-    securityOptions = {
-      dnsPrefetchControl: false,
-      poweredBy: false
-    },
     graphql = false,
     implicitControllers = true,
     WebRPC = true,
     _verbose = false
   } = {}) {
-    this.middlewareList = new Middleware();
+    this.middlewares = new Middleware();
     this.router = new Router();
     this.staticDir = staticDir;
 
@@ -132,8 +128,6 @@ class Huncwot {
         }
       }
     }
-
-    // this.add('GET', '/', [ security(securityOptions) ]);
   }
 
   async setup() {
@@ -142,7 +136,7 @@ class Huncwot {
 
   use(middleware) {
     if (typeof middleware !== 'function') throw new TypeError('middleware must be a function!');
-    this.middlewareList.push(middleware);
+    this.middlewares.push(middleware);
 
     return this;
   }
@@ -224,39 +218,20 @@ class Huncwot {
       }
     };
 
-    const CORSMiddleware = async (context, next) => {
-      const method = context.request.method;
-
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      };
-
-      if (method === 'OPTIONS') {
-        return {
-          statusCode: 200,
-          body: '',
-          headers
-        };
-      }
-
-      return next({ headers });
-    };
-
-    this.middlewareList.push(CORSMiddleware);
-    this.middlewareList.push(RouterMiddleware);
+    this.use(security())
+    this.use(cors());
+    this.use(RouterMiddleware);
     this.use(serve(this.staticDir));
 
     // append 404 middleware handler: it must be put at the end and only once
     // TODO Move to `catch` for pattern matching ?
-    this.middlewareList.push(() => NotFound());
+    this.use(() => NotFound());
 
     const server = http
       .createServer((request, response) => {
         const context = { params: {}, headers: {}, request, response };
 
-        this.middlewareList
+        this.middlewares
           .compose(context)
           .then(handle(context))
           .then(() => Logger.printRequestResponse(context))

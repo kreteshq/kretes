@@ -135,13 +135,11 @@ test('returns HTML content', async assert => {
   assert.is(data, '<h1>Huncwot, a rascal truly you are!</h1>');
 });
 
-// TODO
 test('sets security headers by default', async assert => {
-  //const { headers } = await perform.get('/');
-  //assert.is(headers['X-DNS-Prefetch-Controll'], 'off');
-  //assert.is(headers['X-Download-Options'], 'noopen');
-  //assert.is(headers['X-Content-Type-Options'], 'nosniff');
-  //assert.is(headers['X-XSS-Protection'], '1; mode=block');
+  const { headers } = await perform.get('/');
+  assert.is(headers['x-download-options'], 'noopen');
+  assert.is(headers['x-content-type-options'], 'nosniff');
+  assert.is(headers['x-xss-protection'], '1; mode=block');
   assert.is(true, true);
 });
 
