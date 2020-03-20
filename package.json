@@ -45,7 +45,7 @@
     "error-stack-parser": "^2.0.6",
     "escape-html": "^1.0.3",
     "fast-glob": "3.2.2",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.0",
     "graphile-worker": "^0.5.0",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.3",

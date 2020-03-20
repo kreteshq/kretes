@@ -24,8 +24,8 @@
     "stmux": "^1.8.0",
     "typescript": "^3.8.3",
     "prettier": "^1.19.1",
-    "rollup": "^2.0.6",
-    "rollup-plugin-livereload": "^1.0.4",
+    "rollup": "^2.1.0",
+    "rollup-plugin-livereload": "^1.1.0",
     "rollup-plugin-serve": "^1.0.1"
   }
 }
