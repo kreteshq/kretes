@@ -10,10 +10,6 @@ const FormData = require('form-data');
 
 const app = new Huncwot();
 
-const { get, post } = axios.create({
-  baseURL: 'http://localhost:3000'
-});
-
 const ExplicitResponse = {
   statusCode: 200,
   headers: {},
@@ -68,6 +64,7 @@ const Compositions = {
 
 const routes = merge({}, GETs, POSTs, Compositions);
 
+let get, post
 
 test.before(async () => {
   let id = 0, sequence = () => id++;
@@ -76,10 +73,10 @@ test.before(async () => {
     request.id = `id-${sequence()}`;
     return next(context);
   });
-  await app.start({
-    routes,
-    port: 3000
-  });
+  await app.start({ routes });
+  const http = axios.create({ baseURL: `http://localhost:${app.port}` });
+  get = http.get
+  post = http.post
 })
 
 test.after(async () => {
