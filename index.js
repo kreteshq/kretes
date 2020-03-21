@@ -76,6 +76,7 @@ class Huncwot {
     WebRPC = true,
     _verbose = false
   } = {}) {
+    this.server = null;
     this.middlewares = new Middleware();
     this.router = new Router();
     this.staticDir = staticDir;
@@ -181,7 +182,7 @@ class Huncwot {
     }
   }
 
-  start({ routes = {}, port = 5544, fn = () => {} }) {
+  async start({ routes = {}, port = 5544 }) {
     for (let [method, route] of Object.entries(routes)) {
       if (method !== 'Resources') {
         for (let [path, handler] of Object.entries(route)) {
@@ -227,7 +228,7 @@ class Huncwot {
     // TODO Move to `catch` for pattern matching ?
     this.use(() => NotFound());
 
-    const server = http
+    this.server = http
       .createServer((request, response) => {
         const context = { params: {}, headers: {}, request, response };
 
@@ -255,7 +256,21 @@ class Huncwot {
         process.exit(1);
       });
 
-    return server.listen(port, fn);
+    return new Promise((resolve, reject) => {
+      this.server.listen(port, (err) => {
+        if (err) return reject(err);
+        resolve();
+      });
+    })
+  }
+
+  async stop() {
+    return new Promise((resolve, reject) => {
+      this.server.close((err) => {
+        if (err) return reject(err);
+        resolve();
+      })
+    })
   }
 }
 
