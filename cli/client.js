@@ -36,7 +36,7 @@ const client = async () => {
 
   try {
     await new Promise((resolve, reject) => {
-      const child = spawn('npx', ['pika', 'install', '--dest', 'modules'], {
+      const child = spawn('npx', ['snowpack', '--dest', 'modules'], {
         stdio: ['inherit', 'inherit', 'ignore']
       });
       child.on('exit', code => {
