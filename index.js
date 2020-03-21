@@ -155,6 +155,22 @@ class Huncwot {
     return this;
   }
 
+  get(path, handler) {
+    this.add('GET', path, handler)
+  }
+
+  post(path, handler) {
+    this.add('POST', path, handler)
+  }
+
+  put(path, handler) {
+    this.add('PUT', path, handler)
+  }
+
+  delete(path, handler) {
+    this.add('DELETE', path, handler)
+  }
+
   buildResourceDependencies(resources, parent = null) {
     for (let { feature, alias, children } of resources) {
       const path = `${(alias || feature).toLowerCase()}`;
@@ -182,7 +198,7 @@ class Huncwot {
     }
   }
 
-  async start({ routes = {}, port = 5544 }) {
+  async start({ routes = {}, port = 0 } = {}) {
     for (let [method, route] of Object.entries(routes)) {
       if (method !== 'Resources') {
         for (let [path, handler] of Object.entries(route)) {
@@ -271,6 +287,10 @@ class Huncwot {
         resolve();
       })
     })
+  }
+
+  get port () {
+    return this.server && this.server.address().port
   }
 }
 
