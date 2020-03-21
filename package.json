@@ -15,7 +15,7 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
     "form-data": "^3.0.0",
-    "prettier": "1.19.1"
+    "prettier": "2.0.0"
   },
   "scripts": {
     "test": "ava",
