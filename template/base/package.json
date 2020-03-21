@@ -4,7 +4,7 @@
     "start": "stmux -w always -e ERROR -m beep,system -- [ -t 'Client' 'huncwot client' .. -t 'Server' 'huncwot server' ]"
   },
   "dependencies": {
-    "huncwot": "^0.55.0"
+    "huncwot": "^0.56.0"
   },
   "snowpack": {
     "webDependencies": []
@@ -23,7 +23,7 @@
     "snowpack": "^1.6.0",
     "stmux": "^1.8.0",
     "typescript": "^3.8.3",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.0",
     "rollup": "^2.1.0",
     "rollup-plugin-livereload": "^1.1.0",
     "rollup-plugin-serve": "^1.0.1"
