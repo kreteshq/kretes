@@ -59,7 +59,7 @@ const start = async ({ port }) => {
     console.error(e.message);
   }
 
-  const server = app.start({ routes, port });
+  const server = await app.start({ routes, port });
 
   server.on('connection', socket => {
     sockets.push(socket);
