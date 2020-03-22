@@ -407,28 +407,21 @@ const { OK } = require('huncwot/response');
 
 const app = new Huncwot();
 
-// implicit `return` with a `text/plain` response
-app.get('/', _ => 'Hello Huncwot')
+const routes = {
+  get: {
+    '/': _ => 'Hello Huncwot', // implicit `return` with a `text/plain` response
+    '/json': _ => OK({ a: 1, b: 2 }), // explicit `return` with a 200 response of `application/json` type
+    '/headers': _ => ({ body: 'Hello B', statusCode: 201, headers: { 'Authorization': 'PASS' } }) // set your own headers
+  },
+  post: {
+    '/bim/': request => `Hello POST! ${request.params.name}` // request body is parsed in `params` by default
+  }
+}
 
-// explicit `return` with a 200 response of `application/json` type
-app.get('/json', _ => {
-  return OK({ a: 1, b: 2 });
-})
-
-// set your own headers
-app.get('/headers', _ => {
-  return { body: 'Hello B', statusCode: 201, headers: { 'Authorization': 'PASS' } }
-})
-
-// request body is parsed in `params` by default
-app.post('/bim', request => {
-  return `Hello POST! ${request.params.name}`;
-})
-
-app.listen(5544);
+app.start({ routes, port: 5544 });
 ```
 
-This example shows a regular, server-side application in the style of Express or Koa, e.g. you define various routes as a combination of paths and functions attached to it i.e. route handlers. In contrast to Express, Huncwot handlers only take HTTP `request` as input and always return an HTTP response: either defined explicitly as an object with `body`, `status`, etc keys, or implicitly with an inferred type e.g. `text/plain` or as a wrapping function e.g. `OK()` for `200`, or `created()` for `201`.
+This example shows a regular, server-side application. You define routes as a plain object, which makes composition easier. In contrast to Express, Huncwot handlers only take HTTP `request` as input and always return an HTTP response: either defined explicitly as an object with `body`, `status`, etc keys, or implicitly with an inferred type e.g. `text/plain` or as a wrapping function e.g. `OK()` for `200`, or `created()` for `201`.
 
 
 ## Concepts
