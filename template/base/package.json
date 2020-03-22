@@ -1,8 +1,6 @@
 {
   "private": true,
-  "scripts": {
-    "start": "stmux -w always -e ERROR -m beep,system -- [ -t 'Client' 'huncwot client' .. -t 'Server' 'huncwot server' ]"
-  },
+  "scripts": {},
   "dependencies": {
     "huncwot": "^0.56.0"
   },
@@ -21,9 +19,8 @@
     "node-pg-migrate": "^4.2.3",
     "npm-check-updates": "^4.0.4",
     "snowpack": "^1.6.0",
-    "stmux": "^1.8.0",
     "typescript": "^3.8.3",
-    "prettier": "^2.0.0",
+    "prettier": "^2.0.1",
     "rollup": "^2.1.0",
     "rollup-plugin-livereload": "^1.1.0",
     "rollup-plugin-serve": "^1.0.1"
