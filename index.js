@@ -182,7 +182,7 @@ class Huncwot {
     }
   }
 
-  async start({ routes = {}, port = 5544 }) {
+  async start({ routes = {}, port = 0 } = {}) {
     for (let [method, route] of Object.entries(routes)) {
       if (method !== 'Resources') {
         for (let [path, handler] of Object.entries(route)) {
@@ -271,6 +271,10 @@ class Huncwot {
         resolve();
       })
     })
+  }
+
+  get port () {
+    return this.server && this.server.address().port
   }
 }
 
