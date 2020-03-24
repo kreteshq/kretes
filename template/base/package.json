@@ -17,10 +17,10 @@
     "chokidar": "^3.3.1",
     "cross-env": "^7.0.2",
     "node-pg-migrate": "^4.2.3",
-    "npm-check-updates": "^4.0.4",
+    "npm-check-updates": "^4.0.5",
     "snowpack": "^1.6.0",
     "typescript": "^3.8.3",
-    "prettier": "^2.0.1",
+    "prettier": "^2.0.2",
     "rollup": "^2.1.0",
     "rollup-plugin-livereload": "^1.1.0",
     "rollup-plugin-serve": "^1.0.1"

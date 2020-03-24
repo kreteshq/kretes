@@ -15,7 +15,7 @@
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.2",
     "form-data": "^3.0.0",
-    "prettier": "2.0.1"
+    "prettier": "2.0.2"
   },
   "scripts": {
     "test": "ava",
@@ -30,7 +30,7 @@
     "@casl/ability": "^3.4.0",
     "@poppinss/chokidar-ts": "^2.0.3",
     "@sqorn/pg": "0.0.45",
-    "@zerollup/ts-transform-paths": "^1.7.12",
+    "@zerollup/ts-transform-paths": "^1.7.13",
     "apollo-server-core": "^2.11.0",
     "apollo-server-module-graphiql": "^2.0.0-beta.6",
     "argon2": "0.26.1",
