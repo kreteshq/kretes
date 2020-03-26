@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "huncwot": "^0.56.0"
+    "huncwot": "^0.57.0"
   },
   "snowpack": {
     "webDependencies": []
@@ -17,7 +17,7 @@
     "chokidar": "^3.3.1",
     "cross-env": "^7.0.2",
     "node-pg-migrate": "^4.2.3",
-    "npm-check-updates": "^4.0.6",
+    "npm-check-updates": "^4.1.0",
     "snowpack": "^1.6.0",
     "typescript": "^3.8.3",
     "prettier": "^2.0.2",
