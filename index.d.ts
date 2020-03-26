@@ -91,7 +91,7 @@ declare module 'huncwot/background' {
 declare module 'huncwot/db' {
   interface SQLStatement {
     text: string
-    values: string[]
+    values: (string | number)[]
   }
 
   function execute(statement: SQLStatement);
