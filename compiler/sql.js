@@ -1,0 +1,111 @@
+const fs = require('fs-extra');
+
+const JSDocFunctionNameRegex = /@name (\w+)/;
+const JSDocParamRegex = /@param (?:{(\w+)}\s+)?(\$?\w+)(.*)/g;
+const SectionRegex = /(\/\*\*.*?\*\/)\n*(.*?)(?=(\/\*)|$)/sg;
+const SQLParamRegex = / \${(\w+)}/gi;
+
+function difference(set1, set2) {
+  const s1 = new Set(set1);
+  const s2 = new Set(set2);
+
+  const result = new Set();
+  for (const value of s1) {
+    if (!s2.has(value)) {
+      result.add(value);
+    }
+  }
+  return result;
+}
+
+function anonymize(sqlStatement) {
+  let counter = 0;
+  const sortedParams = [];
+  const namedToPositions = sqlStatement.replace(SQLParamRegex, (match, name) => {
+    sortedParams.push(name);
+    counter += 1;
+    return ` $${counter}`;
+  });
+  return {
+    sortedParams,
+    query: namedToPositions,
+  };
+}
+
+const extractSQLParams = (statement) => {
+  const matches = [...statement.matchAll(SQLParamRegex)];
+  return matches.map(({ 1: name }) => name);
+};
+
+const extractJSDocParams = (comment) => {
+  const matches = [...comment.matchAll(JSDocParamRegex)];
+  return matches
+    .map(({ 1: type = 'string', 2: name }) => ({ [name]: type }))
+    .reduce((stored, current) => ({ ...stored, ...current }), []);
+};
+
+function checkParameters(statement, comment) {
+  const SQLParams = extractSQLParams(statement);
+  const JSDocParams = extractJSDocParams(comment);
+
+  const SQLvsJSDoc = difference(SQLParams, Object.keys(JSDocParams));
+  if (SQLvsJSDoc.size !== 0) {
+    throw new SyntaxError(`
+"${[...SQLvsJSDoc]}" params in the SQL statement:
+${statement}
+but not in the JSDoc section:
+${comment}`);
+  }
+
+  const JSDocvsSQL = difference(Object.keys(JSDocParams), SQLParams);
+  if (JSDocvsSQL.size !== 0) {
+    throw new SyntaxError(`
+"${[...JSDocvsSQL]}" params in JSDoc section:
+${comment}
+but not in the SQL statement:
+${statement}`);
+  }
+
+  return Object.entries(JSDocParams);
+}
+
+function* parseContent(fileContent) {
+  for (const { 1: docstring, 2: statement } of fileContent.matchAll(SectionRegex)) {
+    if (!docstring.includes('@private')) {
+      const functionBlock = JSDocFunctionNameRegex.exec(docstring);
+      if (functionBlock == null) {
+        throw new SyntaxError(`Missing @name in the JSDoc comment ${docstring}`);
+      }
+      const [jsDocLine, name] = functionBlock;
+
+      const params = checkParameters(statement, docstring);
+      const { query, sortedParams } = anonymize(statement);
+
+      yield {
+        name,
+        params,
+        sortedParams,
+        query: query.trim(),
+        docstring: docstring.replace(jsDocLine, ''),
+      };
+    }
+  }
+}
+
+const compile = async filepath => {
+  const fileContent = await fs.readFile(filepath, 'utf8');
+
+  const sections = parseContent(fileContent);
+
+  let output = '';
+  for (const { name, params, query, sortedParams } of sections) {
+    output += `export const ${name} = (${params.map(([param, type]) => `${param}: ${type.toLowerCase()}`).join(', ')}) => ({
+  text: '${query}',
+  values: [${sortedParams}]
+});\n\n`;
+  }
+
+  return output;
+};
+
+module.exports = { compile };

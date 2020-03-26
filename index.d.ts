@@ -87,3 +87,14 @@ declare module 'huncwot/background' {
 
   function schedule(_: ScheduleInput): Promise<void>;
 }
+
+declare module 'huncwot/db' {
+  interface SQLStatement {
+    text: string
+    values: string[]
+  }
+
+  function execute(statement: SQLStatement);
+  // FIXME ugly hack
+  function from(table: string);
+}

@@ -27,6 +27,7 @@ const VERSION = require('../package.json').version;
 const { parser } = require('../parser');
 const { generateRPCOnClient } = require('../rpc');
 const Logger = require('../logger');
+const SQLCompiler = require('../compiler/sql');
 
 const reloadSQL = async (pool, file) => {
   const content = await fs.readFile(file);
@@ -117,7 +118,19 @@ const server = async ({ port }) => {
 
   // files other than `.ts` have changed
   watcher.on('change', async filePath => {
-    if (extname(filePath) == '.sql') reloadSQL(pool, filePath);
+    if (extname(filePath) == '.sql') {
+      reloadSQL(pool, filePath);
+      try {
+        const output = await SQLCompiler.compile(join(CWD, filePath));
+        const { dir } = parse(filePath);
+        await fs.outputFile(join(CWD, dir, 'index.ts'), output);
+        console.log(color`  {underline ${filePath}} {green reloaded}`);
+      } catch (error) {
+        console.log(
+          color`  {red.bold Errors:}\n  {grey in} {underline ${filePath}}\n   → ${error.message}`
+        );
+      }
+    }
   });
 
   watcher.on('subsequent:build', async ({ path: filePath, diagnostics }) => {

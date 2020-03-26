@@ -30,4 +30,12 @@ pool.connect(error => {
   }
 });
 
-module.exports = sqorn({ pg, pool });
+module.exports = Object.assign(
+  sqorn({ pg, pool }),
+  {
+    execute: async (statement) => {
+      const { rows } = await pool.query(statement);
+      return rows;
+    }
+  }
+);
