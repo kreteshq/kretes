@@ -11,8 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { compile } = require('pure-engine');
-const escape = require('escape-html');
+const { compile, escape } = require('pure-engine');
 
 const render = async (source, options = {}) => {
   const { context = {}, paths = [] } = options
