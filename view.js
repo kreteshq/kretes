@@ -11,7 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { compile, escape } = require('pure-engine');
+const { compile, escape } = require('boxwood');
 
 const render = async (source, options = {}) => {
   const { context = {}, paths = [] } = options
