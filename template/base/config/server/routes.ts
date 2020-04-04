@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 import { Routes } from 'huncwot';
 import { OK } from 'huncwot/response';
 
@@ -10,7 +12,10 @@ const routes: Routes = {
     '/json': _ => {
       return OK({ a: 1, b: 2 });
     },
-
+    // stream the response
+    '/stream': _ => {
+      return fs.createReadStream('static/index.html');
+    },
     // set your own headers
     '/headers': _ => {
       return { body: 'Hello B', statusCode: 201, headers: { 'Authorization': 'PASS' } };

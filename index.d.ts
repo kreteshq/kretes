@@ -1,4 +1,6 @@
 declare module 'huncwot' {
+  import { ReadStream } from 'fs';
+
   interface Request {
     params: {
       [name: string]: any
@@ -14,7 +16,7 @@ declare module 'huncwot' {
     }
   }
 
-  type Response = string | { body: string } | Buffer;
+  type Response = string | { body: string } | Buffer | ReadStream;
   type Handler = (request: Request) => Response | Promise<Response>;
 
   interface Resource {
