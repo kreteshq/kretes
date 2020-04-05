@@ -70,7 +70,7 @@ class Middleware extends Array {
 
 class Huncwot {
   constructor({
-    staticDir = join(cwd, 'static'),
+    staticDir = join(cwd, 'public'),
     graphql = false,
     implicitControllers = true,
     WebRPC = true,

@@ -1,6 +1,4 @@
 import ts from '@wessberg/rollup-plugin-ts';
-import serve from 'rollup-plugin-serve';
-import livereload from 'rollup-plugin-livereload';
 
 export default {
   input: 'config/client/index.ts',
@@ -13,8 +11,6 @@ export default {
     exclude: 'node_modules/**'
   },
   plugins: [
-    ts({ tsconfig: 'config/client/tsconfig.json' }),
-    serve('public'),
-    livereload('public')
+    ts({ tsconfig: 'config/client/tsconfig.json' })
   ]
 };
