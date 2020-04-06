@@ -5,7 +5,9 @@
     "huncwot": "^0.57.1"
   },
   "snowpack": {
-    "webDependencies": []
+    "webDependencies": [
+      "tslib"
+    ]
   },
   "browserslist": [
     "> 1%",
@@ -20,7 +22,7 @@
     "npm-check-updates": "^4.1.1",
     "snowpack": "^1.6.0",
     "typescript": "^3.8.3",
-    "prettier": "^2.0.2",
+    "prettier": "^2.0.4",
     "rollup": "^2.3.3"
   }
 }
