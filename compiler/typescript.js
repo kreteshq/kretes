@@ -59,4 +59,13 @@ const rewrite = options => {
   return ctx => sf => ts.visitNode(sf, visitor(ctx, sf, options));
 };
 
-module.exports = { rewrite };
+const snowpackImportRewriter = () =>
+  rewrite({
+    alias: {
+      '^([a-z@][\\w\/-]+)$': '/modules/$1.js'
+    }
+  })
+
+
+
+module.exports = { rewrite, snowpackImportRewriter };
