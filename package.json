@@ -1,6 +1,6 @@
 {
   "name": "huncwot",
-  "version": "0.57.1",
+  "version": "0.58.0",
   "description": "Programming environment for modular, monolithic JavaScript apps - batteries included",
   "main": "index.js",
   "repository": "https://github.com/huncwotjs/huncwot",
@@ -16,7 +16,7 @@
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.2",
     "form-data": "^3.0.0",
-    "prettier": "2.0.2"
+    "prettier": "2.0.4"
   },
   "scripts": {
     "test": "ava",
