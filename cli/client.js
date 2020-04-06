@@ -53,10 +53,9 @@ const client = async () => {
         stdio: ['inherit', 'inherit', 'ignore']
       });
       child.on('exit', code => {
-        if (code) reject(new Error('exit code 1'));
+        if (code) reject(new Error('exit code 1'))
+        else resolve();
       });
-
-      resolve();
     });
   } catch (error) {
     console.log(error);
