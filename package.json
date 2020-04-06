@@ -73,6 +73,7 @@
   },
   "prettier": {
     "singleQuote": true,
-    "printWidth": 96
+    "printWidth": 96,
+    "arrowParens": "avoid"
   }
 }
