@@ -68,7 +68,7 @@ const client = async () => {
 
   loadConfigFile(join(cwd, 'config/client/rollup.config.js'), { format: 'esm' })
     .then(async ({options, warnings}) => {
-      console.log(`We currently have ${warnings.count} warnings`);
+      console.log(`${warnings.count} warnings`);
 
       warnings.flush();
 
@@ -83,7 +83,7 @@ const client = async () => {
         });
       });
 
-      console.log('client started');
+      console.log('Client started for http://localhost:5544');
     });
 };
 
