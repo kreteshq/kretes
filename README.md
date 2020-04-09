@@ -120,22 +120,21 @@ Use the `Tasks: Run Task` from the Command Palette to select a Huncwot command
 
 ![Huncwot Zap: Run Task](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/zaps/huncwot-run-task.gif)
 
-A Huncwot application consists of a front-end & back-end, both run as separate processes. 
+A Huncwot application consists of a front-end & back-end, both run as separate processes.
 
 Use the `Server` task to start the back-end process:
 
 ![Huncwot Zap: Server](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/zaps/huncwot-server.gif)
 
-> The server runs on the port `5544`
 
 Use the `Client` task to start the front-end process
 
 ![Huncwot Zap: Client](https://raw.githubusercontent.com/zaiste/huncwot/master/docs/zaps/huncwot-client.gif)
 
-> The server runs on the port `10001`
-
 Or, use the `start` command to start the both processes at the same time. This
 is usually the default approach.
+
+> **The application runs on the port `5544`**
 
 ## Features In Detail
 
