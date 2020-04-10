@@ -15,10 +15,11 @@ const { compile, escape } = require('boxwood');
 
 const render = async (source, options = {}) => {
   const { context = {}, paths = [] } = options
-  const { template } = await compile(source, {
+  const { template, html } = await compile(source, {
     cache: process.env.NODE_ENV === 'production',
     paths: ['.', ...paths]
   });
+  if (html) { return html }
   return template(context, escape);
 };
 
