@@ -18,7 +18,7 @@
       "type": "chrome",
       "request": "launch",
       "name": "Debug Client",
-      "url": "http://localhost:10001",
+      "url": "http://localhost:5544",
       "sourceMaps": true,
       "webRoot": "${workspaceFolder}/public"
     },
