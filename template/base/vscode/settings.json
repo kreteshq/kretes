@@ -5,5 +5,28 @@
   "search.exclude": {
     "dist": true
   },
-  "typescript.tsc.autoDetect": "off"
+  "typescript.tsc.autoDetect": "off",
+  "terminal.integrated.fontSize": 20,
+  "workbench.colorCustomizations": {
+    "terminal.background":"#232C31",
+    "terminal.foreground":"#9EA7A6",
+    "terminalCursor.background":"#9EA7A6",
+    "terminalCursor.foreground":"#9EA7A6",
+    "terminal.ansiBlack":"#232C31",
+    "terminal.ansiBlue":"#484D79",
+    "terminal.ansiBrightBlack":"#3F4944",
+    "terminal.ansiBrightBlue":"#484D79",
+    "terminal.ansiBrightCyan":"#B02F30",
+    "terminal.ansiBrightGreen":"#237986",
+    "terminal.ansiBrightMagenta":"#C59820",
+    "terminal.ansiBrightRed":"#2A5491",
+    "terminal.ansiBrightWhite":"#B5D8F6",
+    "terminal.ansiBrightYellow":"#A03B1E",
+    "terminal.ansiCyan":"#B02F30",
+    "terminal.ansiGreen":"#237986",
+    "terminal.ansiMagenta":"#C59820",
+    "terminal.ansiRed":"#2A5491",
+    "terminal.ansiWhite":"#9EA7A6",
+    "terminal.ansiYellow":"#A03B1E"
+  }
 }
