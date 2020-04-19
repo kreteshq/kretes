@@ -1,9 +1,9 @@
 {
   "name": "huncwot",
-  "version": "0.58.0",
-  "description": "Programming environment for modular, monolithic JavaScript apps - batteries included",
+  "version": "0.59.0",
+  "description": "A Programming Environment for TypeScript apps built on top of VS Code",
   "main": "index.js",
-  "repository": "https://github.com/huncwotjs/huncwot",
+  "repository": "https://github.com/kreteshq/huncwot",
   "author": "Zaiste",
   "license": "Apache-2.0",
   "engines": {
