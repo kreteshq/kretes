@@ -1,6 +1,6 @@
 {
   "name": "huncwot",
-  "version": "0.59.0",
+  "version": "0.59.1",
   "description": "A Programming Environment for TypeScript apps built on top of VS Code",
   "main": "index.js",
   "repository": "https://github.com/kreteshq/huncwot",

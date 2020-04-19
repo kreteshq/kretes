@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "huncwot": "^0.59.0"
+    "huncwot": "^0.59.1"
   },
   "snowpack": {
     "webDependencies": [
