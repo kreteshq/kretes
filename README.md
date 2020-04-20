@@ -2,10 +2,15 @@
   <img width="250" src="/docs/huncwot-logo.svg">
 </p>
 
-<h1 align="center">
-  <a href="https://kretes.dev">Kretes</a>
-  <small>(formerly Huncwot)</small>
-</h1>
+<p align="center">
+  <h1 align="center">
+    <a href="https://kretes.dev">Kretes</a>
+  </h1>
+</p>
+
+<p align="center">
+  <span>(formerly Huncwot)</span>
+</p>
 
 <p align="center">
   <b>A programming environment for TypeScript <br />
