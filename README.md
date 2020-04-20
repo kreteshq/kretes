@@ -8,9 +8,9 @@
 </h1>
 
 <p align="center">
-  <b>A programming environment for TypeScript applications <br />
-  built on top of <a href="https://code.visualstudio.com/">Visual Studio Code</a>. <br/> 
-  It combines a web framework with an editor <br /> 
+  <b>A programming environment for TypeScript <br />
+  built on top of <a href="https://code.visualstudio.com/">Visual Studio Code</a>. <br/>
+  It combines a web framework with an editor <br />
   into an integrated, battery-included solution.</b>
 </p>
 
@@ -52,7 +52,7 @@ board](https://cdb.reacttraining.com/universal-javascript-4761051b7ae9).
 
 The project draws inspiration from Rails while trying to be less *magical*, if
 any at all. In Kretes, you write your applications using
-[TypeScript](https://www.typescriptlang.org/). 
+[TypeScript](https://www.typescriptlang.org/).
 
 As a secondary goal, Kretes tries to minimize the dependencies. It uses
 external packages only if absolutely necessary (e.g. security, OS abstractions

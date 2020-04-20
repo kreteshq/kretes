@@ -1,5 +1,5 @@
 import ts from '@wessberg/rollup-plugin-ts';
-import { snowpackImportRewriter } from 'huncwot/compiler/typescript';
+import { snowpackImportRewriter } from 'kretes/compiler/typescript';
 
 export default {
   input: 'config/client/index.ts',

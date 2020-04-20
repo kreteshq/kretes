@@ -1,4 +1,4 @@
-declare module 'huncwot' {
+declare module 'kretes' {
   import { ReadStream } from 'fs';
 
   interface Request {
@@ -59,8 +59,8 @@ declare module 'huncwot' {
   export { Handler, Routes, Request, Response, Payload, Task }
 }
 
-declare module 'huncwot/response' {
-  import { Response } from 'huncwot';
+declare module 'kretes/response' {
+  import { Response } from 'kretes';
 
   interface Mapping {
     [key: string]: any;
@@ -76,8 +76,8 @@ declare module 'huncwot/response' {
   export { OK, Created, NotFound, HTMLString, HTMLStream, Page };
 }
 
-declare module 'huncwot/background' {
-  import { Task, Payload, Queue } from 'huncwot';
+declare module 'kretes/background' {
+  import { Task, Payload, Queue } from 'kretes';
 
   interface ScheduleInput {
     task: Task
@@ -90,7 +90,7 @@ declare module 'huncwot/background' {
   function schedule(_: ScheduleInput): Promise<void>;
 }
 
-declare module 'huncwot/db' {
+declare module 'kretes/db' {
   interface SQLStatement {
     text: string
     values: (string | number)[]

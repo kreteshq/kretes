@@ -11,7 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const debug = require('debug')('huncwot:router'); // eslint-disable-line no-unused-vars
+const debug = require('debug')('kretes:router'); // eslint-disable-line no-unused-vars
 
 class Router {
   constructor() {}

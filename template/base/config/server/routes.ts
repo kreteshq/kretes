@@ -1,12 +1,12 @@
 import fs from 'fs';
 
-import { Routes } from 'huncwot';
-import { OK } from 'huncwot/response';
+import { Routes } from 'kretes';
+import { OK } from 'kretes/response';
 
 const routes: Routes = {
   GET: {
     // implicit `return` with a `text/plain` response
-    '/hello': _ => 'Hello Huncwot',
+    '/hello': _ => 'Hello, Kretes!',
 
     // explicit `return` with a 200 response of `application/json` type
     '/json': _ => {

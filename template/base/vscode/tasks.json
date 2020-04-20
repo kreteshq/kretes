@@ -17,7 +17,7 @@
       "label": "Server",
       "detail": "Start the server in the `development` mode",
       "type": "shell",
-      "command": "node --inspect ${workspaceFolder}/node_modules/huncwot/cli.js server",
+      "command": "node --inspect ${workspaceFolder}/node_modules/kretes/cli.js server",
       "isBackground": true,
       "problemMatcher": [],
       "presentation": {
@@ -34,7 +34,7 @@
       "detail": "Start the client in the `development` mode",
       "type": "shell",
       "isBackground": true,
-      "command": "node ${workspaceFolder}/node_modules/huncwot/cli.js client",
+      "command": "node ${workspaceFolder}/node_modules/kretes/cli.js client",
       "problemMatcher": [],
       "presentation": {
         "echo": false,

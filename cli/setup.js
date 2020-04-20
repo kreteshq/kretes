@@ -33,19 +33,19 @@ const AvailableTemplates = ['vue'];
 
 async function add({ name }) {
   if (!AvailableTemplates.includes(name)) {
-    console.log(color`┌ {bold.blue Huncwot} {bold ${VERSION}}`);
+    console.log(color`┌ {bold.blue Kretes} {bold ${VERSION}}`);
     console.log(color`└ {red error}: Template '{magenta ${name}}' not recognized.`);
     return;
   }
 
-  console.log(color`┌ {bold.blue Huncwot} {bold ${VERSION}}`);
+  console.log(color`┌ {bold.blue Kretes} {bold ${VERSION}}`);
   try {
     console.log(color`├ {cyan setup}: {magenta Vue.js} module`);
 
     const content = mergePackageJSONDependencies();
     await fs.outputJson(join(cwd, 'package.json'), content, { spaces: 2 });
 
-    console.log(color`├ {cyan setup}: installing {magenta @huncwot/vue}`);
+    console.log(color`├ {cyan setup}: installing {magenta @kretes/vue}`);
 
     await new Promise((resolve, reject) => {
       const child = spawn('npm', ['install'], { cwd: '.', stdio: 'inherit' });
@@ -58,7 +58,7 @@ async function add({ name }) {
     console.log(color`├ {cyan setup}: configuring as the {magenta Vue.js} application`);
 
     await new Promise((resolve, reject) => {
-      const child = spawn('npx', ['huncwot-vue'], {
+      const child = spawn('npx', ['kretes-vue'], {
         cwd: '.',
         stdio: 'inherit'
       });
@@ -82,7 +82,7 @@ const mergePackageJSONDependencies = () => {
 
   return merge(actual, {
     dependencies: {
-      '@huncwot/vue': '0.0.1'
+      '@kretes/vue': '0.0.1'
     }
   });
 };

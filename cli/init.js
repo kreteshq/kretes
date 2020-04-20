@@ -28,7 +28,11 @@ async function init({ dir }) {
 
   const name = dir.replace(/-/g, '_');
 
-  console.log(color`┌ {bold.blue Huncwot} {bold ${VERSION}}`);
+  console.log(color`┌ {bold.blue Kretes} {bold ${VERSION}}`);
+  console.log(
+    color`├ {cyan new}: creating the project scaffold in the {underline ${dir}} directory ...`
+  );
+
   try {
     console.log(
       color`├ {cyan new}: creating project structure in {magenta ${dir}} directory ...`

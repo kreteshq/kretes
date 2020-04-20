@@ -11,7 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const debug = require('debug')('huncwot:static');
+const debug = require('debug')('kretes:static');
 
 const fs = require('fs-extra');
 

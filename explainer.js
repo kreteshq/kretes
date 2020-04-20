@@ -15,7 +15,7 @@ const color = require('chalk');
 
 const explanations = {
   'relation "(\\w+)" does not exist': matches =>
-    color`I cannot find the table named {underline ${matches[1]}} in your database. Have you run {underline huncwot database setup} before starting the application?`,
+    color`I cannot find the table named {underline ${matches[1]}} in your database. Have you run {underline kretes database setup} before starting the application?`,
   'connect ECONNREFUSED 127.0.0.1:5432': _matches =>
     'It looks like you haven\'t started your database server.'
 };

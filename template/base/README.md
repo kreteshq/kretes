@@ -20,7 +20,7 @@ and go to [localhost:554](http://localhost:5544) to see the application running
 
 The template includes .vscode directory with `launch.json` and `tasks.json`.
 
-You can start Huncwot `Server` and `Client` tasks from <kbd>Tasks: Run Task</kbd> menu in Command Palette.
+You can start Kretes `Server` and `Client` tasks from <kbd>Tasks: Run Task</kbd> menu in Command Palette.
 
 To start debugging in VSCode select one of the configurations in Run and Debug menu or select <kbd>Debug: Start Debugging</kbd> in Command Palette.
 

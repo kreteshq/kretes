@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// Copyright 2019 Zaiste & contributors. All rights reserved.
+// Copyright 2020 Zaiste & contributors. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -54,4 +54,4 @@ const _argv = require('yargs')
   .demandCommand(1, 'You need at least one command before moving on')
   .help('h')
   .alias('h', 'help')
-  .epilogue('for more information, find the documentation at https://huncwot.org').argv;
+  .epilogue('for more information, find the documentation at https://kretes.dev').argv;

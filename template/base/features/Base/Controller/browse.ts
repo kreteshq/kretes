@@ -1,8 +1,8 @@
-import { Handler } from 'huncwot';
-import { OK } from 'huncwot/response';
+import { Handler } from 'kretes';
+import { OK } from 'kretes/response';
 
 const browse: Handler = ({ params }) => {
-  return OK('Hello, Huncwot!');
+  return OK('Hello, Kretes!');
 }
 
 export = browse;

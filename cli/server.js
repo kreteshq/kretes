@@ -22,7 +22,7 @@ const transformPaths = require('@zerollup/ts-transform-paths');
 const pg = require('pg');
 const fg = require('fast-glob');
 
-const Huncwot = require('../');
+const Kretes = require('../');
 const VERSION = require('../package.json').version;
 const { parser } = require('../parser');
 const { generateRPCOnClient } = require('../rpc');
@@ -50,7 +50,7 @@ let sockets = [];
 
 const start = async ({ port }) => {
   //
-  const app = new Huncwot();
+  const app = new Kretes();
 
   let routes = {};
   try {
@@ -67,7 +67,7 @@ const start = async ({ port }) => {
   });
 
   console.log(
-    color`{bold.blue ┌ Huncwot} {bold ${VERSION}} {grey on} {bold localhost:${port}}\n{bold.blue └ }{grey Started: }${new Date().toLocaleTimeString()}`
+    color`{bold.blue ┌ Kretes} {bold ${VERSION}} {grey on} {bold localhost:${port}}\n{bold.blue └ }{grey Started: }${new Date().toLocaleTimeString()}`
   );
 
   return server;
