@@ -34,12 +34,10 @@ async function init({ dir }) {
   );
 
   try {
-    console.log(
-      color`├ {cyan new}: creating project structure in {magenta ${dir}} directory ...`
-    );
+    await fs.mkdir(join(cwd, dir));
 
     // static files
-    await fs.copy(themeDir, join(cwd, dir));
+    await fs.copy(themeDir, join(cwd, dir), { overwrite: false, errorOnExist: true });
     await fs.rename(join(cwd, dir, 'npmrc'), join(cwd, dir, '.npmrc'));
     await fs.rename(join(cwd, dir, 'gitignore'), join(cwd, dir, '.gitignore'));
 
@@ -50,7 +48,7 @@ async function init({ dir }) {
     const configOutput = join(cwd, dir, 'config', 'default.yml');
     const compiled = substitute(configTemplate, {
       database: name,
-      user: username
+      user: username,
     });
     await fs.outputFile(configOutput, compiled);
 
@@ -63,7 +61,11 @@ async function init({ dir }) {
     const install = spawn('npm', ['install'], { cwd: dir, stdio: 'inherit' });
     install.on('close', () => {});
   } catch (error) {
-    console.log('error: ' + error.message);
+    if (error.code === 'EEXIST') {
+      console.error(color`  {red Error}: Project already exists`);
+    } else {
+      console.error(color`  {red Error}: ${error.message}`);
+    }
   }
 }
 
