@@ -139,7 +139,7 @@ const server = async ({ port }) => {
     diagnostics.forEach(({ file, messageText }) => {
       const location = file.fileName.split(`${CWD}${sep}`)[1];
       console.log(
-        color`  {red.bold Errors:}\n  {grey in} {underline ${location}}\n   → ${messageText.messageText}`
+        color`  {red.bold Errors:}\n  {grey in} {underline ${location}}\n   → ${messageText}`
       );
     });
 

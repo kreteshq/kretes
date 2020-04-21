@@ -209,7 +209,7 @@ class Kretes {
       }
     };
 
-    this.use(security())
+    this.use(security());
     this.use(cors());
     this.use(RouterMiddleware);
     this.use(serve(this.staticDir));

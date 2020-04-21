@@ -11,6 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const fs = require('fs');
 const { dirname, join } = require('path');
 const { read } = require('./filesystem');
 const { render } = require('./view');
@@ -26,7 +27,7 @@ const Created = (resource = '', headers = {}) => {
   return {
     statusCode: 201,
     headers,
-    body: resource
+    body: resource,
   };
 };
 
@@ -42,7 +43,7 @@ const NoContent = (headers = {}) => {
   return {
     statusCode: 204,
     headers,
-    body: ''
+    body: '',
   };
 };
 
@@ -50,7 +51,7 @@ const NotFound = (headers = {}) => {
   return {
     statusCode: 404,
     headers,
-    body: ''
+    body: fs.createReadStream(join(__dirname, 'resources', '404.html')),
   };
 };
 
@@ -59,7 +60,7 @@ const Redirect = (url, body = 'Redirecting...', statusCode = 302) => {
     statusCode,
     headers: { Location: url },
     type: 'text/plain',
-    body
+    body,
   };
 };
 
@@ -67,7 +68,7 @@ const JSONPayload = (content, statusCode = 200) => {
   return {
     statusCode,
     body: JSON.stringify(content),
-    type: 'application/json'
+    type: 'application/json',
   };
 };
 
