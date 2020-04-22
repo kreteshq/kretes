@@ -1,28 +1,20 @@
-// Copyright 2020 Zaiste & contributors. All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Zaiste. All rights reserved.
+// Licensed under the Apache License, Version 2.0
 
 const { compile, escape } = require('boxwood');
 
 const render = async (source, options = {}) => {
-  const { context = {}, paths = [] } = options
+  const { context = {}, paths = [] } = options;
   const { template, html } = await compile(source, {
     cache: process.env.NODE_ENV === 'production',
-    paths: ['.', ...paths]
+    paths: ['.', ...paths],
   });
-  if (html) { return html }
+  if (html) {
+    return html;
+  }
   return template(context, escape);
 };
 
 module.exports = {
-  render
+  render,
 };
