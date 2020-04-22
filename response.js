@@ -86,7 +86,7 @@ const HTMLString = content => {
   return {
     statusCode: 200,
     type: 'text/html',
-    body: content
+    body: content,
   };
 };
 
@@ -115,29 +115,30 @@ const InternalServerError = message => {
 const cache = process.env.NODE_ENV === 'production';
 
 const Page = async (location, context) => {
+  let path, paths;
+
   if (location.endsWith('.html')) {
     const dir = dirname(location);
-    const paths = [dir];
-    const content = await read(location, { cache });
-    const html = await render(content.toString(), { context, paths });
-    return HTMLString(html);
+
+    path = location;
+    paths = [dir];
   } else if (location.includes('@')) {
     const [name, feature] = location.split('@');
     const views = join(cwd, 'views');
     const dir = join(cwd, 'features', feature, 'Page');
-    const path = join(dir, `${name}.html`);
-    const paths = [dir, views];
-    const content = await read(path, { cache });
-    const html = await render(content.toString(), { context, paths });
-    return HTMLString(html);
+
+    path = join(dir, `${name}.html`);
+    paths = [dir, join(views, 'parts')];
   } else {
     const views = join(cwd, 'views');
-    const path = join(views, `${location}.html`);
-    const paths = [views];
-    const content = await read(path, { cache });
-    const html = await render(content.toString(), { context, paths });
-    return HTMLString(html);
+
+    path = join(views, 'pages', `${location}.html`);
+    paths = [join(views, 'parts')];
   }
+
+  const content = await read(path, { cache });
+  const html = await render(content.toString(), { context, paths });
+  return HTMLString(html);
 };
 
 module.exports = {
