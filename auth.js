@@ -1,15 +1,5 @@
-// Copyright 2019 Zaiste & contributors. All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Zaiste. All rights reserved.
+// Licensed under the Apache License, Version 2.0
 
 const { ForbiddenError } = require('@casl/ability');
 const basicAuth = require('basic-auth');
@@ -106,7 +96,7 @@ const authorization = ({ using: rules }) => ({
 };
 
 class Session {
-  static async create(person_id) {
+  static async create(person_id, transaction = null) {
     const token = await new Promise((resolve, reject) => {
       crypto.randomBytes(16, (error, data) => {
         error ? reject(error) : resolve(fromBase64(data.toString('base64')));
@@ -116,13 +106,17 @@ class Session {
     const sha256 = crypto.createHash('sha256');
     const hash = sha256.update(token).digest('base64');
 
-    await db`session`.insert({ token: hash, person_id });
+    if (transaction) {
+      await db`session`.insert({ token: hash, person_id }).one(transaction);
+    } else {
+      await db`session`.insert({ token: hash, person_id });
+    }
 
     return token;
   }
 }
 
-const register = ({ table = 'person', fields = [] }) => async ({ params }) => {
+const register = ({ table = 'person', fields = [] } = {}) => async ({ params }) => {
   const { password } = params;
 
   const hashed_password = await hash(password);
@@ -136,13 +130,14 @@ const register = ({ table = 'person', fields = [] }) => async ({ params }) => {
   const transaction = await db.transaction();
 
   try {
-    const [{ id: person_id }] = await db
+    const { id: person_id } = await db
       .from(table)
       .insert(person)
-      .return('id');
+      .return('id')
+      .one(transaction);
 
     // TODO generalize this so people are not force to use `person` table
-    const token = await Session.create(person_id);
+    const token = await Session.create(person_id, transaction);
 
     await transaction.commit();
 
@@ -151,7 +146,7 @@ const register = ({ table = 'person', fields = [] }) => async ({ params }) => {
       {
         'Set-Cookie': Cookie.create('__hcsession', token, {
           httpOnly: true,
-          sameSite: true
+          sameSite: true,
         })
       }
     );
@@ -196,5 +191,5 @@ module.exports = {
   compare,
   Session,
   register,
-  login
+  login,
 };
