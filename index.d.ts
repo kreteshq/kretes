@@ -100,3 +100,11 @@ declare module 'kretes/db' {
   // FIXME ugly hack
   function from(table: string);
 }
+
+declare module 'kretes/auth' {
+  import { Handler } from 'kretes';
+
+  function login(finder?: any): Handler
+  function register(table?: any): Handler
+  function authenticate(action: any): Handler
+}

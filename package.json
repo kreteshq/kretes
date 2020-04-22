@@ -28,7 +28,7 @@
     "axios": "^0.19.2"
   },
   "dependencies": {
-    "@casl/ability": "^4.0.6",
+    "@casl/ability": "^4.0.7",
     "@poppinss/chokidar-ts": "^2.0.5",
     "@sqorn/pg": "0.0.45",
     "@zerollup/ts-transform-paths": "^1.7.17",
@@ -56,8 +56,8 @@
     "merge-deep": "^3.0.2",
     "mime-types": "^2.1.26",
     "nearley": "^2.19.2",
-    "pg": "^8.0.2",
-    "rollup": "^2.7.1",
+    "pg": "^8.0.3",
+    "rollup": "^2.7.2",
     "rsyncwrapper": "^3.0.1",
     "semver": "^7.3.2",
     "stack-trace": "0.0.10",
