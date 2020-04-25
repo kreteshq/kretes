@@ -37,7 +37,7 @@
     "argon2": "0.26.2",
     "axios": "^0.19.2",
     "basic-auth": "^2.0.1",
-    "boxwood": "^0.29.2",
+    "boxwood": "^0.30.2",
     "busboy": "^0.3.1",
     "chalk": "^4.0.0",
     "config": "^3.3.1",
@@ -54,7 +54,7 @@
     "http-status": "^1.4.2",
     "js-yaml": "^3.13.1",
     "merge-deep": "^3.0.2",
-    "mime-types": "^2.1.26",
+    "mime-types": "^2.1.27",
     "nearley": "^2.19.2",
     "pg": "^8.0.3",
     "rollup": "^2.7.2",
@@ -64,7 +64,7 @@
     "trek-router": "^1.2.0",
     "typescript": "^3.8.3",
     "validate": "^5.1.0",
-    "ws": "^7.2.3",
+    "ws": "^7.2.5",
     "yargs": "^15.3.1"
   },
   "bin": {

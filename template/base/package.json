@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "kretes": "^0.60.0"
+    "kretes": "^0.61.0"
   },
   "snowpack": {
     "webDependencies": [
@@ -18,7 +18,7 @@
     "@wessberg/rollup-plugin-ts": "^1.2.24",
     "chokidar": "^3.3.1",
     "cross-env": "^7.0.2",
-    "node-pg-migrate": "^4.6.1",
+    "node-pg-migrate": "^4.6.2",
     "npm-check-updates": "^4.1.2",
     "snowpack": "^1.7.1",
     "typescript": "^3.8.3",
