@@ -170,7 +170,7 @@ const server = async ({ port }) => {
     }
   });
 
-  const output = watcher.watch(['config/server', 'features', 'config/css.config.ts', 'stylesheets'], {
+  const output = watcher.watch(['config/server', 'features', 'config/css.config.js', 'stylesheets'], {
     ignored: [
       'features/**/View/*',
       'features/**/Store.ts',
@@ -190,7 +190,7 @@ const server = async ({ port }) => {
 };
 
 const compileCSS = async () => {
-  const { transformers } = require(join(CWD, 'dist', 'config', 'css.config')).default;
+  const { transformers } = require(join(CWD, 'config', 'css.config'));
 
   try {
     const content = await fs.readFile(join(CWD, 'stylesheets', 'main.css'));
@@ -201,7 +201,7 @@ const compileCSS = async () => {
     fs.outputFile(join(CWD, 'public', 'main.css'), css);
   } catch (error) {
     if (error.name === 'CssSyntaxError') {
-      process.stderr.write(error.message + error.showSourceCode())
+      console.error(`  ${error.message}\n${error.showSourceCode()}`);
     } else {
       throw error;
     }
@@ -210,5 +210,5 @@ const compileCSS = async () => {
 
 module.exports = {
   builder: _ => _.option('port', { alias: 'p', default: 5544 }).default('dir', '.'),
-  handler: server
+  handler: server,
 };
