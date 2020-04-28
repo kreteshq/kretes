@@ -23,6 +23,7 @@
   },
   "include": [
     "*.ts",
+    "../*.ts",
     "../../features/**/Controller/**/**.ts",
   ]
 }

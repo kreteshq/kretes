@@ -108,3 +108,9 @@ declare module 'kretes/auth' {
   function register(table?: any): Handler
   function authenticate(action: any): Handler
 }
+
+// FIXME hacks, because I don't want to mix TS/JS and CJS/MJS
+// one way of doing things
+
+declare module 'autoprefixer';
+declare module 'tailwindcss';

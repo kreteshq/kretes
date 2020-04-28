@@ -11,6 +11,7 @@ const fs = require('fs-extra');
 const transformPaths = require('@zerollup/ts-transform-paths');
 const pg = require('pg');
 const fg = require('fast-glob');
+const postcss = require('postcss');
 
 const Kretes = require('../');
 const VERSION = require('../package.json').version;
@@ -108,7 +109,16 @@ const server = async ({ port }) => {
 
   // files other than `.ts` have changed
   watcher.on('change', async filePath => {
-    if (extname(filePath) == '.sql') {
+    console.clear();
+    console.log(color`  {underline ${filePath}} {green reloaded}`);
+    const extension = extname(filePath);
+
+    // FIXME Change to pattern matching later
+    if (extension === '.css') {
+      compileCSS();
+    }
+
+    if (extension == '.sql') {
       reloadSQL(pool, filePath);
       try {
         const output = await SQLCompiler.compile(join(CWD, filePath));
@@ -160,7 +170,7 @@ const server = async ({ port }) => {
     }
   });
 
-  const output = watcher.watch(['config/server', 'features'], {
+  const output = watcher.watch(['config/server', 'features', 'config/css.config.ts', 'stylesheets'], {
     ignored: [
       'features/**/View/*',
       'features/**/Store.ts',
@@ -175,6 +185,27 @@ const server = async ({ port }) => {
     const location = file.fileName.split(`${CWD}${sep}`)[1];
     console.log(color`  {grey in} {underline ${location}}\n   → ${messageText.messageText || messageText}`);
   });
+
+  compileCSS();
+};
+
+const compileCSS = async () => {
+  const { transformers } = require(join(CWD, 'dist', 'config', 'css.config')).default;
+
+  try {
+    const content = await fs.readFile(join(CWD, 'stylesheets', 'main.css'));
+    const { css } = await postcss(transformers).process(content, {
+      from: 'stylesheets/main.css', to: 'main.css', map: { inline: true }
+    });
+
+    fs.outputFile(join(CWD, 'public', 'main.css'), css);
+  } catch (error) {
+    if (error.name === 'CssSyntaxError') {
+      process.stderr.write(error.message + error.showSourceCode())
+    } else {
+      throw error;
+    }
+  }
 };
 
 module.exports = {
