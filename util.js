@@ -23,6 +23,8 @@ function isObject(_) {
   //return !!_ && _.constructor === Object;
 }
 
+//const isObject = _ => !!_ && _.constructor === Object;
+
 const substitute = (template, data) => {
   const start = '{{';
   const end = '}}';
@@ -51,4 +53,72 @@ const substitute = (template, data) => {
 
 const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
 
-module.exports = { pick, isObject, substitute, compose };
+const toBuffer = async stream => {
+  const chunks = [];
+  for await (let chunk of stream) {
+    chunks.push(chunk);
+  }
+  return Buffer.concat(chunks);
+};
+
+const streamToString = async stream => {
+  let chunks = '';
+
+  return new Promise((resolve, reject) => {
+    stream.on('data', chunk => (chunks += chunk));
+    stream.on('error', reject);
+    stream.on('end', () => resolve(chunks));
+  });
+};
+
+const parseCookies = (cookieHeader = '') => {
+  const cookies = cookieHeader.split(/; */);
+  const decode = decodeURIComponent;
+
+  if (cookies[0] === '') return {};
+
+  const result = {};
+  for (let cookie of cookies) {
+    const isKeyValue = cookie.includes('=');
+
+    if (!isKeyValue) {
+      result[cookie.trim()] = true;
+      continue;
+    }
+
+    let [key, value] = cookie.split('=');
+
+    key.trim();
+    value.trim();
+
+    if ('"' === value[0]) value = value.slice(1, -1);
+
+    try {
+      value = decode(value);
+    } catch (error) {
+      // neglect
+    }
+
+    result[key] = value;
+  }
+
+  return result;
+};
+
+const parseAcceptHeader = ({ accept = '*/*' }) => {
+  const preferredType = accept.split(',').shift();
+  const format = preferredType.split('/').pop();
+
+  return format;
+};
+
+module.exports = {
+  pick,
+  isObject,
+  substitute,
+  compose,
+  toBuffer,
+  streamToString,
+  parseCookies,
+  parseAcceptHeader,
+};

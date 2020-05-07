@@ -5,24 +5,19 @@ const debug = require('debug')('kretes:index'); // eslint-disable-line no-unused
 
 const http = require('http');
 const Stream = require('stream');
-const querystring = require('querystring');
 const { join } = require('path');
-const { parse } = require('url');
-const Busboy = require('busboy');
 const Router = require('trek-router');
 const httpstatus = require('http-status');
 
-const { cors, security, serve } = require('./middleware');
+const Middleware = require('./middleware');
 const { build, translate } = require('./controller');
 const { NotFound } = require('./response');
 const Logger = require('./logger');
 const HTMLifiedError = require('./error');
+const { compose } = require('./util');
 
 const cwd = process.cwd();
 const handlerDir = join(cwd, 'dist');
-
-const isObject = _ => !!_ && _.constructor === Object;
-const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
 
 const lookupHandler = ({ feature, action }) => {
   const path = join(cwd, 'dist', 'features', feature, 'Controller', `${action}.js`);
@@ -37,27 +32,6 @@ const lookupHandler = ({ feature, action }) => {
   }
 };
 
-class Middleware extends Array {
-  async next(context, last, current, done, called, func) {
-    if ((done = current > this.length)) return;
-
-    func = this[current] || last;
-
-    return (
-      func &&
-      func(context, async () => {
-        if (called) throw new Error('next() already called');
-        called = true;
-        return this.next(context, last, current + 1);
-      })
-    );
-  }
-
-  async compose(context, last) {
-    return this.next(context, last, 0);
-  }
-}
-
 class Kretes {
   constructor({
     staticDir = join(cwd, 'public'),
@@ -67,7 +41,7 @@ class Kretes {
     _verbose = false
   } = {}) {
     this.server = null;
-    this.middlewares = new Middleware();
+    this.middlewares = new Middleware.Base();
     this.router = new Router();
     this.staticDir = staticDir;
 
@@ -188,31 +162,10 @@ class Kretes {
       }
     }
 
-    const RouterMiddleware = async (context, next) => {
-      const method = context.request.method;
-      const { pathname, query } = parse(context.request.url, true); // TODO Test perf vs RegEx
-
-      const [handler, dynamicRoutes] = this.router.find(method, pathname);
-
-      const params = {};
-      for (let r of dynamicRoutes) {
-        params[r.name] = r.value;
-      }
-
-      if (handler !== undefined) {
-        context.params = { ...query, ...params };
-        await handleRequest(context);
-        context.params = { ...context.params };
-        return handler(context);
-      } else {
-        return next();
-      }
-    };
-
-    this.use(security());
-    this.use(cors());
-    this.use(RouterMiddleware);
-    this.use(serve(this.staticDir));
+    this.use(Middleware.security());
+    this.use(Middleware.cors());
+    this.use(Middleware.Routing(this.router));
+    this.use(Middleware.serve(this.staticDir));
 
     // append 404 middleware handler: it must be put at the end and only once
     // TODO Move to `catch` for pattern matching ?
@@ -329,122 +282,6 @@ const handle = context => result => {
 
   response.setHeader('Content-Length', Buffer.byteLength(str));
   response.end(str);
-};
-
-const handleRequest = async context => {
-  const { headers } = context.request;
-  const { format } = context.params;
-
-  context.headers = headers;
-  context.cookies = parseCookies(headers.cookie);
-  context.format = format ? format : parseAcceptHeader(headers);
-
-  const buffer = await toBuffer(context.request);
-  if (buffer.length > 0) {
-    const contentType = headers['content-type'].split(';')[0];
-
-    switch (contentType) {
-      case 'application/x-www-form-urlencoded':
-        Object.assign(context.params, querystring.parse(buffer.toString()));
-        break;
-      case 'application/json': {
-        const result = JSON.parse(buffer);
-        if (isObject(result)) {
-          Object.assign(context.params, result);
-        }
-        break;
-      }
-      case 'multipart/form-data': {
-        context.files = {};
-
-        const busboy = new Busboy({ headers });
-
-        busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
-          file.on('data', data => {
-            context.files = {
-              ...context.files,
-              [fieldname]: {
-                name: filename,
-                length: data.length,
-                data,
-                encoding,
-                mimetype
-              }
-            };
-          });
-          file.on('end', () => {});
-        });
-        busboy.on('field', (fieldname, val) => {
-          context.params = { ...context.params, [fieldname]: val };
-        });
-        busboy.end(buffer);
-
-        await new Promise(resolve => busboy.on('finish', resolve));
-
-        break;
-      }
-      default:
-    }
-  }
-};
-
-const toBuffer = async stream => {
-  const chunks = [];
-  for await (let chunk of stream) {
-    chunks.push(chunk);
-  }
-  return Buffer.concat(chunks);
-};
-
-const streamToString = async stream => {
-  let chunks = '';
-
-  return new Promise((resolve, reject) => {
-    stream.on('data', chunk => (chunks += chunk));
-    stream.on('error', reject);
-    stream.on('end', () => resolve(chunks));
-  });
-};
-
-const parseCookies = (cookieHeader = '') => {
-  const cookies = cookieHeader.split(/; */);
-  const decode = decodeURIComponent;
-
-  if (cookies[0] === '') return {};
-
-  const result = {};
-  for (let cookie of cookies) {
-    const isKeyValue = cookie.includes('=');
-
-    if (!isKeyValue) {
-      result[cookie.trim()] = true;
-      continue;
-    }
-
-    let [key, value] = cookie.split('=');
-
-    key.trim();
-    value.trim();
-
-    if ('"' === value[0]) value = value.slice(1, -1);
-
-    try {
-      value = decode(value);
-    } catch (error) {
-      // neglect
-    }
-
-    result[key] = value;
-  }
-
-  return result;
-};
-
-const parseAcceptHeader = ({ accept = '*/*' }) => {
-  const preferredType = accept.split(',').shift();
-  const format = preferredType.split('/').pop();
-
-  return format;
 };
 
 module.exports = Kretes;
