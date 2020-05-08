@@ -64,6 +64,14 @@ const Redirect = (url, body = 'Redirecting...', statusCode = 302) => {
   };
 };
 
+const NotModified = (headers) => {
+  return {
+    statusCode: 304,
+    headers,
+    body: null,
+  };
+};
+
 const JSONPayload = (content, statusCode = 200) => {
   return {
     statusCode,
@@ -146,6 +154,7 @@ module.exports = {
   Created,
   Accepted,
   Redirect,
+  NotModified,
   HTMLString,
   HTMLStream,
   JSONPayload,
