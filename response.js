@@ -98,6 +98,14 @@ const HTMLString = content => {
   };
 };
 
+const JavaScriptString = content => {
+  return {
+    statusCode: 200,
+    type: 'application/javascript',
+    body: content,
+  };
+}
+
 const Unauthorized = () => {
   return {
     statusCode: 401,
@@ -149,6 +157,10 @@ const Page = async (location, context) => {
   return HTMLString(html);
 };
 
+const MIME = {
+  isJavaScript: _ => _ === 'application/javascript',
+}
+
 module.exports = {
   OK,
   Created,
@@ -157,11 +169,13 @@ module.exports = {
   NotModified,
   HTMLString,
   HTMLStream,
+  JavaScriptString,
   JSONPayload,
   NotFound,
   NoContent,
   Unauthorized,
   Forbidden,
   InternalServerError,
-  Page
+  Page,
+  MIME,
 };

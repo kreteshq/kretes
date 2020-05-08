@@ -23,7 +23,7 @@ declare module 'kretes' {
     feature: string
     alias?: string
     children?: Resource[]
-  };
+  }
 
   interface Routes {
     DELETE?: {
@@ -56,7 +56,7 @@ declare module 'kretes' {
   type Task = (input: Payload) => Promise<void>;
   type Queue = any;
 
-  export { Handler, Routes, Request, Response, Payload, Task }
+  export { Handler, Routes, Request, Response, Payload, Task };
 }
 
 declare module 'kretes/response' {
@@ -72,6 +72,8 @@ declare module 'kretes/response' {
   function HTMLString(body?: any): Response;
   function HTMLStream(body?: any): Response;
   function Page(location: string, mapping: Mapping): Response;
+
+  export function JavaScriptString(content?: any): Response;
 
   export { OK, Created, NotFound, HTMLString, HTMLStream, Page };
 }
