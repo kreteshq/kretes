@@ -20,7 +20,7 @@ const cwd = process.cwd();
 // TODO auto-create those functions?
 
 const OK = (body = '', headers = {}) => {
-  return { headers, body };
+  return { headers, body, statusCode: 200 };
 };
 
 const Created = (resource = '', headers = {}) => {
