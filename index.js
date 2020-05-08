@@ -93,6 +93,8 @@ class Kretes {
         }
       }
     }
+
+    this.use(Middleware.Extractor());
   }
 
   async setup() {

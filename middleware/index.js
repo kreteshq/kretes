@@ -1,3 +1,4 @@
+const Extractor = require('./extractor');
 const CORS = require('./cors');
 const Serve = require('./serve');
 const Security = require('./security');
@@ -27,6 +28,7 @@ class Base extends Array {
 
 module.exports = {
   Base,
+  Extractor,
   Routing,
   CORS,
   Serve,
