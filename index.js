@@ -162,10 +162,10 @@ class Kretes {
       }
     }
 
-    this.use(Middleware.security());
-    this.use(Middleware.cors());
+    this.use(Middleware.Security());
+    this.use(Middleware.CORS());
     this.use(Middleware.Routing(this.router));
-    this.use(Middleware.serve(this.staticDir));
+    this.use(Middleware.Serve(this.staticDir));
 
     // append 404 middleware handler: it must be put at the end and only once
     // TODO Move to `catch` for pattern matching ?

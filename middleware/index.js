@@ -1,6 +1,6 @@
-const cors = require('./cors');
-const serve = require('./serve');
-const security = require('./security');
+const CORS = require('./cors');
+const Serve = require('./serve');
+const Security = require('./security');
 const Routing = require('./routing');
 
 class Base extends Array {
@@ -27,7 +27,7 @@ class Base extends Array {
 module.exports = {
   Base,
   Routing,
-  cors,
-  serve,
-  security,
+  CORS,
+  Serve,
+  Security,
 };
