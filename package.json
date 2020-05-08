@@ -10,7 +10,7 @@
     "node": ">= 12"
   },
   "devDependencies": {
-    "ava": "^3.8.1",
+    "ava": "^3.8.2",
     "chalk": "^4.0.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@casl/ability": "^4.0.8",
-    "@poppinss/chokidar-ts": "^2.0.5",
+    "@poppinss/chokidar-ts": "^2.0.6",
     "@sqorn/pg": "0.0.45",
     "@zerollup/ts-transform-paths": "^1.7.17",
     "apollo-server-core": "^2.13.0",
@@ -37,7 +37,7 @@
     "argon2": "0.26.2",
     "axios": "^0.19.2",
     "basic-auth": "^2.0.1",
-    "boxwood": "^0.33.0",
+    "boxwood": "^0.35.0",
     "busboy": "^0.3.1",
     "chalk": "^4.0.0",
     "config": "^3.3.1",
@@ -56,9 +56,9 @@
     "merge-deep": "^3.0.2",
     "mime-types": "^2.1.27",
     "nearley": "^2.19.3",
-    "pg": "^8.0.3",
+    "pg": "^8.1.0",
     "postcss": "^7.0.29",
-    "rollup": "^2.8.0",
+    "rollup": "^2.8.2",
     "rsyncwrapper": "^3.0.1",
     "semver": "^7.3.2",
     "stack-trace": "0.0.10",
