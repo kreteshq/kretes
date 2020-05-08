@@ -2,6 +2,7 @@ const CORS = require('./cors');
 const Serve = require('./serve');
 const Security = require('./security');
 const Routing = require('./routing');
+const Caching = require('./caching');
 
 class Base extends Array {
   async next(context, last, current, done, called, func) {
@@ -29,5 +30,6 @@ module.exports = {
   Routing,
   CORS,
   Serve,
+  Caching,
   Security,
 };

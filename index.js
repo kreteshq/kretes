@@ -165,6 +165,7 @@ class Kretes {
     this.use(Middleware.Security());
     this.use(Middleware.CORS());
     this.use(Middleware.Routing(this.router));
+    this.use(Middleware.Caching());
     this.use(Middleware.Serve(this.staticDir));
 
     // append 404 middleware handler: it must be put at the end and only once
