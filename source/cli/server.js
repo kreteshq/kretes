@@ -14,7 +14,7 @@ const fg = require('fast-glob');
 const postcss = require('postcss');
 
 const Kretes = require('../');
-const VERSION = require('../package.json').version;
+const VERSION = require('../../package.json').version;
 const { parser } = require('../parser');
 const { generateRPCOnClient } = require('../rpc');
 const Logger = require('../logger');
@@ -56,6 +56,10 @@ const start = async ({ port }) => {
   server.on('connection', socket => {
     sockets.push(socket);
   });
+
+  // FIXME
+
+  // const wss = new WebSocket.Server({ server });
 
   console.log(
     color`{bold.blue ┌ Kretes} {bold ${VERSION}} {grey on} {bold localhost:${port}}\n{bold.blue └ }{grey Started: }${new Date().toLocaleTimeString()}`

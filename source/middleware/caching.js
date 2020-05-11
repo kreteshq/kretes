@@ -4,6 +4,7 @@
 const crypto = require('crypto');
 const Stream = require('stream');
 const { NotModified } = require('../response');
+const fs = require('fs').promises;
 
 module.exports = () => {
   return async (context, next) => {

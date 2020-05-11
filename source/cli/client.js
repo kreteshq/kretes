@@ -11,7 +11,7 @@ const WebSocket = require('ws');
 const color = require('chalk');
 
 const cwd = process.cwd();
-const VERSION = require('../package.json').version;
+const VERSION = require('../../package.json').version;
 
 const client = async () => {
   console.log(

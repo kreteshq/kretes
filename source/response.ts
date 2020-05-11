@@ -51,7 +51,7 @@ const NotFound = (headers = {}) => {
   return {
     statusCode: 404,
     headers,
-    body: fs.createReadStream(join(__dirname, 'resources', '404.html')),
+    body: fs.createReadStream(join(__dirname, '..', 'resources', '404.html')),
   };
 };
 

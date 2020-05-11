@@ -27,7 +27,7 @@ const { spawn } = require('child_process');
 const color = require('chalk');
 
 const cwd = process.cwd();
-const VERSION = require('../package.json').version;
+const VERSION = require('../../package.json').version;
 
 const AvailableTemplates = ['vue'];
 

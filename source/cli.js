@@ -16,7 +16,7 @@
 const { valid, satisfies, validRange } = require('semver');
 const {
   engines: { node: version }
-} = require('./package.json');
+} = require('../package.json');
 
 const expected = validRange(version);
 const actual = valid(process.version);

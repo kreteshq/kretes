@@ -38,7 +38,7 @@ class Kretes {
     graphql = false,
     implicitControllers = true,
     WebRPC = true,
-    _verbose = false
+    _verbose = false,
   } = {}) {
     this.server = null;
     this.middlewares = new Middleware.Base();
@@ -52,9 +52,9 @@ class Kretes {
 
         const schema = makeSchema({ typeDefs, resolvers });
 
-        this.post('/graphql', graphql({ schema }));
-        this.get('/graphql', graphql({ schema }));
-        this.get('/graphiql', graphiql({ endpointURL: 'graphql' }));
+        // this.post('/graphql', graphql({ schema }));
+        // this.get('/graphql', graphql({ schema }));
+        // this.get('/graphiql', graphiql({ endpointURL: 'graphql' }));
       } catch (error) {
         switch (error.code) {
           case 'MODULE_NOT_FOUND':

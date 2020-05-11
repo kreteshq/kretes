@@ -8,7 +8,7 @@ const rsyncwrapper = require('rsyncwrapper');
 const config = require('config');
 const { bold, underline, green, magenta } = require('chalk');
 
-const VERSION = require('../package.json').version;
+const VERSION = require('../../package.json').version;
 
 const rsync = async (options, showCommand = false) => {
   return new Promise((resolve, reject) => {

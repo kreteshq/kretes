@@ -11,7 +11,7 @@ const { substitute } = require('../util');
 const cwd = process.cwd();
 const username = require('os').userInfo().username;
 
-const VERSION = require('../package.json').version;
+const VERSION = require('../../package.json').version;
 
 async function init({ dir, npmInstall }) {
   const themeDir = join(resolve(__dirname, '..'), 'template', 'base');

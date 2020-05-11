@@ -1,5 +1,6 @@
 .cache/
 examples/**/static/
+output/
 
 
 # Logs

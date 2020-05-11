@@ -13,11 +13,7 @@ const Cookie = require('./cookie.js');
 const compare = argon2.verify;
 const hash = argon2.hash;
 
-const fromBase64 = base64 =>
-  base64
-    .replace(/=/g, '')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_');
+const fromBase64 = base64 => base64.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 
 function auth({ users }) {
   return async (context, next) => {
