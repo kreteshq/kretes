@@ -15,6 +15,18 @@ const render = async (source, options = {}) => {
   return template(context, escape);
 };
 
+const precompile = async (files, options = {}) => {
+  const { paths = [] } = options;
+  const promises = files.map(({ source, path }) => {
+    return compile(source, {
+      cache: true,
+      paths: [path, ...paths]
+    });
+  });
+  return Promise.all(promises);
+};
+
 module.exports = {
   render,
+  precompile,
 };
