@@ -18,7 +18,8 @@ module.exports = () => {
 
     let content;
     if (body instanceof Stream) {
-      content = body;
+      // FIXME for now don't cache streams
+      return response;
     } else if ('string' == typeof body || Buffer.isBuffer(body)) {
       content = body;
     } else {
