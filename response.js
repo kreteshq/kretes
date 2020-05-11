@@ -104,6 +104,14 @@ const JavaScriptString = content => {
     type: 'application/javascript',
     body: content,
   };
+};
+
+const StyleSheetString = content => {
+  return {
+    statusCode: 200,
+    type: 'text/css',
+    body: content,
+  };
 }
 
 const Unauthorized = () => {
@@ -170,6 +178,7 @@ module.exports = {
   HTMLString,
   HTMLStream,
   JavaScriptString,
+  StyleSheetString,
   JSONPayload,
   NotFound,
   NoContent,

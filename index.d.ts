@@ -74,6 +74,7 @@ declare module 'kretes/response' {
   function Page(location: string, mapping: Mapping): Response;
 
   export function JavaScriptString(content?: any): Response;
+  export function StyleSheetString(content?: any): Response;
 
   export { OK, Created, NotFound, HTMLString, HTMLStream, Page };
 }
