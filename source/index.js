@@ -11,6 +11,8 @@ const httpstatus = require('http-status');
 
 const Middleware = require('./middleware');
 const { build, translate } = require('./controller');
+const { readAll } = require('./filesystem');
+const { precompile } = require('./view');
 const { NotFound } = require('./response');
 const Logger = require('./logger');
 const HTMLifiedError = require('./error');
@@ -30,6 +32,12 @@ const lookupHandler = ({ feature, action }) => {
     // return a handler that just informs about the missing handler
     return _ => `You need to create 'features/${feature}/Controller/${action}.js'`;
   }
+};
+
+const lookupViews = async () => {
+  const path = join(cwd, 'features/**/*.html');
+  const files = await glob(path);
+  return readAll(files, { cache: true });
 };
 
 class Kretes {
@@ -98,7 +106,11 @@ class Kretes {
   }
 
   async setup() {
-    // TODO
+    if (process.env.NODE_ENV === 'production') {
+      const views = await lookupViews();
+      const parts = join(cwd, 'views/parts');
+      precompile(views, { paths: [parts] })
+    }
   }
 
   use(middleware) {
