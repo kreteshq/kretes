@@ -64,7 +64,8 @@ const start = async ({ port }) => {
   return server;
 };
 
-const server = async ({ port }) => {
+const handler = async ({ port }) => {
+  console.log(color`  {grey Starting... (it may take few seconds)}`);
   const globalConfig = require('config');
   const connection = globalConfig.get('db');
   const pool = new pg.Pool(connection);
@@ -210,5 +211,5 @@ const compileCSS = async () => {
 
 module.exports = {
   builder: _ => _.option('port', { alias: 'p', default: 5544 }).default('dir', '.'),
-  handler: server,
+  handler,
 };
