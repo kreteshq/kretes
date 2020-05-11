@@ -37,12 +37,11 @@ test('glob: it finds files', async assert => {
   ]);
 });
 
-test.only('readAll: it reads multiple files', async assert => {
+test('readAll: it reads multiple files', async assert => {
   const dir = join(__dirname, 'resources');
   const files = await readAll(`${dir}/**/*.html`);
   assert.truthy(files[0].source);
   assert.truthy(files[1].source);
-  console.log(files)
   assert.deepEqual(files[0].path, join(__dirname, 'resources/404.html'));
   assert.deepEqual(files[1].path, join(__dirname, 'resources/error.html'));
 });
