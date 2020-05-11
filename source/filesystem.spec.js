@@ -2,7 +2,7 @@ const test = require('ava');
 const { join } = require('path');
 const { tmpdir } = require('os');
 const { writeFileSync, unlinkSync } = require('fs');
-const { read, glob } = require('./filesystem');
+const { read, glob, readAll } = require('./filesystem');
 
 test('read: it returns data from cache', async assert => {
   const dir = tmpdir();
@@ -30,9 +30,19 @@ test('read: it reads data multiple time without cache', async assert => {
 
 test('glob: it finds files', async assert => {
   const dir = join(__dirname, 'resources');
-  const paths = await glob(`${dir}/**/*.html`)
+  const paths = await glob(`${dir}/**/*.html`);
   assert.deepEqual(paths, [
     join(__dirname, 'resources/404.html'),
     join(__dirname, 'resources/error.html')
-  ])
+  ]);
+});
+
+test.only('readAll: it reads multiple files', async assert => {
+  const dir = join(__dirname, 'resources');
+  const files = await readAll(`${dir}/**/*.html`);
+  assert.truthy(files[0].source);
+  assert.truthy(files[1].source);
+  console.log(files)
+  assert.deepEqual(files[0].path, join(__dirname, 'resources/404.html'));
+  assert.deepEqual(files[1].path, join(__dirname, 'resources/error.html'));
 });

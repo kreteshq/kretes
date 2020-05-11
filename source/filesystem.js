@@ -13,7 +13,21 @@ const read = async (path, options = {}) => {
 
 const glob = async (patterns, options = {}) => fg(patterns, options)
 
+const readAll = async (patterns, options = {}) => {
+  const files = await glob(patterns);
+  const promises = files.map(path => read(path, options));
+  return Promise.all(promises).then(sources => {
+    return sources.map((source, index) => {
+      return {
+        source,
+        path: files[index]
+      }
+    });
+  });
+}
+
 module.exports = {
   read,
   glob,
+  readAll,
 }
