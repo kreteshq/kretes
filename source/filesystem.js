@@ -1,4 +1,5 @@
 const { readFile } = require('fs-extra');
+const fg = require('fast-glob')
 
 const memory = {}
 
@@ -10,6 +11,9 @@ const read = async (path, options = {}) => {
   return content
 }
 
+const glob = async (patterns, options = {}) => fg(patterns, options)
+
 module.exports = {
-  read
+  read,
+  glob,
 }
