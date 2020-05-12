@@ -3,13 +3,14 @@
 
 const debug = require('debug')('kretes:index'); // eslint-disable-line no-unused-vars
 
-const http = require('http');
-const Stream = require('stream');
+import http from 'http';
+import { ReadStream } from 'fs'
+import Stream from 'stream';
 const { join } = require('path');
-const Router = require('trek-router');
-const httpstatus = require('http-status');
-
-const Middleware = require('./middleware');
+import Router from 'trek-router';
+import httpstatus from 'http-status';
+import * as Middleware from './middleware';
+import { AddressInfo } from 'net';
 const { build, translate } = require('./controller');
 const { readAll } = require('./filesystem');
 const { precompile } = require('./view');
@@ -20,6 +21,55 @@ const { compose } = require('./util');
 
 const cwd = process.cwd();
 const handlerDir = join(cwd, 'dist');
+
+export interface Request {
+  params: {
+    [name: string]: any
+  },
+  files: {
+    [name: string]: {
+      name: string
+      length: number
+      data: any
+      encoding: string
+      mimetype: string
+    }
+  }
+}
+
+export type Response = string | { body: string | object, statusCode: number, headers: object } | Buffer | ReadStream;
+export type Handler = (request: Request) => Response | Promise<Response>;
+
+export interface Resource {
+  feature: string
+  alias?: string
+  children?: Resource[]
+}
+
+export interface Routes {
+  DELETE?: {
+    [name: string]: Handler
+  },
+  GET?: {
+    [name: string]: Handler
+  },
+  HEAD?: {
+    [name: string]: Handler
+  },
+  OPTIONS?: {
+    [name: string]: Handler
+  }
+  PATCH?: {
+    [name: string]: Handler
+  },
+  POST?: {
+    [name: string]: Handler
+  },
+  PUT?: {
+    [name: string]: Handler
+  },
+  Resources?: Resource[]
+}
 
 const lookupHandler = ({ feature, action }) => {
   const path = join(cwd, 'dist', 'features', feature, 'Controller', `${action}.js`);
@@ -40,7 +90,12 @@ const lookupViews = async () => {
   return readAll(files, { cache: true });
 };
 
-class Kretes {
+export default class Kretes {
+  server: http.Server;
+  router: Router;
+  middlewares: Middleware.Base;
+  staticDir: string;
+
   constructor({
     staticDir = join(cwd, 'public'),
     graphql = false,
@@ -176,6 +231,12 @@ class Kretes {
       }
     }
 
+    this.use(Middleware.Rewriting());
+    this.use(Middleware.Resolving());
+    this.use(Middleware.Transforming());
+    this.use(Middleware.HotReloading());
+    this.use(Middleware.SPA());
+
     this.use(Middleware.Security());
     this.use(Middleware.CORS());
     this.use(Middleware.Routing(this.router));
@@ -215,8 +276,7 @@ class Kretes {
       });
 
     return new Promise((resolve, reject) => {
-      this.server.listen(port, (err) => {
-        if (err) return reject(err);
+      this.server.listen(port, () => {
         resolve(this.server);
       });
     })
@@ -232,7 +292,8 @@ class Kretes {
   }
 
   get port () {
-    return this.server && this.server.address().port
+    const { port } = this.server.address() as AddressInfo;
+    return port;
   }
 }
 
@@ -299,4 +360,9 @@ const handle = context => result => {
   response.end(str);
 };
 
-module.exports = Kretes;
+// Kretes Modules
+// TODO https://github.com/microsoft/TypeScript/issues/33079
+
+export * as response from './response';
+
+

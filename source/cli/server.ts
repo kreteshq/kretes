@@ -1,6 +1,9 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
+import WebSocket from "ws";
+import { App } from "../manifest";
+
 const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
 const CWD = process.cwd();
 
@@ -13,20 +16,17 @@ const pg = require('pg');
 const fg = require('fast-glob');
 const postcss = require('postcss');
 
-const Kretes = require('../');
+import Kretes from '../';
 const VERSION = require('../../package.json').version;
 const { parser } = require('../parser');
 const { generateRPCOnClient } = require('../rpc');
 const Logger = require('../logger');
 const SQLCompiler = require('../compiler/sql');
+const { VueHandler } = require('../machine/watcher');
 
 const reloadSQL = async (pool, file) => {
   const content = await fs.readFile(file);
-  const isSQLFunction =
-    content
-      .toString()
-      .split(' ')[0]
-      .toLowerCase() === 'function';
+  const isSQLFunction = content.toString().split(' ')[0].toLowerCase() === 'function';
   if (isSQLFunction) {
     const query = `create or replace ${content.toString()}`;
     try {
@@ -57,9 +57,19 @@ const start = async ({ port }) => {
     sockets.push(socket);
   });
 
-  // FIXME
+  const wss = new WebSocket.Server({ server });
+  wss.on('connection', socket => {
+    App.WebSockets.add(socket)
+    socket.send(JSON.stringify({ type: 'connected' }))
+    socket.on('close', () => App.WebSockets.delete(socket))
+  })
 
-  // const wss = new WebSocket.Server({ server });
+  wss.on('error', (error: Error & { code: string }) => {
+    if (error.code !== 'EADDRINUSE') {
+      console.error(`ws error:`)
+      console.error(error)
+    }
+  })
 
   console.log(
     color`{bold.blue ┌ Kretes} {bold ${VERSION}} {grey on} {bold localhost:${port}}\n{bold.blue └ }{grey Started: }${new Date().toLocaleTimeString()}`
@@ -118,23 +128,31 @@ const handler = async ({ port }) => {
     console.log(color`  {underline ${filePath}} {green reloaded}`);
     const extension = extname(filePath);
 
-    // FIXME Change to pattern matching later
-    if (extension === '.css') {
-      compileCSS();
-    }
+    const timestamp = Date.now();
 
-    if (extension == '.sql') {
-      reloadSQL(pool, filePath);
-      try {
-        const output = await SQLCompiler.compile(join(CWD, filePath));
-        const { dir } = parse(filePath);
-        await fs.outputFile(join(CWD, dir, 'index.ts'), output);
-        console.log(color`  {underline ${filePath}} {green reloaded}`);
-      } catch (error) {
-        console.log(
-          color`  {red.bold Errors:}\n  {grey in} {underline ${filePath}}\n   → ${error.message}`
-        );
-      }
+    switch (extension) {
+      case '.css':
+        compileCSS();
+        break;
+      case '.sql':
+        reloadSQL(pool, filePath);
+        try {
+          const output = await SQLCompiler.compile(join(CWD, filePath));
+          const { dir } = parse(filePath);
+          await fs.outputFile(join(CWD, dir, 'index.ts'), output);
+          console.log(color`  {underline ${filePath}} {green reloaded}`);
+        } catch (error) {
+          console.log(
+            color`  {red.bold Errors:}\n  {grey in} {underline ${filePath}}\n   → ${error.message}`
+          );
+        }
+        break;
+      case '.vue':
+        VueHandler(filePath, timestamp);
+        break;
+
+      default:
+        break;
     }
   });
 
@@ -144,7 +162,9 @@ const handler = async ({ port }) => {
     diagnostics.forEach(({ file, messageText }) => {
       const location = file.fileName.split(`${CWD}${sep}`)[1];
       console.log(
-        color`  {red.bold Errors:}\n  {grey in} {underline ${location}}\n   → ${messageText.messageText || messageText}`
+        color`  {red.bold Errors:}\n  {grey in} {underline ${location}}\n   → ${
+          messageText.messageText || messageText
+        }`
       );
     });
 
@@ -166,8 +186,8 @@ const handler = async ({ port }) => {
     if (dir.includes('Service') && name == 'Interface') {
       const interfaceFile = await fs.readFile(`${join(CWD, dir, name)}.ts`);
       const results = parser(interfaceFile.toString());
-      const [interface, methods] = Object.entries(results).shift();
-      const entityName = interface.split('ServiceInterface').shift();
+      const [_interface, methods] = Object.entries(results).shift();
+      const entityName = _interface.split('ServiceInterface').shift();
 
       const generated = generateRPCOnClient({ name: entityName, methods });
 
@@ -175,20 +195,25 @@ const handler = async ({ port }) => {
     }
   });
 
-  const output = watcher.watch(['config/server', 'features', 'config/css.config.js', 'stylesheets'], {
-    ignored: [
-      'features/**/View/*',
-      'features/**/Store.ts',
-      'features/**/Store/*',
-      'features/**/Model.ts',
-      'features/**/Model/*'
-    ]
-  });
+  const output = watcher.watch(
+    ['config/server', 'features', 'config/css.config.js', 'stylesheets'],
+    {
+      ignored: [
+        'features/**/View/*',
+        'features/**/Store.ts',
+        'features/**/Store/*',
+        'features/**/Model.ts',
+        'features/**/Model/*',
+      ],
+    }
+  );
 
   if (output.diagnostics.length > 0) console.log(color`  {red.bold Errors:}`);
   output.diagnostics.forEach(({ file, messageText }) => {
     const location = file.fileName.split(`${CWD}${sep}`)[1];
-    console.log(color`  {grey in} {underline ${location}}\n   → ${messageText.messageText || messageText}`);
+    console.log(
+      color`  {grey in} {underline ${location}}\n   → ${messageText.messageText || messageText}`
+    );
   });
 
   compileCSS();
@@ -200,7 +225,9 @@ const compileCSS = async () => {
   try {
     const content = await fs.readFile(join(CWD, 'stylesheets', 'main.css'));
     const { css } = await postcss(transformers).process(content, {
-      from: 'stylesheets/main.css', to: 'main.css', map: { inline: true }
+      from: 'stylesheets/main.css',
+      to: 'main.css',
+      map: { inline: true },
     });
 
     fs.outputFile(join(CWD, 'public', 'main.css'), css);

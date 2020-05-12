@@ -16,11 +16,13 @@ const { dirname, join } = require('path');
 const { read } = require('./filesystem');
 const { render } = require('./view');
 
+import { Response } from '.';
+
 const cwd = process.cwd();
 // TODO auto-create those functions?
 
-const OK = (body = '', headers = {}) => {
-  return { headers, body, statusCode: 200 };
+const OK = (body: any, headers = {}) => {
+  return { headers, body, statusCode: 200 } as Response;
 };
 
 const Created = (resource = '', headers = {}) => {
@@ -169,7 +171,7 @@ const MIME = {
   isJavaScript: _ => _ === 'application/javascript',
 }
 
-module.exports = {
+export {
   OK,
   Created,
   Accepted,

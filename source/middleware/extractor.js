@@ -1,7 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const debug = require('debug')('kretes:middleware:extractor');
+const debug = require('debug')('ks:middleware:extractor');
 
 const { parse } = require('url');
 

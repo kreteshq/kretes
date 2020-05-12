@@ -74,7 +74,7 @@ async function add({ name }) {
 
 module.exports = {
   handler: add,
-  builder: _ => _
+  builder: _ => _,
 };
 
 const mergePackageJSONDependencies = () => {

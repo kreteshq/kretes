@@ -112,6 +112,18 @@ const parseAcceptHeader = ({ accept = '*/*' }) => {
   return format;
 };
 
+const generateSourceMap = input => {
+  if (!input) {
+    return '';
+  }
+  if (typeof input !== 'string') {
+    input = JSON.stringify(input);
+  }
+
+  const map = Buffer.from(input).toString('base64');
+  return `\n//# sourceMappingURL=data:application/json;base64,${map}`;
+}
+
 module.exports = {
   pick,
   isObject,
@@ -121,4 +133,5 @@ module.exports = {
   streamToString,
   parseCookies,
   parseAcceptHeader,
+  generateSourceMap,
 };
