@@ -3,7 +3,13 @@
 
 const { compile, escape } = require('boxwood');
 
-const render = async (source, options = {}) => {
+interface Options {
+  context?: object
+  paths?: string[]
+  path?: string
+}
+
+const render = async (source, options: Options = {}) => {
   const { context = {}, paths = [], path = '.' } = options;
   const { template, html } = await compile(source, {
     cache: process.env.NODE_ENV === 'production',
@@ -27,7 +33,7 @@ const precompile = async (files, options = {}) => {
   return Promise.all(promises);
 };
 
-module.exports = {
+export {
   render,
   precompile,
 };

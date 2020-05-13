@@ -12,7 +12,7 @@
 // limitations under the License.
 
 import { ReadStream } from 'fs'
-const fs = require('fs');
+import fs from 'fs';
 const { dirname, join } = require('path');
 
 const { read } = require('./filesystem');
@@ -35,7 +35,7 @@ const OK = (body: any, headers = {}) => {
   return { headers, body, statusCode: 200 } as Response;
 };
 
-const Created = (resource = '', headers = {}) => {
+const Created = (resource: string | object | undefined = '', headers = {}) => {
   return {
     statusCode: 201,
     headers,

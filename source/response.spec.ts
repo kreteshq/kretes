@@ -1,4 +1,4 @@
-const test = require('ava');
+import test from 'ava';
 const { Page } = require('./response');
 const { tmpdir } = require('os');
 const { join } = require('path');
