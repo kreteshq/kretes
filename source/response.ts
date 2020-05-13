@@ -11,12 +11,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { ReadStream } from 'fs'
 const fs = require('fs');
 const { dirname, join } = require('path');
+
 const { read } = require('./filesystem');
 const { render } = require('./view');
 
-import { Response } from '.';
+export type Response =
+  | string
+  | {
+      body: string | object,
+      statusCode: number,
+      headers?: object
+    }
+  | Buffer
+  | ReadStream;
 
 const cwd = process.cwd();
 // TODO auto-create those functions?
@@ -140,7 +150,7 @@ const InternalServerError = message => {
 
 const cache = process.env.NODE_ENV === 'production';
 
-const Page = async (location, context) => {
+const Page = async (location: string, context: object) => {
   let path, paths;
 
   if (location.endsWith('.html')) {

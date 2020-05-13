@@ -4,13 +4,13 @@
 const debug = require('debug')('kretes:index'); // eslint-disable-line no-unused-vars
 
 import http from 'http';
-import { ReadStream } from 'fs'
 import Stream from 'stream';
 const { join } = require('path');
 import Router from 'trek-router';
 import httpstatus from 'http-status';
 import * as Middleware from './middleware';
 import { AddressInfo } from 'net';
+import { Response } from './response';
 const { build, translate } = require('./controller');
 const { readAll } = require('./filesystem');
 const { precompile } = require('./view');
@@ -37,7 +37,6 @@ export interface Request {
   }
 }
 
-export type Response = string | { body: string | object, statusCode: number, headers: object } | Buffer | ReadStream;
 export type Handler = (request: Request) => Response | Promise<Response>;
 
 export interface Resource {
