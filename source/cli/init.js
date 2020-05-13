@@ -14,7 +14,7 @@ const username = require('os').userInfo().username;
 const VERSION = require('../../package.json').version;
 
 async function init({ dir, npmInstall }) {
-  const themeDir = join(resolve(__dirname, '..'), 'template', 'base');
+  const themeDir = join(resolve(__dirname, '..', '..'), 'template', 'base');
 
   const name = dir.replace(/-/g, '_');
 
@@ -67,7 +67,7 @@ module.exports = {
 };
 
 function generatePackageJSON(name) {
-  const content = require('../template/base/package.json');
+  const content = require('../../template/base/package.json');
   const result = Object.assign({ name, version: '0.0.1' }, content);
 
   return result;
