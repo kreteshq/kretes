@@ -15,12 +15,18 @@ const encode = encodeURIComponent;
 // eslint-disable-next-line no-control-regex
 const CookieCutter = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
 
-class Cookie {
-  static create(
-    name,
-    value,
-    { maxAge, domain, path, expires, httpOnly, secure, sameSite } = {}
-  ) {
+interface Options {
+  maxAge?: number
+  domain?: string
+  path?: string
+  expires?: Date
+  httpOnly?: boolean
+  secure?: string
+  sameSite?: string | boolean
+}
+
+export default class Cookie {
+  static create(name: string, value: string, { maxAge, domain, path, expires, httpOnly, secure, sameSite }: Options) {
     if (name && !CookieCutter.test(name)) throw new TypeError('cookie name is invalid');
 
     const content = encode(value);
@@ -72,4 +78,3 @@ class Cookie {
   }
 }
 
-module.exports = Cookie;
