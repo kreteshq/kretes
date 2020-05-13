@@ -1,6 +1,8 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
+import { Row } from "@sqorn/pg/types/methods";
+
 const { ForbiddenError } = require('@casl/ability');
 const basicAuth = require('basic-auth');
 const argon2 = require('argon2');
@@ -152,7 +154,12 @@ const register = ({ table = 'person', fields = [] } = {}) => async ({ params }) 
   }
 };
 
-const login = ({ finder = () => {} } = {}) => async ({ params }) => {
+interface Criteria  {
+  [name: string]: any
+}
+export type Finder = (criteria: Criteria) => Promise<Row[]>
+
+const login = (finder: Finder) => async ({ params }) => {
   const { password } = params;
 
   const [person] = await finder(params);
@@ -179,7 +186,7 @@ const login = ({ finder = () => {} } = {}) => async ({ params }) => {
   }
 };
 
-module.exports = {
+export {
   auth,
   authenticate,
   authorization,
