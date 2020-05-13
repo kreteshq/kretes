@@ -20,11 +20,11 @@
     "chokidar": "^3.4.0",
     "cross-env": "^7.0.2",
     "node-pg-migrate": "^4.8.0",
-    "npm-check-updates": "^4.1.2",
+    "npm-check-updates": "^5.0.0",
     "prettier": "^2.0.5",
-    "rollup": "^2.8.0",
+    "rollup": "^2.10.0",
     "snowpack": "^1.7.1",
-    "typescript": "^3.8.3",
-    "tailwindcss": "^1.4.5"
+    "typescript": "^3.9.2",
+    "tailwindcss": "^1.4.6"
   }
 }

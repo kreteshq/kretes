@@ -9,13 +9,13 @@ const argon2 = require('argon2');
 const crypto = require('crypto');
 
 const { Unauthorized, Created, Forbidden, InternalServerError } = require('./response.js');
-const db = require('./db.js');
-const Cookie = require('./cookie.js');
+import db from './db';
+import Cookie from './cookie';
 
 const compare = argon2.verify;
 const hash = argon2.hash;
 
-const fromBase64 = base64 => base64.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+const fromBase64 = (base64: string) => base64.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 
 function auth({ users }) {
   return async (context, next) => {
@@ -94,8 +94,8 @@ const authorization = ({ using: rules }) => ({
 };
 
 class Session {
-  static async create(person_id, transaction = null) {
-    const token = await new Promise((resolve, reject) => {
+  static async create(person_id, transaction = null): Promise<string> {
+    const token = await new Promise<string>((resolve, reject) => {
       crypto.randomBytes(16, (error, data) => {
         error ? reject(error) : resolve(fromBase64(data.toString('base64')));
       });
