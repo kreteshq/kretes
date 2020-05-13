@@ -34,5 +34,5 @@ const validate = shape => {
 };
 
 module.exports = {
-  validate
+  validate,
 };

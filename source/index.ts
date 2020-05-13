@@ -362,6 +362,20 @@ const handle = context => result => {
 // Kretes Modules
 // TODO https://github.com/microsoft/TypeScript/issues/33079
 
+// import {
+//   auth,
+//   background,
+//   db,
+//   request,
+//   response,
+//   view,
+// } from 'kretes';
+
+export * as auth from './auth';
+export * as background from './background';
+export * as db from './db';
+export * as request from './request';
 export * as response from './response';
+export * as view from './view';
 
 
