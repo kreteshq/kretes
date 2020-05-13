@@ -1,38 +1,40 @@
 const test = require('ava');
-const axios = require('axios');
+const { create } = require('axios');
 
-const Huncwot = require('..');
-const { OK, Created, HTMLString, Page } = require('../response.js');
-const { validate } = require('../request');
+const { before, after } = test;
+
+const Kretes = require('..');
+const { OK, Created, HTMLString, Page } = require('../source/response');
+const { validate } = require('../source/request');
 
 const merge = require('merge-deep');
 const FormData = require('form-data');
 
-const app = new Huncwot();
+const app = new Kretes();
 
 const ExplicitResponse = {
   statusCode: 200,
   headers: {},
-  body: { hello: 'Huncwot' }
+  body: { hello: 'Kretes' },
 };
 
 const GETs = {
   get: {
-    '/': _ => 'Hello, Huncwot',
+    '/': _ => 'Hello, Kretes',
     '/json-explicit-response': _ => ExplicitResponse,
-    '/json-helper-response': _ => OK({ hello: 'Huncwot' }),
+    '/json-helper-response': _ => OK({ hello: 'Kretes' }),
     '/json-created-response': _ => Created({ status: 'Created!' }),
     '/route-params/:name': ({ params }) => OK({ hello: params.name }),
     '/query-params': ({ params: { search } }) => OK({ search }),
-    '/error': _ => Page('index@Unknown'),
+    '/error': _ => Page('index@Unknown', {}),
     '/invalid-route-no-return': _ => {
-      'Huncwot';
+      'Kretes';
     },
     '/html-content': _ => HTMLString('<h1>Huncwot, a rascal truly you are!</h1>'),
     '/accept-header-1': ({ format }) => OK(format),
     '/explicit-format': ({ format }) => OK(format),
-    '/id': ({ request }) => OK(request.id)
-  }
+    '/id': ({ request }) => OK(request.id),
+  },
 };
 
 const POSTs = {
@@ -58,15 +60,15 @@ const Compositions = {
       validate({ name: { type: String, required: true } }),
       ({ params: { admin } }) =>
         `Admin param (${admin}) should be absent from this request payload`
-    ]
-  }
+    ],
+  },
 };
 
 const routes = merge({}, GETs, POSTs, Compositions);
 
-let get, post
+let get, post;
 
-test.before(async () => {
+before(async () => {
   let id = 0, sequence = () => id++;
   app.use(async (context, next) => {
     const { request } = context;
@@ -74,12 +76,12 @@ test.before(async () => {
     return next(context);
   });
   await app.start({ routes });
-  const http = axios.create({ baseURL: `http://localhost:${app.port}` });
-  get = http.get
-  post = http.post
+  const http = create({ baseURL: `http://localhost:${app.port}` });
+  get = http.get;
+  post = http.post;
 })
 
-test.after(async () => {
+after(async () => {
   await app.stop();
 })
 
@@ -152,7 +154,7 @@ test('sets security headers by default', async assert => {
 test('respects `Accept` header', async assert => {
   const { data, status } = await get('/accept-header-1', {
     headers: {
-      Accept: 'text/plain'
+      Accept: 'text/plain',
     }
   });
   assert.is(status, 200);
@@ -181,7 +183,7 @@ test('renders an error page for an unexisting page handler', async assert => {
 
 test('accepts POST params as JSON', async assert => {
   const response = await post('/post-json', {
-    name: 'Zaiste'
+    name: 'Zaiste',
   });
   assert.is(response.status, 200);
   assert.is(response.data, 'Received -> Zaiste');
