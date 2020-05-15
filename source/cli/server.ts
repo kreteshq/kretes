@@ -78,7 +78,8 @@ const start = async ({ port }) => {
   return server;
 };
 
-const handler = async ({ port }) => {
+const handler = async ({ port, production }) => {
+  process.env.KRETES = production ? 'production' : 'development';
   console.log(color`  {grey Starting... (it may take few seconds)}`);
   const globalConfig = require('config');
   const connection = globalConfig.get('db');
@@ -241,6 +242,9 @@ const compileCSS = async () => {
 };
 
 module.exports = {
-  builder: _ => _.option('port', { alias: 'p', default: 5544 }).default('dir', '.'),
+  builder: _ => _
+    .option('port', { alias: 'p', default: 5544 })
+    .option('production', { type: 'boolean', default: false })
+    .default('dir', '.'),
   handler,
 };

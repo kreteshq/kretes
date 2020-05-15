@@ -37,6 +37,9 @@ export const App = {
   get BaseHTML() {
     return join(process.cwd(), 'config', 'client', 'index.html')
   },
+  get isProduction() {
+    return process.env.KRETES === 'production'
+  },
   WebSockets: new Set<WebSocket>(),
   Importers: new Map<string, Set<string>>(),
   Importees: new Map<string, Set<string>>()
