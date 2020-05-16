@@ -15,6 +15,7 @@ const Resolving = () => {
     const id = path.replace(RE.IsModule, '')
 
     if (id === 'vue') {
+      // TODO Handle runtime not found / installed scenerio
       const content = await fs.readFile(Vue.Runtime.Browser, 'utf-8')
       return JavaScriptString(content)
     }

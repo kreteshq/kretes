@@ -5,37 +5,14 @@
   "tasks": [
     {
       "label": "Start",
-      "detail": "Start the framework (client & server)",
+      "detail": "Start Kretes Application in `development` mode",
+      "type": "shell",
+      "command": "node --inspect ${workspaceFolder}/node_modules/kretes/output/cli.js server",
+      "isBackground": true,
       "problemMatcher": [],
       "dependsOn": [
-        "Server",
-        "Client",
         "Background"
-      ]
-    },
-    {
-      "label": "Server",
-      "detail": "Start the server in the `development` mode",
-      "type": "shell",
-      "command": "node --inspect ${workspaceFolder}/node_modules/kretes/cli.js server",
-      "isBackground": true,
-      "problemMatcher": [],
-      "presentation": {
-        "echo": false,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": false,
-        "clear": false
-      }
-    },
-    {
-      "label": "Client",
-      "detail": "Start the client in the `development` mode",
-      "type": "shell",
-      "isBackground": true,
-      "command": "node ${workspaceFolder}/node_modules/kretes/cli.js client",
-      "problemMatcher": [],
+      ],
       "presentation": {
         "echo": false,
         "reveal": "always",
