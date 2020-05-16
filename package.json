@@ -2,7 +2,7 @@
   "name": "kretes",
   "version": "0.62.1",
   "description": "A Programming Environment for TypeScript apps built on top of VS Code",
-  "main": "index.js",
+  "main": "output/index.js",
   "repository": "https://github.com/kreteshq/kretes",
   "author": "Zaiste",
   "license": "Apache-2.0",
