@@ -197,16 +197,8 @@ const handler = async ({ port, production }) => {
   });
 
   const output = watcher.watch(
-    ['config/server', 'features', 'config/css.config.js', 'stylesheets'],
-    {
-      ignored: [
-        'features/**/View/*',
-        'features/**/Store.ts',
-        'features/**/Store/*',
-        'features/**/Model.ts',
-        'features/**/Model/*',
-      ],
-    }
+    ['config', 'features', 'stylesheets'],
+    { ignored: [] }
   );
 
   if (output.diagnostics.length > 0) console.log(color`  {red.bold Errors:}`);
