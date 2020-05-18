@@ -1,7 +1,7 @@
 import fs from 'fs';
+import { Routes, response } from 'kretes';
 
-import { Routes } from 'kretes';
-import { OK } from 'kretes/response';
+const { OK } = response;
 
 const routes: Routes = {
   GET: {
