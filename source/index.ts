@@ -3,16 +3,18 @@
 
 const debug = require('debug')('kretes:index'); // eslint-disable-line no-unused-vars
 
-import http from 'http';
-import Stream from 'stream';
 const { join } = require('path');
 import Router from 'trek-router';
+import Stream from 'stream';
+import http from 'http';
 import httpstatus from 'http-status';
-import * as Middleware from './middleware';
 import pg from 'pg';
 import { AddressInfo } from 'net';
+
+import * as Middleware from './middleware';
 import { Response } from './response';
 import { App } from './manifest';
+import { glob } from './filesystem';
 const { build, translate } = require('./controller');
 const { readAll } = require('./filesystem');
 const { precompile } = require('./view');
@@ -287,7 +289,7 @@ export default class Kretes {
         process.exit(1);
       });
 
-    return new Promise((resolve, reject) => {
+    return new Promise<http.Server>((resolve, reject) => {
       this.server.listen(port, () => {
         resolve(this.server);
       });
