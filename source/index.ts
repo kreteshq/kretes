@@ -328,6 +328,9 @@ const handle = context => result => {
     encoding = result.encoding;
   }
 
+  if (body instanceof Function)
+    throw new Error('You need to return a value not a function.')
+
   Object.assign(
     {
       'Access-Control-Allow-Origin': '*',
