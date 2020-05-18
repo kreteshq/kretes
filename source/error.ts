@@ -1,11 +1,18 @@
-const path = require('path');
-const stackTrace = require('stack-trace');
-const fs = require('fs-extra');
-const cookie = require('cookie');
-const { render } = require('./view');
+import path from 'path';
+import stackTrace from 'stack-trace';
+import fs from 'fs-extra';
+import cookie from 'cookie';
+import { render } from './view';
+import { Request } from '.';
+
 const startingSlashRegex = /\\|\//;
 
 class HTMLifiedError {
+  codeRange: number;
+  skipHeaders: string[];
+  error: Error
+  request: Request
+
   constructor(error, request) {
     this.codeRange = 5;
     this.skipHeaders = ['cookie', 'connection', 'dnt'];
@@ -147,10 +154,11 @@ class HTMLifiedError {
 
     context.request = this.convertRequestToObject();
 
-    const resources = path.join(__dirname, 'resources')
-    const filepath = path.join(resources, 'error.html')
-    const content = await fs.readFile(filepath);
-    return render(content.toString(), { context, paths: [resources] });
+    const resources = path.join(__dirname, '..', 'resources');
+    const filepath = path.join(resources, 'error.html');
+    const content = await fs.readFile(filepath, 'utf-8');
+
+    return render(content, { context, paths: [resources] });
   }
 }
 
