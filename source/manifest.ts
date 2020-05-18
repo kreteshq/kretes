@@ -42,7 +42,8 @@ export const App = {
   },
   WebSockets: new Set<WebSocket>(),
   Importers: new Map<string, Set<string>>(),
-  Importees: new Map<string, Set<string>>()
+  Importees: new Map<string, Set<string>>(),
+  DatabasePool: null,
 }
 
 const ImportName = 'kretes/hot'

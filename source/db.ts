@@ -1,40 +1,19 @@
-// Copyright 2019 Zaiste & contributors. All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Zaiste. All rights reserved.
+// Licensed under the Apache License, Version 2.0
+import pg from 'pg';
+import sqorn from '@sqorn/pg';
+import { SQF } from '@sqorn/pg/types/sq'
 
-const config = require('config');
+import { App } from "./manifest";
 
-const Logger = require('./logger');
+let sq: SQF = null;
 
-const pg = require('pg');
-const sqorn = require('@sqorn/pg');
-
-const connection = config.get('db');
-
-const pool = new pg.Pool(connection);
-
-pool.connect(error => {
-  if (error) {
-    Logger.printError(error, 'Data Layer');
-
-    process.exit(1);
+export default new Proxy({}, {
+  get(_target, prop, receiver) {
+    // TODO That's a trick, improve it in the future
+    if (sq == null) {
+      sq = sqorn({ pg, pool: App.DatabasePool })
+    }
+    return Reflect.get(sq, prop, receiver);
   }
-});
-
-const db = Object.assign(sqorn({ pg, pool }), {
-  execute: async statement => {
-    const { rows } = await pool.query(statement);
-    return rows;
-  },
-});
-
-export default db;
+}) as SQF;

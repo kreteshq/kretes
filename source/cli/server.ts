@@ -81,16 +81,6 @@ const start = async ({ port }) => {
 const handler = async ({ port, production }) => {
   process.env.KRETES = production ? 'production' : 'development';
   console.log(color`  {grey Starting... (it may take few seconds)}`);
-  const globalConfig = require('config');
-  const connection = globalConfig.get('db');
-  const pool = new pg.Pool(connection);
-
-  try {
-    await pool.connect();
-  } catch (error) {
-    Logger.printError(error, 'Data Layer');
-    process.exit(1);
-  }
 
   const compiler = new TypescriptCompiler(
     CWD,

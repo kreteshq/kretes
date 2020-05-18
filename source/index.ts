@@ -9,8 +9,10 @@ const { join } = require('path');
 import Router from 'trek-router';
 import httpstatus from 'http-status';
 import * as Middleware from './middleware';
+import pg from 'pg';
 import { AddressInfo } from 'net';
 import { Response } from './response';
+import { App } from './manifest';
 const { build, translate } = require('./controller');
 const { readAll } = require('./filesystem');
 const { precompile } = require('./view');
@@ -160,6 +162,17 @@ export default class Kretes {
   }
 
   async setup() {
+    const config = require('config');
+    const connection = config.get('db');
+    App.DatabasePool = new pg.Pool(connection);
+    App.DatabasePool.connect(error => {
+      if (error) {
+        Logger.printError(error, 'Data Layer');
+
+        process.exit(1);
+      }
+    });
+
     if (process.env.NODE_ENV === 'production') {
       const views = await lookupViews();
       const parts = join(cwd, 'views/parts');
@@ -373,9 +386,11 @@ const handle = context => result => {
 
 export * as auth from './auth';
 export * as background from './background';
-export * as db from './db';
 export * as request from './request';
 export * as response from './response';
 export * as view from './view';
+
+import database from './db';
+export { database };
 
 
