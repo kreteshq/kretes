@@ -2,7 +2,7 @@
   "name": "kretes",
   "version": "0.62.1",
   "description": "A Programming Environment for TypeScript apps built on top of VS Code",
-  "main": "output/index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/kreteshq/kretes",
   "author": "Zaiste",
   "license": "Apache-2.0",
@@ -81,8 +81,8 @@
     "yargs": "^15.3.1"
   },
   "bin": {
-    "kretes": "output/cli.js",
-    "ks": "output/cli.js"
+    "kretes": "dist/cli.js",
+    "ks": "dist/cli.js"
   },
   "prettier": {
     "singleQuote": true,
