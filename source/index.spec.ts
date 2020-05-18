@@ -1,11 +1,12 @@
-const test = require('ava');
-const { create } = require('axios');
+import test from 'ava';
+import axios from 'axios';
 
 const { before, after } = test;
 
-const Kretes = require('..');
-const { OK, Created, HTMLString, Page } = require('../source/response');
-const { validate } = require('../source/request');
+import Kretes, { response, request } from '.';
+
+const { OK, Created, HTMLString, Page } = response;
+const { validate } = request;
 
 const merge = require('merge-deep');
 const FormData = require('form-data');
@@ -30,7 +31,7 @@ const GETs = {
     '/invalid-route-no-return': _ => {
       'Kretes';
     },
-    '/html-content': _ => HTMLString('<h1>Huncwot, a rascal truly you are!</h1>'),
+    '/html-content': _ => HTMLString('<h1>Kretes - Programming Environment for TypeScript</h1>'),
     '/accept-header-1': ({ format }) => OK(format),
     '/explicit-format': ({ format }) => OK(format),
     '/id': ({ request }) => OK(request.id),
@@ -76,7 +77,7 @@ before(async () => {
     return next(context);
   });
   await app.start({ routes });
-  const http = create({ baseURL: `http://localhost:${app.port}` });
+  const http = axios.create({ baseURL: `http://localhost:${app.port}` });
   get = http.get;
   post = http.post;
 })
@@ -87,22 +88,27 @@ after(async () => {
 
 // Tests
 
+test('App: setup', async assert => {
+  assert.deepEqual(typeof app.setup, 'function');
+});
+
+
 test('returns string with implicit return', async assert => {
   const response = await get('/');
   assert.is(response.status, 200);
-  assert.is(response.data, 'Hello, Huncwot');
+  assert.is(response.data, 'Hello, Kretes');
 });
 
 test('returns json for explicit response', async assert => {
   const response = await get('/json-explicit-response');
   assert.is(response.status, 200);
-  assert.deepEqual(response.data, { hello: 'Huncwot' });
+  assert.deepEqual(response.data, { hello: 'Kretes' });
 });
 
 test('returns json for `OK` helper response', async assert => {
   const response = await get('/json-helper-response');
   assert.is(response.status, 200);
-  assert.deepEqual(response.data, { hello: 'Huncwot' });
+  assert.deepEqual(response.data, { hello: 'Kretes' });
 });
 
 test('returns json for `created` helper response', async assert => {
@@ -113,15 +119,15 @@ test('returns json for `created` helper response', async assert => {
 });
 
 test('returns route params', async assert => {
-  const response = await get('/route-params/Huncwot');
+  const response = await get('/route-params/Kretes');
   assert.is(response.status, 200);
-  assert.deepEqual(response.data, { hello: 'Huncwot' });
+  assert.deepEqual(response.data, { hello: 'Kretes' });
 });
 
 test('returns query params', async assert => {
-  const response = await get('/query-params?search=Huncwot');
+  const response = await get('/query-params?search=Kretes');
   assert.is(response.status, 200);
-  assert.deepEqual(response.data, { search: 'Huncwot' });
+  assert.deepEqual(response.data, { search: 'Kretes' });
 });
 
 // TODO HIGH
@@ -140,7 +146,7 @@ test('returns HTML content', async assert => {
   const { data, status, headers } = await get('/html-content');
   assert.is(status, 200);
   assert.is(headers['content-type'], 'text/html');
-  assert.is(data, '<h1>Huncwot, a rascal truly you are!</h1>');
+  assert.is(data, '<h1>Kretes - Programming Environment for TypeScript</h1>');
 });
 
 test('sets security headers by default', async assert => {
