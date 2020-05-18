@@ -1,7 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import db from './db.js';
+import db from './db';
 
 const schedule = async ({ task, payload = {}, queue = null, runAt = null, maxAttempts = null }) => {
   await db.sql`
