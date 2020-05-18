@@ -4,14 +4,13 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Start",
+      "label": "Kretes: Start",
       "detail": "Start Kretes Application in `development` mode",
       "type": "shell",
-      "command": "node --inspect ${workspaceFolder}/node_modules/kretes/output/cli.js server",
+      "command": "node --inspect ${workspaceFolder}/node_modules/kretes/dist/cli.js start",
       "isBackground": true,
       "problemMatcher": [],
       "dependsOn": [
-        "Background"
       ],
       "presentation": {
         "echo": false,
@@ -23,7 +22,7 @@
       }
     },
     {
-      "label": "Update",
+      "label": "Kretes: Update",
       "detail": "Update the dependencies in `package.json`",
       "type": "shell",
       "isBackground": true,
@@ -39,7 +38,7 @@
       }
     },
     {
-      "label": "Install",
+      "label": "Kretes: Install",
       "detail": "Install (or refresh) the dependencies from `package.json`",
       "type": "shell",
       "isBackground": true,
