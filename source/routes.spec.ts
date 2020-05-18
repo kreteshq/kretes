@@ -1,6 +1,6 @@
 import test from 'ava';
 import axios from 'axios';
-import Kretes from '..';
+import Kretes from '.';
 
 test('routes should be passed to the start method', async assert => {
   const server = new Kretes();
