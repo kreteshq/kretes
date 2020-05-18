@@ -21,7 +21,7 @@ const VERSION = require('../../package.json').version;
 const { parser } = require('../parser');
 const { generateRPCOnClient } = require('../rpc');
 const Logger = require('../logger');
-const SQLCompiler = require('../compiler/sql');
+// const SQLCompiler = require('../compiler/sql');
 const { VueHandler } = require('../machine/watcher');
 
 const reloadSQL = async (pool, file) => {
@@ -106,8 +106,8 @@ const handler = async ({ port, production }) => {
   let app;
 
   watcher.on('watcher:ready', async () => {
-    const stream = fg.stream([`${CWD}/features/**/*.sql`], { dot: true });
-    for await (const entry of stream) await reloadSQL(pool, entry);
+    // const stream = fg.stream([`${CWD}/features/**/*.sql`], { dot: true });
+    // for await (const entry of stream) await reloadSQL(pool, entry);
 
     // start the HTTP server
     app = await start({ port });
@@ -126,17 +126,17 @@ const handler = async ({ port, production }) => {
         compileCSS();
         break;
       case '.sql':
-        reloadSQL(pool, filePath);
-        try {
-          const output = await SQLCompiler.compile(join(CWD, filePath));
-          const { dir } = parse(filePath);
-          await fs.outputFile(join(CWD, dir, 'index.ts'), output);
-          console.log(color`  {underline ${filePath}} {green reloaded}`);
-        } catch (error) {
-          console.log(
-            color`  {red.bold Errors:}\n  {grey in} {underline ${filePath}}\n   → ${error.message}`
-          );
-        }
+        // reloadSQL(pool, filePath);
+        // try {
+        //   const output = await SQLCompiler.compile(join(CWD, filePath));
+        //   const { dir } = parse(filePath);
+        //   await fs.outputFile(join(CWD, dir, 'index.ts'), output);
+        //   console.log(color`  {underline ${filePath}} {green reloaded}`);
+        // } catch (error) {
+        //   console.log(
+        //     color`  {red.bold Errors:}\n  {grey in} {underline ${filePath}}\n   → ${error.message}`
+        //   );
+        // }
         break;
       case '.vue':
         VueHandler(filePath, timestamp);
@@ -199,7 +199,7 @@ const handler = async ({ port, production }) => {
     );
   });
 
-  compileCSS();
+  //compileCSS();
 };
 
 const compileCSS = async () => {
