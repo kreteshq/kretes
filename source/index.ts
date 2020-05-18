@@ -30,6 +30,9 @@ export interface Request {
   params: {
     [name: string]: any
   },
+  headers: {
+    [name: string]: any
+  }
   files: {
     [name: string]: {
       name: string
