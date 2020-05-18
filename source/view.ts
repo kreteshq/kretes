@@ -21,8 +21,7 @@ const render = async (source, options: Options = {}) => {
   return template(context, escape);
 };
 
-const precompile = async (files, options = {}) => {
-  const { paths = [] } = options;
+const precompile = async (files, { paths }) => {
   const promises = files.map(({ source, path }) => {
     return compile(source, {
       cache: true,
