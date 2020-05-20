@@ -32,7 +32,7 @@ export interface Request {
   },
   headers: {
     [name: string]: any
-  }
+  },
   files: {
     [name: string]: {
       name: string
@@ -41,7 +41,9 @@ export interface Request {
       encoding: string
       mimetype: string
     }
-  }
+  },
+  url: string,
+  method: string
 }
 
 export type Handler = (request: Request) => Response | Promise<Response>;
@@ -400,5 +402,3 @@ export * as view from './view';
 
 import database from './db';
 export { database };
-
-
