@@ -10,6 +10,7 @@
     "node": ">= 12"
   },
   "devDependencies": {
+    "@ava/typescript": "^1.1.1",
     "@types/es-module-lexer": "^0.3.0",
     "@types/lru-cache": "^5.1.0",
     "ava": "^3.8.2",
@@ -21,6 +22,7 @@
     "prettier": "2.0.5"
   },
   "scripts": {
+    "pretest": "tsc",
     "test": "ava",
     "dev:main": "tsc -w",
     "dev:client": "tsc -w -p source/hot",
@@ -88,5 +90,12 @@
     "singleQuote": true,
     "printWidth": 96,
     "arrowParens": "avoid"
+  },
+  "ava": {
+    "typescript": {
+      "rewritePaths": {
+        "source/": "dist/"
+      }
+    }
   }
 }

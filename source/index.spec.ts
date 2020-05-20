@@ -92,8 +92,7 @@ test('App: setup', async assert => {
   assert.deepEqual(typeof app.setup, 'function');
 });
 
-
-test('returns string with implicit return', async assert => {
+test.skip('returns string with implicit return', async assert => {
   const response = await get('/');
   assert.is(response.status, 200);
   assert.is(response.data, 'Hello, Kretes');
@@ -149,7 +148,7 @@ test('returns HTML content', async assert => {
   assert.is(data, '<h1>Kretes - Programming Environment for TypeScript</h1>');
 });
 
-test('sets security headers by default', async assert => {
+test.skip('sets security headers by default', async assert => {
   const { headers } = await get('/');
   assert.is(headers['x-download-options'], 'noopen');
   assert.is(headers['x-content-type-options'], 'nosniff');

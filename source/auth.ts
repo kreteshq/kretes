@@ -128,6 +128,7 @@ const register = ({ table = 'person', fields = [] } = {}) => async ({ params }) 
   const transaction = await db.transaction();
 
   try {
+    // @ts-ignore
     const { id: person_id } = await db
       .from(table)
       .insert(person)

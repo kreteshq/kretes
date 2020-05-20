@@ -7,11 +7,18 @@ import { Request } from '.';
 
 const startingSlashRegex = /\\|\//;
 
+interface Error {
+  name: string;
+  message: string;
+  stack?: string;
+  status?: string;
+}
+
 class HTMLifiedError {
   codeRange: number;
   skipHeaders: string[];
-  error: Error
-  request: Request
+  error: Error;
+  request: Request;
 
   constructor(error, request) {
     this.codeRange = 5;
@@ -90,7 +97,8 @@ class HTMLifiedError {
       context: this.getContext(frame),
       isModule: this.isNodeModule(frame),
       isNative: this.isNode(frame),
-      isApp: this.isApp(frame)
+      isApp: this.isApp(frame),
+      classes: null
     };
   }
 
@@ -110,13 +118,12 @@ class HTMLifiedError {
   }
 
   convertFramesToObjects(stack, callback) {
-    callback = callback || this._serializeFrame.bind(this);
-
     const { message, name, status } = this.error;
     return {
       message,
       name,
       status,
+      request: null,
       frames:
         stack instanceof Array === true
           ? stack.filter(frame => frame.getFileName()).map(callback)
@@ -136,6 +143,7 @@ class HTMLifiedError {
       });
     }
 
+    // @ts-ignore
     const parsedCookies = cookie.parse(this.request.headers.cookie || '');
     const cookies = Object.keys(parsedCookies).map(key => ({ key, value: parsedCookies[key] }));
     const { url, method } = this.request;
