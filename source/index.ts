@@ -1,7 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const debug = require('debug')('kretes:index'); // eslint-disable-line no-unused-vars
+const debug = require('debug')('ks:index'); // eslint-disable-line no-unused-vars
 
 const { join } = require('path');
 import Router from 'trek-router';
@@ -10,6 +10,7 @@ import http from 'http';
 import httpstatus from 'http-status';
 import pg from 'pg';
 import { AddressInfo } from 'net';
+import { Service, startService } from 'esbuild';
 
 import * as Middleware from './middleware';
 import { Response } from './response';
@@ -172,6 +173,7 @@ export default class Kretes {
     const config = require('config');
     const connection = config.get('db');
     App.DatabasePool = new pg.Pool(connection);
+
     App.DatabasePool.connect(error => {
       if (error) {
         Logger.printError(error, 'Data Layer');
@@ -179,6 +181,9 @@ export default class Kretes {
         process.exit(1);
       }
     });
+
+    debug('starting ESBuild service');
+    App.ESBuild = await startService();
 
     if (process.env.NODE_ENV === 'production') {
       const views = await lookupViews();

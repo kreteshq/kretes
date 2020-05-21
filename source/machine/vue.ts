@@ -12,7 +12,7 @@ import {
 import hash_sum from 'hash-sum'
 
 import { generateSourceMap } from '../util';
-import { Vue } from '../manifest'
+import { Vue, App } from '../manifest'
 
 export const isEqual = (a: SFCBlock | null, b: SFCBlock | null) => {
   if (!a && !b) return true
@@ -60,6 +60,13 @@ export const compile = async (
   let compiled = ''
   if (script) {
     let content = script.content
+    // TODO Generalize it to other file extensions
+    if (script.lang === 'ts') {
+      debug('transpiling a TypeScript file')
+      const transpiled = await App.transpile(content, { loader: 'ts' });
+      content = transpiled
+    }
+
     compiled += content.replace(`export default`, 'const __script =')
   } else {
     compiled += `const __script = {}`

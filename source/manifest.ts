@@ -7,6 +7,7 @@ import LRUCache from 'lru-cache'
 import { SFCDescriptor, SFCStyleCompileResults } from '@vue/compiler-sfc'
 import * as VueCompiler from '@vue/compiler-sfc'
 import WebSocket from 'ws';
+import { Service as ESBuildService } from 'esbuild';
 
 export const Vue = {
   Cache: {
@@ -44,6 +45,11 @@ export const App = {
   Importers: new Map<string, Set<string>>(),
   Importees: new Map<string, Set<string>>(),
   DatabasePool: null,
+  ESBuild: null as ESBuildService,
+  async transpile(source, { loader }) {
+    const { js: transpiled } = await this.ESBuild.transform(source, { loader })
+    return transpiled;
+  }
 }
 
 const ImportName = 'kretes/hot'
