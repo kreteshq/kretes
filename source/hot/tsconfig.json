@@ -9,9 +9,10 @@
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "strictNullChecks": true,
+    "skipLibCheck": true,
     "noImplicitAny": true,
     "removeComments": false,
-    "outDir": "../../output",
+    "outDir": "../../dist",
     "module": "esnext",
     "lib": ["ESNext", "DOM"]
   },
