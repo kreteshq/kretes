@@ -18,6 +18,7 @@ if (!satisfies(actual, expected)) {
 
 const _argv = require('yargs')
   .version()
+  .alias('V', 'version')
   .usage('Usage: $0 <command> [options]')
   .command(['new [dir]', 'init', 'n'], 'Create new project', require('./cli/init'))
   .example('$0 new my-project', 'Create and initialize `my-project` directory')
