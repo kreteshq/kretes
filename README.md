@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="250" src="/docs/huncwot-logo.svg">
+  <img width="250" src="/docs/kretes-logo.svg">
 </p>
 
 <p align="center">
@@ -23,8 +23,8 @@
 
 <p align="center">
   <a href="https://landing.mailerlite.com/webforms/landing/a3k0m1"><img src="https://img.shields.io/badge/%20newsletter%20-%20subscribe%20-blue.svg?style=for-the-badge" alt="Subscribe to Kretes Newsletter"></a>
-  <a href="https://www.npmjs.com/package/huncwot"><img src="https://img.shields.io/npm/v/huncwot.svg?style=for-the-badge" alt="Kretes Package on NPM"></a>
-  <a href="https://www.npmjs.com/package/huncwot"><img src="https://img.shields.io/npm/dm/huncwot.svg?style=for-the-badge" alt="Kretes Package on NPM"></a>
+  <a href="https://www.npmjs.com/package/kretes"><img src="https://img.shields.io/npm/v/kretes.svg?style=for-the-badge" alt="Kretes Package on NPM"></a>
+  <a href="https://www.npmjs.com/package/kretes"><img src="https://img.shields.io/npm/dm/kretes.svg?style=for-the-badge" alt="Kretes Package on NPM"></a>
   <a href="https://discord.gg/befPaNb"><img src="https://img.shields.io/badge/Discord-join%20chat-738bd7.svg?style=for-the-badge" alt="Kretes channel on Discord"></a>
   <a href="https://www.youtube.com/playlist?list=PLhXZp00uXBk72m_G7E2Bshzd7PDpaInE1"><img src="https://img.shields.io/badge/YouTube-Watch%20Screencasts-red?style=for-the-badge" alt="Kretes related screencasts on YouTube"></a>
 </a>
@@ -66,7 +66,7 @@ etc).
 ## Roadmap
 
 Kretes keeps track of the upcoming fixes and features on GitHub Projects:
-[Kretes Roadmap](https://github.com/kreteshq/huncwot/projects/1)
+[Kretes Roadmap](https://github.com/kreteshq/kretes/projects/1)
 
 ## Bug reports
 
