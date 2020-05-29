@@ -22,8 +22,8 @@
     "node-pg-migrate": "^5.0.0",
     "npm-check-updates": "^6.0.1",
     "prettier": "^2.0.5",
-    "rollup": "^2.10.9",
-    "snowpack": "^1.7.1",
+    "rollup": "^2.11.2",
+    "snowpack": "^2.0.3",
     "typescript": "^3.9.3",
     "tailwindcss": "^1.4.6"
   }
