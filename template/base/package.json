@@ -15,15 +15,15 @@
     "not ie <= 8"
   ],
   "devDependencies": {
-    "@wessberg/rollup-plugin-ts": "^1.2.24",
+    "@wessberg/rollup-plugin-ts": "^1.2.25",
     "autoprefixer": "^9.8.0",
     "chokidar": "^3.4.0",
     "cross-env": "^7.0.2",
-    "node-pg-migrate": "^5.1.0",
-    "npm-check-updates": "^6.0.1",
+    "node-pg-migrate": "^5.1.1",
+    "npm-check-updates": "^7.0.1",
     "prettier": "^2.0.5",
-    "rollup": "^2.13.1",
-    "snowpack": "^2.3.1",
+    "rollup": "^2.16.1",
+    "snowpack": "^2.5.1",
     "typescript": "^3.9.5",
     "tailwindcss": "^1.4.6"
   }
