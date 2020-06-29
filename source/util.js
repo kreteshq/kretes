@@ -11,6 +11,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const { spawn } = require('child_process');
+
 function pick(obj, keys) {
   return keys.reduce((acc, k) => {
     acc[k] = obj[k];
@@ -124,6 +126,19 @@ const generateSourceMap = input => {
   return `\n//# sourceMappingURL=data:application/json;base64,${map}`;
 }
 
+const run = async (command, args, { stdout = 'inherit', stderr = 'inherit', cwd = '.' } = {}) => {
+  return await new Promise((resolve, reject) => {
+    const child = spawn(command, args, {
+      stdio: ['ignore', stdout, stderr],
+      cwd,
+    });
+    child.on('exit', code => {
+      if (code) reject(new Error('exit code 1'));
+      else resolve();
+    });
+  });
+};
+
 module.exports = {
   pick,
   isObject,
@@ -134,4 +149,5 @@ module.exports = {
   parseCookies,
   parseAcceptHeader,
   generateSourceMap,
+  run,
 };

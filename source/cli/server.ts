@@ -23,6 +23,9 @@ const { generateRPCOnClient } = require('../rpc');
 const Logger = require('../logger');
 // const SQLCompiler = require('../compiler/sql');
 const { VueHandler } = require('../machine/watcher');
+const { run } = require('../util');
+
+const stdout = fs.openSync('./log/database.log', 'a');
 
 const reloadSQL = async (pool, file) => {
   const content = await fs.readFile(file);
@@ -38,6 +41,7 @@ const reloadSQL = async (pool, file) => {
 };
 
 let sockets = [];
+
 
 const start = async ({ port }) => {
   //
@@ -75,12 +79,26 @@ const start = async ({ port }) => {
     color`{bold.blue ┌ Kretes} {bold ${VERSION}} {grey on} {bold localhost:${port}}\n{bold.blue └ }{grey Started: }${new Date().toLocaleTimeString()}`
   );
 
+  const onExit = async _signal => {
+    console.log(color`  {grey Stoping...}`);
+
+    server.close(() => {
+      process.exit(0);
+    });
+
+    await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl stop'], { stdout });
+  }
+
+  process.on('SIGINT', onExit);
+
   return server;
 };
 
 const handler = async ({ port, production }) => {
   process.env.KRETES = production ? 'production' : 'development';
   console.log(color`  {grey Starting... (it may take few seconds)}`);
+
+  await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl restart'], { stdout, stderr: stdout });
 
   const compiler = new TypescriptCompiler(
     CWD,
@@ -198,6 +216,7 @@ const handler = async ({ port, production }) => {
       color`  {grey in} {underline ${location}}\n   → ${messageText.messageText || messageText}`
     );
   });
+
 
   //compileCSS();
 };

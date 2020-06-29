@@ -1,12 +1,12 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const fs = require('fs-extra');
-const { join, resolve } = require('path');
-const { spawn } = require('child_process');
-const color = require('chalk');
+import * as fs from 'fs-extra';
+import { join, resolve } from 'path';
+import { spawn } from 'child_process';
+import color from 'chalk';
 
-const { substitute } = require('../util');
+const { substitute, run } = require('../util');
 
 const cwd = process.cwd();
 const username = require('os').userInfo().username;
@@ -23,8 +23,11 @@ async function init({ dir, npmInstall }) {
     color`├ {cyan new}: creating the project scaffold in the {underline ${dir}} directory ...`
   );
 
+  const projectDir = join(cwd, dir);
+
   try {
     await fs.mkdir(join(cwd, dir));
+    await fs.mkdir(join(cwd, dir, 'log'));
 
     // static files
     await fs.copy(themeDir, join(cwd, dir), { overwrite: false, errorOnExist: true });
@@ -46,6 +49,14 @@ async function init({ dir, npmInstall }) {
     const path = join(cwd, dir, 'package.json');
     const content = generatePackageJSON(dir);
     await fs.outputJson(path, content, { spaces: 2 });
+
+    // Setup development database
+    const stdout = fs.openSync(join(cwd, dir, 'log/database.log'), 'a');
+
+    await run('/usr/bin/env', ['nix-shell', '--run', 'initdb -A trust'], { stdout, cwd: projectDir  });
+    await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl start -l ./log/postgresql.log'], { stdout, cwd: projectDir });
+    await run('/usr/bin/env', ['nix-shell', '--run', `createdb ${name}`], { cwd: projectDir });
+    await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl stop -l ./log/postgresql.log'], { stdout, cwd: projectDir });
 
     if (npmInstall) {
       console.log(color`└ {cyan new}: installing dependencies with {magenta npm install} ...`);

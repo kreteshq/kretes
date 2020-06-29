@@ -19,11 +19,11 @@
     "autoprefixer": "^9.8.4",
     "chokidar": "^3.4.0",
     "cross-env": "^7.0.2",
-    "node-pg-migrate": "^5.1.1",
+    "node-pg-migrate": "^5.2.0",
     "npm-check-updates": "^7.0.1",
     "prettier": "^2.0.5",
-    "rollup": "^2.18.0",
-    "snowpack": "^2.5.4",
+    "rollup": "^2.18.1",
+    "snowpack": "^2.6.1",
     "typescript": "^3.9.5",
     "tailwindcss": "^1.4.6"
   }
