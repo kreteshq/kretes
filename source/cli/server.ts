@@ -26,7 +26,7 @@ const Logger = require('../logger');
 const { VueHandler } = require('../machine/watcher');
 const { run } = require('../util');
 
-const stdout = fs.openSync('./log/database.log', 'a');
+let stdout;
 
 const reloadSQL = async (pool, file) => {
   const content = await fs.readFile(file);
@@ -105,6 +105,8 @@ const handler = async ({ port, production }) => {
     process.exit(1);
   }
   console.log(color`  {grey Starting... (it may take few seconds)}`);
+
+  stdout = fs.openSync('./log/database.log', 'a');
 
   await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl restart'], { stdout, stderr: stdout });
 
