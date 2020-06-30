@@ -5,6 +5,7 @@ import * as fs from 'fs-extra';
 import { join, resolve } from 'path';
 import { spawn } from 'child_process';
 import color from 'chalk';
+import { lookpath } from 'lookpath';
 
 const { substitute, run } = require('../util');
 
@@ -18,7 +19,15 @@ async function init({ dir, npmInstall }) {
 
   const name = dir.replace(/-/g, '_');
 
-  console.log(color`┌ {bold.blue Kretes} {bold ${VERSION}}`);
+  console.log(`${color.bold.blue('Kretes'.padStart(10))}: ` + color`{bold ${VERSION}}`);
+
+  const isNixInstalled = await lookpath('nix-shell');
+  if (!isNixInstalled) {
+    console.error(`${color.red('Error'.padStart(10))}: Kretes requires the Nix package manager`);
+    console.error(`${''.padStart(12)}${color.gray('https://nixos.org/guides/install-nix.html')}`);
+    process.exit(1);
+  }
+
   console.log(
     color`├ {cyan new}: creating the project scaffold in the {underline ${dir}} directory ...`
   );

@@ -41,4 +41,5 @@ const _argv = require('yargs')
   .demandCommand(1, 'You need at least one command before moving on')
   .help('h')
   .alias('h', 'help')
-  .epilogue('for more information, find the documentation at https://kretes.dev').argv;
+  .epilogue('for more information, find the documentation at https://kretes.dev')
+  .argv;

@@ -15,6 +15,7 @@ const transformPaths = require('@zerollup/ts-transform-paths');
 const pg = require('pg');
 const fg = require('fast-glob');
 const postcss = require('postcss');
+import { lookpath } from 'lookpath';
 
 import Kretes from '../';
 const VERSION = require('../../package.json').version;
@@ -96,6 +97,13 @@ const start = async ({ port }) => {
 
 const handler = async ({ port, production }) => {
   process.env.KRETES = production ? 'production' : 'development';
+
+  const isNixInstalled = await lookpath('nix-shell');
+  if (!isNixInstalled) {
+    console.error(`${color.red('Error'.padStart(10))}: Kretes requires the Nix package manager`);
+    console.error(`${''.padStart(12)}${color.gray('https://nixos.org/guides/install-nix.html')}`);
+    process.exit(1);
+  }
   console.log(color`  {grey Starting... (it may take few seconds)}`);
 
   await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl restart'], { stdout, stderr: stdout });
