@@ -3,14 +3,14 @@
 
 const fs = require('fs');
 const { exec } = require('child_process');
-const config = require('config');
-const cwd = process.cwd();
 
 const { run } = require('../util');
 
 async function handler(_) {
   console.log('Setup...');
 
+  const cwd = process.cwd();
+  const config = require('config');
   const { database, username } = config.get('db');
   const stdout = fs.openSync('./log/database.log', 'a');
 
