@@ -1,6 +1,6 @@
 {
   "name": "kretes",
-  "version": "0.65.0--DEV",
+  "version": "0.66.0",
   "description": "A Programming Environment for TypeScript apps built on top of VS Code",
   "main": "dist/index.js",
   "repository": "https://github.com/kreteshq/kretes",
@@ -39,7 +39,7 @@
     "@casl/ability": "^4.1.5",
     "@poppinss/chokidar-ts": "^2.0.6",
     "@sqorn/pg": "0.0.45",
-    "@vue/compiler-sfc": "^3.0.0-beta.16",
+    "@vue/compiler-sfc": "^3.0.0-beta.17",
     "@zerollup/ts-transform-paths": "^1.7.18",
     "apollo-server-core": "^2.15.1",
     "apollo-server-module-graphiql": "^2.0.0-beta.6",

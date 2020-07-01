@@ -23,7 +23,7 @@
     "npm-check-updates": "^7.0.1",
     "prettier": "^2.0.5",
     "rollup": "^2.18.1",
-    "snowpack": "^2.6.1",
+    "snowpack": "^2.6.3",
     "typescript": "^3.9.5",
     "tailwindcss": "^1.4.6"
   }
