@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "kretes": "^0.65.0"
+    "kretes": "^0.66.0"
   },
   "snowpack": {
     "webDependencies": [
@@ -15,16 +15,16 @@
     "not ie <= 8"
   ],
   "devDependencies": {
-    "@wessberg/rollup-plugin-ts": "^1.2.26",
+    "@wessberg/rollup-plugin-ts": "^1.2.27",
     "autoprefixer": "^9.8.4",
     "chokidar": "^3.4.0",
     "cross-env": "^7.0.2",
     "node-pg-migrate": "^5.2.0",
     "npm-check-updates": "^7.0.1",
     "prettier": "^2.0.5",
-    "rollup": "^2.18.1",
+    "rollup": "^2.20.0",
     "snowpack": "^2.6.3",
-    "typescript": "^3.9.5",
+    "typescript": "^3.9.6",
     "tailwindcss": "^1.4.6"
   }
 }
