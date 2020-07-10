@@ -49,5 +49,5 @@ const translate = (name, resource) =>
 
 module.exports = {
   build,
-  translate
+  translate,
 };
