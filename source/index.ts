@@ -143,7 +143,15 @@ export default class Kretes {
       const handlers = build();
       for (let { resource, operation, dir } of handlers) {
         try {
-          const handler = require(`${join(handlerDir, dir, operation)}.js`);
+          const { [operation]: handler } = require(`${join(handlerDir, dir, operation)}.js`);
+
+          // FIXME better description
+          // it happens when the function name inside the handler file
+          // is different than the file name
+          if (undefined === handler) {
+            throw new Error(`Handler name mismatch for ${operation}`)
+          }
+
           let { method, route } = translate(operation, resource.toLowerCase());
 
           route = route.replace('_', ':');
