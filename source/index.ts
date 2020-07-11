@@ -27,6 +27,8 @@ const { compose } = require('./util');
 const cwd = process.cwd();
 const handlerDir = join(cwd, 'dist');
 
+const HTTPMethods = ['GET', 'POST', 'PUT', 'PATCH', 'HEAD', 'OPTIONS', 'DELETE'];
+
 export interface Request {
   params: {
     [name: string]: any
@@ -45,6 +47,7 @@ export interface Request {
   },
   url: string,
   method: string
+  format: string
 }
 
 export type Handler = (request: Request) => Response | Promise<Response>;
@@ -55,30 +58,22 @@ export interface Resource {
   children?: Resource[]
 }
 
-export interface Routes {
-  DELETE?: {
-    [name: string]: Handler
-  },
-  GET?: {
-    [name: string]: Handler
-  },
-  HEAD?: {
-    [name: string]: Handler
-  },
-  OPTIONS?: {
-    [name: string]: Handler
-  }
-  PATCH?: {
-    [name: string]: Handler
-  },
-  POST?: {
-    [name: string]: Handler
-  },
-  PUT?: {
-    [name: string]: Handler
-  },
-  Resources?: Resource[]
+interface RouteParams {
+  GET?: Handler
+  POST?: Handler
+  PUT?: Handler
+  PATCH?: Handler
+  DELETE?: Handler
+  middleware?: any
 }
+export type Route = [string, RouteParams, Route?];
+export type Routes = Route[];
+
+
+// export interface Routes {
+//   // FIXME [plug1, plug2, ..., plugk, handler] what's the type?
+//   [name: string]: Handler | any[]
+// }
 
 const lookupHandler = ({ feature, action }) => {
   const path = join(cwd, 'dist', 'features', feature, 'Controller', `${action}.js`);
@@ -247,19 +242,16 @@ export default class Kretes {
     }
   }
 
-  async start({ routes = {}, port = 0 } = {}) {
-    for (let [method, route] of Object.entries(routes)) {
-      if (method !== 'Resources') {
-        for (let [path, handler] of Object.entries(route)) {
-          if (Array.isArray(handler)) {
-            this.add(method, path, ...handler);
-          } else {
-            this.add(method, path, handler);
-          }
+
+  async start({ routes = [], port = 0 } = {}) {
+    for (const [path, params] of routes) {
+      const { middleware = [] } = params;
+      for (let [method, handler] of Object.entries(params)) {
+        if (HTTPMethods.includes(method)) {
+          const flow = middleware.concat(handler);
+          this.add(method, path, ...flow);
         }
-      } else {
-        const resources = route;
-        this.buildResourceDependencies(resources);
+        // else: a key name undefined in the spec -> discarding
       }
     }
 
@@ -401,7 +393,7 @@ const handle = context => result => {
 // import {
 //   auth,
 //   background,
-//   db,
+//   database,
 //   request,
 //   response,
 //   view,
@@ -412,6 +404,7 @@ export * as background from './background';
 export * as request from './request';
 export * as response from './response';
 export * as view from './view';
+export * as routing from './routing';
 
 import database from './db';
 export { database };

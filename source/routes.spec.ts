@@ -4,12 +4,12 @@ import Kretes from '.';
 
 test.skip('routes should be passed to the start method', async assert => {
   const server = new Kretes();
-  const routes = {
-    get: { '/': _ => 'Hello, GET!' },
-    post: { '/': _ => 'Hello, POST!' },
-    put: { '/': _ => 'Hello, PUT!' },
-    delete: { '/': _ => 'Hello, DELETE!' }
-  };
+  const routes = [
+    [ '/', { GET: _ => 'Hello, GET!'} ],
+    [ '/', { POST: _ => 'Hello, POST!' } ],
+    [ '/', { PUT: _ => 'Hello, PUT!' } ],
+    [ '/', { DELETE: _ => 'Hello, DELETE!' } ]
+  ];
   await server.start({ routes });
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   const response1 = await http.get('/');

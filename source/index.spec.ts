@@ -3,10 +3,12 @@ import axios from 'axios';
 
 const { before, after } = test;
 
-import Kretes, { response, request } from '.';
+import Kretes, { response, request, routing } from '.';
 
 const { OK, Created, HTMLString, Page } = response;
 const { validate } = request;
+const { Route: { GET, POST } } = routing;
+
 
 const merge = require('merge-deep');
 const FormData = require('form-data');
@@ -19,53 +21,43 @@ const ExplicitResponse = {
   body: { hello: 'Kretes' },
 };
 
-const GETs = {
-  get: {
-    '/': _ => 'Hello, Kretes',
-    '/json-explicit-response': _ => ExplicitResponse,
-    '/json-helper-response': _ => OK({ hello: 'Kretes' }),
-    '/json-created-response': _ => Created({ status: 'Created!' }),
-    '/route-params/:name': ({ params }) => OK({ hello: params.name }),
-    '/query-params': ({ params: { search } }) => OK({ search }),
-    '/error': _ => Page('index@Unknown', {}),
-    '/invalid-route-no-return': _ => {
-      'Kretes';
-    },
-    '/html-content': _ => HTMLString('<h1>Kretes - Programming Environment for TypeScript</h1>'),
-    '/accept-header-1': ({ format }) => OK(format),
-    '/explicit-format': ({ format }) => OK(format),
-    '/id': ({ request }) => OK(request.id),
-  },
-};
+const GETs = [
+  GET('/', _ => 'Hello, Kretes'),
+  GET('/json-explicit-response', _ => ExplicitResponse),
+  GET('/json-helper-response', _ => OK({ hello: 'Kretes' })),
+  GET('/json-created-response', _ => Created({ status: 'Created!' })),
+  GET('/route-params/:name', ({ params }) => OK({ hello: params.name })),
+  GET('/query-params', ({ params: { search } }) => OK({ search })),
+  GET('/error', _ => Page('index@Unknown', {})),
+  GET('/html-content', _ => HTMLString('<h1>Kretes - Programming Environment for TypeScript</h1>')),
+  GET('/accept-header-1', ({ format }) => OK(format)),
+  GET('/explicit-format', ({ format }) => OK(format))
+];
 
-const POSTs = {
-  post: {
-    '/post-json': ({ params: { name } }) => `Received -> ${name}`,
-    '/post-form': ({ params: { name } }) => `Received -> ${name}`,
-    '/upload': ({ files }) => {
-      return `Uploaded -> ${files.upload.name}`;
-    }
-  }
-};
+const POSTs = [
+  POST('/post-json', ({ params: { name } }) => `Received -> ${name}`),
+  POST('/post-form', ({ params: { name } }) => `Received -> ${name}`),
+  POST('/upload', ({ files }) => {
+    return `Uploaded -> ${files.upload.name}`;
+  })
+];
 
 // Function Compositions
 
 const identity = _ => _;
 const prepend = next => async request => `Prefix -> ${await next(request)}`;
 
-const Compositions = {
-  get: {
-    '/simple-compose': [identity, _ => 'Simple Compose'],
-    '/prepend-compose': [prepend, _ => 'Prepend Compose'],
-    '/request-validation': [
-      validate({ name: { type: String, required: true } }),
-      ({ params: { admin } }) =>
-        `Admin param (${admin}) should be absent from this request payload`
-    ],
-  },
-};
+const Compositions = [
+  GET('/simple-compose', _ => 'Simple Compose', [identity]),
+  GET('/prepend-compose', _ => 'Prepend Compose', [prepend]),
+  GET('/request-validation',
+    ({ params: { admin } }) =>
+      `Admin param (${admin}) should be absent from this request payload`,
+    [ validate({ name: { type: String, required: true } }) ]
+  ),
+ ];
 
-const routes = merge({}, GETs, POSTs, Compositions);
+const routes = [].concat(GETs, POSTs, Compositions);
 
 let get, post;
 
@@ -203,12 +195,6 @@ test('accepts POST params as Form', async assert => {
 });
 
 // Tests for function composistions (aka middleware-like)
-
-test('compose middlewares with .use', async assert => {
-  const response = await get('/id');
-  assert.is(response.status, 200);
-  assert.truthy(response.data.startsWith('id-'))
-})
 
 test('compose functions & return string', async assert => {
   const { status, data } = await get('/simple-compose');

@@ -17,7 +17,7 @@ const fg = require('fast-glob');
 const postcss = require('postcss');
 import { lookpath } from 'lookpath';
 
-import Kretes from '../';
+import Kretes, { Routes } from '../';
 const VERSION = require('../../package.json').version;
 const { parser } = require('../parser');
 const { generateRPCOnClient } = require('../rpc');
@@ -48,7 +48,7 @@ const start = async ({ port }) => {
   //
   const app = new Kretes();
 
-  let routes = {};
+  let routes: Routes = [];
   try {
     await app.setup();
     routes = require(join(CWD, 'dist/config/server/routes')).default;
