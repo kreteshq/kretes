@@ -12,6 +12,7 @@ import Security from './security';
 import Serve from './serve';
 import SPA from './spa';
 import Transforming from './transforming';
+import TransformingTypeScript from './typescript';
 
 class Base extends Array {
   async next(context, last, current, done?, called?, func?) {
@@ -47,4 +48,5 @@ export {
   Serve,
   SPA,
   Transforming,
+  TransformingTypeScript,
 };

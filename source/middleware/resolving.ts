@@ -1,3 +1,6 @@
+// Copyright Zaiste. All rights reserved.
+// Licensed under the Apache License, Version 2.0
+
 const debug = require('debug')('ks:middleware:resolving')
 
 import fs from 'fs-extra';
@@ -20,6 +23,7 @@ const Resolving = () => {
       const content = await fs.readFile(Vue.Runtime.Browser, 'utf-8')
       return JavaScriptString(content)
     }
+
 
     if (RE.IsFeaturesImport.test(id)) {
       const content = await fs.readFile(App.features(id), 'utf-8')

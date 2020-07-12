@@ -1,3 +1,6 @@
+// Copyright Zaiste. All rights reserved.
+// Licensed under the Apache License, Version 2.0
+
 export const debug = require('debug')('ks:middleware:rewriting')
 
 import { promises as fs } from 'fs';

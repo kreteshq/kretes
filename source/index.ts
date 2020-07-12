@@ -258,6 +258,7 @@ export default class Kretes {
     this.use(Middleware.Rewriting());
     this.use(Middleware.Resolving());
     this.use(Middleware.Transforming());
+    this.use(Middleware.TransformingTypeScript());
     this.use(Middleware.HotReloading());
     this.use(Middleware.SPA());
 
