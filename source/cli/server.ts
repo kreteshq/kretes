@@ -20,11 +20,12 @@ import { lookpath } from 'lookpath';
 import Kretes, { Routes } from '../';
 const VERSION = require('../../package.json').version;
 const { parser } = require('../parser');
-const { generateRPCOnClient } = require('../rpc');
 const Logger = require('../logger');
 // const SQLCompiler = require('../compiler/sql');
 const { VueHandler } = require('../machine/watcher');
 const { run } = require('../util');
+
+import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 
 let stdout;
 
@@ -204,13 +205,14 @@ const handler = async ({ port, production }) => {
     const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
     delete require.cache[cacheKey];
 
-    if (dir.includes('Service') && name == 'Interface') {
-      const interfaceFile = await fs.readFile(`${join(CWD, dir, name)}.ts`);
-      const results = parser(interfaceFile.toString());
+    if (dir.includes('Service')) {
+      console.log('here')
+      const interfaceFile = await fs.readFile(`${join(CWD, dir, 'index')}.ts`, 'utf-8');
+      const results = parser(interfaceFile);
       const [_interface, methods] = Object.entries(results).shift();
       const entityName = _interface.split('ServiceInterface').shift();
 
-      const generated = generateRPCOnClient({ name: entityName, methods });
+      const generated = generateWebRPCOnClient(entityName, methods as RemoteMethodList);
 
       await fs.writeFile(join(CWD, 'features', entityName, 'Requester.ts'), generated);
     }
