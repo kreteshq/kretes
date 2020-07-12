@@ -13,6 +13,7 @@ const rewrite = async (source: string, importer: string) => {
 
     if (imports.length <= 0) {
       debug(`no imports in "${importer}"`)
+      return source
     } else {
       debug(`rewriting "${importer}"`)
       const s = new MagicString(source)
