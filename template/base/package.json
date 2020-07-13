@@ -19,7 +19,7 @@
     "autoprefixer": "^9.8.5",
     "chokidar": "^3.4.0",
     "cross-env": "^7.0.2",
-    "node-pg-migrate": "^5.2.0",
+    "node-pg-migrate": "^5.3.0",
     "npm-check-updates": "^7.0.1",
     "prettier": "^2.0.5",
     "rollup": "^2.21.0",

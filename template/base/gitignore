@@ -62,3 +62,4 @@ typings/
 dist/
 build/
 public/
+db/content/
