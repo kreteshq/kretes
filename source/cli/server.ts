@@ -209,7 +209,7 @@ const handler = async ({ port, production }) => {
       const interfaceFile = await fs.readFile(`${join(CWD, dir, 'index')}.ts`, 'utf-8');
       const results = parser(interfaceFile);
       const [_interface, methods] = Object.entries(results).shift();
-      const feature = _interface.split('ServiceInterface').shift();
+      const feature = _interface.split('Service').shift();
 
       const generatedClient = generateWebRPCOnClient(feature, methods as RemoteMethodList);
       await fs.writeFile(join(CWD, 'features', feature, 'Caller.ts'), generatedClient);
