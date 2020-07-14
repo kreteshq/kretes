@@ -61,7 +61,7 @@
     "graphile-worker": "^0.6.0",
     "graphql": "^15.3.0",
     "graphql-tag": "^2.10.4",
-    "graphql-tools": "^6.0.12",
+    "graphql-tools": "^6.0.13",
     "http-status": "^1.4.2",
     "js-yaml": "^3.14.0",
     "lookpath": "^1.0.6",

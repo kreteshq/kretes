@@ -212,7 +212,7 @@ const handler = async ({ port, production }) => {
       const feature = _interface.split('ServiceInterface').shift();
 
       const generatedClient = generateWebRPCOnClient(feature, methods as RemoteMethodList);
-      await fs.writeFile(join(CWD, 'features', feature, 'Requester.ts'), generatedClient);
+      await fs.writeFile(join(CWD, 'features', feature, 'Caller.ts'), generatedClient);
 
       const serviceClass = require(cacheKey).default;
       const service = new serviceClass()
