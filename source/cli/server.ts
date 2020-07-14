@@ -46,7 +46,6 @@ let sockets = [];
 
 
 const start = async ({ port }) => {
-  //
   const app = new Kretes();
 
   let routes: Routes = [];
@@ -95,7 +94,7 @@ const start = async ({ port }) => {
 
   process.on('SIGINT', onExit);
 
-  return server;
+  return [app, server];
 };
 
 const handler = async ({ port, production }) => {
@@ -134,6 +133,7 @@ const handler = async ({ port, production }) => {
 
   const watcher = compiler.watcher(config);
 
+  let server;
   let app;
 
   watcher.on('watcher:ready', async () => {
@@ -141,7 +141,7 @@ const handler = async ({ port, production }) => {
     // for await (const entry of stream) await reloadSQL(pool, entry);
 
     // start the HTTP server
-    app = await start({ port });
+    [app, server] = await start({ port });
   });
 
   // files other than `.ts` have changed
@@ -195,8 +195,8 @@ const handler = async ({ port, production }) => {
 
     sockets = [];
 
-    app.close(async () => {
-      app = await start({ port });
+    server.close(async () => {
+      [app, server] = await start({ port });
     });
 
     // clean the `require` cache
@@ -206,15 +206,28 @@ const handler = async ({ port, production }) => {
     delete require.cache[cacheKey];
 
     if (dir.includes('Service')) {
-      console.log('here')
       const interfaceFile = await fs.readFile(`${join(CWD, dir, 'index')}.ts`, 'utf-8');
       const results = parser(interfaceFile);
       const [_interface, methods] = Object.entries(results).shift();
-      const entityName = _interface.split('ServiceInterface').shift();
+      const feature = _interface.split('ServiceInterface').shift();
 
-      const generated = generateWebRPCOnClient(entityName, methods as RemoteMethodList);
+      const generatedClient = generateWebRPCOnClient(feature, methods as RemoteMethodList);
+      await fs.writeFile(join(CWD, 'features', feature, 'Requester.ts'), generatedClient);
 
-      await fs.writeFile(join(CWD, 'features', entityName, 'Requester.ts'), generated);
+      const serviceClass = require(cacheKey).default;
+      const service = new serviceClass()
+
+      // TODO add removal of routes
+      for (const [method, { input, output }] of Object.entries(methods)) {
+        app.add('POST', `/rpc/${feature}/${method}`, async () => {
+          const result = await service[method]();
+          return {
+            statusCode: 200,
+            body: JSON.stringify(result),
+            type: 'application/json',
+          };
+        });
+      }
     }
   });
 

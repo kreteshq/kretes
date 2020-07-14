@@ -156,13 +156,6 @@ export default class Kretes {
           } else {
             this.add(method, route, handler);
           }
-
-          if (WebRPC)
-            this.add(
-              'POST',
-              `/rpc/${resource}/${operation}`,
-              ...(Array.isArray(handler) ? handler : [handler])
-            );
         } catch (error) {
           console.error(error);
         }
