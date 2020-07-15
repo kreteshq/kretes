@@ -1,0 +1,39 @@
+// See https://go.microsoft.com/fwlink/?LinkId=733558
+// for the documentation about the tasks.json format
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Update",
+      "detail": "Update the dependencies in `package.json`",
+      "type": "shell",
+      "isBackground": true,
+      "command": "pnpm up",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
+    },
+    {
+      "label": "Install",
+      "detail": "Install (or refresh) the dependencies from `package.json`",
+      "type": "shell",
+      "isBackground": true,
+      "command": "pnpm install",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
+    }
+  ]
+}
