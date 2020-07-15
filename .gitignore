@@ -1,6 +1,7 @@
 .cache/
 examples/**/static/
 output/
+_play/
 
 
 # Logs

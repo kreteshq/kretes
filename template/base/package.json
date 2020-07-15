@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "kretes": "^0.66.0"
+    "kretes": "^0.67.0"
   },
   "snowpack": {
     "webDependencies": [
