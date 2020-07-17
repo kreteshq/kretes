@@ -65,5 +65,4 @@ dist/
 build/
 .build
 
-.vscode/
 .cache/**/*

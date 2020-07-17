@@ -34,6 +34,22 @@
         "showReuseMessage": false,
         "clear": false
       }
+    },
+    {
+      "label": "Watch",
+      "detail": "Watch",
+      "type": "shell",
+      "isBackground": true,
+      "command": "pnpm dev:main",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
     }
   ]
 }
