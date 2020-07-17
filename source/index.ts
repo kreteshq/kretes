@@ -75,18 +75,6 @@ export type Routes = Route[];
 //   [name: string]: Handler | any[]
 // }
 
-const lookupHandler = ({ feature, action }) => {
-  const path = join(cwd, 'dist', 'features', feature, 'Controller', `${action}.js`);
-
-  try {
-    return require(path);
-  } catch (error) {
-    console.error(`'features/${feature}/Controller/${action}.js' could not be loaded.`);
-
-    // return a handler that just informs about the missing handler
-    return _ => `You need to create 'features/${feature}/Controller/${action}.js'`;
-  }
-};
 
 const lookupViews = async () => {
   const path = join(cwd, 'features/**/*.html');
@@ -207,34 +195,6 @@ export default class Kretes {
 
     return this;
   }
-
-  buildResourceDependencies(resources, parent = null) {
-    for (let { feature, alias, children } of resources) {
-      const path = `${(alias || feature).toLowerCase()}`;
-      const scopedPath = parent ? `${parent}/:id/${path}` : path;
-
-      try {
-        // add member routes
-        this.add('GET', `/${path}/:id`, lookupHandler({ feature, action: 'fetch' }));
-        this.add('PUT', `/${path}/:id`, lookupHandler({ feature, action: 'update' }));
-        this.add('DELETE', `/${path}/:id`, lookupHandler({ feature, action: 'destroy' }));
-
-        // add collection routes (potentially scoped)
-        this.add('GET', `/${scopedPath}`, lookupHandler({ feature, action: 'browse' }));
-        this.add('POST', `/${scopedPath}`, lookupHandler({ feature, action: 'create' }));
-
-        if (children) {
-          // recursively go in with `parent` set
-          this.buildResourceDependencies(children, (alias || feature).toLowerCase());
-        }
-      } catch (error) {
-        console.error(`There is no feature ${feature} -> ${error.message}`);
-      }
-
-      // recursion goes up here
-    }
-  }
-
 
   async start({ routes = [], port = 0 } = {}) {
     for (const [path, params] of routes) {
