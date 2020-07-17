@@ -17,6 +17,7 @@ const fg = require('fast-glob');
 const postcss = require('postcss');
 import { lookpath } from 'lookpath';
 
+import * as Middleware from '../middleware';
 import Kretes, { Routes } from '../';
 const VERSION = require('../../package.json').version;
 const { parser } = require('../parser');
@@ -55,6 +56,13 @@ const start = async ({ port }) => {
   } catch (e) {
     console.error(e.message);
   }
+
+  app.use(Middleware.Rewriting());
+  app.use(Middleware.Resolving());
+  app.use(Middleware.Transforming());
+  app.use(Middleware.TransformingTypeScript());
+  app.use(Middleware.HotReloading());
+  app.use(Middleware.SPA());
 
   const server = await app.start({ routes, port });
 

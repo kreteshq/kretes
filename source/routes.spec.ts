@@ -2,7 +2,7 @@ import test from 'ava';
 import axios from 'axios';
 import Kretes from '.';
 
-test.skip('routes should be passed to the start method', async assert => {
+test('routes should be passed to the start method', async assert => {
   const server = new Kretes();
   const routes = [
     [ '/', { GET: _ => 'Hello, GET!'} ],
