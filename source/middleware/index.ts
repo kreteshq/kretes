@@ -1,15 +1,15 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import CORS from './cors';
-import Caching from './caching';
-import Extractor from './extractor';
+export { CORS } from './cors';
+export { Caching } from './caching';
+export { Extractor } from './extractor';
 import HotReloading from './hotreloading';
 import Resolving from './resolving';
 import Rewriting from './rewriting';
-import Routing from './routing';
+export { Routing } from './routing';
 import Security from './security';
-import Serve from './serve';
+export { Serve } from './serve';
 import SPA from './spa';
 import Transforming from './transforming';
 import TransformingTypeScript from './typescript';
@@ -37,15 +37,10 @@ class Base extends Array {
 
 export {
   Base,
-  CORS,
-  Caching,
-  Extractor,
   HotReloading,
   Resolving,
   Rewriting,
-  Routing,
   Security,
-  Serve,
   SPA,
   Transforming,
   TransformingTypeScript,

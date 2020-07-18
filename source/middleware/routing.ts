@@ -1,21 +1,21 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const debug = require('debug')('kretes:routing');
+import Debug from 'debug';
+const debug = Debug('ks:middleware:routing'); // eslint-disable-line no-unused-vars
 
-const assert = require('assert');
-const querystring = require('querystring');
-const { parse } = require('url');
-const Busboy = require('busboy');
+import querystring from 'querystring';
+import { parse } from 'url';
+import Busboy from 'busboy';
 
-const {
+import {
   isObject,
   parseCookies,
   parseAcceptHeader,
   toBuffer,
-} = require('../util');
+} from '../util';
 
-const Routing = (router, options = {}) => {
+export const Routing = (router, options = {}) => {
   return async (context, next) => {
     const method = context.request.method;
     const { pathname, query } = parse(context.request.url, true); // TODO Test perf vs RegEx
@@ -55,7 +55,7 @@ const handleRequest = async context => {
         Object.assign(context.params, querystring.parse(buffer.toString()));
         break;
       case 'application/json': {
-        const result = JSON.parse(buffer);
+        const result = JSON.parse(buffer.toString());
         if (isObject(result)) {
           Object.assign(context.params, result);
         }
@@ -94,5 +94,3 @@ const handleRequest = async context => {
     }
   }
 };
-
-module.exports = Routing;

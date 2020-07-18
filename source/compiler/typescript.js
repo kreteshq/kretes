@@ -1,3 +1,6 @@
+// Copyright Zaiste. All rights reserved.
+// Licensed under the Apache License, Version 2.0
+
 const ts = require('typescript');
 
 const rewritePath = (importPath, { alias, regexes }) => {

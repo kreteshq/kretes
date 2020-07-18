@@ -1,12 +1,14 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const crypto = require('crypto');
-const Stream = require('stream');
-const { NotModified } = require('../response');
-const fs = require('fs').promises;
+import Debug from 'debug';
+const debug = Debug('ks:middleware:caching'); // eslint-disable-line no-unused-vars
 
-module.exports = () => {
+import crypto from 'crypto';
+import Stream from 'stream';
+import { NotModified } from '../response';
+
+export const Caching = () => {
   return async (context, next) => {
     const response = await next();
 
@@ -35,7 +37,7 @@ module.exports = () => {
 
     const length = typeof content === 'string'
           ? Buffer.byteLength(content, 'utf8')
-          : entity.length
+          : 666;
 
     const etag = `"${length.toString(16)}-${hash}"`;
     headers.ETag = etag;

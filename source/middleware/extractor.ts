@@ -1,11 +1,12 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const debug = require('debug')('ks:middleware:extractor');
+import Debug from 'debug';
+const debug = Debug('ks:middleware:extractor'); // eslint-disable-line no-unused-vars
 
-const { parse } = require('url');
+import { parse } from 'url';
 
-module.exports = () => {
+export const Extractor = () => {
   return async (context, next) => {
     const method = context.request.method;
     const { pathname, query } = parse(context.request.url, true); // TODO Test perf vs RegEx

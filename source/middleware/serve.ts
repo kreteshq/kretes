@@ -1,26 +1,16 @@
-// Copyright 2019 Zaiste & contributors. All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Zaiste. All rights reserved.
+// Licensed under the Apache License, Version 2.0
+import Debug from 'debug';
+const debug = Debug('ks:middleware:serve'); // eslint-disable-line no-unused-vars
 
-const debug = require('debug')('kretes:static');
+import { promises as fs } from 'fs-extra';
 
-const fs = require('fs-extra');
+import path from 'path';
+import assert from 'assert';
+import mime from 'mime-types';
+import { parse } from 'url';
 
-const path = require('path');
-const assert = require('assert');
-const mime = require('mime-types');
-const { parse } = require('url');
-
-const serve = (root, opts = { index: 'index.html' }) => {
+export const Serve = (root, opts = { index: 'index.html' }) => {
   assert(root, 'you need to specify `root` directory');
   debug('"%s" %j', root, opts);
 
@@ -59,5 +49,3 @@ const serve = (root, opts = { index: 'index.html' }) => {
     }
   };
 };
-
-module.exports = serve;
