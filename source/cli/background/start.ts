@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0
 
 import Debug from 'debug';
-const debug = Debug('ks:background'); // eslint-disable-line no-unused-vars
+const debug = Debug('ks:cli:background'); // eslint-disable-line no-unused-vars
 
 import { Pool } from 'pg';
 import { run } from 'graphile-worker';

@@ -1,7 +1,9 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
+import Debug from 'debug';
+const debug = Debug('ks:cli:client'); // eslint-disable-line no-unused-vars
+
 const { spawn } = require('child_process');
 const { join } = require('path');
 const fs = require('fs-extra');

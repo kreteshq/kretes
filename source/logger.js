@@ -32,7 +32,7 @@ ${util.inspect(params, { compact: false, colors: true, sorted: true }).slice(2, 
   static printError(error, layer = 'General') {
     console.error(
       color`  {bold.red Error} {bold.underline ${error.message}}
-  {gray Explanation} \n  ${explain.for(error)}
+  {gray Explanation} \n  ${explain.forError(error)}
 \n  {gray Stack trace}`
     );
 

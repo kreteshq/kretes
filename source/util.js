@@ -126,7 +126,11 @@ const generateSourceMap = input => {
   return `\n//# sourceMappingURL=data:application/json;base64,${map}`;
 }
 
-const run = async (command, args, { stdout = 'inherit', stderr = 'inherit', cwd = '.' } = {}) => {
+const run = async (
+  command,
+  args,
+  { stdout = 'inherit', stderr = 'inherit', cwd = '.' } = {}
+) => {
   return await new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       stdio: ['ignore', stdout, stderr],
