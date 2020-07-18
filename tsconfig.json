@@ -9,7 +9,8 @@
     "lib": ["ESNext"],
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "declaration": true
+    "declaration": true,
+    "resolveJsonModule": true
   },
   "include": ["source/**/*"],
   "exclude": ["source/hot/**/*"]
