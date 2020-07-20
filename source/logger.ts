@@ -1,10 +1,10 @@
-const util = require('util');
-const color = require('chalk');
-const { parse } = require('url');
-const stackParser = require('error-stack-parser');
-const httpstatus = require('http-status');
+import util from 'util';
+import color from 'chalk';
+import { parse } from 'url';
+import stackParser from 'error-stack-parser';
+import httpstatus from 'http-status';
 
-const explain = require('./explainer');
+import * as explain from './explainer';
 
 const displayStatusCode = statusCode =>
   ({
@@ -13,11 +13,11 @@ const displayStatusCode = statusCode =>
     4: color`{blue ${statusCode}}`
   }[~~(statusCode / 100)]);
 
-class Logger {
+export default class Logger {
   static printRequestResponse(context) {
     const { request, response, params } = context;
     const { method } = request;
-    const { pathname, _query } = parse(context.request.url, true); // TODO Test perf vs RegEx
+    const { pathname, query } = parse(context.request.url, true); // TODO Test perf vs RegEx
     const { statusCode } = response;
 
     console.log(
@@ -42,5 +42,3 @@ ${util.inspect(params, { compact: false, colors: true, sorted: true }).slice(2, 
     }
   }
 }
-
-module.exports = Logger;

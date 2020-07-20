@@ -1,7 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const fs = require('fs-extra');
+import { promises as fs } from 'fs';
 
 const JSDocFunctionNameRegex = /@name (\w+)/;
 const JSDocParamRegex = /@param (?:{(\w+)}\s+)?(\$?\w+)(.*)/g;
@@ -95,7 +95,7 @@ function* parseContent(fileContent) {
   }
 }
 
-const compile = async filepath => {
+export const compile = async filepath => {
   const fileContent = await fs.readFile(filepath, 'utf8');
 
   const sections = parseContent(fileContent);
@@ -110,5 +110,3 @@ const compile = async filepath => {
 
   return output;
 };
-
-module.exports = { compile };

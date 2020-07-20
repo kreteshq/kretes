@@ -1,12 +1,10 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
+import Debug from 'debug';
+const debug = Debug('ks:cli:deploy'); // eslint-disable-line no-unused-vars
 
-process.env.SUPPRESS_NO_CONFIG_WARNING = 'y';
-
-const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
-const rsyncwrapper = require('rsyncwrapper');
-const config = require('config');
-const { bold, underline, green, magenta } = require('chalk');
+import rsyncwrapper from 'rsyncwrapper';
+import { bold, underline, green, magenta } from 'chalk';
 
 const VERSION = require('../../package.json').version;
 
@@ -27,7 +25,9 @@ const rsync = async (options, showCommand = false) => {
   });
 };
 
-const deploy = async ({ showCommand }) => {
+export const handler = async ({ showCommand }) => {
+  const { default: config } = await import('config'); // defer the config loading
+
   const { server, client } = config.get('deploy');
   try {
     console.log(
@@ -57,7 +57,4 @@ const deploy = async ({ showCommand }) => {
   }
 };
 
-module.exports = {
-  builder: _ => _.option('showCommand', { default: false }),
-  handler: deploy
-};
+export const builder = _ => _.option('showCommand', { default: false });

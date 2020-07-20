@@ -1,4 +1,4 @@
-const ts = require('typescript');
+import ts from 'typescript';
 
 // {
 //   "PlanetServiceInterface": {
@@ -11,7 +11,7 @@ const ts = require('typescript');
 //   }
 // }
 
-const parser = input => {
+export const parser = input => {
   const node = ts.createSourceFile('x.ts', input, ts.ScriptTarget.Latest);
 
   let result;
@@ -68,8 +68,4 @@ const parser = input => {
   }
 
   return r;
-};
-
-module.exports = {
-  parser,
 };

@@ -11,23 +11,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const { spawn } = require('child_process');
+import { spawn, StdioOptions } from 'child_process';
+import { StdinOptions } from 'esbuild';
 
-function pick(obj, keys) {
+export function pick(obj, keys) {
   return keys.reduce((acc, k) => {
     acc[k] = obj[k];
     return acc;
   }, {});
 }
 
-function isObject(_) {
+export function isObject(_) {
   return !!_ && typeof _ === 'object';
   //return !!_ && _.constructor === Object;
 }
 
 //const isObject = _ => !!_ && _.constructor === Object;
 
-const substitute = (template, data) => {
+export const substitute = (template, data) => {
   const start = '{{';
   const end = '}}';
   const path = '[a-z0-9_$][\\.a-z0-9_]*';
@@ -53,9 +54,9 @@ const substitute = (template, data) => {
   });
 };
 
-const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
+export const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
 
-const toBuffer = async stream => {
+export const toBuffer = async stream => {
   const chunks = [];
   for await (let chunk of stream) {
     chunks.push(chunk);
@@ -63,7 +64,7 @@ const toBuffer = async stream => {
   return Buffer.concat(chunks);
 };
 
-const streamToString = async stream => {
+export const streamToString = async stream => {
   let chunks = '';
 
   return new Promise((resolve, reject) => {
@@ -73,7 +74,7 @@ const streamToString = async stream => {
   });
 };
 
-const parseCookies = (cookieHeader = '') => {
+export const parseCookies = (cookieHeader = '') => {
   const cookies = cookieHeader.split(/; */);
   const decode = decodeURIComponent;
 
@@ -107,14 +108,14 @@ const parseCookies = (cookieHeader = '') => {
   return result;
 };
 
-const parseAcceptHeader = ({ accept = '*/*' }) => {
+export const parseAcceptHeader = ({ accept = '*/*' }) => {
   const preferredType = accept.split(',').shift();
   const format = preferredType.split('/').pop();
 
   return format;
 };
 
-const generateSourceMap = input => {
+export const generateSourceMap = input => {
   if (!input) {
     return '';
   }
@@ -126,10 +127,16 @@ const generateSourceMap = input => {
   return `\n//# sourceMappingURL=data:application/json;base64,${map}`;
 }
 
-const run = async (
+interface Options {
+  stdout?: 'inherit' | 'pipe'
+  stderr?: 'inherit' | 'pipe'
+  cwd?: string
+}
+
+export const run = async (
   command,
   args,
-  { stdout = 'inherit', stderr = 'inherit', cwd = '.' } = {}
+  { stdout = 'inherit', stderr = 'inherit', cwd = '.' }: Options = {}
 ) => {
   return await new Promise((resolve, reject) => {
     const child = spawn(command, args, {
@@ -141,17 +148,4 @@ const run = async (
       else resolve();
     });
   });
-};
-
-module.exports = {
-  pick,
-  isObject,
-  substitute,
-  compose,
-  toBuffer,
-  streamToString,
-  parseCookies,
-  parseAcceptHeader,
-  generateSourceMap,
-  run,
 };

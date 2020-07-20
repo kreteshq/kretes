@@ -1,7 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const ts = require('typescript');
+import ts from 'typescript';
 
 const rewritePath = (importPath, { alias, regexes }) => {
   const patterns = Object.keys(alias);
@@ -52,7 +52,7 @@ const visitor = (ctx, sf, options) => {
   return _visitor;
 };
 
-const rewrite = options => {
+export const rewrite = options => {
   const { alias = {} } = options;
 
   options.regexes = Object.keys(alias).reduce((stored, pattern) => ({
@@ -62,13 +62,9 @@ const rewrite = options => {
   return ctx => sf => ts.visitNode(sf, visitor(ctx, sf, options));
 };
 
-const snowpackImportRewriter = () =>
+export const snowpackImportRewriter = () =>
   rewrite({
     alias: {
       '^([a-z@][\\w\/-]+)$': '/modules/$1.js'
     }
   })
-
-
-
-module.exports = { rewrite, snowpackImportRewriter };
