@@ -3,12 +3,12 @@
 
 import { Row } from "@sqorn/pg/types/methods";
 
-const { ForbiddenError } = require('@casl/ability');
-const basicAuth = require('basic-auth');
-const argon2 = require('argon2');
-const crypto = require('crypto');
+import { ForbiddenError } from '@casl/ability';
+import basicAuth from 'basic-auth';
+import argon2 from 'argon2';
+import crypto from 'crypto';
 
-const { Unauthorized, Created, Forbidden, InternalServerError } = require('./response.js');
+import { Unauthorized, Created, Forbidden, InternalServerError } from './response.js';
 import db from './db';
 import Cookie from './cookie';
 

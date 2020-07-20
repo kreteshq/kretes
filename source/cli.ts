@@ -3,7 +3,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const { valid, satisfies, validRange } = require('semver');
+import { valid, satisfies, validRange } from 'semver';
 const {
   engines: { node: version }
 } = require('../package.json');

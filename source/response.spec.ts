@@ -1,13 +1,15 @@
 import test from 'ava';
-const { Page } = require('./response');
-const { tmpdir } = require('os');
-const { join } = require('path');
-const { writeFile } = require('fs-extra');
+
+import { promises as fs } from 'fs';
+import { tmpdir } from 'os';
+import { join } from 'path';
+
+import { Page } from './response';
 
 test('Page renders html', async assert => {
   const dir = tmpdir();
   const path = join(dir, 'response-test.html');
-  await writeFile(path, '<div>{foo}</div>');
+  await fs.writeFile(path, '<div>{foo}</div>');
   const response = await Page(path, { foo: 'bar' });
   const { statusCode, type, body } = response;
   assert.deepEqual(statusCode, 200);

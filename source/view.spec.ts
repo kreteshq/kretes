@@ -2,7 +2,8 @@ const test = require('ava');
 const { render, precompile } = require('./view');
 const { join } = require('path');
 const { tmpdir } = require('os');
-const { writeFile } = require('fs-extra');
+
+import { promises as fs } from 'fs';
 
 test('render: it renders html', async assert => {
   const source = '<div>foo</div>';
@@ -28,7 +29,7 @@ test('render: it accepts paths', async assert => {
   const source = '<import foo from="./foo.html"/><foo/>';
   const dir = tmpdir();
   const path = join(dir, 'foo.html');
-  await writeFile(path, 'bar');
+  await fs.writeFile(path, 'bar');
   const html = await render(source, { paths: [dir] });
   assert.deepEqual(html, 'bar');
 });

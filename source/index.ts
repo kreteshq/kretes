@@ -3,7 +3,7 @@
 
 const debug = require('debug')('ks:index'); // eslint-disable-line no-unused-vars
 
-const { join } = require('path');
+import { join } from 'path';
 import Router from 'trek-router';
 import Stream from 'stream';
 import http from 'http';
@@ -16,13 +16,13 @@ import * as Middleware from './middleware';
 import { Response } from './response';
 import { App } from './manifest';
 import { glob } from './filesystem';
-const { build, translate } = require('./controller');
-const { readAll } = require('./filesystem');
-const { precompile } = require('./view');
-const { NotFound } = require('./response');
-const Logger = require('./logger');
-const HTMLifiedError = require('./error');
-const { compose } = require('./util');
+import { build, translate } from './controller';
+import { readAll } from './filesystem';
+import { precompile } from './view';
+import { NotFound } from './response';
+import Logger from './logger';
+import HTMLifiedError from './error';
+import { compose } from './util';
 
 const cwd = process.cwd();
 const handlerDir = join(cwd, 'dist');

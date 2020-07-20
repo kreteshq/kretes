@@ -9,9 +9,7 @@ const { OK, Created, HTMLString, Page } = response;
 const { validate } = request;
 const { Route: { GET, POST } } = routing;
 
-
-const merge = require('merge-deep');
-const FormData = require('form-data');
+import FormData from 'form-data';
 
 const app = new Kretes();
 

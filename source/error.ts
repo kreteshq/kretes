@@ -1,6 +1,6 @@
 import path from 'path';
 import stackTrace from 'stack-trace';
-import fs from 'fs-extra';
+import { promises as fs } from 'fs';
 import cookie from 'cookie';
 import { render } from './view';
 import { Request } from '.';
@@ -14,7 +14,7 @@ interface Error {
   status?: string;
 }
 
-class HTMLifiedError {
+export default class HTMLifiedError {
   codeRange: number;
   skipHeaders: string[];
   error: Error;
@@ -169,5 +169,3 @@ class HTMLifiedError {
     return render(content, { context, paths: [resources] });
   }
 }
-
-module.exports = HTMLifiedError;

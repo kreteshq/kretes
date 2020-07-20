@@ -4,13 +4,13 @@
 import Debug from 'debug';
 const debug = Debug('ks:cli:client'); // eslint-disable-line no-unused-vars
 
-const { spawn } = require('child_process');
-const { join } = require('path');
-const fs = require('fs-extra');
-const rollup = require('rollup');
-const loadConfigFile = require('rollup/dist/loadConfigFile');
-const WebSocket = require('ws');
-const color = require('chalk');
+import { spawn } from 'child_process';
+import { join } from 'path';
+import fs from 'fs-extra';
+import rollup from 'rollup';
+import loadConfigFile from 'rollup/dist/loadConfigFile';
+import WebSocket from 'ws';
+import color from 'chalk';
 
 const cwd = process.cwd();
 const VERSION = require('../../package.json').version;
@@ -78,7 +78,7 @@ const client = async () => {
       wss.on('connection', function connection(ws) {
         watcher.on('event', event => {
           if (event.code == 'END') ws.send('reload');
-          if (event.code == 'ERROR') console.error(event.frame);
+          if (event.code == 'ERROR') console.error(event);
         });
       });
 
