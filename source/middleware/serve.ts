@@ -3,7 +3,7 @@
 import Debug from 'debug';
 const debug = Debug('ks:middleware:serve'); // eslint-disable-line no-unused-vars
 
-import { promises as fs } from 'fs-extra';
+import { promises as fs, createReadStream } from 'fs';
 
 import path from 'path';
 import assert from 'assert';
@@ -36,12 +36,13 @@ export const Serve = (root, opts = { index: 'index.html' }) => {
           headers: {
             'Content-Type': mime.lookup(type) || 'application/octet-stream'
           },
-          body: fs.createReadStream(file),
+          body: createReadStream(file),
           additional: {
             size: stats.size
           }
         };
       } catch (error) {
+        // TODO distinguish between no file on disk and other error
         return next(context);
       }
     } else {
