@@ -1,6 +1,8 @@
 import test from 'ava';
 import axios from 'axios';
-import Kretes from '.';
+import Kretes, { routing } from '.';
+
+const { Route: { Resource } } = routing;
 
 test('routes should be passed to the start method', async assert => {
   const server = new Kretes();
@@ -22,3 +24,18 @@ test('routes should be passed to the start method', async assert => {
   assert.deepEqual(response4.data, 'Hello, DELETE!');
   await server.stop();
 })
+
+test('routes for REST resources', async assert => {
+  const app = new Kretes();
+
+  const routes = [
+    ...Resource("Task")
+  ];
+
+  await app.start({ routes });
+  const http = axios.create({ baseURL: `http://localhost:${app.port}` });
+  const response = await http.get('/task');
+  assert.deepEqual(response.data, "You need to create 'features/Task/Controller/browse.js'");
+  await app.stop();
+})
+
