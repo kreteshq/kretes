@@ -352,7 +352,7 @@ export * as request from './request';
 export * as response from './response';
 export * as view from './view';
 export * as routing from './routing';
-export * as webrpc from './webrpc';
+// export * as webrpc from './webrpc';
 
 import database from './db';
 export { database };
