@@ -2,7 +2,7 @@ dependencies:
   '@casl/ability': 4.1.5
   '@poppinss/chokidar-ts': 2.0.8
   '@sqorn/pg': 0.0.45
-  '@vue/compiler-sfc': 3.0.0-beta.22_vue@3.0.0-rc.1
+  '@vue/compiler-sfc': 3.0.0-beta.22_vue@3.0.0-rc.2
   '@zerollup/ts-transform-paths': 1.7.18_typescript@3.9.7
   apollo-server-core: 2.16.0_graphql@15.3.0
   apollo-server-module-graphiql: 2.0.0-beta.8
@@ -18,7 +18,7 @@ dependencies:
   dumper.js: 1.3.1
   error-stack-parser: 2.0.6
   es-module-lexer: 0.3.24
-  esbuild: 0.6.4
+  esbuild: 0.6.5
   fast-glob: 3.2.4
   fs-extra: 9.0.1
   graphile-worker: 0.6.0
@@ -43,7 +43,7 @@ dependencies:
   trek-router: 1.2.0
   typescript: 3.9.7
   validate: 5.1.0
-  vue: 3.0.0-rc.1
+  vue: 3.0.0-rc.2
   ws: 7.3.1
   yargs: 15.4.1
 devDependencies:
@@ -1245,16 +1245,16 @@ packages:
     dev: false
     resolution:
       integrity: sha512-i/e965dQbJ4EGkX53a/aBO//IjgG5Rl9LOoRh91ZmPxi44WSG+tu+mvq+y7lRl5HoxkjGWo8GVErFYSRQnSLPA==
-  /@vue/compiler-core/3.0.0-rc.1:
+  /@vue/compiler-core/3.0.0-rc.2:
     dependencies:
       '@babel/parser': 7.10.5
       '@babel/types': 7.10.5
-      '@vue/shared': 3.0.0-rc.1
+      '@vue/shared': 3.0.0-rc.2
       estree-walker: 2.0.1
       source-map: 0.6.1
     dev: false
     resolution:
-      integrity: sha512-5GcHJuoLnji0fxaCIntCZOmkbEemcIbknh/OFh2yYWbQ+Yzv5HwI7OA8Z1uLs7nKEKkVpbdFDtF68Zkf/BXnfw==
+      integrity: sha512-FPPNTd20Y8U5RWyXHWOC22gpSnaFz8V2zDq+f1AQ6xTTRD09qFw7wJ8T50mnVgeXgYbACMnD+RXOAAwYfB6ijQ==
   /@vue/compiler-dom/3.0.0-beta.22:
     dependencies:
       '@vue/compiler-core': 3.0.0-beta.22
@@ -1262,14 +1262,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-kJCEeyaBbS+VjYNFEi3o2mnwS2rqdthpQ6TNigojXmGKEoA3UCOrn3IGR3iTSdo/3knaoA9/zwJ8LcxSXkZXMg==
-  /@vue/compiler-dom/3.0.0-rc.1:
+  /@vue/compiler-dom/3.0.0-rc.2:
     dependencies:
-      '@vue/compiler-core': 3.0.0-rc.1
-      '@vue/shared': 3.0.0-rc.1
+      '@vue/compiler-core': 3.0.0-rc.2
+      '@vue/shared': 3.0.0-rc.2
     dev: false
     resolution:
-      integrity: sha512-0Vs5eX5ed+0vkqNLlcQxaWzyK8EENwaa5dHlVwlH0aUQDuUQr+WIlTalHnLDWIqnTmRPHNjJ5nn1B4dqZt/6EQ==
-  /@vue/compiler-sfc/3.0.0-beta.22_vue@3.0.0-rc.1:
+      integrity: sha512-38iflPPoZtbPBBLDI9q2xP3MQAnUIQFs9aRwSMJqDI0PxEvB2J9O6o5bBtN7QIorL5KnxDO9LLz+RuCgmFIQVQ==
+  /@vue/compiler-sfc/3.0.0-beta.22_vue@3.0.0-rc.2:
     dependencies:
       '@babel/parser': 7.10.5
       '@babel/types': 7.10.5
@@ -1287,7 +1287,7 @@ packages:
       postcss-modules: 3.2.0
       postcss-selector-parser: 6.0.2
       source-map: 0.6.1
-      vue: 3.0.0-rc.1
+      vue: 3.0.0-rc.2
     dev: false
     peerDependencies:
       vue: 3.0.0-beta.22
@@ -1300,35 +1300,35 @@ packages:
     dev: false
     resolution:
       integrity: sha512-v4Va4ODKV1OO0Vn+Xm9C7btZeNyerkrGxJ+s4Rd8szDN92TVHEvQUQymwVvUf7nzdS2Jf8K/8r1xz++xOaOPxQ==
-  /@vue/reactivity/3.0.0-rc.1:
+  /@vue/reactivity/3.0.0-rc.2:
     dependencies:
-      '@vue/shared': 3.0.0-rc.1
+      '@vue/shared': 3.0.0-rc.2
     dev: false
     resolution:
-      integrity: sha512-D7tUeirzWyDX5DtaJeJwvVZgDGDf+CLhv8+ZnuVbmb9kJbj9kdXeLD9bB2Wz8eKTZdiE/I3U55YZRYk0W/cJ4A==
-  /@vue/runtime-core/3.0.0-rc.1:
+      integrity: sha512-kgnBKzX74sV/Zc2iS5Zp+QwlctMBplsw7LAogGr2K2BrkfjqXSBr4yag/m8poGmceVMNm6/wFsWrOEnbL0hyZQ==
+  /@vue/runtime-core/3.0.0-rc.2:
     dependencies:
-      '@vue/reactivity': 3.0.0-rc.1
-      '@vue/shared': 3.0.0-rc.1
+      '@vue/reactivity': 3.0.0-rc.2
+      '@vue/shared': 3.0.0-rc.2
     dev: false
     resolution:
-      integrity: sha512-LRN0Rs+JJU9n/IgqcbWbJrUmGOuqdDVXSvnZG3l3b5CDsuNb7W9fy4z76D6vbrx//whNXaAgeaeWUgLuUSsXrA==
-  /@vue/runtime-dom/3.0.0-rc.1:
+      integrity: sha512-NNeFIkW0IQCuqp77XcgqsYdME7wr6ab6RcSmu9ZSKcEZbqhL+0PVioCjfyMW6Sa+35ng6PegocNbOp++vXIQ9g==
+  /@vue/runtime-dom/3.0.0-rc.2:
     dependencies:
-      '@vue/runtime-core': 3.0.0-rc.1
-      '@vue/shared': 3.0.0-rc.1
+      '@vue/runtime-core': 3.0.0-rc.2
+      '@vue/shared': 3.0.0-rc.2
       csstype: 2.6.11
     dev: false
     resolution:
-      integrity: sha512-p23+3OMVLJ7ODWsQZlMW7hJk5I90zTUFrbm/AWRUbgqA9xuAIFoOZcd2xUhZV+jc0IZD7OLPe4ZXg0IgDzQRxQ==
+      integrity: sha512-VvT06p5Qm29LdyX+jvEMXgqD5/2PfeftnkIPbLRjvmpcZTxmdm1GmitLfbv2YQvOPUDWjVBmjJ1SHJkdI0SDhg==
   /@vue/shared/3.0.0-beta.22:
     dev: false
     resolution:
       integrity: sha512-LX/unRMM9QUGIQjR9v2pKy60MRXWQRVEgaL6R8nFSRkbx2TTmShIdqmQPgciQwEBe7n5hsdZcSms+8LepNEykg==
-  /@vue/shared/3.0.0-rc.1:
+  /@vue/shared/3.0.0-rc.2:
     dev: false
     resolution:
-      integrity: sha512-4HOJk34AxVoAGqs3cltgumvIFdo9Blj7HUFVAq4iGW/IzIZ8SiduGDYUR0zlf8qUPY7DLY5U3KCqVmIo3FxDyg==
+      integrity: sha512-lJ1jb5PEDoSTosKdOyFh9/GpSFY/d9HXkG126aJXM4WgvJaf+OVKUWKZSgqolKLLIOJHG9ZcQt4OQyoktMenBg==
   /@wry/equality/0.1.11:
     dependencies:
       tslib: 1.13.0
@@ -2728,12 +2728,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-p5um32HOTO1kP+w7PRnB+5lQ43Z6muuMuIMffvDN8ZB4GcnjLBV6zGStpbASIMk4DCAvEaamhe2zhyCb/QXXsA==
-  /esbuild/0.6.4:
+  /esbuild/0.6.5:
     dev: false
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-WWicY5Lc19K8C+PfrW3wGHXoqqQ5bJrS4pqTK8rYjEFwOAKkXjoPVJk0WhUXlm9May2P+jQBSsJNkx6QAC1yzA==
+      integrity: sha512-glMZd0b6W2soHuUuchM6c55e6gbdDhVpvYcmLsH3OJo87hQZcb3lFPZAJ5MbzLCJa2bChQOaoC4bqVtbqfsM/A==
   /escape-goat/2.1.1:
     dev: true
     engines:
@@ -5828,14 +5828,14 @@ packages:
     optional: true
     resolution:
       integrity: sha512-KIq15bvQDrcCjpGjrAhx4mUlyyHfdmTaoNfeoATHLAiWB+MU3cx4lOzMwrnUh9cCxy0Lt1T11hAFY6TQgroUAA==
-  /vue/3.0.0-rc.1:
+  /vue/3.0.0-rc.2:
     dependencies:
-      '@vue/compiler-dom': 3.0.0-rc.1
-      '@vue/runtime-dom': 3.0.0-rc.1
-      '@vue/shared': 3.0.0-rc.1
+      '@vue/compiler-dom': 3.0.0-rc.2
+      '@vue/runtime-dom': 3.0.0-rc.2
+      '@vue/shared': 3.0.0-rc.2
     dev: false
     resolution:
-      integrity: sha512-AvliCsYc5tKVYgnXZ8oN6Q2HhQ7rWp+7FcTUXoAHJY+dL+j1AzgSKeO1YIWlw8j/inOdCKFVv+ZsGrsJbNtg/Q==
+      integrity: sha512-syYidmtdfAz2aN1q7F/TlyPZdRXjIbp/QnpetWwhoBaOQOnqm+dHN5KwN8xBF+eUE4ys4aO8rrv7ulTQ4l8rFQ==
   /wcwidth/1.0.1:
     dependencies:
       defaults: 1.0.3
@@ -6066,7 +6066,7 @@ specifiers:
   dumper.js: ^1.3.1
   error-stack-parser: ^2.0.6
   es-module-lexer: ^0.3.24
-  esbuild: ^0.6.4
+  esbuild: ^0.6.5
   eslint: ^7.5.0
   eslint-config-prettier: ^6.11.0
   eslint-plugin-prettier: ^3.1.4
@@ -6096,6 +6096,6 @@ specifiers:
   trek-router: ^1.2.0
   typescript: ^3.9.7
   validate: ^5.1.0
-  vue: ^3.0.0-rc.1
+  vue: ^3.0.0-rc.2
   ws: ^7.3.1
   yargs: ^15.4.1
