@@ -4,33 +4,32 @@
 import * as fs from 'fs-extra';
 import { join, resolve } from 'path';
 import { spawn } from 'child_process';
-import color from 'chalk';
+import __ from 'chalk';
 import { lookpath } from 'lookpath';
+import { red, gray, magenta, underline, cyan, blue, bold } from 'colorette';
 
-const { substitute, run } = require('../util');
+import { substitute, run, print } from '../util';
 
 const cwd = process.cwd();
 const username = require('os').userInfo().username;
 
 const VERSION = require('../../package.json').version;
 
-async function init({ dir, npmInstall }) {
+export async function handler({ dir, installDependencies }) {
   const themeDir = join(resolve(__dirname, '..', '..'), 'template', 'base');
 
   const name = dir.replace(/-/g, '_');
 
-  console.log(`${color.bold.blue('Kretes'.padStart(10))}: ` + color`{bold ${VERSION}}`);
+  print(`${bold(blue('Kretes'.padStart(10)))} ${bold(VERSION)}`);
 
   const isNixInstalled = await lookpath('nix-shell');
   if (!isNixInstalled) {
-    console.error(`${color.red('Error'.padStart(10))}: Kretes requires the Nix package manager`);
-    console.error(`${''.padStart(12)}${color.gray('https://nixos.org/guides/install-nix.html')}`);
+    console.error(`${red('Error'.padStart(10))}: Kretes requires the Nix package manager`);
+    console.error(`${''.padStart(12)}${__.gray('https://nixos.org/guides/install-nix.html')}`);
     process.exit(1);
   }
 
-  console.log(
-    color`├ {cyan new}: creating the project scaffold in the {underline ${dir}} directory ...`
-  );
+  print(`${magenta('new'.padStart(10))} creating a project in ${underline(dir)}`);
 
   const projectDir = join(cwd, dir);
 
@@ -67,24 +66,21 @@ async function init({ dir, npmInstall }) {
     await run('/usr/bin/env', ['nix-shell', '--run', `createdb ${name}`], { cwd: projectDir });
     await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl stop -l ./log/postgresql.log'], { stdout, cwd: projectDir });
 
-    if (npmInstall) {
-      console.log(color`└ {cyan new}: installing dependencies with {magenta npm install} ...`);
-      const install = spawn('npm', ['install'], { cwd: dir, stdio: 'inherit' });
+    if (installDependencies) {
+      print(`${magenta('new'.padStart(10))} installing dependencies`);
+      const install = spawn('npx', ['pnpm', 'install'], { cwd: dir, stdio: 'inherit' });
       install.on('close', () => { });
     }
   } catch (error) {
     if (error.code === 'EEXIST') {
-      console.error(color`  {red Error}: Project already exists`);
+      console.error(`${red('Error'.padStart(10))} Project already exists`);
     } else {
-      console.error(color`  {red Error}: ${error.message}`);
+      console.error(__`  {red Error}: ${error.message}`);
     }
   }
 }
 
-module.exports = {
-  handler: init,
-  builder: _ => _.option('npm-install', { default: true, type: 'boolean' }).default('dir', '.'),
-};
+export const builder = _ => _.option('install-dependencies', { default: true, type: 'boolean' }).default('dir', '.');
 
 function generatePackageJSON(name) {
   const content = require('../../template/base/package.json');

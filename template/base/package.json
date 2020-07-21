@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "kretes": "^0.67.0"
+    "kretes": "^0.68.0"
   },
   "snowpack": {
     "webDependencies": [
@@ -21,8 +21,9 @@
     "cross-env": "^7.0.2",
     "node-pg-migrate": "^5.3.0",
     "npm-check-updates": "^7.0.2",
+    "pnpm": "5.4.0",
     "prettier": "^2.0.5",
-    "rollup": "^2.22.0",
+    "rollup": "^2.22.1",
     "snowpack": "^2.6.4",
     "typescript": "^3.9.7",
     "tailwindcss": "^1.5.1"
