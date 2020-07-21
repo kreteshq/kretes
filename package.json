@@ -50,6 +50,7 @@
     "boxwood": "^0.40.1",
     "busboy": "^0.3.1",
     "chalk": "^4.1.0",
+    "colorette": "^1.2.1",
     "config": "^3.3.1",
     "cookie": "^0.4.1",
     "debug": "^4.1.1",
