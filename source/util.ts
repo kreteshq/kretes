@@ -13,6 +13,11 @@
 
 import { spawn, StdioOptions } from 'child_process';
 import { StdinOptions } from 'esbuild';
+import chalk from 'chalk';
+
+export const print = (message: string) => {
+  console.log(message)
+}
 
 export function pick(obj, keys) {
   return keys.reduce((acc, k) => {

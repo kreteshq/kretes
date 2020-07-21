@@ -1,0 +1,25 @@
+{
+  "db": {
+    "database": "{{database}}",
+    "username": "{{user}}"
+  },
+  "deploy": {
+    "client": {
+      "delete": true,
+      "dest": "YOUR DESTINATION",
+      "src": "dist/"
+    },
+    "server": {
+      "delete": true,
+      "dest": "YOUR DESTINATION",
+      "exclude": [
+        "dist",
+        "node_modules",
+        ".git",
+        "static/upload",
+        "config/default.yaml"
+      ],
+      "src": "."
+    }
+  }
+}

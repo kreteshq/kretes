@@ -46,8 +46,8 @@ async function init({ dir, npmInstall }) {
     // rename directories
     await fs.rename(join(cwd, dir, 'vscode'), join(cwd, dir, '.vscode'));
 
-    const configTemplate = await fs.readFile(join(themeDir, 'config', 'default.yml'), 'utf-8');
-    const configOutput = join(cwd, dir, 'config', 'default.yml');
+    const configTemplate = await fs.readFile(join(themeDir, 'config', 'default.json'), 'utf-8');
+    const configOutput = join(cwd, dir, 'config', 'default.json');
     const compiled = substitute(configTemplate, {
       database: name,
       user: username,

@@ -28,5 +28,45 @@
     "terminal.ansiRed":"#e74c3c",
     "terminal.ansiWhite":"#ecf0f1",
     "terminal.ansiYellow":"#f1c40f"
-  }
+  },
+  "files.associations": {
+    "default.json": "jsonc"
+  },
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "/config/default.json"
+      ],
+      "schema": {
+        "additionalProperties": false,
+        "type": "object",
+        "properties": {
+          "db": {
+            "additionalProperties": false,
+            "type": "object",
+            "description": "The name of the entry",
+            "properties": {
+              "database": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              }
+            }
+          },
+          "deploy": {
+            "type": "object",
+            "properties": {
+              "client": {
+                "type": "object"
+              },
+              "server": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }
