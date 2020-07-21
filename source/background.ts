@@ -3,7 +3,22 @@
 
 import db from './db';
 
-const schedule = async ({ task, payload = {}, queue = null, runAt = null, maxAttempts = null }) => {
+interface Payload {
+  [key: string]: any
+}
+
+type Task = (input: Payload) => Promise<void>;
+type Queue = any;
+
+export interface ScheduleInput {
+  task: Task
+  payload?: Payload
+  queue?: Queue
+  runAt?: Date
+  maxAttempts?: number
+}
+
+const schedule = async ({ task, payload = {}, queue = null, runAt = null, maxAttempts = null }: ScheduleInput) => {
   await db.sql`
     SELECT * FROM graphile_worker.add_job(
       identifier => ${task.name}::text,

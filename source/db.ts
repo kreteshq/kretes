@@ -6,6 +6,11 @@ import { SQF } from '@sqorn/pg/types/sq'
 
 import { App } from "./manifest";
 
+// interface SQLStatement {
+//   text: string
+//   values: (string | number)[]
+// }
+
 let sq: SQF = null;
 
 export default new Proxy({}, {
