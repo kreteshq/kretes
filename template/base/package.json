@@ -23,9 +23,9 @@
     "npm-check-updates": "^7.0.2",
     "pnpm": "5.4.0",
     "prettier": "^2.0.5",
-    "rollup": "^2.22.1",
+    "rollup": "^2.22.2",
     "snowpack": "^2.6.4",
     "typescript": "^3.9.7",
-    "tailwindcss": "^1.5.1"
+    "tailwindcss": "^1.5.2"
   }
 }
