@@ -2,7 +2,7 @@ dependencies:
   '@casl/ability': 4.1.5
   '@poppinss/chokidar-ts': 2.0.8
   '@sqorn/pg': 0.0.45
-  '@vue/compiler-sfc': 3.0.0-rc.5
+  '@vue/compiler-sfc': 3.0.0-rc.5_vue@3.0.0-rc.4
   '@zerollup/ts-transform-paths': 1.7.18_typescript@3.9.7
   apollo-server-core: 2.16.1_graphql@15.3.0
   apollo-server-module-graphiql: 2.0.0-beta.8
@@ -1288,7 +1288,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-z8n+R1GhFnWuKURLYxfVSEfP7nSNM91qteobxwys55fhlZZuReouMnUwgrn+ois/IL6RdFlT9H+n4+N6yLrdJA==
-  /@vue/compiler-sfc/3.0.0-rc.5:
+  /@vue/compiler-sfc/3.0.0-rc.5_vue@3.0.0-rc.4:
     dependencies:
       '@babel/parser': 7.10.5
       '@babel/types': 7.10.5
@@ -1306,6 +1306,7 @@ packages:
       postcss-modules: 3.2.0
       postcss-selector-parser: 6.0.2
       source-map: 0.6.1
+      vue: 3.0.0-rc.4
     dev: false
     peerDependencies:
       vue: 3.0.0-rc.5

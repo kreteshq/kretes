@@ -21,10 +21,10 @@
     "cross-env": "^7.0.2",
     "node-pg-migrate": "^5.3.0",
     "npm-check-updates": "^7.0.2",
-    "pnpm": "5.4.8",
+    "pnpm": "5.4.9",
     "prettier": "^2.0.5",
     "rollup": "^2.23.0",
-    "snowpack": "^2.7.3",
+    "snowpack": "^2.7.5",
     "typescript": "^3.9.7",
     "tailwindcss": "^1.6.0"
   }
