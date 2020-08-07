@@ -3,7 +3,7 @@ dependencies:
   '@poppinss/chokidar-ts': 2.0.8
   '@sqorn/pg': 0.0.45
   '@vue/compiler-sfc': 3.0.0-rc.5_vue@3.0.0-rc.5
-  '@zerollup/ts-transform-paths': 1.7.18_typescript@3.9.7
+  '@zerollup/ts-transform-paths': 1.7.18_typescript@4.0.1-rc
   apollo-server-core: 2.16.1_graphql@15.3.0
   apollo-server-module-graphiql: 2.0.0-beta.8
   argon2: 0.26.2
@@ -42,7 +42,7 @@ dependencies:
   semver: 7.3.2
   stack-trace: 0.0.10
   trek-router: 1.2.0
-  typescript: 3.9.7
+  typescript: 4.0.1-rc
   validate: 5.1.0
   vue: 3.0.0-rc.5
   ws: 7.3.1
@@ -1359,19 +1359,19 @@ packages:
     dev: false
     resolution:
       integrity: sha512-Y4d+WH6hs+KZJUC8YKLYGarjGekBrhslDbf/R20oV+AakHPINSitHfDRQz3EGcEWc1luXYNUvMhawWtZVWNGvQ==
-  /@zerollup/ts-helpers/1.7.18_typescript@3.9.7:
+  /@zerollup/ts-helpers/1.7.18_typescript@4.0.1-rc:
     dependencies:
       resolve: 1.17.0
-      typescript: 3.9.7
+      typescript: 4.0.1-rc
     dev: false
     peerDependencies:
       typescript: '>=3.7.2'
     resolution:
       integrity: sha512-S9zN+y+i5yN/evfWquzSO3lubqPXIsPQf6p9OiPMpRxDx/0totPLF39XoRw48Dav5dSvbIE8D2eAPpXXJxvKwg==
-  /@zerollup/ts-transform-paths/1.7.18_typescript@3.9.7:
+  /@zerollup/ts-transform-paths/1.7.18_typescript@4.0.1-rc:
     dependencies:
-      '@zerollup/ts-helpers': 1.7.18_typescript@3.9.7
-      typescript: 3.9.7
+      '@zerollup/ts-helpers': 1.7.18_typescript@4.0.1-rc
+      typescript: 4.0.1-rc
     dev: false
     peerDependencies:
       typescript: '>=3.7.2'
@@ -1855,7 +1855,7 @@ packages:
       md5-hex: 3.0.1
       mem: 6.1.0
       ms: 2.1.2
-      ora: 4.1.0
+      ora: 4.1.1
       p-map: 4.0.0
       picomatch: 2.2.2
       pkg-conf: 3.1.0
@@ -3815,7 +3815,7 @@ packages:
   /isomorphic-fetch/2.2.1:
     dependencies:
       node-fetch: 1.7.3
-      whatwg-fetch: 3.3.1
+      whatwg-fetch: 3.4.0
     dev: false
     resolution:
       integrity: sha1-YRrhrPFPXoH3KVB0coGf6XM1WKk=
@@ -4011,14 +4011,14 @@ packages:
   /lodash/4.17.19:
     resolution:
       integrity: sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
-  /log-symbols/4.0.0:
+  /log-symbols/3.0.0:
     dependencies:
-      chalk: 4.1.0
+      chalk: 2.4.2
     dev: true
     engines:
-      node: '>=10'
+      node: '>=8'
     resolution:
-      integrity: sha512-FN8JBzLx6CzeMrB0tg6pqlGU1wCrXW+ZXGH481kfsBqer0hToTIiHdjH4Mq8xJUbvATujKCvaREGWpGUionraA==
+      integrity: sha512-dSkNGuI7iG3mfvDzUuYZyvk5dD9ocYCYzNU6CYDE6+Xqd+gwme6Z00NS3dUh8mq/73HaEtT7m6W+yUPtU6BZnQ==
   /loglevel/1.6.8:
     dev: false
     engines:
@@ -4484,13 +4484,13 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha512-74RlY5FCnhq4jRxVUPKDaRwrVNXMqsGsiW6AJw4XK8hmtm10wC0ypZBLw5IIp85NZMr91+qd1RvvENwg7jjRFw==
-  /ora/4.1.0:
+  /ora/4.1.1:
     dependencies:
-      chalk: 4.1.0
+      chalk: 3.0.0
       cli-cursor: 3.1.0
       cli-spinners: 2.4.0
       is-interactive: 1.0.0
-      log-symbols: 4.0.0
+      log-symbols: 3.0.0
       mute-stream: 0.0.8
       strip-ansi: 6.0.0
       wcwidth: 1.0.1
@@ -4498,7 +4498,7 @@ packages:
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-PhDvXi7I+dLVyFekgqXt0iBDdo5ARzOxJNoj72TysoXkW4/oi1lRaeakr4skciyWgPpk6JPPGwO1V4zPr6YRZA==
+      integrity: sha512-sjYP8QyVWBpBZWD6Vr1M/KwknSw6kJOz41tvGMlwWeClHBtYKTbHMki1PsLZnxKpXMPbTKv9b3pjQu3REib96A==
   /os-homedir/1.0.2:
     dev: false
     engines:
@@ -5729,13 +5729,13 @@ packages:
       is-typedarray: 1.0.0
     resolution:
       integrity: sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==
-  /typescript/3.9.7:
+  /typescript/4.0.1-rc:
     dev: false
     engines:
       node: '>=4.2.0'
     hasBin: true
     resolution:
-      integrity: sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
+      integrity: sha512-TCkspT3dSKOykbzS3/WSK7pqU2h1d/lEO6i45Afm5Y3XNAEAo8YXTG3kHOQk/wFq/5uPyO1+X8rb/Q+g7UsxJw==
   /ua-parser-js/0.7.21:
     dev: false
     resolution:
@@ -5895,10 +5895,10 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-ZMjC3ho+KXo0BfJb7JgtQ5IBuvnShdlACNkKkdsqBmYw3bPAaJfPeYUo6tLUaT5tG/Gkh7xkpBhKRQ9e7pyg9Q==
-  /whatwg-fetch/3.3.1:
+  /whatwg-fetch/3.4.0:
     dev: false
     resolution:
-      integrity: sha512-faXTmGDcLuEPBpJwb5LQfyxvubKiE+RlbmmweFGKjvIPFj4uHTTfdtTIkdTRhC6OSH9S9eyYbx8kZ0UEaQqYTA==
+      integrity: sha512-rsum2ulz2iuZH08mJkT0Yi6JnKhwdw4oeyMjokgxd+mmqYSd9cPpOQf01TIWgjxG/U4+QR+AwKq6lSbXVxkyoQ==
   /which-module/2.0.0:
     resolution:
       integrity: sha1-2e8H3Od7mQK4o6j6SzHD4/fm6Ho=
@@ -6129,7 +6129,7 @@ specifiers:
   semver: ^7.3.2
   stack-trace: 0.0.10
   trek-router: ^1.2.0
-  typescript: ^3.9.7
+  typescript: ^4.0.1-rc
   validate: ^5.1.0
   vue: ^3.0.0-rc.5
   ws: ^7.3.1

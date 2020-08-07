@@ -80,7 +80,7 @@
     "semver": "^7.3.2",
     "stack-trace": "0.0.10",
     "trek-router": "^1.2.0",
-    "typescript": "^3.9.7",
+    "typescript": "^4.0.1-rc",
     "validate": "^5.1.0",
     "vue": "^3.0.0-rc.5",
     "ws": "^7.3.1",
