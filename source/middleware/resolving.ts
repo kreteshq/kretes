@@ -1,7 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
-
-const debug = require('debug')('ks:middleware:resolving')
+import Debug from "debug";
+const debug = Debug('ks:middleware:resolving') // eslint-disable-line no-unused-vars
 
 import fs from 'fs-extra';
 
