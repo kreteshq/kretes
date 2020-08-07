@@ -60,7 +60,6 @@ const Rewriting = () => {
       MIME.isJavaScript(response.type) &&
       !path.endsWith('.map') &&
       !path.startsWith(`/kretes/hot`) &&
-      !path.startsWith('/@modules') &&
       !(path.endsWith('.vue') && query.type != null)
     ) {
       const content = response.body
