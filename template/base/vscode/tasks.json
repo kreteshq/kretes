@@ -26,7 +26,7 @@
       "detail": "Update the dependencies in `package.json`",
       "type": "shell",
       "isBackground": true,
-      "command": "npx ncu",
+      "command": "pnpm up",
       "problemMatcher": [],
       "presentation": {
         "echo": false,
@@ -42,7 +42,7 @@
       "detail": "Install (or refresh) the dependencies from `package.json`",
       "type": "shell",
       "isBackground": true,
-      "command": "npm install",
+      "command": "pnpm install",
       "problemMatcher": [],
       "presentation": {
         "echo": false,
