@@ -16,7 +16,7 @@ const Resolving = () => {
       return next()
     }
 
-    const id = path.replace(RE.IsModule, '')
+    const id = path.replace(RE.IsModule, '');
 
     if (id === 'vue') {
       // TODO Handle runtime not found / installed scenerio

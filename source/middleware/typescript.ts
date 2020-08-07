@@ -12,24 +12,28 @@ import RE from '../regexp';
 
 const open = async path => {
   let content;
+
+  // try a file
   try {
     content = await fs.readFile(path, 'utf-8')
     return content;
   } catch (error) {
-    if (error.code !== 'ENOENT') {
+    if (!['ENOENT', 'EISDIR'].includes(error.code)) {
       throw error
     }
   }
 
+  // append .ts and try a file
   try {
     content = await fs.readFile(format({ name: path, ext: '.ts' }), 'utf-8')
     return content;
   } catch (error) {
-    if (error.code !== 'ENOENT') {
+    if (!['ENOENT', 'EISDIR'].includes(error.code)) {
       throw error
     }
   }
 
+  // append index.ts and try a file
   try {
     content = await fs.readFile(join(path, 'index.ts'), 'utf-8')
     return content;
