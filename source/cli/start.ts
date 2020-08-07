@@ -92,7 +92,7 @@ const start = async ({ port }) => {
     console.log(color`  {grey Stoping...}`);
 
     server.close(() => {
-      console.log(color`  {grey Pool...}`);
+      console.log(color`  {grey Closing the DB pool...}`);
       App.DatabasePool.end();
       process.exit(0);
     });

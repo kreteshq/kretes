@@ -8,7 +8,6 @@ import { join, format } from 'path';
 
 import { JavaScriptString } from '../response';
 import { App } from '../manifest';
-import RE from '../regexp';
 
 const open = async path => {
   let content;

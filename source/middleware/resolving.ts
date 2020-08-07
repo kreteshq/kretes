@@ -4,11 +4,10 @@
 const debug = require('debug')('ks:middleware:resolving')
 
 import fs from 'fs-extra';
-import resolve from 'resolve-from';
 
 import RE from '../regexp';
 import { JavaScriptString, InternalServerError } from '../response';
-import { Vue, App } from '../manifest';
+import { Vue } from '../manifest';
 
 const Resolving = () => {
   return async ({ path }: any, next: any) => {
@@ -21,12 +20,6 @@ const Resolving = () => {
     if (id === 'vue') {
       // TODO Handle runtime not found / installed scenerio
       const content = await fs.readFile(Vue.Runtime.Browser, 'utf-8')
-      return JavaScriptString(content)
-    }
-
-
-    if (RE.IsFeaturesImport.test(id)) {
-      const content = await fs.readFile(App.features(id), 'utf-8')
       return JavaScriptString(content)
     }
 
