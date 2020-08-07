@@ -123,7 +123,7 @@ export const compileTemplate = (
   return finalCode
 }
 
-const printError = (fsPath: string, { loc: { start: { line, column }}, message }: CompilerError) => {
-  console.error(`${fsPath}:${line}:${column}`);
+const printError = (fsPath: string, { message }: CompilerError | SyntaxError) => {
+  console.error(`${fsPath}`);
   console.error(message);
 }
