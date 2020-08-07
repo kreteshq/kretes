@@ -17,10 +17,10 @@
   "devDependencies": {
     "@wessberg/rollup-plugin-ts": "^1.3.2",
     "autoprefixer": "^9.8.6",
-    "chokidar": "^3.4.1",
+    "chokidar": "^3.4.2",
     "cross-env": "^7.0.2",
     "node-pg-migrate": "^5.4.0",
-    "npm-check-updates": "^7.0.2",
+    "npm-check-updates": "^7.0.3",
     "pnpm": "5.4.12",
     "prettier": "^2.0.5",
     "rollup": "^2.23.0",
