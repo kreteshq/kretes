@@ -4,6 +4,7 @@ import Debug from "debug";
 const debug = Debug('ks:middleware:resolving') // eslint-disable-line no-unused-vars
 
 import fs from 'fs-extra';
+import { join } from 'path';
 
 import RE from '../regexp';
 import { JavaScriptString, InternalServerError } from '../response';
@@ -24,11 +25,15 @@ const Resolving = () => {
     }
 
     try {
-      const path = resolve(process.cwd(), id);
-      const content = await fs.readFile(path, 'utf-8')
-      return JavaScriptString(content)
+      const packageJSONPath = join(process.cwd(), 'node_modules', id, 'package.json');
+      const packageJSONContent = require(packageJSONPath);
+
+      // get the ES module path by hand FIXME
+      const modulePath = join(process.cwd(), 'node_modules', id, packageJSONContent.module);
+      const content = await fs.readFile(modulePath, 'utf-8')
+      return JavaScriptString(content);
     } catch (error) {
-      return InternalServerError(`Cannot resolve: ${id}`)
+      return InternalServerError(`Cannot resolve: ${id}`);
     }
   }
 }
