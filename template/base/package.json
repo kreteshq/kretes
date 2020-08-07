@@ -4,11 +4,6 @@
   "dependencies": {
     "kretes": "^0.68.0"
   },
-  "snowpack": {
-    "webDependencies": [
-      "tslib"
-    ]
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
@@ -24,7 +19,6 @@
     "pnpm": "5.4.12",
     "prettier": "^2.0.5",
     "rollup": "^2.23.0",
-    "snowpack": "^2.7.6",
     "typescript": "^3.9.7",
     "tailwindcss": "^1.6.2"
   }

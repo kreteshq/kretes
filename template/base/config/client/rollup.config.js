@@ -1,5 +1,4 @@
 import ts from '@wessberg/rollup-plugin-ts';
-import { snowpackImportRewriter } from 'kretes/compiler/typescript';
 
 export default {
   input: 'config/client/index.ts',
@@ -16,11 +15,6 @@ export default {
     exclude: 'node_modules/**'
   },
   plugins: [
-    ts({
-      tsconfig: 'config/client/tsconfig.json',
-      transformers: {
-        after: [snowpackImportRewriter()]
-      }
-    }),
+    ts({ tsconfig: 'config/client/tsconfig.json' }),
   ]
 };
