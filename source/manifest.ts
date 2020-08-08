@@ -41,13 +41,24 @@ export const App = {
   get isProduction() {
     return process.env.KRETES === 'production'
   },
+  get TypeScriptConfigClient() {
+    const path = join(process.cwd(), 'config', 'client', 'tsconfig.json');
+    try {
+      const { compilerOptions: { jsxFactory, jsxFragmentFactory } } = require(path);
+      return { jsxFactory, jsxFragmentFactory };
+    } catch (error) {
+      throw Error("Errors in config/client/tsconfig.json");
+    }
+  },
   WebSockets: new Set<WebSocket>(),
   Importers: new Map<string, Set<string>>(),
   Importees: new Map<string, Set<string>>(),
   DatabasePool: null,
   ESBuild: null as ESBuildService,
   async transpile(source, { loader }) {
-    const { js: transpiled } = await this.ESBuild.transform(source, { loader })
+    const { jsxFactory, jsxFragmentFactory: jsxFragment } = this.TypeScriptConfigClient;
+
+    const { js: transpiled } = await this.ESBuild.transform(source, { loader, jsxFactory, jsxFragment })
     return transpiled;
   }
 }

@@ -15,7 +15,7 @@ const open = async path => {
   // try a file
   try {
     content = await fs.readFile(path, 'utf-8')
-    return content;
+    return { content, loader: 'ts' };
   } catch (error) {
     if (!['ENOENT', 'EISDIR'].includes(error.code)) {
       throw error
@@ -25,7 +25,17 @@ const open = async path => {
   // append .ts and try a file
   try {
     content = await fs.readFile(format({ name: path, ext: '.ts' }), 'utf-8')
-    return content;
+    return { content, loader: 'ts' };
+  } catch (error) {
+    if (!['ENOENT', 'EISDIR'].includes(error.code)) {
+      throw error
+    }
+  }
+
+  // append .tsx and try a file
+  try {
+    content = await fs.readFile(format({ name: path, ext: '.tsx' }), 'utf-8')
+    return { content, loader: 'tsx' };
   } catch (error) {
     if (!['ENOENT', 'EISDIR'].includes(error.code)) {
       throw error
@@ -35,7 +45,17 @@ const open = async path => {
   // append index.ts and try a file
   try {
     content = await fs.readFile(join(path, 'index.ts'), 'utf-8')
-    return content;
+    return { content, loader: 'ts' };
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      throw error
+    }
+  }
+
+  // append index.tsx and try a file
+  try {
+    content = await fs.readFile(join(path, 'index.tsx'), 'utf-8')
+    return { content, loader: 'tsx' };
   } catch (error) {
     if (error.code !== 'ENOENT') {
       throw error
@@ -60,8 +80,8 @@ const TransformingTypeScript = () => {
     }
 
     const fsPath = join(process.cwd(), urlPath)
-    const content = await open(fsPath);
-    const transpiled = await App.transpile(content, { loader: 'ts' });
+    const { content, loader } = await open(fsPath);
+    const transpiled = await App.transpile(content, { loader });
 
     return JavaScriptString(transpiled)
   }
