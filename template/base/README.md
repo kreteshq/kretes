@@ -17,7 +17,7 @@ To start debugging in VSCode select one of the configurations in Run and Debug m
 Install dependencies
 
 ```
-npm install
+pnpm install
 ```
 
 Start the application:
