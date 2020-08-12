@@ -4,6 +4,7 @@
 export const debug = require('debug')('ks:middleware:rewriting')
 
 import { promises as fs } from 'fs';
+import { join } from 'path';
 
 import { HTMLString, MIME } from '../response';
 import { rewrite } from '../machine/browser';
@@ -36,17 +37,19 @@ const Rewriting = () => {
           const IsDevelopmentSnippetAdded = isAdded ? `` : DevelopmentSnippet
           isAdded = true
 
+          let rewritten;
           if (innerContent) {
-            const rewritten = await rewrite(innerContent, importer)
-            const replacement = `${IsDevelopmentSnippetAdded}${tag}${rewritten}</script>`
-
-            html = html!.replace(match, replacement)
+            rewritten = await rewrite(innerContent, importer)
           } else {
-            // TODO
+            const [_, location]= tag.match(RE.IsHTMLScriptSource)
+            const content = await fs.readFile(join(process.cwd(), location), 'utf-8');
+            const transpiled = await App.transpile(content, { loader: 'tsx' });
 
-            const srcAttribute = tag.match(RE.IsHTMLScriptSource)
-            html = html!.replace(match, `${IsDevelopmentSnippetAdded}${match}`)
+            rewritten = await rewrite(transpiled, importer)
           }
+
+          const replacement = `${IsDevelopmentSnippetAdded}<script type="module">${rewritten}</script>`
+          html = html!.replace(match, replacement)
         }
 
         response.body = html
