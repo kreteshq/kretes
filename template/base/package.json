@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "kretes": "^0.68.0"
+    "kretes": "^0.69.1"
   },
   "browserslist": [
     "> 1%",
