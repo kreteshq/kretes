@@ -9,7 +9,7 @@ dependencies:
   argon2: 0.26.2
   axios: 0.19.2
   basic-auth: 2.0.1
-  boxwood: 0.42.0
+  boxwood: 0.42.1
   busboy: 0.3.1
   chalk: 4.1.0
   colorette: 1.2.1
@@ -19,7 +19,7 @@ dependencies:
   dumper.js: 1.3.1
   error-stack-parser: 2.0.6
   es-module-lexer: 0.3.24
-  esbuild: 0.6.20
+  esbuild: 0.6.22
   fast-glob: 3.2.4
   fs-extra: 9.0.1
   graphile-worker: 0.6.0
@@ -1993,7 +1993,7 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-eB4uT9RGzg2odpER62bBwSLvUeGC+WbRjjyyFhGsKnc8wp/m0+hQsMUvUe3H2V0D5vw0nBdO1hCJoZo5mKeuIQ==
-  /boxwood/0.42.0:
+  /boxwood/0.42.1:
     dependencies:
       abstract-syntax-tree: 2.8.5
       astoptech: 1.0.6
@@ -2022,7 +2022,7 @@ packages:
       node: '>= 10.15.1'
       npm: '>= 6.7.0'
     resolution:
-      integrity: sha512-G85CRzFbj6bUGxolSrpLRwYNLdfL6bDD8K3C+9vjjfYgoOS+rexmRpJUBET+bVo3NcQxT1i/bmuMJyQhuqPTWw==
+      integrity: sha512-YzgjeKFWJOshLB+Zrmj6gasNFIIVvY3qAgNaNVeBIKXA5VH3KEvYI+HKwvCJDAz707xx9uCPKM0KFNT2+GI1Vg==
   /brace-expansion/1.1.11:
     dependencies:
       balanced-match: 1.0.0
@@ -2743,12 +2743,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-p5um32HOTO1kP+w7PRnB+5lQ43Z6muuMuIMffvDN8ZB4GcnjLBV6zGStpbASIMk4DCAvEaamhe2zhyCb/QXXsA==
-  /esbuild/0.6.20:
+  /esbuild/0.6.22:
     dev: false
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-TR7HxD+sDJ1P67Loc8UDlRMeBEiJMS5L4yVLsiCwE48TyHDP7CGfkDHZDr9BKIFTK+0fuk7w/St1/PzBXpBRlQ==
+      integrity: sha512-dgcdoOZ7rghMageuGFS6geQ77UacoZ/qrd0MRc2iPnYtMNfQ1cJ7mVkotVpUDJYdOWvLVa87NFEtqPg7D2mKSA==
   /escape-goat/2.1.1:
     dev: true
     engines:
@@ -6087,7 +6087,7 @@ specifiers:
   ava: ^3.11.1
   axios: ^0.19.2
   basic-auth: ^2.0.1
-  boxwood: ^0.42.0
+  boxwood: ^0.42.1
   busboy: ^0.3.1
   chalk: ^4.1.0
   colorette: ^1.2.1
@@ -6097,7 +6097,7 @@ specifiers:
   dumper.js: ^1.3.1
   error-stack-parser: ^2.0.6
   es-module-lexer: ^0.3.24
-  esbuild: ^0.6.20
+  esbuild: ^0.6.22
   eslint: ^7.6.0
   eslint-config-prettier: ^6.11.0
   eslint-plugin-prettier: ^3.1.4
