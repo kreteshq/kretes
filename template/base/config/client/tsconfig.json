@@ -21,7 +21,7 @@
       "/modules/*.js": [
         "node_modules/@types/*",
         "node_modules/*",
-        "modules/*.js",
+        "modules/*.js"
       ]
     },
     "esModuleInterop": true,
