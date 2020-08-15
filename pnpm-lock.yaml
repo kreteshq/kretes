@@ -9,7 +9,7 @@ dependencies:
   argon2: 0.26.2
   axios: 0.19.2
   basic-auth: 2.0.1
-  boxwood: 0.42.1
+  boxwood: 0.42.2
   busboy: 0.3.1
   chalk: 4.1.0
   colorette: 1.2.1
@@ -19,7 +19,7 @@ dependencies:
   dumper.js: 1.3.1
   error-stack-parser: 2.0.6
   es-module-lexer: 0.3.24
-  esbuild: 0.6.22
+  esbuild: 0.6.23
   fast-glob: 3.2.4
   fs-extra: 9.0.1
   graphile-worker: 0.6.0
@@ -37,7 +37,7 @@ dependencies:
   pg: 8.3.0_pg@8.3.0
   postcss: 7.0.32
   resolve-from: 5.0.0
-  rollup: 2.23.1
+  rollup: 2.26.0
   rsyncwrapper: 3.0.1
   semver: 7.3.2
   stack-trace: 0.0.10
@@ -53,9 +53,9 @@ devDependencies:
   '@types/es-module-lexer': 0.3.0
   '@types/lru-cache': 5.1.0
   ava: 3.11.1
-  eslint: 7.6.0
-  eslint-config-prettier: 6.11.0_eslint@7.6.0
-  eslint-plugin-prettier: 3.1.4_eslint@7.6.0+prettier@2.0.5
+  eslint: 7.7.0
+  eslint-config-prettier: 6.11.0_eslint@7.7.0
+  eslint-plugin-prettier: 3.1.4_eslint@7.7.0+prettier@2.0.5
   form-data: 3.0.0
   prettier: 2.0.5
 lockfileVersion: 5.1
@@ -85,7 +85,7 @@ packages:
         optional: true
     resolution:
       integrity: sha512-zXMiaj+dX0sgXIwEV5d/PI6B8SZT2bqlKNjZWcEXRY7NjESF5J3nd4v8KOsrhHe+A3YhNv63tIl35Sq7uf41Pg==
-  /@apollo/protobufjs/1.0.4:
+  /@apollo/protobufjs/1.0.5:
     dependencies:
       '@protobufjs/aspromise': 1.1.2
       '@protobufjs/base64': 1.1.2
@@ -104,7 +104,7 @@ packages:
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-EE3zx+/D/wur/JiLp6VCiw1iYdyy1lCJMf8CGPkLeDt5QJrN4N8tKFx33Ah4V30AUQzMk7Uz4IXKZ1LOj124gA==
+      integrity: sha512-ZtyaBH1icCgqwIGb3zrtopV2D5Q8yxibkJzlaViM08eOhTQc7rACdYu0pfORFfhllvdMZ3aq69vifYHszY4gNA==
   /@apollographql/apollo-tools/0.4.8:
     dependencies:
       apollo-env: 0.6.5
@@ -153,7 +153,7 @@ packages:
       debug: 4.1.1
       gensync: 1.0.0-beta.1
       json5: 2.1.3
-      lodash: 4.17.19
+      lodash: 4.17.20
       resolve: 1.17.0
       semver: 5.7.1
       source-map: 0.5.7
@@ -209,7 +209,7 @@ packages:
     dependencies:
       '@babel/helper-function-name': 7.10.4
       '@babel/types': 7.11.0
-      lodash: 4.17.19
+      lodash: 4.17.20
     dev: false
     resolution:
       integrity: sha512-fMw4kgFB720aQFXSVaXr79pjjcW5puTCM16+rECJ/plGS+zByelE8l9nCpV1GibxTnFVmUuYG9U8wYfQHdzOEQ==
@@ -247,7 +247,7 @@ packages:
       '@babel/helper-split-export-declaration': 7.11.0
       '@babel/template': 7.10.4
       '@babel/types': 7.11.0
-      lodash: 4.17.19
+      lodash: 4.17.20
     dev: false
     resolution:
       integrity: sha512-02EVu8COMuTRO1TAzdMtpBPbe6aQ1w/8fePD2YgQmxZU4gpNWaL9gK3Jp7dxlkUlUCJOTaSeA+Hrm1BRQwqIhg==
@@ -594,14 +594,14 @@ packages:
       '@babel/types': 7.11.0
       debug: 4.1.1
       globals: 11.12.0
-      lodash: 4.17.19
+      lodash: 4.17.20
     dev: false
     resolution:
       integrity: sha512-ZB2V+LskoWKNpMq6E5UUCrjtDUh5IOTAyIl0dTjIEoXum/iKWkoIEKIRDnUucO6f+2FzNkE0oD4RLKoPIufDtg==
   /@babel/types/7.11.0:
     dependencies:
       '@babel/helper-validator-identifier': 7.10.4
-      lodash: 4.17.19
+      lodash: 4.17.20
       to-fast-properties: 2.0.0
     dev: false
     resolution:
@@ -1512,7 +1512,7 @@ packages:
       integrity: sha512-ibnW+s4BMp4K2AgzLEtvzkjg7dJgCaw9M5b5N0YKNmeRZRnl/I/qBTQae648FsRKgMwTbRQIvBhQ0URUFAqFOw==
   /apollo-engine-reporting-protobuf/0.5.2:
     dependencies:
-      '@apollo/protobufjs': 1.0.4
+      '@apollo/protobufjs': 1.0.5
     dev: false
     resolution:
       integrity: sha512-4wm9FR3B7UvJxcK/69rOiS5CAJPEYKufeRWb257ZLfX7NGFTMqvbc1hu4q8Ch7swB26rTpkzfsftLED9DqH9qg==
@@ -1847,7 +1847,7 @@ packages:
       is-error: 2.2.2
       is-plain-object: 4.1.1
       is-promise: 4.0.0
-      lodash: 4.17.19
+      lodash: 4.17.20
       matcher: 3.0.0
       md5-hex: 3.0.1
       mem: 6.1.0
@@ -1993,7 +1993,7 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-eB4uT9RGzg2odpER62bBwSLvUeGC+WbRjjyyFhGsKnc8wp/m0+hQsMUvUe3H2V0D5vw0nBdO1hCJoZo5mKeuIQ==
-  /boxwood/0.42.1:
+  /boxwood/0.42.2:
     dependencies:
       abstract-syntax-tree: 2.8.5
       astoptech: 1.0.6
@@ -2010,10 +2010,10 @@ packages:
       path-to-regexp: 6.1.0
       pure-conditions: 1.1.0
       pure-utilities: 1.2.0
-      rollup: 2.23.1
-      rollup-plugin-commonjs: 10.1.0_rollup@2.23.1
+      rollup: 2.26.0
+      rollup-plugin-commonjs: 10.1.0_rollup@2.26.0
       rollup-plugin-includepaths: 0.2.3
-      rollup-plugin-node-resolve: 5.2.0_rollup@2.23.1
+      rollup-plugin-node-resolve: 5.2.0_rollup@2.26.0
       string-hash: 1.1.3
       words-to-numbers: 1.5.1
       yaml: 1.10.0
@@ -2022,7 +2022,7 @@ packages:
       node: '>= 10.15.1'
       npm: '>= 6.7.0'
     resolution:
-      integrity: sha512-YzgjeKFWJOshLB+Zrmj6gasNFIIVvY3qAgNaNVeBIKXA5VH3KEvYI+HKwvCJDAz707xx9uCPKM0KFNT2+GI1Vg==
+      integrity: sha512-iqTiI7bWJR5UX5aTrKlHKWu+BgazKhv69L0SKSsHZAjMC8Tz68RA4hzxI6dc0QDDbFPcuvmzZUzMY1MY6MyJoQ==
   /brace-expansion/1.1.11:
     dependencies:
       balanced-match: 1.0.0
@@ -2301,7 +2301,7 @@ packages:
       esutils: 2.0.3
       fast-diff: 1.2.0
       js-string-escape: 1.0.1
-      lodash: 4.17.19
+      lodash: 4.17.20
       md5-hex: 3.0.1
       semver: 7.3.2
       well-known-symbols: 2.0.0
@@ -2743,12 +2743,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-p5um32HOTO1kP+w7PRnB+5lQ43Z6muuMuIMffvDN8ZB4GcnjLBV6zGStpbASIMk4DCAvEaamhe2zhyCb/QXXsA==
-  /esbuild/0.6.22:
+  /esbuild/0.6.23:
     dev: false
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-dgcdoOZ7rghMageuGFS6geQ77UacoZ/qrd0MRc2iPnYtMNfQ1cJ7mVkotVpUDJYdOWvLVa87NFEtqPg7D2mKSA==
+      integrity: sha512-NOTbv2Te/u5lPqIkldkK9a4QHgiDVDuQNniMxfJfLIysXPy4enerS2fHx89qlhnIDAltC8F+pkob5okgZ+O0Kw==
   /escape-goat/2.1.1:
     dev: true
     engines:
@@ -2772,9 +2772,9 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
-  /eslint-config-prettier/6.11.0_eslint@7.6.0:
+  /eslint-config-prettier/6.11.0_eslint@7.7.0:
     dependencies:
-      eslint: 7.6.0
+      eslint: 7.7.0
       get-stdin: 6.0.0
     dev: true
     hasBin: true
@@ -2782,9 +2782,9 @@ packages:
       eslint: '>=3.14.1'
     resolution:
       integrity: sha512-oB8cpLWSAjOVFEJhhyMZh6NOEOtBVziaqdDQ86+qhDHFbZXoRTM7pNSvFRfW/W/L/LrQ38C99J5CGuRBBzBsdA==
-  /eslint-plugin-prettier/3.1.4_eslint@7.6.0+prettier@2.0.5:
+  /eslint-plugin-prettier/3.1.4_eslint@7.7.0+prettier@2.0.5:
     dependencies:
-      eslint: 7.6.0
+      eslint: 7.7.0
       prettier: 2.0.5
       prettier-linter-helpers: 1.0.0
     dev: true
@@ -2818,7 +2818,7 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-6J72N8UNa462wa/KFODt/PJ3IU60SDpC3QXC1Hjc1BXXpfL2C9R5+AU7jhe0F6GREqVMh4Juu+NY7xn+6dipUQ==
-  /eslint/7.6.0:
+  /eslint/7.7.0:
     dependencies:
       '@babel/code-frame': 7.10.4
       ajv: 6.12.3
@@ -2844,7 +2844,7 @@ packages:
       js-yaml: 3.14.0
       json-stable-stringify-without-jsonify: 1.0.1
       levn: 0.4.1
-      lodash: 4.17.19
+      lodash: 4.17.20
       minimatch: 3.0.4
       natural-compare: 1.4.0
       optionator: 0.9.1
@@ -2861,7 +2861,7 @@ packages:
       node: ^10.12.0 || >=12.0.0
     hasBin: true
     resolution:
-      integrity: sha512-QlAManNtqr7sozWm5TF4wIH9gmUm2hE3vNRUvyoYAa4y1l5/jxD/PQStEjBMQtCqZmSep8UxrcecI60hOpe61w==
+      integrity: sha512-1KUxLzos0ZVsyL81PnRN335nDtQ8/vZUD6uMtWbF+5zDtjKcsklIi78XoE0MVL93QvWTu+E5y44VyyCsOMBrIg==
   /espree/7.2.0:
     dependencies:
       acorn: 7.4.0
@@ -4005,8 +4005,12 @@ packages:
     resolution:
       integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
   /lodash/4.17.19:
+    dev: false
     resolution:
       integrity: sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
+  /lodash/4.17.20:
+    resolution:
+      integrity: sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
   /log-symbols/3.0.0:
     dependencies:
       chalk: 2.4.2
@@ -5140,13 +5144,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
-  /rollup-plugin-commonjs/10.1.0_rollup@2.23.1:
+  /rollup-plugin-commonjs/10.1.0_rollup@2.26.0:
     dependencies:
       estree-walker: 0.6.1
       is-reference: 1.2.1
       magic-string: 0.25.7
       resolve: 1.17.0
-      rollup: 2.23.1
+      rollup: 2.26.0
       rollup-pluginutils: 2.8.2
     deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-commonjs.
     dev: false
@@ -5158,13 +5162,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-4QbSIZPDT+FL4SViEVCRi4cGCA64zQJu7u5qmCkO3ecHy+l9EQBsue15KfCpddfb6Br0q47V/v2+E2YUiqts9g==
-  /rollup-plugin-node-resolve/5.2.0_rollup@2.23.1:
+  /rollup-plugin-node-resolve/5.2.0_rollup@2.26.0:
     dependencies:
       '@types/resolve': 0.0.8
       builtin-modules: 3.1.0
       is-module: 1.0.0
       resolve: 1.17.0
-      rollup: 2.23.1
+      rollup: 2.26.0
       rollup-pluginutils: 2.8.2
     deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-node-resolve.
     dev: false
@@ -5178,7 +5182,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
-  /rollup/2.23.1:
+  /rollup/2.26.0:
     dev: false
     engines:
       node: '>=10.0.0'
@@ -5186,7 +5190,7 @@ packages:
     optionalDependencies:
       fsevents: 2.1.3
     resolution:
-      integrity: sha512-Heyl885+lyN/giQwxA8AYT2GY3U+gOlTqVLrMQYno8Z1X9lAOpfXPiKiZCyPc25e9BLJM3Zlh957dpTlO4pa8A==
+      integrity: sha512-1kwpBuxQERz+ymjPLepaXqf3NMRDwSumuEfW/fsTtflmyyhI6ev7nLy5Vdadvn01zd0WWAojRuvA2+0coPGCGQ==
   /rsyncwrapper/3.0.1:
     dev: false
     engines:
@@ -5569,7 +5573,7 @@ packages:
   /table/5.4.6:
     dependencies:
       ajv: 6.12.3
-      lodash: 4.17.19
+      lodash: 4.17.20
       slice-ansi: 2.1.0
       string-width: 3.1.0
     dev: true
@@ -6087,7 +6091,7 @@ specifiers:
   ava: ^3.11.1
   axios: ^0.19.2
   basic-auth: ^2.0.1
-  boxwood: ^0.42.1
+  boxwood: ^0.42.2
   busboy: ^0.3.1
   chalk: ^4.1.0
   colorette: ^1.2.1
@@ -6097,8 +6101,8 @@ specifiers:
   dumper.js: ^1.3.1
   error-stack-parser: ^2.0.6
   es-module-lexer: ^0.3.24
-  esbuild: ^0.6.22
-  eslint: ^7.6.0
+  esbuild: ^0.6.23
+  eslint: ^7.7.0
   eslint-config-prettier: ^6.11.0
   eslint-plugin-prettier: ^3.1.4
   fast-glob: 3.2.4
@@ -6120,7 +6124,7 @@ specifiers:
   postcss: ^7.0.32
   prettier: 2.0.5
   resolve-from: ^5.0.0
-  rollup: ^2.23.1
+  rollup: ^2.26.0
   rsyncwrapper: ^3.0.1
   semver: ^7.3.2
   stack-trace: 0.0.10

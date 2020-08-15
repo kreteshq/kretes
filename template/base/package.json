@@ -15,10 +15,10 @@
     "chokidar": "^3.4.2",
     "cross-env": "^7.0.2",
     "node-pg-migrate": "^5.5.0",
-    "npm-check-updates": "^7.1.0",
+    "npm-check-updates": "^7.1.1",
     "pnpm": "5.5.1",
     "prettier": "^2.0.5",
-    "rollup": "^2.23.1",
+    "rollup": "^2.26.0",
     "typescript": "^4.0.1-rc",
     "tailwindcss": "^1.6.2"
   }
