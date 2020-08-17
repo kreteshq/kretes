@@ -53,6 +53,11 @@ export async function handler({ dir, installDependencies }) {
     });
     await fs.outputFile(configOutput, compiled);
 
+    // parametrize `default.nix`
+    const tmplDefaultNix = await fs.readFile(join(themeDir, 'default.nix'), 'utf-8');
+    const outputDefaultNix = join(cwd, dir, 'default.nix');
+    await fs.outputFile(outputDefaultNix, substitute(tmplDefaultNix, { name }));
+
     // Overwrites `package.json` copied above
     const path = join(cwd, dir, 'package.json');
     const content = generatePackageJSON(dir);
