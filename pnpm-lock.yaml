@@ -34,7 +34,7 @@ dependencies:
   magic-string: 0.25.7
   merge-deep: 3.0.2
   mime-types: 2.1.27
-  pg: 8.3.0_pg@8.3.0
+  pg: 8.3.2_pg@8.3.2
   postcss: 7.0.32
   resolve-from: 5.0.0
   rollup: 2.26.3
@@ -1142,7 +1142,7 @@ packages:
     dependencies:
       '@types/express': 4.17.7
       '@types/fs-capacitor': 2.0.0
-      '@types/koa': 2.11.3
+      '@types/koa': 2.11.4
       graphql: 14.7.0
     dev: false
     resolution:
@@ -1151,28 +1151,33 @@ packages:
     dev: false
     resolution:
       integrity: sha512-PGAK759pxyfXE78NbKxyfRcWYA/KwW17X290cNev/qAsn9eQIxkH4shoNBafH37wewhDG/0p1cHPbK6+SzZjWQ==
+  /@types/http-errors/1.8.0:
+    dev: false
+    resolution:
+      integrity: sha512-2aoSC4UUbHDj2uCsCxcG/vRMXey/m17bC7UwitVm5hn22nI8O8Y9iDpA76Orc+DWkQ4zZrOKEshCqR/jSuXAHA==
   /@types/keygrip/1.0.2:
     dev: false
     resolution:
       integrity: sha512-GJhpTepz2udxGexqos8wgaBx4I/zWIDPh/KOGEwAqtuGDkOUJu5eFvwmdBX4AmB8Odsr+9pHCQqiAqDL/yKMKw==
   /@types/koa-compose/3.2.5:
     dependencies:
-      '@types/koa': 2.11.3
+      '@types/koa': 2.11.4
     dev: false
     resolution:
       integrity: sha512-B8nG/OoE1ORZqCkBVsup/AKcvjdgoHnfi4pZMn5UwAPCbhk/96xyv284eBYW8JlQbQ7zDmnpFr68I/40mFoIBQ==
-  /@types/koa/2.11.3:
+  /@types/koa/2.11.4:
     dependencies:
       '@types/accepts': 1.3.5
       '@types/content-disposition': 0.5.3
       '@types/cookies': 0.7.4
       '@types/http-assert': 1.5.1
+      '@types/http-errors': 1.8.0
       '@types/keygrip': 1.0.2
       '@types/koa-compose': 3.2.5
       '@types/node': 14.6.0
     dev: false
     resolution:
-      integrity: sha512-ABxVkrNWa4O/Jp24EYI/hRNqEVRlhB9g09p48neQp4m3xL1TJtdWk2NyNQSMCU45ejeELMQZBYyfstyVvO2H3Q==
+      integrity: sha512-Etqs0kdqbuAsNr5k6mlZQelpZKVwMu9WPRHVVTLnceZlhr0pYmblRNJbCgoCMzKWWePldydU0AYEOX4Q9fnGUQ==
   /@types/long/4.0.1:
     dev: false
     resolution:
@@ -3285,7 +3290,7 @@ packages:
       '@types/pg': 7.14.4
       chokidar: 3.4.2
       cosmiconfig: 6.0.0
-      pg: 8.3.0_pg@8.3.0
+      pg: 8.3.2_pg@8.3.2
       tslib: 1.13.0
       yargs: 15.4.1
     dev: false
@@ -4682,9 +4687,9 @@ packages:
       node: '>=4.0.0'
     resolution:
       integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==
-  /pg-pool/3.2.1_pg@8.3.0:
+  /pg-pool/3.2.1_pg@8.3.2:
     dependencies:
-      pg: 8.3.0_pg@8.3.0
+      pg: 8.3.2_pg@8.3.2
     dev: false
     peerDependencies:
       pg: '>=8.0'
@@ -4706,12 +4711,12 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==
-  /pg/8.3.0_pg@8.3.0:
+  /pg/8.3.2_pg@8.3.2:
     dependencies:
       buffer-writer: 2.0.0
       packet-reader: 1.0.0
       pg-connection-string: 2.3.0
-      pg-pool: 3.2.1_pg@8.3.0
+      pg-pool: 3.2.1_pg@8.3.2
       pg-protocol: 1.2.5
       pg-types: 2.2.0
       pgpass: 1.0.2
@@ -4722,7 +4727,7 @@ packages:
     peerDependencies:
       pg: '*'
     resolution:
-      integrity: sha512-jQPKWHWxbI09s/Z9aUvoTbvGgoj98AU7FDCcQ7kdejupn/TcNpx56v2gaOTzXkzOajmOEJEdi9eTh9cA2RVAjQ==
+      integrity: sha512-hOoRCTriXS+VWwyXHchRjWb9yv3Koq8irlwwXniqhdgK0AbfWvEnybGS2HIUE+UdCSTuYAM4WGPujFpPg9Vcaw==
   /pgpass/1.0.2:
     dependencies:
       split: 1.0.1
@@ -6137,7 +6142,7 @@ specifiers:
   magic-string: ^0.25.7
   merge-deep: ^3.0.2
   mime-types: ^2.1.27
-  pg: ^8.3.0
+  pg: ^8.3.2
   postcss: ^7.0.32
   prettier: 2.0.5
   resolve-from: ^5.0.0
