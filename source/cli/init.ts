@@ -58,6 +58,11 @@ export async function handler({ dir, installDependencies }) {
     const outputDefaultNix = join(cwd, dir, 'default.nix');
     await fs.outputFile(outputDefaultNix, substitute(tmplDefaultNix, { name }));
 
+    // parametrize `settings.json`
+    const tmplVSCodeSettings = await fs.readFile(join(themeDir, 'vscode', 'settings.json'), 'utf-8');
+    const outputVSCodeSettings = join(cwd, dir, '.vscode', 'settings.json');
+    await fs.outputFile(outputVSCodeSettings, substitute(tmplVSCodeSettings, { name }));
+
     // Overwrites `package.json` copied above
     const path = join(cwd, dir, 'package.json');
     const content = generatePackageJSON(dir);
