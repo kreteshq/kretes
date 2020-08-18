@@ -356,3 +356,6 @@ export * as routing from './routing';
 
 import database from './db';
 export { database };
+
+import Schema from 'validate';
+export { Schema };
