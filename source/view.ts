@@ -1,7 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const { compile, escape } = require('boxwood');
+import { compile, escape } from 'boxwood';
 
 interface Options {
   context?: object
@@ -9,7 +9,31 @@ interface Options {
   path?: string
 }
 
-const render = async (source, options: Options = {}) => {
+interface CompilerError {
+  message: string;
+  type: string;
+  stack: string;
+}
+
+interface CompilerWarning {
+  message: string;
+  type: string;
+  stack: string;
+}
+
+interface CompilerOutput {
+  template(content, escape): string;
+  errors: CompilerError[];
+  warnings: CompilerWarning[];
+  from: string;
+}
+
+interface File {
+  source: string;
+  path: string;
+}
+
+export const render = async (source: string, options: Options = {}): Promise<string> => {
   const { context = {}, paths = [], path = '.' } = options;
   const { template, html } = await compile(source, {
     cache: process.env.NODE_ENV === 'production',
@@ -21,7 +45,7 @@ const render = async (source, options: Options = {}) => {
   return template(context, escape);
 };
 
-const precompile = async (files, { paths } = { paths: [] }) => {
+export const precompile = async (files: File[], { paths } = { paths: [] }): Promise<CompilerOutput[]> => {
   const promises = files.map(({ source, path }) => {
     return compile(source, {
       cache: true,
@@ -30,9 +54,4 @@ const precompile = async (files, { paths } = { paths: [] }) => {
     });
   });
   return Promise.all(promises);
-};
-
-export {
-  render,
-  precompile,
 };
