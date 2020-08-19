@@ -3,38 +3,24 @@
 </p>
 
 <p align="center">
-  <h1 align="center">
-    <a href="https://kretes.dev">Kretes</a>
-  </h1>
+  <h1 align="center">Programming Environment <br/> for <span style="color: #4299e1">TypeScript</span> & Node.js</h1>
 </p>
 
-<p align="center">
-  <span>(formerly Huncwot)</span>
-</p>
+<h3 align="center">A battery-included TypeScript framework built on top of Visual Studio Code</h3>
 
-<p align="center">
-  <b>A programming environment for TypeScript <br />
-  built on top of <a href="https://code.visualstudio.com/">Visual Studio Code</a>. <br/>
-  It combines a web framework with an editor <br />
-  into an integrated, battery-included solution.</b>
-</p>
+<h3 align="center"><a href="https://kretes.dev" target="_blank">Website</a></h3>
 
 <br>
 
 <p align="center">
-  <a href="https://landing.mailerlite.com/webforms/landing/a3k0m1"><img src="https://img.shields.io/badge/%20newsletter%20-%20subscribe%20-blue.svg?style=for-the-badge" alt="Subscribe to Kretes Newsletter"></a>
+  <a href="https://discord.gg/befPaNb"><img src="https://img.shields.io/badge/Discord-join%20the%20community-738bd7.svg?style=for-the-badge" alt="Kretes channel on Discord"></a>
   <a href="https://www.npmjs.com/package/kretes"><img src="https://img.shields.io/npm/v/kretes.svg?style=for-the-badge" alt="Kretes Package on NPM"></a>
-  <a href="https://www.npmjs.com/package/kretes"><img src="https://img.shields.io/npm/dm/kretes.svg?style=for-the-badge" alt="Kretes Package on NPM"></a>
-  <a href="https://discord.gg/befPaNb"><img src="https://img.shields.io/badge/Discord-join%20chat-738bd7.svg?style=for-the-badge" alt="Kretes channel on Discord"></a>
   <a href="https://www.youtube.com/playlist?list=PLhXZp00uXBk72m_G7E2Bshzd7PDpaInE1"><img src="https://img.shields.io/badge/YouTube-Watch%20Screencasts-red?style=for-the-badge" alt="Kretes related screencasts on YouTube"></a>
 </a>
 
 Kretes is a **programming environment** for building modern web applications
 using TypeScript & Node.js with « batteries included » approach. It is an **integrated** solution that optimizes for programmers productivity by reducing choices and incorporating community conventions.
 
-
-[Website](https://kretes.dev) |
-[Twitter](http://twitter.com/kreteshq)
 
 ## Table of Contents
 
