@@ -8,6 +8,7 @@ import { SFCDescriptor, SFCStyleCompileResults } from '@vue/compiler-sfc'
 import * as VueCompiler from '@vue/compiler-sfc'
 import WebSocket from 'ws';
 import { Service as ESBuildService } from 'esbuild';
+import { Pool } from 'pg';
 
 export const Vue = {
   Cache: {
@@ -53,7 +54,7 @@ export const App = {
   WebSockets: new Set<WebSocket>(),
   Importers: new Map<string, Set<string>>(),
   Importees: new Map<string, Set<string>>(),
-  DatabasePool: null,
+  DatabasePool: null as Pool,
   ESBuild: null as ESBuildService,
   async transpile(source, { loader }) {
     const { jsxFactory, jsxFragmentFactory: jsxFragment } = this.TypeScriptConfigClient;

@@ -10,7 +10,7 @@ import http from 'http';
 import httpstatus from 'http-status';
 import pg from 'pg';
 import { AddressInfo } from 'net';
-import { Service, startService } from 'esbuild';
+import { startService } from 'esbuild';
 
 import * as Middleware from './middleware';
 import { Response } from './response';
@@ -156,7 +156,7 @@ export default class Kretes {
   async setup() {
     const config = require('config');
     const connection = config.get('db');
-    App.DatabasePool = new pg.Pool(connection);
+    App.DatabasePool = new pg.Pool({ port: 5454, ...connection });
 
     App.DatabasePool.connect(error => {
       if (error) {
@@ -165,6 +165,11 @@ export default class Kretes {
         process.exit(1);
       }
     });
+
+    // FIXME Doesn't work
+    // App.DatabasePool.on('error', error => {
+    //   console.log("boo")
+    // })
 
     debug('starting ESBuild service');
     App.ESBuild = await startService();

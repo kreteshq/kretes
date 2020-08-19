@@ -9,6 +9,7 @@ pkgs.mkShell {
   shellHook = ''
     export PGDATA=./db/content
     export PGDATABASE={{name}}
+    export PGPORT=5454
     export PGSSLMODE=disable
   '';
 }
