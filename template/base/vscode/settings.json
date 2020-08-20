@@ -47,11 +47,35 @@
             "description": "The name of the entry",
             "properties": {
               "database": {
+                "type": "string",
+                "description": "The name of your database"
+              },
+              "user": {
+                "type": "string",
+                "description": "The name of a role created in PostgreSQL"
+              },
+              "password": {
                 "type": "string"
               },
-              "username": {
+              "host": {
                 "type": "string"
-              }
+              },
+              "port": {
+                "type": "number",
+                "description": "The port on which PostgreSQL instance runs (default to 5454 in development)"
+              },
+              "connectionString": {
+                "type": "string"
+              },
+              "statement_timeout": {
+                "type": "number"
+              },
+              "query_timeout": {
+                "type": "number"
+              },
+              "connectionTimeoutMillis": {
+                "type": "number"
+              },
             }
           },
           "deploy": {
