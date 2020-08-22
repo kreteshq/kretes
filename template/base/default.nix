@@ -5,6 +5,7 @@ pkgs.mkShell {
   buildInputs = [
     pkgs.nodejs-14_x
     pkgs.postgresql_12
+    pkgs.pgcli
   ];
   shellHook = ''
     export PGDATA=./db/content
