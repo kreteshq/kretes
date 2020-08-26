@@ -1,9 +1,8 @@
-const test = require('ava');
-const { render, precompile } = require('./view');
-const { join } = require('path');
-const { tmpdir } = require('os');
-
+import test from 'ava';
+import { join } from 'path';
+import { tmpdir } from 'os';
 import { promises as fs } from 'fs';
+import { render, precompile } from './view';
 
 test('render: it renders html', async assert => {
   const source = '<div>foo</div>';

@@ -10,7 +10,12 @@ interface Options {
   cache?: boolean
 }
 
-export const read = async (path, options: Options = {}) => {
+interface File {
+  source: string;
+  path: string;
+}
+
+export const read = async (path, options: Options = {}): Promise<string> => {
   const { cache } = options
   if (cache && memory[path]) { return new Promise(resolve => resolve(memory[path])) }
   const content = await fs.readFile(path, 'utf-8')
@@ -18,16 +23,16 @@ export const read = async (path, options: Options = {}) => {
   return content
 }
 
-export const glob = async (patterns, options = {}) => fg(patterns, options)
+export const glob = async (patterns, options = {}): Promise<string[]> => fg(patterns, options)
 
-export const readAll = async (patterns, options = {}) => {
-  const files = await glob(patterns);
-  const promises = files.map(path => read(path, options));
+export const readAll = async (patterns, options = {}): Promise<File[]> => {
+  const paths = await glob(patterns);
+  const promises = paths.map(path => read(path, options));
   return Promise.all(promises).then(sources => {
     return sources.map((source, index) => {
       return {
         source,
-        path: files[index]
+        path: paths[index]
       }
     });
   });
