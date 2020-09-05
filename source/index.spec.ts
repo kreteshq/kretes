@@ -66,7 +66,7 @@ before(async () => {
     request.id = `id-${sequence()}`;
     return next(context);
   });
-  await app.start({ routes });
+  await app.start(routes);
   const http = axios.create({ baseURL: `http://localhost:${app.port}` });
   get = http.get;
   post = http.post;

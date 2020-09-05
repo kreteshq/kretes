@@ -201,7 +201,7 @@ export default class Kretes {
     return this;
   }
 
-  async start({ routes = [], port = 0 } = {}) {
+  async start(routes: Routes = [], port: number = 0) {
     for (const [path, params] of routes) {
       const { middleware = [] } = params;
       for (let [method, handler] of Object.entries(params)) {

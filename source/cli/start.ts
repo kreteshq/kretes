@@ -64,7 +64,7 @@ const start = async ({ port }) => {
   app.use(Middleware.HotReloading());
   app.use(Middleware.SPA());
 
-  const server = await app.start({ routes, port });
+  const server = await app.start(routes, port);
 
   server.on('connection', socket => {
     sockets.push(socket);
