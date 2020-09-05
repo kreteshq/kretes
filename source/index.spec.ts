@@ -46,12 +46,14 @@ const identity = _ => _;
 const prepend = next => async request => `Prefix -> ${await next(request)}`;
 
 const Compositions = [
-  GET('/simple-compose', _ => 'Simple Compose', [identity]),
-  GET('/prepend-compose', _ => 'Prepend Compose', [prepend]),
+  GET('/simple-compose', _ => 'Simple Compose', { middleware: [identity] }),
+  GET('/prepend-compose', _ => 'Prepend Compose', { middleware: [prepend] }),
   GET('/request-validation',
     ({ params: { admin } }) =>
       `Admin param (${admin}) should be absent from this request payload`,
-    [ validate({ name: { type: String, required: true } }) ]
+      {
+        middleware: [ validate({ name: { type: String, required: true } }) ]
+      }
   ),
  ];
 

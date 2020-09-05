@@ -19,7 +19,7 @@ import { glob } from './filesystem';
 import { build, translate } from './controller';
 import { readAll } from './filesystem';
 import { precompile } from './view';
-import { NotFound } from './response';
+import { NotFound, JSONPayload } from './response';
 import Logger from './logger';
 import HTMLifiedError from './error';
 import { compose } from './util';
@@ -58,6 +58,11 @@ export interface Resource {
   children?: Resource[]
 }
 
+export interface Meta {
+  summary?: string
+  description?: string
+}
+
 interface RouteParams {
   GET?: Handler
   POST?: Handler
@@ -65,6 +70,7 @@ interface RouteParams {
   PATCH?: Handler
   DELETE?: Handler
   middleware?: any
+  meta?: Meta
 }
 export type Route = [string, RouteParams, Route?];
 export type Routes = Route[];
@@ -202,16 +208,32 @@ export default class Kretes {
   }
 
   async start(routes: Routes = [], port: number = 0) {
+    const routePaths = {};
+
     for (const [path, params] of routes) {
-      const { middleware = [] } = params;
+      const { middleware = [], meta = {} } = params;
       for (let [method, handler] of Object.entries(params)) {
         if (HTTPMethods.includes(method)) {
+          routePaths[path] = {}
+          routePaths[path][method] = {...meta};
+
           const flow = middleware.concat(handler);
           this.add(method, path, ...flow);
         }
         // else: a key name undefined in the spec -> discarding
       }
     }
+
+    const packageJSONPath = join(process.cwd(), 'package.json');
+    const { title = "", description = "", version = ""} = require(packageJSONPath);
+
+    this.add('GET', '/__rest', () => {
+      return JSONPayload({
+        openapi: '3.0.0',
+        info: { title, version, description },
+        paths: routePaths
+      })
+    })
 
     this.use(Middleware.Security());
     this.use(Middleware.CORS());

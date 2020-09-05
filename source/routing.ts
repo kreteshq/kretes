@@ -5,26 +5,31 @@ const debug = require('debug')('ks:routing'); // eslint-disable-line no-unused-v
 
 const { join } = require('path');
 
-import { Route as TRoute, Handler } from '.';
+import { Route as TRoute, Handler, Meta } from '.';
+
+interface RouteOptions {
+  middleware?: Function[]
+  meta?: Meta
+}
 
 const cwd = process.cwd();
 
 // FIXME autogenerate somehow those function
 const Route = {
-  GET(path: string, handler: Handler, middleware: Function[] = []): TRoute {
-    return [path, { GET: handler, middleware }]
+  GET(path: string, handler: Handler, { middleware = [], meta = {}}: RouteOptions = {}): TRoute {
+    return [path, { GET: handler, middleware, meta }]
   },
-  POST(path: string, handler: Handler, middleware: Function[] = []): TRoute {
-    return [path, { POST: handler, middleware }]
+  POST(path: string, handler: Handler, { middleware = [], meta = {}}: RouteOptions = {}): TRoute {
+    return [path, { POST: handler, middleware, meta }]
   },
-  PATCH(path: string, handler: Handler, middleware: Function[] = []): TRoute {
-    return [path, { PATCH: handler, middleware }]
+  PATCH(path: string, handler: Handler, { middleware = [], meta = {}}: RouteOptions = {}): TRoute {
+    return [path, { PATCH: handler, middleware, meta }]
   },
-  PUT(path: string, handler: Handler, middleware: Function[] = []): TRoute {
-    return [path, { PUT: handler, middleware }]
+  PUT(path: string, handler: Handler, { middleware = [], meta = {}}: RouteOptions = {}): TRoute {
+    return [path, { PUT: handler, middleware, meta }]
   },
-  DELETE(path: string, handler: Handler, middleware: Function[] = []): TRoute {
-    return [path, { DELETE: handler, middleware }]
+  DELETE(path: string, handler: Handler, { middleware = [], meta = {}}: RouteOptions = {}): TRoute {
+    return [path, { DELETE: handler, middleware, meta }]
   },
   Resource(feature: string, options?) {
     return buildResource([{ feature, ...options }]);
