@@ -1,27 +1,19 @@
-// Copyright 2020 Zaiste & contributors. All rights reserved.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright Zaiste. All rights reserved.
+// Licensed under the Apache License, Version 2.0
 
-import { ReadStream } from 'fs'
-import fs from 'fs';
+import { createReadStream, ReadStream } from 'fs'
 const { dirname, join } = require('path');
 
 const { read } = require('./filesystem');
 const { render } = require('./view');
 
+type ResponseBody = string | object;
+type Resource = ResponseBody | undefined;
+
 export type Response =
   | string
   | {
-      body: string | object,
+      body: ResponseBody,
       statusCode: number,
       headers?: object
     }
@@ -29,13 +21,12 @@ export type Response =
   | ReadStream;
 
 const cwd = process.cwd();
-// TODO auto-create those functions?
 
-const OK = (body: any, headers = {}) => {
+const OK = (body: ResponseBody, headers = {}) => {
   return { headers, body, statusCode: 200 } as Response;
 };
 
-const Created = (resource: string | object | undefined = '', headers = {}) => {
+const Created = (resource: Resource = '', headers = {}) => {
   return {
     statusCode: 201,
     headers,
@@ -43,11 +34,11 @@ const Created = (resource: string | object | undefined = '', headers = {}) => {
   };
 };
 
-const Accepted = (body = '', headers = {}) => {
+const Accepted = (resource: Resource = '', headers = {}) => {
   return {
     statusCode: 202,
     headers,
-    body
+    body: resource
   };
 };
 
@@ -62,12 +53,13 @@ const NoContent = (headers = {}) => {
 const NotFound = (headers = {}) => {
   return {
     statusCode: 404,
+    type: 'text/html',
     headers,
-    body: fs.createReadStream(join(__dirname, '..', 'resources', '404.html')),
+    body: createReadStream(join(__dirname, '..', 'resources', '404.html')),
   };
 };
 
-const Redirect = (url, body = 'Redirecting...', statusCode = 302) => {
+const Redirect = (url: string, body = 'Redirecting...', statusCode = 302) => {
   return {
     statusCode,
     headers: { Location: url },
@@ -76,7 +68,7 @@ const Redirect = (url, body = 'Redirecting...', statusCode = 302) => {
   };
 };
 
-const NotModified = (headers) => {
+const NotModified = (headers = {}) => {
   return {
     statusCode: 304,
     headers,
