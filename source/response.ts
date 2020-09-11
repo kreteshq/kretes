@@ -72,7 +72,7 @@ const NotModified = (headers = {}) => {
   return {
     statusCode: 304,
     headers,
-    body: null,
+    body: '',
   };
 };
 
@@ -94,7 +94,7 @@ const HTMLStream = content => {
   return s;
 };
 
-const HTMLString = content => {
+const HTMLString = (content: string) => {
   return {
     statusCode: 200,
     type: 'text/html',
@@ -102,7 +102,7 @@ const HTMLString = content => {
   };
 };
 
-const JavaScriptString = content => {
+const JavaScriptString = (content: string) => {
   return {
     statusCode: 200,
     type: 'application/javascript',
@@ -110,7 +110,7 @@ const JavaScriptString = content => {
   };
 };
 
-const StyleSheetString = content => {
+const StyleSheetString = (content: string) => {
   return {
     statusCode: 200,
     type: 'text/css',
@@ -121,22 +121,24 @@ const StyleSheetString = content => {
 const Unauthorized = () => {
   return {
     statusCode: 401,
-    // TODO add WWW-Authenticate
+    headers: {
+      'WWW-Authenticate': 'Basic realm=Authorization Required'
+    },
     body: ''
   };
 };
 
-const Forbidden = message => {
+const Forbidden = (content: string = '') => {
   return {
     statusCode: 403,
-    body: message
+    body: content
   };
 };
 
-const InternalServerError = message => {
+const InternalServerError = (content: string = '') => {
   return {
     statusCode: 500,
-    body: message
+    body: content
   };
 };
 
