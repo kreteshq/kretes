@@ -24,13 +24,7 @@ function auth({ users }) {
     if (credentials && credentials.name && credentials.pass && check(credentials)) {
       return next();
     } else {
-      return {
-        headers: {
-          'WWW-Authenticate': 'Basic realm=Authorization Required'
-        },
-        statusCode: 401,
-        body: ''
-      };
+      return Unauthorized();
     }
   };
 
