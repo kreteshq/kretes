@@ -9,12 +9,12 @@ const cwd = process.cwd();
 
 const VERSION = require('../../package.json').version;
 
-export async function handler({ library }) {
+export async function handler({ pkg }) {
   console.log(`${__.bold.blue('Kretes'.padStart(10))} ` + __`{bold ${VERSION}}`);
-  console.log(__`{magenta ${'add'.padStart(10)}} {underline ${library}}`);
+  console.log(__`{magenta ${'add'.padStart(10)}} {underline ${pkg}}`);
 
   try {
-    await run('npx', ['pnpm', 'add', library], { cwd });
+    await run('npx', ['pnpm', 'add', pkg], { cwd });
   } catch (error) {
     console.error(__`  {red Error}: ${error.message}`);
   }
