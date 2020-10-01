@@ -25,6 +25,7 @@ const _argv = require('yargs')
   .command(['setup'], 'Setup the development environment', require('./cli/setup'))
   .command(['add [library]'], 'Add a library from NPM', require('./cli/add'))
   .command(['install'], 'Install dependencies', require('./cli/install'))
+  .command(['update'], 'Update dependencies', require('./cli/update'))
   .command(['start', 'start', 's'], 'Start the application', require('./cli/start'))
   .example('$0 start', 'Start the application')
   .command(
