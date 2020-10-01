@@ -3,12 +3,12 @@
 
 import db from './db';
 
-interface Payload {
+export interface Payload {
   [key: string]: any
 }
 
-type Task = (input: Payload) => Promise<void>;
-type Queue = any;
+export type Task = (input: Payload) => Promise<void>;
+export type Queue = any;
 
 export interface ScheduleInput {
   task: Task
@@ -18,7 +18,7 @@ export interface ScheduleInput {
   maxAttempts?: number
 }
 
-const schedule = async ({ task, payload = {}, queue = null, runAt = null, maxAttempts = null }: ScheduleInput) => {
+export const schedule = async ({ task, payload = {}, queue = null, runAt = null, maxAttempts = null }: ScheduleInput) => {
   await db.sql`
     SELECT * FROM graphile_worker.add_job(
       identifier => ${task.name}::text,
@@ -28,7 +28,3 @@ const schedule = async ({ task, payload = {}, queue = null, runAt = null, maxAtt
       max_attempts => coalesce(${maxAttempts}::int, 25)
     );`;
 }
-
-export {
-  schedule,
-};
