@@ -27,7 +27,17 @@ import { compose } from './util';
 const cwd = process.cwd();
 const handlerDir = join(cwd, 'dist');
 
-const HTTPMethods = ['GET', 'POST', 'PUT', 'PATCH', 'HEAD', 'OPTIONS', 'DELETE'];
+const HTTPMethod = {
+  GET: 'GET',
+  POST: 'POST',
+  PUT: 'PUT',
+  PATH: 'PATCH',
+  HEAD: 'HEAD',
+  OPTIONS: 'OPTIONS',
+  DELETE: 'DELETE',
+} as const;
+
+export type HTTPMethod = (typeof HTTPMethod)[keyof typeof HTTPMethod];
 
 export interface Request {
   params: {
@@ -194,7 +204,7 @@ export default class Kretes {
     return this;
   }
 
-  add(method, path, ...fns) {
+  add(method: HTTPMethod, path, ...fns) {
     const action = fns.pop();
 
     // pipeline is a handler composed over middlewares,
@@ -215,7 +225,7 @@ export default class Kretes {
       const { summary = path } = meta;
 
       for (let [method, handler] of Object.entries(params)) {
-        if (HTTPMethods.includes(method)) {
+        if (method in HTTPMethod) {
           routePaths[path] = {}
           routePaths[path][method.toLowerCase()] = {
             ...meta,
@@ -225,7 +235,7 @@ export default class Kretes {
           };
 
           const flow = middleware.concat(handler);
-          this.add(method, path, ...flow);
+          this.add(method as HTTPMethod, path, ...flow);
         }
         // else: a key name undefined in the spec -> discarding
       }
