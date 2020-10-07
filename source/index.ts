@@ -13,13 +13,13 @@ import { AddressInfo } from 'net';
 import { startService } from 'esbuild';
 
 import * as Middleware from './middleware';
-import { Response } from './response';
+import { RedocApp, Response } from './response';
 import { App } from './manifest';
 import { glob } from './filesystem';
 import { build, translate } from './controller';
 import { readAll } from './filesystem';
 import { precompile } from './view';
-import { NotFound, JSONPayload } from './response';
+import { NotFound, JSONPayload, HTMLString, OpenAPI } from './response';
 import Logger from './logger';
 import HTMLifiedError from './error';
 import { compose } from './util';
@@ -212,10 +212,17 @@ export default class Kretes {
 
     for (const [path, params] of routes) {
       const { middleware = [], meta = {} } = params;
+      const { summary = path } = meta;
+
       for (let [method, handler] of Object.entries(params)) {
         if (HTTPMethods.includes(method)) {
           routePaths[path] = {}
-          routePaths[path][method] = {...meta};
+          routePaths[path][method.toLowerCase()] = {
+            ...meta,
+            summary,
+            parameters: [],
+            responses: {}
+          };
 
           const flow = middleware.concat(handler);
           this.add(method, path, ...flow);
@@ -227,13 +234,8 @@ export default class Kretes {
     const packageJSONPath = join(process.cwd(), 'package.json');
     const { title = "", description = "", version = ""} = require(packageJSONPath);
 
-    this.add('GET', '/__rest', () => {
-      return JSONPayload({
-        openapi: '3.0.0',
-        info: { title, version, description },
-        paths: routePaths
-      })
-    })
+    this.add('GET', '/__rest.json', () => OpenAPI({ title, version, description }, routePaths));
+    this.add('GET', '/__rest', () => RedocApp());
 
     this.use(Middleware.Security());
     this.use(Middleware.CORS());
