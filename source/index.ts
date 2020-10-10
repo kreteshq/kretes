@@ -71,6 +71,8 @@ export interface Resource {
 export interface Meta {
   summary?: string
   description?: string
+  parameters?: Array<any>
+  responses?: Object
 }
 
 interface RouteParams {
@@ -230,8 +232,6 @@ export default class Kretes {
           routePaths[path][method.toLowerCase()] = {
             ...meta,
             summary,
-            parameters: [],
-            responses: {}
           };
 
           const flow = middleware.concat(handler);
