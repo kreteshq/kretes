@@ -1,62 +1,76 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 import Debug from "debug";
-const debug = Debug('ks:middleware:resolving') // eslint-disable-line no-unused-vars
+const debug = Debug("ks:middleware:resolving"); // eslint-disable-line no-unused-vars
 
-const Module = require('module');
-import fs from 'fs-extra';
-import { join } from 'path';
+const Module = require("module");
+import { promises as fs } from "fs";
+import { join } from "path";
 
-import RE from '../regexp';
-import { JavaScriptString, InternalServerError } from '../response';
-import { Vue } from '../manifest';
+import RE from "../regexp";
+import { InternalServerError, JavaScriptString } from "../response";
 
 const resolve = (directory, moduleName) => {
-  const filename = join(directory, 'noop.js');
+  const filename = join(directory, "noop.js");
 
   const paths = Module._nodeModulePaths(directory);
-  const makeResolver = () => Module._resolveFilename(moduleName, {
-    id: filename,
-    filename,
-    paths
-  });
+  const makeResolver = () =>
+    Module._resolveFilename(moduleName, {
+      id: filename,
+      filename,
+      paths,
+    });
 
   return makeResolver();
-}
+};
+
+const Lookup = new Map([
+  ["vue", "dist/vue.runtime.esm-browser.js"],
+  ["react", "source.development.js"],
+  ["react-dom", "source.development.js"],
+]);
+
+const readFile = async (path) => {
+  try {
+    return await fs.readFile(path, "utf-8");
+  } catch (error) {
+    if (!["ENOENT", "EISDIR"].includes(error.code)) {
+      throw error;
+    }
+    return null;
+  }
+};
 
 const Resolving = () => {
   return async ({ path }: any, next: any) => {
     if (!RE.IsModule.test(path)) {
-      return next()
+      return next();
     }
 
-    const id = path.replace(RE.IsModule, '');
+    const id = path.replace(RE.IsModule, "");
 
-    if (id === 'vue') {
-      // TODO Handle runtime not found / installed scenerio
-      const content = await fs.readFile(Vue.Runtime.Browser, 'utf-8')
-      return JavaScriptString(content)
-    }
+    if (!id.endsWith('.map')) {
+      const filepaths = [
+        join("node_modules", id, Lookup.get(id) || ""),
+        join(".modules", `${id}.js`),
+        resolve(process.cwd(), id),
+      ]
 
-    try {
-      const packageJSONPath = join(process.cwd(), 'node_modules', id, 'package.json');
-      const packageJSONContent = require(packageJSONPath);
-
-      let modulePath;
-      // get the ES module path by hand FIXME
-      if (packageJSONContent.module) {
-        modulePath = join(process.cwd(), 'node_modules', id, packageJSONContent.module);
-      } else {
-        modulePath = resolve(process.cwd(), id);
+      for (const filepath of filepaths) {
+        const pkg = await readFile(filepath);
+        if (pkg) {
+          return JavaScriptString(pkg);
+        }
       }
-
-      const content = await fs.readFile(modulePath, 'utf-8')
-      return JavaScriptString(content);
-    } catch (error) {
-      return InternalServerError(`Cannot resolve: ${id}`);
+    } else {
+      const sourcemap = await readFile(join(".modules", id));
+      if (sourcemap) {
+        return { statusCode: 200, body: sourcemap, type: 'application/json' };
+      }
     }
-  }
-}
+
+    return InternalServerError(`Cannot resolve: ${id}`);
+  };
+};
 
 export default Resolving;
-

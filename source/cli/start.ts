@@ -16,6 +16,7 @@ const pg = require('pg');
 const fg = require('fast-glob');
 const postcss = require('postcss');
 import { lookpath } from 'lookpath';
+import { startService } from 'esbuild'
 
 import * as Middleware from '../middleware';
 import Kretes, { Routes } from '../';
@@ -105,8 +106,37 @@ const start = async ({ port }) => {
   return [app, server];
 };
 
+const ExcludedDependencies = ['react', 'react-dom'];
+
 const handler = async ({ port, production }) => {
   process.env.KRETES = production ? 'production' : 'development';
+
+  const ESBuildService = await startService();
+
+  const packageJSONPath = join(process.cwd(), 'package.json');
+  const packageJSONContent = require(packageJSONPath);
+
+  const dependencies = Object.keys(packageJSONContent.dependencies)
+    .filter(item => ExcludedDependencies.indexOf(item) < 0);
+
+  for (const dependency of dependencies) {
+    const dependencyPath = join(process.cwd(), 'node_modules', dependency, 'package.json');
+    const dependencyContent = require(dependencyPath);
+    const dependencyModule = dependencyContent.module;
+
+    if (dependencyModule) {
+      const modulePath = join(process.cwd(), 'node_modules', dependency, dependencyModule);
+      const entryPoints = [modulePath];
+      const outfile = `.modules/${dependency}.js`;
+
+      ESBuildService.build({ entryPoints, outfile,
+        bundle: true,
+        sourcemap: true,
+        format: "esm",
+        external: ["react", "react-dom"],
+      });
+    }
+  }
 
   const isNixInstalled = await lookpath('nix-shell');
   if (!isNixInstalled) {
