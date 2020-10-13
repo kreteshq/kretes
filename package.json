@@ -20,7 +20,7 @@
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
     "form-data": "^3.0.0",
-    "prettier": "2.1.2",
+    "prettier": "2.1.2"
   },
   "scripts": {
     "pretest": "tsc",
@@ -57,7 +57,7 @@
     "dumper.js": "^1.3.1",
     "error-stack-parser": "^2.0.6",
     "es-module-lexer": "^0.3.25",
-    "esbuild": "^0.7.14",
+    "esbuild": "^0.7.15",
     "fast-glob": "3.2.4",
     "fs-extra": "^9.0.1",
     "graphile-worker": "^0.8.1",
@@ -75,7 +75,7 @@
     "pg": "^8.4.1",
     "postcss": "^8.1.1",
     "resolve-from": "^5.0.0",
-    "rollup": "^2.29.0",
+    "rollup": "^2.30.0",
     "rsyncwrapper": "^3.0.1",
     "semver": "^7.3.2",
     "stack-trace": "0.0.10",
