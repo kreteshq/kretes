@@ -71,10 +71,10 @@ export async function handler({ dir, installDependencies }) {
     // Setup development database
     const stdout = fs.openSync(join(cwd, dir, 'log/database.log'), 'a');
 
-    await run('/usr/bin/env', ['nix-shell', '--run', 'initdb -A trust --encoding=UTF8 --locale=en_US.UTF-8 --lc-collate=C'], { stdout, cwd: projectDir  });
-    await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl start -l ./log/postgresql.log'], { stdout, cwd: projectDir });
-    await run('/usr/bin/env', ['nix-shell', '--run', `createdb ${name}`], { cwd: projectDir });
-    await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl stop -l ./log/postgresql.log'], { stdout, cwd: projectDir });
+    await run('/usr/bin/env', ['nix-shell', '--pure', '--run', 'initdb -A trust --encoding=UTF8 --locale=en_US.UTF-8 --lc-collate=C'], { stdout, cwd: projectDir  });
+    await run('/usr/bin/env', ['nix-shell', '--pure', '--run', 'pg_ctl start -l ./log/postgresql.log'], { stdout, cwd: projectDir });
+    await run('/usr/bin/env', ['nix-shell', '--pure', '--run', `createdb ${name}`], { cwd: projectDir });
+    await run('/usr/bin/env', ['nix-shell', '--pure', '--run', 'pg_ctl stop -l ./log/postgresql.log'], { stdout, cwd: projectDir });
 
     if (installDependencies) {
       print(`${magenta('new'.padStart(10))} installing dependencies`);
