@@ -4,7 +4,7 @@ pkgs.mkShell {
   name = "{{name}}-environment";
   buildInputs = [
     pkgs.nodejs-14_x
-    pkgs.postgresql_12
+    pkgs.postgresql_13
     pkgs.pgcli
   ];
   shellHook = ''
