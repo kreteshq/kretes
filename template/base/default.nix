@@ -9,6 +9,7 @@ pkgs.mkShell {
     pkgs.pgcli
   ];
   shellHook = ''
+    export PGHOST=/tmp
     export PGDATA=./db/content
     export PGDATABASE={{name}}
     export PGPORT=5454
