@@ -8,10 +8,7 @@ import { Pool } from 'pg';
 import { run } from 'graphile-worker';
 
 export const handler = async () => {
-  const { default: config } = await import('config'); // defer the config loading
-
-  const connection = config.get('db');
-  const pgPool = new Pool(connection);
+  const pgPool = new Pool();
   const taskDirectory = `${process.cwd()}/dist/tasks`;
 
   const _runner = await run({ pgPool, taskDirectory });
