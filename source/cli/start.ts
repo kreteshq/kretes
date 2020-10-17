@@ -178,6 +178,8 @@ const handler = async ({ port, production }) => {
     // const stream = fg.stream([`${CWD}/features/**/*.sql`], { dot: true });
     // for await (const entry of stream) await reloadSQL(pool, entry);
 
+    fs.ensureDir('dist/tasks');
+
     // start the HTTP server
     [app, server] = await start({ port });
   });

@@ -7,11 +7,18 @@ const debug = Debug('ks:cli:background'); // eslint-disable-line no-unused-vars
 import { Pool } from 'pg';
 import { run } from 'graphile-worker';
 
+import Logger from '../../logger';
+
 export const handler = async () => {
   const pgPool = new Pool();
   const taskDirectory = `${process.cwd()}/dist/tasks`;
 
-  const _runner = await run({ pgPool, taskDirectory });
+  try {
+    const _runner = await run({ pgPool, taskDirectory });
+  } catch (error) {
+    Logger.printError(error)
+    pgPool.end();
+  }
 };
 
 export const builder = _ => _;
