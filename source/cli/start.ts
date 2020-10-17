@@ -1,33 +1,30 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
+import Debug from 'debug';
+const debug = Debug('ks:start'); // eslint-disable-line no-unused-vars
 
-import WebSocket from "ws";
-import { App } from "../manifest";
-
-const debug = require('debug')('server'); // eslint-disable-line no-unused-vars
-const CWD = process.cwd();
-
-const { join, parse, sep, extname } = require('path');
-const color = require('chalk');
-const { TypescriptCompiler } = require('@poppinss/chokidar-ts');
-const fs = require('fs-extra');
-const transformPaths = require('@zerollup/ts-transform-paths');
-const pg = require('pg');
-const fg = require('fast-glob');
-const postcss = require('postcss');
+import { join, parse, sep, extname } from 'path';
+import color from 'chalk';
+import { TypescriptCompiler } from '@poppinss/chokidar-ts';
+import fs from 'fs-extra';
+import postcss from 'postcss';
 import { lookpath } from 'lookpath';
 import { startService } from 'esbuild'
+import WebSocket from "ws";
 
+import { App } from "../manifest";
 import * as Middleware from '../middleware';
 import Kretes, { Routes } from '../';
-const VERSION = require('../../package.json').version;
-const { parser } = require('../parser');
-const Logger = require('../logger');
+import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
-const { VueHandler } = require('../machine/watcher');
-const { run } = require('../util');
-
+import { VueHandler } from '../machine/watcher';
+import { run } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
+import { DiagnosticMessageChain } from 'typescript';
+
+const CWD = process.cwd();
+const VERSION = require('../../package.json').version;
+
 
 let stdout;
 
@@ -45,7 +42,6 @@ const reloadSQL = async (pool, file) => {
 };
 
 let sockets = [];
-
 
 const start = async ({ port }) => {
   const app = new Kretes();
