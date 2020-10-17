@@ -8,7 +8,7 @@ import basicAuth from 'basic-auth';
 import argon2 from 'argon2';
 import crypto from 'crypto';
 
-import { Unauthorized, Created, Forbidden, InternalServerError } from './response.js';
+import { Unauthorized, Created, Forbidden, InternalServerError } from './response';
 import db from './db';
 import Cookie from './cookie';
 
