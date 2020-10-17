@@ -2,21 +2,7 @@
 // Licensed under the Apache License, Version 2.0
 
 import db from './db';
-
-export interface Payload {
-  [key: string]: any
-}
-
-export type Task = (input: Payload) => Promise<void>;
-export type Queue = any;
-
-export interface ScheduleInput {
-  task: Task
-  payload?: Payload
-  queue?: Queue
-  runAt?: Date
-  maxAttempts?: number
-}
+import { ScheduleInput } from '.';
 
 export const schedule = async ({ task, payload = {}, queue = null, runAt = null, maxAttempts = null }: ScheduleInput) => {
   await db.sql`
