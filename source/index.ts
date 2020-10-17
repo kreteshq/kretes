@@ -408,7 +408,7 @@ export * as response from './response';
 export * as view from './view';
 export * as routing from './routing';
 // export * as webrpc from './webrpc';
-export * as http from './http';
+// export * as http from './http';
 
 import database from './db';
 export { database };
