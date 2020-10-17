@@ -157,14 +157,6 @@ const handler = async ({ port, production }) => {
     return;
   }
 
-  compiler.use((ts, _config) => {
-    const { options, fileNames } = config;
-    const host = ts.createCompilerHost(options);
-    const program = ts.createProgram(fileNames, options, host);
-    const r = transformPaths(program, config);
-    return context => r.before(context);
-  }, 'before');
-
   const watcher = compiler.watcher(config);
 
   let server;
@@ -221,7 +213,7 @@ const handler = async ({ port, production }) => {
       const location = file.fileName.split(`${CWD}${sep}`)[1];
       console.log(
         color`  {red.bold Errors:}\n  {grey in} {underline ${location}}\n   → ${
-          messageText.messageText || messageText
+          (messageText as DiagnosticMessageChain).messageText || messageText
         }`
       );
     });
@@ -276,7 +268,7 @@ const handler = async ({ port, production }) => {
   output.diagnostics.forEach(({ file, messageText }) => {
     const location = file.fileName.split(`${CWD}${sep}`)[1];
     console.log(
-      color`  {grey in} {underline ${location}}\n   → ${messageText.messageText || messageText}`
+      color`  {grey in} {underline ${location}}\n   → ${(messageText as DiagnosticMessageChain).messageText || messageText}`
     );
   });
 
