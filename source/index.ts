@@ -1,7 +1,8 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const debug = require('debug')('ks:index'); // eslint-disable-line no-unused-vars
+import Debug from 'debug';
+const debug = Debug('ks:index'); // eslint-disable-line no-unused-vars
 
 import { join } from 'path';
 import Router from 'trek-router';
