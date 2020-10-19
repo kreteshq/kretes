@@ -14,6 +14,8 @@ import { AddressInfo } from 'net';
 import { startService } from 'esbuild';
 
 import * as Middleware from './middleware';
+import * as Endpoint from './endpoint';
+
 import { RedocApp, Response } from './response';
 import { App } from './manifest';
 import { glob } from './filesystem';
@@ -262,6 +264,7 @@ export default class Kretes {
 
     this.add('GET', '/__rest.json', () => OpenAPI({ title, version, description }, routePaths));
     this.add('GET', '/__rest', () => RedocApp());
+    this.add('POST', '/graphql', await Endpoint.GraphQL())
 
     this.use(Middleware.Security());
     this.use(Middleware.CORS());
