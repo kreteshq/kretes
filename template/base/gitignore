@@ -63,3 +63,4 @@ dist/
 build/
 public/
 db/content/
+.modules/
