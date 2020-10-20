@@ -7,9 +7,15 @@ const debug = Debug('ks:graphql'); // eslint-disable-line no-unused-vars
 import { JSONPayload, HTMLString } from '../response';
 import { makeGraphQLRunner } from '../machine/graphql';
 import { App } from '../manifest';
+import { Endpoint } from '.';
 
-export const GraphQL = async () => {
+export const GraphQL: Endpoint = async () => {
   const runner = await makeGraphQLRunner(App.DatabasePool);
+
+  // TODO
+  // https://www.graphile.org/postgraphile/make-extend-schema-plugin/
+  // const { typeDefs, resolvers } = require(join(cwd, 'graphql'));
+  // const schema = makeSchema({ typeDefs, resolvers });
 
   return async ({ params: { query, variables } }) => {
     const result = await runner.query(query, variables);
@@ -17,7 +23,7 @@ export const GraphQL = async () => {
   }
 }
 
-export const GraphiQL= (options) => {
+export const GraphiQL: Endpoint = ({}) => {
   return async request => {
     return HTMLString(`
 <html>
