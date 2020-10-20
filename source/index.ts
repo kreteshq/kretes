@@ -22,7 +22,7 @@ import { glob } from './filesystem';
 import { build, translate } from './controller';
 import { readAll } from './filesystem';
 import { precompile } from './view';
-import { NotFound, JSONPayload, HTMLString, OpenAPI } from './response';
+import { NotFound, OpenAPI } from './response';
 import Logger from './logger';
 import HTMLifiedError from './error';
 import { compose } from './util';
@@ -138,9 +138,9 @@ export default class Kretes {
 
     if (graphql) {
       try {
-        const { typeDefs, resolvers } = require(join(cwd, 'graphql'));
         const { graphql, graphiql, makeSchema } = require('./graphql');
 
+        const { typeDefs, resolvers } = require(join(cwd, 'graphql'));
         const schema = makeSchema({ typeDefs, resolvers });
 
         // this.post('/graphql', graphql({ schema }));
@@ -265,6 +265,7 @@ export default class Kretes {
     this.add('GET', '/__rest.json', () => OpenAPI({ title, version, description }, routePaths));
     this.add('GET', '/__rest', () => RedocApp());
     this.add('POST', '/graphql', await Endpoint.GraphQL())
+    this.add('GET', '/graphiql', await Endpoint.GraphiQL())
 
     this.use(Middleware.Security());
     this.use(Middleware.CORS());
