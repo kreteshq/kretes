@@ -208,7 +208,9 @@ export default class Kretes {
     // })
 
     debug('starting ESBuild service');
-    App.ESBuild = await startService();
+    if (!App.ESBuild) {
+      App.ESBuild = await startService();
+    }
 
     if (process.env.NODE_ENV === 'production') {
       const views = await lookupViews();

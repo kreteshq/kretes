@@ -107,7 +107,9 @@ const ExcludedDependencies = ['react', 'react-dom'];
 const handler = async ({ port, production }) => {
   process.env.KRETES = production ? 'production' : 'development';
 
-  const ESBuildService = await startService();
+  if (!App.ESBuild) {
+    App.ESBuild = await startService();
+  }
 
   const packageJSONPath = join(process.cwd(), 'package.json');
   const packageJSONContent = require(packageJSONPath);
@@ -125,7 +127,7 @@ const handler = async ({ port, production }) => {
       const entryPoints = [modulePath];
       const outfile = `.modules/${dependency}.js`;
 
-      ESBuildService.build({ entryPoints, outfile,
+      App.ESBuild.build({ entryPoints, outfile,
         bundle: true,
         sourcemap: true,
         format: "esm",
