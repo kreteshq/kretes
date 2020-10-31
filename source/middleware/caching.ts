@@ -12,7 +12,7 @@ export const Caching = () => {
   return async (context, next) => {
     const response = await next();
 
-    const { body, headers, statusCode } = response;
+    const { body, headers = {}, statusCode } = response;
 
     if (!body || 'ETag' in headers) return response;
 
