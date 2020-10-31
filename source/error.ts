@@ -2,8 +2,9 @@ import path from 'path';
 import stackTrace from 'stack-trace';
 import { promises as fs } from 'fs';
 import cookie from 'cookie';
+import { Request } from 'retes';
+
 import { render } from './view';
-import { Request } from '.';
 
 const startingSlashRegex = /\\|\//;
 

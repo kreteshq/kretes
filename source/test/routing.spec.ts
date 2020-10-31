@@ -22,22 +22,26 @@ const {
 } = response
 
 test('GET handlers can return string as the response', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => 'Hello, Kretes')
-  ]);
-  const http = axios.create({ baseURL: `http://localhost:${server.port}` });
-  const response = await http.get('/');
-  assert.deepEqual(response.status, 200)
-  assert.deepEqual(response.data, 'Hello, Kretes')
-  await server.stop();
+  try {
+    const server = new Kretes({
+      routes: [ GET('/', _ => 'Hello, Kretes')
+    ]});
+    await server.start();
+    const http = axios.create({ baseURL: `http://localhost:${server.port}` });
+    const response = await http.get('/');
+    assert.deepEqual(response.status, 200)
+    assert.deepEqual(response.data, 'Hello, Kretes')
+    await server.stop();
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 test('GET handlers can return objects as the response', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => ({ statusCode: 200, body: { foo: "bar" } }))
-  ]);
+  const server = new Kretes({
+    routes: [ GET('/', _ => ({ statusCode: 200, body: { foo: "bar" } })) ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   const response = await http.get('/');
   assert.deepEqual(response.status, 200)
@@ -46,10 +50,10 @@ test('GET handlers can return objects as the response', async assert => {
 })
 
 test('GET handlers can return arrays as the response', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => ({ statusCode: 200, body: ["foo", "bar"] }))
-  ]);
+  const server = new Kretes({
+    routes: [ GET('/', _ => ({ statusCode: 200, body: ["foo", "bar"] })) ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   const response = await http.get('/');
   assert.deepEqual(response.status, 200)
@@ -58,10 +62,10 @@ test('GET handlers can return arrays as the response', async assert => {
 })
 
 test('GET handlers can use the OK response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => OK({ foo: "bar" }))
-  ]);
+  const server = new Kretes({
+    routes: [ GET('/', _ => OK({ foo: "bar" })) ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   const response = await http.get('/');
   assert.deepEqual(response.status, 200)
@@ -70,10 +74,10 @@ test('GET handlers can use the OK response handler', async assert => {
 })
 
 test('GET handlers can use the Created response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => Created({ foo: "bar" }))
-  ]);
+  const server = new Kretes({
+    routes: [ GET('/', _ => Created({ foo: "bar" })) ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   const response = await http.get('/');
   assert.deepEqual(response.status, 201)
@@ -82,10 +86,10 @@ test('GET handlers can use the Created response handler', async assert => {
 })
 
 test('GET handlers can use the Accepted response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => Accepted({ foo: "bar" }))
-  ]);
+  const server = new Kretes({
+    routes: [ GET('/', _ => Accepted({ foo: "bar" })) ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   const response = await http.get('/');
   assert.deepEqual(response.status, 202)
@@ -94,10 +98,10 @@ test('GET handlers can use the Accepted response handler', async assert => {
 })
 
 test('GET handlers can use the NoContent response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => NoContent())
-  ]);
+  const server = new Kretes({
+    routes: [ GET('/', _ => NoContent()) ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   const response = await http.get('/');
   assert.deepEqual(response.status, 204)
@@ -106,10 +110,10 @@ test('GET handlers can use the NoContent response handler', async assert => {
 })
 
 test('GET handlers can use the NotFound response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => NotFound())
-  ]);
+  const server = new Kretes({
+    routes: [ GET('/', _ => NotFound()) ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   try {
     await http.get('/');
@@ -122,11 +126,13 @@ test('GET handlers can use the NotFound response handler', async assert => {
 })
 
 test('GET handlers can use the Redirect response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => Redirect('/foo')),
-    GET('/foo', _ => OK('success'))
-  ]);
+  const server = new Kretes({
+    routes: [
+      GET('/', _ => Redirect('/foo')),
+      GET("/foo", (_) => OK("success"))
+    ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   const response = await http.get('/');
   assert.deepEqual(response.status, 200)
@@ -135,10 +141,10 @@ test('GET handlers can use the Redirect response handler', async assert => {
 })
 
 test('GET handlers can use the NotModified response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
+  const server = new Kretes({ routes: [
     GET('/', _ => NotModified())
-  ]);
+  ]});
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   try {
     await http.get('/');
@@ -150,10 +156,10 @@ test('GET handlers can use the NotModified response handler', async assert => {
 })
 
 test('GET handlers can use the JSONPayload response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
+  const server = new Kretes({ routes: [
     GET('/', _ => JSONPayload({ foo: 'bar' }))
-  ]);
+  ]});
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   const response = await http.get('/');
   assert.deepEqual(response.status, 200)
@@ -163,10 +169,10 @@ test('GET handlers can use the JSONPayload response handler', async assert => {
 })
 
 test('GET handlers can use the HTMLString response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => HTMLString('<html><head<title>foo</title></head><body>bar<body></html>'))
-  ]);
+  const server = new Kretes({
+    routes: [ GET('/', _ => HTMLString('<html><head<title>foo</title></head><body>bar<body></html>')) ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   const response = await http.get('/');
   assert.deepEqual(response.status, 200)
@@ -176,10 +182,10 @@ test('GET handlers can use the HTMLString response handler', async assert => {
 })
 
 test('GET handlers can use the JavaScriptString response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => JavaScriptString('function foo() {}'))
-  ]);
+  const server = new Kretes({
+    routes: [ GET('/', _ => JavaScriptString('function foo() {}')) ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   const response = await http.get('/');
   assert.deepEqual(response.status, 200)
@@ -189,10 +195,12 @@ test('GET handlers can use the JavaScriptString response handler', async assert 
 })
 
 test('GET handlers can use the StyleSheetString response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => StyleSheetString('.foo { color: red; }'))
-  ]);
+  const server = new Kretes({
+    routes: [
+      GET('/', _ => StyleSheetString('.foo { color: red; }'))
+    ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   const response = await http.get('/');
   assert.deepEqual(response.status, 200)
@@ -202,10 +210,10 @@ test('GET handlers can use the StyleSheetString response handler', async assert 
 })
 
 test('GET handlers can use the Unauthorized response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => Unauthorized())
-  ]);
+  const server = new Kretes({
+    routes: [ GET('/', _ => Unauthorized()) ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   try {
     await http.get('/');
@@ -217,10 +225,10 @@ test('GET handlers can use the Unauthorized response handler', async assert => {
 })
 
 test('GET handlers can use the Forbidden response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => Forbidden())
-  ]);
+  const server = new Kretes({
+    routes: [ GET('/', _ => Forbidden()) ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   try {
     await http.get('/');
@@ -232,10 +240,10 @@ test('GET handlers can use the Forbidden response handler', async assert => {
 })
 
 test('GET handlers can use the InternalServerError response handler', async assert => {
-  const server = new Kretes();
-  await server.start([
-    GET('/', _ => InternalServerError())
-  ]);
+  const server = new Kretes({
+    routes: [ GET('/', _ => InternalServerError()) ]
+  });
+  await server.start();
   const http = axios.create({ baseURL: `http://localhost:${server.port}` });
   try {
     await http.get('/');

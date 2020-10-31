@@ -5,65 +5,27 @@ import Debug from 'debug';
 const debug = Debug('ks:index'); // eslint-disable-line no-unused-vars
 
 import { join } from 'path';
-import Router from 'trek-router';
-import Stream from 'stream';
 import http from 'http';
 import httpstatus from 'http-status';
 import pg from 'pg';
-import { AddressInfo } from 'net';
 import { startService } from 'esbuild';
 
 import * as Middleware from './middleware';
 import * as Endpoint from './endpoint';
 
-import { RedocApp, Response } from './response';
 import { App } from './manifest';
 import { glob } from './filesystem';
 import { build, translate } from './controller';
 import { readAll } from './filesystem';
 import { precompile } from './view';
-import { NotFound, OpenAPI } from './response';
+import { NotFound } from './response';
 import Logger from './logger';
 import HTMLifiedError from './error';
-import { compose } from './util';
 
 const cwd = process.cwd();
 const handlerDir = join(cwd, 'dist');
 
-const HTTPMethod = {
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-  PATH: 'PATCH',
-  HEAD: 'HEAD',
-  OPTIONS: 'OPTIONS',
-  DELETE: 'DELETE',
-} as const;
-
-export type HTTPMethod = (typeof HTTPMethod)[keyof typeof HTTPMethod];
-
-export interface Request {
-  params: {
-    [name: string]: any
-  },
-  headers: {
-    [name: string]: any
-  },
-  files: {
-    [name: string]: {
-      name: string
-      length: number
-      data: any
-      encoding: string
-      mimetype: string
-    }
-  },
-  url: string,
-  method: string
-  format: string
-}
-
-export type Handler = (request: Request) => Response | Promise<Response>;
+import { Routes, HTTPMethod, Handler, ServerApp, handle } from 'retes';
 
 export interface Resource {
   feature: string
@@ -77,18 +39,6 @@ export interface Meta {
   parameters?: Array<any>
   responses?: Object
 }
-
-interface RouteParams {
-  GET?: Handler
-  POST?: Handler
-  PUT?: Handler
-  PATCH?: Handler
-  DELETE?: Handler
-  middleware?: any
-  meta?: Meta
-}
-export type Route = [string, RouteParams, Route?];
-export type Routes = Route[];
 
 export interface Payload {
   [key: string]: any
@@ -118,11 +68,9 @@ const lookupViews = async () => {
   return readAll(files, { cache: true });
 };
 
-export default class Kretes {
-  server: http.Server;
-  router: Router;
-  middlewares: Middleware.Base;
+export default class Kretes extends ServerApp {
   staticDir: string;
+  routePaths: Object
 
   constructor({
     staticDir = join(cwd, 'public'),
@@ -130,63 +78,34 @@ export default class Kretes {
     implicitControllers = true,
     WebRPC = true,
     _verbose = false,
+    routes = [] as Routes
   } = {}) {
-    this.server = null;
-    this.middlewares = new Middleware.Base();
-    this.router = new Router();
+    super(routes);
+
     this.staticDir = staticDir;
 
-    if (graphql) {
-      try {
-        const { graphql, graphiql, makeSchema } = require('./graphql');
+    // if (graphql) {
+    //   try {
+    //     const { graphql, graphiql, makeSchema } = require('./graphql');
 
-        const { typeDefs, resolvers } = require(join(cwd, 'graphql'));
-        const schema = makeSchema({ typeDefs, resolvers });
+    //     const { typeDefs, resolvers } = require(join(cwd, 'graphql'));
+    //     const schema = makeSchema({ typeDefs, resolvers });
 
-        // this.post('/graphql', graphql({ schema }));
-        // this.get('/graphql', graphql({ schema }));
-        // this.get('/graphiql', graphiql({ endpointURL: 'graphql' }));
-      } catch (error) {
-        switch (error.code) {
-          case 'MODULE_NOT_FOUND':
-            console.log('GraphQL is not set up.');
-            break;
-          default:
-            console.error(error);
-            break;
-        }
-      }
-    }
+    //     // this.post('/graphql', graphql({ schema }));
+    //     // this.get('/graphql', graphql({ schema }));
+    //     // this.get('/graphiql', graphiql({ endpointURL: 'graphql' }));
+    //   } catch (error) {
+    //     switch (error.code) {
+    //       case 'MODULE_NOT_FOUND':
+    //         console.log('GraphQL is not set up.');
+    //         break;
+    //       default:
+    //         console.error(error);
+    //         break;
+    //     }
+    //   }
+    // }
 
-    if (implicitControllers) {
-      const handlers = build();
-      for (let { resource, operation, dir } of handlers) {
-        try {
-          const { [operation]: handler } = require(`${join(handlerDir, dir, operation)}.js`);
-
-          // FIXME better description
-          // it happens when the function name inside the handler file
-          // is different than the file name
-          if (undefined === handler) {
-            throw new Error(`Handler name mismatch for ${operation}`)
-          }
-
-          let { method, route } = translate(operation, resource.toLowerCase());
-
-          route = route.replace('_', ':');
-
-          if (Array.isArray(handler)) {
-            this.add(method, route, ...handler);
-          } else {
-            this.add(method, route, handler);
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    }
-
-    this.use(Middleware.Extractor());
   }
 
   async setup() {
@@ -217,63 +136,54 @@ export default class Kretes {
       const parts = join(cwd, 'views/parts');
       precompile(views, { paths: [parts] })
     }
-  }
 
-  use(middleware) {
-    if (typeof middleware !== 'function') throw new TypeError('middleware must be a function!');
-    this.middlewares.push(middleware);
+    if (true) {
+      const handlers = build();
+      for (let { resource, operation, dir } of handlers) {
+        try {
+          const { [operation]: handler } = require(`${join(handlerDir, dir, operation)}.js`);
 
-    return this;
-  }
+          // FIXME better description
+          // it happens when the function name inside the handler file
+          // is different than the file name
+          if (undefined === handler) {
+            throw new Error(`Handler name mismatch for ${operation}`)
+          }
 
-  add(method: HTTPMethod, path, ...fns) {
-    const action = fns.pop();
+          let { method, route } = translate(operation, resource.toLowerCase());
 
-    // pipeline is a handler composed over middlewares,
-    // `action` function must be explicitly extracted from the pipeline
-    // as it has different signature, thus cannot be composed
-    const pipeline = fns.length === 0 ? action : compose(...fns)(action);
+          route = route.replace('_', ':');
 
-    this.router.add(method.toUpperCase(), path, pipeline);
-
-    return this;
-  }
-
-  async start(routes: Routes = [], port: number = 0) {
-    const routePaths = {};
-
-    for (const [path, params] of routes) {
-      const { middleware = [], meta = {} } = params;
-      const { summary = path } = meta;
-
-      for (let [method, handler] of Object.entries(params)) {
-        if (method in HTTPMethod) {
-          routePaths[path] = {}
-          routePaths[path][method.toLowerCase()] = {
-            ...meta,
-            summary,
-          };
-
-          const flow = middleware.concat(handler);
-          this.add(method as HTTPMethod, path, ...flow);
+          if (Array.isArray(handler)) {
+            this.add(method, route, ...handler);
+          } else {
+            this.add(method, route, handler);
+          }
+        } catch (error) {
+          console.error(error);
         }
-        // else: a key name undefined in the spec -> discarding
       }
     }
 
-    const packageJSONPath = join(process.cwd(), 'package.json');
-    const { title = "", description = "", version = ""} = require(packageJSONPath);
+  }
 
-    this.add('GET', '/__rest.json', () => OpenAPI({ title, version, description }, routePaths));
-    this.add('GET', '/__rest', () => RedocApp());
-    this.add('POST', '/graphql', await Endpoint.GraphQL())
-    this.add('GET', '/graphiql', await Endpoint.GraphiQL())
-
+  async start(port: number = 0) {
     this.use(Middleware.Security());
     this.use(Middleware.CORS());
     this.use(Middleware.Routing(this.router));
     this.use(Middleware.Caching());
     this.use(Middleware.Serve(this.staticDir));
+    this.use(Middleware.Extractor());
+
+    if (process.env.NODE_ENV != 'production') {
+      // middlewares to run ONLY in Development
+      this.use(Middleware.Rewriting());
+      this.use(Middleware.Resolving());
+      this.use(Middleware.Transforming());
+      this.use(Middleware.TransformingTypeScript());
+      this.use(Middleware.HotReloading());
+      this.use(Middleware.SPA());
+    }
 
     // append 404 middleware handler: it must be put at the end and only once
     // TODO Move to `catch` for pattern matching ?
@@ -313,87 +223,7 @@ export default class Kretes {
       });
     })
   }
-
-  async stop() {
-    return new Promise((resolve, reject) => {
-      this.server.close((err) => {
-        if (err) return reject(err);
-        resolve();
-      })
-    })
-  }
-
-  get port () {
-    const { port } = this.server.address() as AddressInfo;
-    return port;
-  }
 }
-
-const handle = context => result => {
-  if (null === result || undefined === result)
-    throw new Error('No return statement in the handler');
-
-  let { response } = context;
-
-  let body, headers, type, encoding;
-
-  if (typeof result === 'string' || result instanceof Stream) {
-    body = result;
-  } else {
-    body = result.body;
-    headers = result.headers;
-    type = result.type;
-    encoding = result.encoding;
-  }
-
-  if (body instanceof Function)
-    throw new Error('You need to return a value not a function.')
-
-  Object.assign(
-    {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
-    },
-    headers
-  );
-
-  response.statusCode = result.statusCode || 200;
-
-  for (var key in headers) {
-    response.setHeader(key, headers[key]);
-  }
-
-  if (encoding) response.setHeader('Content-Encoding', encoding);
-
-  if (Buffer.isBuffer(body)) {
-    response.setHeader('Content-Type', type || 'application/octet-stream');
-    response.setHeader('Content-Length', body.length);
-    response.end(body);
-    return;
-  }
-
-  if (body instanceof Stream) {
-    if (!response.getHeader('Content-Type'))
-      response.setHeader('Content-Type', type || 'text/html');
-
-    body.pipe(response);
-    return;
-  }
-
-  let str = body;
-
-  if (typeof body === 'object' || typeof body === 'number') {
-    str = JSON.stringify(body);
-    response.setHeader('Content-Type', 'application/json');
-  } else {
-    if (!response.getHeader('Content-Type'))
-      response.setHeader('Content-Type', type || 'text/plain');
-  }
-
-  response.setHeader('Content-Length', Buffer.byteLength(str));
-  response.end(str);
-};
 
 // Kretes Modules
 // TODO https://github.com/microsoft/TypeScript/issues/33079
@@ -421,3 +251,5 @@ export { database };
 
 import Schema from 'validate';
 export { Schema };
+
+export { Handler, Routes }

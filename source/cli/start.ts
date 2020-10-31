@@ -11,10 +11,13 @@ import postcss from 'postcss';
 import { lookpath } from 'lookpath';
 import { startService } from 'esbuild'
 import WebSocket from "ws";
+import { Routes } from 'retes';
 
 import { App } from "../manifest";
+import * as Endpoint from '../endpoint';
 import * as Middleware from '../middleware';
-import Kretes, { Routes } from '../';
+import Kretes from '../';
+import { NotFound } from '../response';
 import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
 import { VueHandler } from '../machine/watcher';
@@ -44,24 +47,21 @@ const reloadSQL = async (pool, file) => {
 let sockets = [];
 
 const start = async ({ port }) => {
-  const app = new Kretes();
 
-  let routes: Routes = [];
+  let routes: Routes = require(join(CWD, 'dist/config/server/routes')).default;
+  const app = new Kretes({ routes });
   try {
     await app.setup();
-    routes = require(join(CWD, 'dist/config/server/routes')).default;
   } catch (e) {
     console.error(e.message);
   }
 
-  app.use(Middleware.Rewriting());
-  app.use(Middleware.Resolving());
-  app.use(Middleware.Transforming());
-  app.use(Middleware.TransformingTypeScript());
-  app.use(Middleware.HotReloading());
-  app.use(Middleware.SPA());
+  app.add('POST', '/graphql', await Endpoint.GraphQL())
+  app.add('GET', '/graphiql', await Endpoint.GraphiQL())
+  app.add('GET', '/__rest.json', () => Endpoint.OpenAPI(app.routePaths));
+  app.add('GET', '/__rest', () => Endpoint.RedocApp());
 
-  const server = await app.start(routes, port);
+  const server = await app.start(port);
 
   server.on('connection', socket => {
     sockets.push(socket);
@@ -88,13 +88,14 @@ const start = async ({ port }) => {
   const onExit = async _signal => {
     console.log(color`  {grey Stoping...}`);
 
-    server.close(() => {
-      console.log(color`  {grey Closing the DB pool...}`);
-      App.DatabasePool.end();
+    console.log(color`  {grey Closing the DB pool...}`);
+    await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl stop'], { stdout });
+    // await App.DatabasePool.end();
+
+    console.log(color`  {grey Closing the HTTP server...}`);
+    server.close(async () => {
       process.exit(0);
     });
-
-    await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl stop'], { stdout });
   }
 
   process.on('SIGINT', onExit);
@@ -181,6 +182,7 @@ const handler = async ({ port, production }) => {
     const extension = extname(filePath);
 
     const timestamp = Date.now();
+
 
     switch (extension) {
       case '.css':
