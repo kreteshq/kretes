@@ -23,7 +23,7 @@ export const GraphQL: Endpoint = async () => {
   }
 }
 
-export const GraphiQL: Endpoint = ({}) => {
+export const GraphiQL: Endpoint = () => {
   return async request => {
     return HTMLString(`
 <html>
