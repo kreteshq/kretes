@@ -37,11 +37,10 @@ dependencies:
   postgraphile: 4.9.2
   resolve-from: 5.0.0
   retes: 0.2.0
-  rollup: 2.32.1
+  rollup: 2.33.1
   rsyncwrapper: 3.0.1
   semver: 7.3.2
   stack-trace: 0.0.10
-  trek-router: 1.2.0
   typescript: 4.1.0-beta
   validate: 5.1.0
   vue: 3.0.2
@@ -605,7 +604,7 @@ packages:
       espree: 7.3.0
       globals: 12.4.0
       ignore: 4.0.6
-      import-fresh: 3.2.1
+      import-fresh: 3.2.2
       js-yaml: 3.14.0
       lodash: 4.17.20
       minimatch: 3.0.4
@@ -640,7 +639,7 @@ packages:
       integrity: sha512-QUoE9pQtkdNPFdJHSnBhZtUfr3M7pIRoXoMR+TG7DK2Y62ISKbT/bKtZEUU1/2v5uqd5WVIvw9dF8gHDSJAsSA==
   /@graphql-tools/batch-execute/7.0.0_graphql@14.7.0:
     dependencies:
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       dataloader: 2.0.0
       graphql: 14.7.0
       is-promise: 4.0.0
@@ -653,7 +652,7 @@ packages:
   /@graphql-tools/code-file-loader/6.2.5_graphql@14.7.0:
     dependencies:
       '@graphql-tools/graphql-tag-pluck': 6.3.0_graphql@14.7.0
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       fs-extra: 9.0.1
       graphql: 14.7.0
       tslib: 2.0.3
@@ -676,12 +675,12 @@ packages:
       graphql: ^14.0.0 || ^15.0.0
     resolution:
       integrity: sha512-mXe6DfoWmq49kPcDrpKHgC2DSWcD5q0YCaHHoXYPAOlnLH8VMTY8BxcE8y/Do2eyg+GLcwAcrpffVszWMwqw0w==
-  /@graphql-tools/delegate/7.0.2_graphql@14.7.0:
+  /@graphql-tools/delegate/7.0.3_graphql@14.7.0:
     dependencies:
       '@ardatan/aggregate-error': 0.0.6
       '@graphql-tools/batch-execute': 7.0.0_graphql@14.7.0
       '@graphql-tools/schema': 7.0.0_graphql@14.7.0
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       dataloader: 2.0.0
       graphql: 14.7.0
       is-promise: 4.0.0
@@ -690,11 +689,11 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0
     resolution:
-      integrity: sha512-AkNkg8w966+cHEVNddYUPeuPybNvbnkL+iFA8rrW5V3F8e6LHRep5MnFwNKD4JTae9HeKEs9Jx0UQDwnuCsZng==
+      integrity: sha512-BSRF/Wg9XNllWo3Kdt0QBBaFltexn3vAnTOWH1qLrNcmfQAvUMf17/TsAqH9ZLSKU1NW9XCOsd7YMHhhUuTCEg==
   /@graphql-tools/git-loader/6.2.5_graphql@14.7.0:
     dependencies:
       '@graphql-tools/graphql-tag-pluck': 6.3.0_graphql@14.7.0
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       graphql: 14.7.0
       tslib: 2.0.3
     dev: false
@@ -705,7 +704,7 @@ packages:
   /@graphql-tools/github-loader/6.2.5_graphql@14.7.0:
     dependencies:
       '@graphql-tools/graphql-tag-pluck': 6.3.0_graphql@14.7.0
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       cross-fetch: 3.0.6
       graphql: 14.7.0
       tslib: 2.0.3
@@ -717,7 +716,7 @@ packages:
   /@graphql-tools/graphql-file-loader/6.2.5_graphql@14.7.0:
     dependencies:
       '@graphql-tools/import': 6.2.4_graphql@14.7.0
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       fs-extra: 9.0.1
       graphql: 14.7.0
       tslib: 2.0.3
@@ -731,7 +730,7 @@ packages:
       '@babel/parser': 7.11.5
       '@babel/traverse': 7.12.1
       '@babel/types': 7.12.1
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       graphql: 14.7.0
       tslib: 2.0.3
     dev: false
@@ -754,7 +753,7 @@ packages:
       integrity: sha512-Q6fk6hbtDevoEVcgwb3WRn7XOqGY4MnX3Mvc+x8/b8k4RZ4wT+0WSLRDXGAKiVKRxGhgouU2lZVnGE/LDrGSCg==
   /@graphql-tools/json-file-loader/6.2.5_graphql@14.7.0:
     dependencies:
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       fs-extra: 9.0.1
       graphql: 14.7.0
       tslib: 2.0.3
@@ -765,7 +764,7 @@ packages:
       integrity: sha512-9LS7WuQdSHlRUvXD7ixt5aDpr3hWsueURHOaWe7T0xZ+KWMTw+LIRtWIliCRzbjNmZ+4ZhwHB3Vc1SO2bfYLgg==
   /@graphql-tools/links/6.2.5_graphql@14.7.0:
     dependencies:
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       apollo-link: 1.2.14_graphql@14.7.0
       apollo-upload-client: 14.1.2_graphql@14.7.0
       cross-fetch: 3.0.6
@@ -793,7 +792,7 @@ packages:
   /@graphql-tools/load/6.2.5_graphql@14.7.0:
     dependencies:
       '@graphql-tools/merge': 6.2.5_graphql@14.7.0
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       globby: 11.0.1
       graphql: 14.7.0
       import-from: 3.0.0
@@ -810,7 +809,7 @@ packages:
   /@graphql-tools/merge/6.2.5_graphql@14.7.0:
     dependencies:
       '@graphql-tools/schema': 7.0.0_graphql@14.7.0
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       graphql: 14.7.0
       tslib: 2.0.3
     dev: false
@@ -831,7 +830,7 @@ packages:
       integrity: sha512-O5Zvq/mcDZ7Ptky0IZ4EK9USmxV6FEVYq0Jxv2TI80kvxbCjt0tbEpZ+r1vIt1gZOXlAvadSHYyzWnUPh+1vkQ==
   /@graphql-tools/module-loader/6.2.5_graphql@14.7.0:
     dependencies:
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       graphql: 14.7.0
       tslib: 2.0.3
     dev: false
@@ -841,7 +840,7 @@ packages:
       integrity: sha512-tH7SMLKCoPJPkQ6lw3zhNbylOVkUWqSqV0JL4FzLRu5JTO9u/48KI8dldVIq+d8ZyCC1LIt7WoYLiVMCn/Uv/A==
   /@graphql-tools/relay-operation-optimizer/6.2.5_graphql@14.7.0:
     dependencies:
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       graphql: 14.7.0
       relay-compiler: 10.0.1_graphql@14.7.0
       tslib: 2.0.3
@@ -852,7 +851,7 @@ packages:
       integrity: sha512-i7iJl2/IbmgmoYVky0jhSMIfgaO8icYef2z/Y+0QUdkqBB6fwE2jfD3HrMlJzd45+eghtIj46Qjrp+Bns4o/TA==
   /@graphql-tools/resolvers-composition/6.2.5_graphql@14.7.0:
     dependencies:
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       graphql: 14.7.0
       lodash: 4.17.20
       tslib: 2.0.3
@@ -873,7 +872,7 @@ packages:
       integrity: sha512-rh+14lSY1q8IPbEv2J9x8UBFJ5NrDX9W5asXEUlPp+7vraLp/Tiox4GXdgyA92JhwpYco3nTf5Bo2JDMt1KnAQ==
   /@graphql-tools/schema/7.0.0_graphql@14.7.0:
     dependencies:
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       graphql: 14.7.0
       tslib: 2.0.3
     dev: false
@@ -899,8 +898,8 @@ packages:
       integrity: sha512-0C7PNkS7v7iAc001m7c1LPm5FUB0/DYw+s3OyCii6YYYHY8NwdI0roeOyeDGFJkFubWBQfjc3hoSyueKtU73mw==
   /@graphql-tools/url-loader/6.3.2_graphql@14.7.0:
     dependencies:
-      '@graphql-tools/delegate': 7.0.2_graphql@14.7.0
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/delegate': 7.0.3_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       '@graphql-tools/wrap': 7.0.1_graphql@14.7.0
       '@types/websocket': 1.0.1
       cross-fetch: 3.0.6
@@ -925,7 +924,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0
     resolution:
       integrity: sha512-ybgZ9EIJE3JMOtTrTd2VcIpTXtDrn2q6eiYkeYMKRVh3K41+LZa6YnR2zKERTXqTWqhobROwLt4BZbw2O3Aeeg==
-  /@graphql-tools/utils/7.0.1_graphql@14.7.0:
+  /@graphql-tools/utils/7.0.2_graphql@14.7.0:
     dependencies:
       '@ardatan/aggregate-error': 0.0.6
       camel-case: 4.1.1
@@ -935,7 +934,7 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0
     resolution:
-      integrity: sha512-DsV7XfEJE6rPQ3Ysusf28MPun/YL+pc7L0hiBOph/F8+/H1pW1ndRqRrnmX3Owrq9xW1EHSw2WU8qvdjn8kOjw==
+      integrity: sha512-VQQ7krHeoXO0FS3qbWsb/vZb8c8oyiCYPIH4RSgeK9SKOUpatWYt3DW4jmLmyHZLVVMk0yjUbsOhKTBEMejKSA==
   /@graphql-tools/wrap/6.2.4_graphql@14.7.0:
     dependencies:
       '@graphql-tools/delegate': 6.2.4_graphql@14.7.0
@@ -951,9 +950,9 @@ packages:
       integrity: sha512-cyQgpybolF9DjL2QNOvTS1WDCT/epgYoiA8/8b3nwv5xmMBQ6/6nYnZwityCZ7njb7MMyk7HBEDNNlP9qNJDcA==
   /@graphql-tools/wrap/7.0.1_graphql@14.7.0:
     dependencies:
-      '@graphql-tools/delegate': 7.0.2_graphql@14.7.0
+      '@graphql-tools/delegate': 7.0.3_graphql@14.7.0
       '@graphql-tools/schema': 7.0.0_graphql@14.7.0
-      '@graphql-tools/utils': 7.0.1_graphql@14.7.0
+      '@graphql-tools/utils': 7.0.2_graphql@14.7.0
       graphql: 14.7.0
       is-promise: 4.0.0
       tslib: 2.0.3
@@ -1374,21 +1373,21 @@ packages:
     dev: false
     resolution:
       integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
-  /abstract-syntax-tree/2.11.0:
+  /abstract-syntax-tree/2.12.0:
     dependencies:
       astring: 1.4.3
       asttv: 1.0.1
       esquery: 1.3.1
       estemplate: 0.5.1
-      estraverse: 4.3.0
-      meriyah: 1.9.15
+      estraverse: 5.2.0
+      meriyah: 3.1.2
       source-map: 0.7.3
       to-ast: 1.0.0
     dev: false
     engines:
       node: '>=10.15.0'
     resolution:
-      integrity: sha512-odSeYHTF1OVXR48XIlt27lywS2l1aFOMLTPgnoGA/pybCqIJrxGWsTlkFm3MvyQC8nxsn/AmYLYivqzjFuphQQ==
+      integrity: sha512-GgCcqZ2tUxlI8A+PraHJhLdHBsvw3pqALfqI7J5qLG5A6SPXPrMtQ96nW+6geT/Dk06ilhUo5RTD9SMwQXFDOA==
   /acorn-jsx/5.3.1_acorn@7.4.1:
     dependencies:
       acorn: 7.4.1
@@ -1861,7 +1860,7 @@ packages:
       integrity: sha512-eB4uT9RGzg2odpER62bBwSLvUeGC+WbRjjyyFhGsKnc8wp/m0+hQsMUvUe3H2V0D5vw0nBdO1hCJoZo5mKeuIQ==
   /boxwood/0.44.0:
     dependencies:
-      abstract-syntax-tree: 2.11.0
+      abstract-syntax-tree: 2.12.0
       astoptech: 1.0.6
       axios: 0.19.2
       axios-extensions: 3.1.3_axios@0.19.2
@@ -1876,10 +1875,10 @@ packages:
       path-to-regexp: 6.2.0
       pure-conditions: 1.1.0
       pure-utilities: 1.2.0
-      rollup: 2.32.1
-      rollup-plugin-commonjs: 10.1.0_rollup@2.32.1
+      rollup: 2.33.1
+      rollup-plugin-commonjs: 10.1.0_rollup@2.33.1
       rollup-plugin-includepaths: 0.2.4
-      rollup-plugin-node-resolve: 5.2.0_rollup@2.32.1
+      rollup-plugin-node-resolve: 5.2.0_rollup@2.33.1
       string-hash: 1.1.3
       words-to-numbers: 1.5.1
       yaml: 1.10.0
@@ -2304,7 +2303,7 @@ packages:
   /cosmiconfig/6.0.0:
     dependencies:
       '@types/parse-json': 4.0.0
-      import-fresh: 3.2.1
+      import-fresh: 3.2.2
       parse-json: 5.1.0
       path-type: 4.0.0
       yaml: 1.10.0
@@ -2785,7 +2784,7 @@ packages:
       glob-parent: 5.1.1
       globals: 12.4.0
       ignore: 4.0.6
-      import-fresh: 3.2.1
+      import-fresh: 3.2.2
       imurmurhash: 0.1.4
       is-glob: 4.0.1
       js-yaml: 3.14.0
@@ -3554,14 +3553,14 @@ packages:
       node: '>=0.8.0'
     resolution:
       integrity: sha1-E7TTyxK++hVIKib+Gy665kAHHks=
-  /import-fresh/3.2.1:
+  /import-fresh/3.2.2:
     dependencies:
       parent-module: 1.0.1
       resolve-from: 4.0.0
     engines:
       node: '>=6'
     resolution:
-      integrity: sha512-6e1q1cnWP2RXD9/keSkxHScg508CdXqXWgWBaETNhyuBFz+kUZlKboh+ISK+bU++DmbHimVBrOz/zzPe0sZ3sQ==
+      integrity: sha512-cTPNrlvJT6twpYy+YmKUKrTSjWFs3bjYjAhCwm+z4EOCubZxAuO+hHpRN64TqjEaYSHs7tJAE0w1CKMGmsG/lw==
   /import-from/3.0.0:
     dependencies:
       resolve-from: 5.0.0
@@ -4235,12 +4234,12 @@ packages:
       node: '>= 8'
     resolution:
       integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
-  /meriyah/1.9.15:
+  /meriyah/3.1.2:
     dev: false
     engines:
-      node: '>=6.0.0'
+      node: '>=10.4.0'
     resolution:
-      integrity: sha512-D4rT6XIYGqZab0EI/xbihUpwh0WbNRVQ35l2J/5QC2atxaI8h3KvA55DEJLBB/FRdaji7JwkNehfCRjCyjCjqw==
+      integrity: sha512-CXPkXT3xdk7KAVdrOV9SDvKUkE8r24aQe4ee/Uj7UJQcoNAS+Bz2QjOpDyrFiLD81GyJ3e5SrKn/125Ow0Ryqg==
   /micromatch/4.0.2:
     dependencies:
       braces: 3.0.2
@@ -5412,13 +5411,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
-  /rollup-plugin-commonjs/10.1.0_rollup@2.32.1:
+  /rollup-plugin-commonjs/10.1.0_rollup@2.33.1:
     dependencies:
       estree-walker: 0.6.1
       is-reference: 1.2.1
       magic-string: 0.25.7
       resolve: 1.18.1
-      rollup: 2.32.1
+      rollup: 2.33.1
       rollup-pluginutils: 2.8.2
     deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-commonjs.
     dev: false
@@ -5430,13 +5429,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-iZen+XKVExeCzk7jeSZPJKL7B67slZNr8GXSC5ROBXtDGXDBH8wdjMfdNW5hf9kPt+tHyIvWh3wlE9bPrZL24g==
-  /rollup-plugin-node-resolve/5.2.0_rollup@2.32.1:
+  /rollup-plugin-node-resolve/5.2.0_rollup@2.33.1:
     dependencies:
       '@types/resolve': 0.0.8
       builtin-modules: 3.1.0
       is-module: 1.0.0
       resolve: 1.18.1
-      rollup: 2.32.1
+      rollup: 2.33.1
       rollup-pluginutils: 2.8.2
     deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-node-resolve.
     dev: false
@@ -5450,7 +5449,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
-  /rollup/2.32.1:
+  /rollup/2.33.1:
     dev: false
     engines:
       node: '>=10.0.0'
@@ -5458,7 +5457,7 @@ packages:
     optionalDependencies:
       fsevents: 2.1.3
     resolution:
-      integrity: sha512-Op2vWTpvK7t6/Qnm1TTh7VjEZZkN8RWgf0DHbkKzQBwNf748YhXbozHVefqpPp/Fuyk/PQPAnYsBxAEtlMvpUw==
+      integrity: sha512-uY4O/IoL9oNW8MMcbA5hcOaz6tZTMIh7qJHx/tzIJm+n1wLoY38BLn6fuy7DhR57oNFLMbDQtDeJoFURt5933w==
   /rsyncwrapper/3.0.1:
     dev: false
     engines:
@@ -5984,12 +5983,6 @@ packages:
       node: '>=0.6'
     resolution:
       integrity: sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
-  /trek-router/1.2.0:
-    dev: false
-    engines:
-      node: '>= 6'
-    resolution:
-      integrity: sha1-ZwsWMKFsQTmXP/xpiCana7K/kTc=
   /trim-off-newlines/1.0.1:
     dev: true
     engines:
@@ -6476,7 +6469,7 @@ specifiers:
   dumper.js: ^1.3.1
   error-stack-parser: ^2.0.6
   es-module-lexer: ^0.3.26
-  esbuild: ^0.7.19
+  esbuild: ^0.7.22
   eslint: ^7.12.1
   eslint-config-prettier: ^6.15.0
   eslint-plugin-prettier: ^3.1.4
@@ -6501,11 +6494,10 @@ specifiers:
   prettier: 2.1.2
   resolve-from: ^5.0.0
   retes: 0.2.0
-  rollup: ^2.32.1
+  rollup: ^2.33.1
   rsyncwrapper: ^3.0.1
   semver: ^7.3.2
   stack-trace: 0.0.10
-  trek-router: ^1.2.0
   typescript: 4.1.0-beta
   validate: ^5.1.0
   vue: ^3.0.2
