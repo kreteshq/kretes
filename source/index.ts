@@ -11,8 +11,6 @@ import pg from 'pg';
 import { startService } from 'esbuild';
 
 import * as Middleware from './middleware';
-import * as Endpoint from './endpoint';
-
 import { App } from './manifest';
 import { glob } from './filesystem';
 import { build, translate } from './controller';
@@ -25,7 +23,7 @@ import HTMLifiedError from './error';
 const cwd = process.cwd();
 const handlerDir = join(cwd, 'dist');
 
-import { Routes, HTTPMethod, Handler, ServerApp, handle } from 'retes';
+import { Routes, Handler, ServerApp, handle } from 'retes';
 
 export interface Resource {
   feature: string
