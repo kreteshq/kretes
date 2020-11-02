@@ -11,14 +11,7 @@ import { App } from "./manifest";
 //   values: (string | number)[]
 // }
 
-let sq: SQF = null;
+const pool = new pg.Pool();
+const db = sqorn({ pg, pool })
 
-export default new Proxy({}, {
-  get(_target, prop, receiver) {
-    // TODO That's a trick, improve it in the future
-    if (sq == null) {
-      sq = sqorn({ pg, pool: App.DatabasePool })
-    }
-    return Reflect.get(sq, prop, receiver);
-  }
-}) as SQF;
+export default db;
