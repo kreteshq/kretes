@@ -59,7 +59,7 @@ export const App = {
   async transpile(source, { loader }) {
     const { jsxFactory, jsxFragmentFactory: jsxFragment } = this.TypeScriptConfigClient;
 
-    const { js: transpiled } = await this.ESBuild.transform(source, { loader, jsxFactory, jsxFragment })
+    const { code: transpiled } = await this.ESBuild.transform(source, { loader, jsxFactory, jsxFragment })
     return transpiled;
   }
 }
