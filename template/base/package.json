@@ -13,14 +13,14 @@
   ],
   "devDependencies": {
     "@wessberg/rollup-plugin-ts": "^1.3.8",
-    "autoprefixer": "^10.0.1",
+    "autoprefixer": "^10.0.2",
     "chokidar": "^3.4.3",
     "cross-env": "^7.0.2",
     "node-pg-migrate": "^5.9.0",
-    "npm-check-updates": "^9.2.4",
-    "pnpm": "5.10.4",
+    "npm-check-updates": "^10.1.1",
+    "pnpm": "5.12.0",
     "prettier": "^2.1.2",
-    "rollup": "^2.33.1",
+    "rollup": "^2.33.2",
     "typescript": "^4.0.5",
     "tailwindcss": "^1.9.6"
   }
