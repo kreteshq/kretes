@@ -27,7 +27,7 @@ FOOTER
 |               |                                                                                                             |
 | ------------- | ----------------------------------------------------------------------------------------------------------- |
 | `TITLE`       | Succinct description of the change. - imperative mood, e.g. change, NOT changed or changes - all lower case |
-| `CONTEXT`     | (optional) Part of Huncwot affected by change (e.g. cli, server)                                            |
+| `CONTEXT`     | (optional) Part of Kretes affected by change (e.g. cli, server)                                            |
 | `DESCRIPTION` | Motivation for the change using simple English phrases                                                      |
 | `FOOTER`      | References issues in a ticketing system.                                                                    |
 
