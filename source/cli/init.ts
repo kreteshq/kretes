@@ -15,8 +15,9 @@ const username = require('os').userInfo().username;
 
 const VERSION = require('../../package.json').version;
 
-export async function handler({ dir, installDependencies }) {
-  const themeDir = join(resolve(__dirname, '..', '..'), 'template', 'base');
+export async function handler({ dir, installDependencies, template }) {
+  const templateDir = join(resolve(__dirname, '..', '..'), 'template');
+  const themeDir = join(templateDir, 'base');
 
   const name = dir.replace(/-/g, '_');
 
@@ -63,10 +64,6 @@ export async function handler({ dir, installDependencies }) {
     const outputVSCodeSettings = join(cwd, dir, '.vscode', 'settings.json');
     await fs.outputFile(outputVSCodeSettings, substitute(tmplVSCodeSettings, { name }));
 
-    // Overwrites `package.json` copied above
-    const path = join(cwd, dir, 'package.json');
-    const content = generatePackageJSON(dir);
-    await fs.outputJson(path, content, { spaces: 2 });
 
     // Setup development database
     const stdout = fs.openSync(join(cwd, dir, 'log/database.log'), 'a');
@@ -75,6 +72,18 @@ export async function handler({ dir, installDependencies }) {
     await run('/usr/bin/env', ['nix-shell', '--pure', '--run', 'pg_ctl start -o "-k /tmp" -l ./log/postgresql.log'], { stdout, cwd: projectDir });
     await run('/usr/bin/env', ['nix-shell', '--pure', '--run', `createdb ${name}`], { cwd: projectDir });
     await run('/usr/bin/env', ['nix-shell', '--pure', '--run', 'pg_ctl stop -o "-k /tmp" -l ./log/postgresql.log'], { stdout, cwd: projectDir });
+
+    // apply specific template changes
+    if (template !== "base") {
+      await fs.copy(join(templateDir, template), join(cwd, dir), { overwrite: true, errorOnExist: true });
+      await fs.remove(join(cwd, dir, 'config', 'client', 'index.ts'));
+      await fs.remove(join(cwd, dir, 'features', 'Base', 'View', 'index.ts'));
+    }
+
+    // Overwrites `package.json` copied above
+    const path = join(cwd, dir, 'package.json');
+    const content = generatePackageJSON(dir, template);
+    await fs.outputJson(path, content, { spaces: 2 });
 
     if (installDependencies) {
       print(`${magenta('new'.padStart(10))} installing dependencies`);
@@ -90,10 +99,30 @@ export async function handler({ dir, installDependencies }) {
   }
 }
 
-export const builder = _ => _.option('install-dependencies', { default: true, type: 'boolean' }).default('dir', '.');
+export const builder = _ => _
+  .option('install-dependencies', { default: true, type: 'boolean' })
+  .option('template', {
+    type: 'string',
+    choices: ['base', 'react', 'vue', 'preact'],
+    default: 'base'
+  })
+  .default('dir', '.');
 
-function generatePackageJSON(name) {
+function generatePackageJSON(name, template = 'base') {
   const content = require('../../template/base/package.json');
+
+  if (template === 'react') {
+    Object.assign(content.dependencies, {
+      "react": "npm:@pika/react@^16.13.1",
+      "react-dom": "npm:@pika/react-dom@^16.13.1"
+    })
+
+    Object.assign(content.devDependencies, {
+      "@types/react": "^16.9.56",
+      "@types/react-dom": "^16.9.9"
+    });
+  }
+
   const result = Object.assign({ name, version: '0.0.1' }, content);
 
   return result;
