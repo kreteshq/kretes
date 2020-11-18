@@ -103,7 +103,7 @@ const start = async ({ port }) => {
   return [app, server];
 };
 
-const ExcludedDependencies = ['react', 'react-dom'];
+const ExcludedDependencies = ['kretes', 'react', 'react-dom'];
 
 const handler = async ({ port, production }) => {
   process.env.KRETES = production ? 'production' : 'development';
