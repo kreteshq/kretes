@@ -112,15 +112,10 @@ function generatePackageJSON(name, template = 'base') {
   const content = require('../../template/base/package.json');
 
   if (template === 'react') {
-    Object.assign(content.dependencies, {
-      "react": "npm:@pika/react@^16.13.1",
-      "react-dom": "npm:@pika/react-dom@^16.13.1"
-    })
+    const { dependencies, devDependencies } = require('../../template/react/package.json');
 
-    Object.assign(content.devDependencies, {
-      "@types/react": "^16.9.56",
-      "@types/react-dom": "^16.9.9"
-    });
+    Object.assign(content.dependencies, dependencies)
+    Object.assign(content.devDependencies, devDependencies);
   }
 
   const result = Object.assign({ name, version: '0.0.1' }, content);
