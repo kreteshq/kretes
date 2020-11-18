@@ -15,6 +15,12 @@ const username = require('os').userInfo().username;
 
 const VERSION = require('../../package.json').version;
 
+const TemplateNaming = {
+  react: 'React.js',
+  vue: 'Vue.js',
+  svelte: 'Svelte'
+}
+
 export async function handler({ dir, installDependencies, template }) {
   const templateDir = join(resolve(__dirname, '..', '..'), 'template');
   const themeDir = join(templateDir, 'base');
@@ -30,10 +36,9 @@ export async function handler({ dir, installDependencies, template }) {
     process.exit(1);
   }
 
-  print(`${magenta('new'.padStart(10))} creating a project in ${underline(dir)}`);
+  print(`${magenta('new'.padStart(10))} creating a project in ${underline(dir)}${template !== 'base' ? ` using the ${underline(TemplateNaming[template])} template` : ''}`);
 
   const projectDir = join(cwd, dir);
-
   try {
     await fs.mkdir(join(cwd, dir));
     await fs.mkdir(join(cwd, dir, 'log'));
