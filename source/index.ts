@@ -69,18 +69,21 @@ const lookupViews = async () => {
 export default class Kretes extends ServerApp {
   staticDir: string;
   routePaths: Object
+  isDatabase: boolean
 
   constructor({
     staticDir = join(cwd, 'public'),
     graphql = false,
     implicitControllers = true,
     WebRPC = true,
+    isDatabase = true,
     _verbose = false,
     routes = [] as Routes
   } = {}) {
     super(routes);
 
     this.staticDir = staticDir;
+    this.isDatabase = isDatabase;
 
     // if (graphql) {
     //   try {
@@ -107,17 +110,19 @@ export default class Kretes extends ServerApp {
   }
 
   async setup() {
-    const config = require('config');
-    const connection = config.get('db');
-    App.DatabasePool = new pg.Pool({ port: 5454, ...connection });
+    if (this.isDatabase) {
+      const config = require("config");
+      const connection = config.get("db");
+      App.DatabasePool = new pg.Pool({ port: 5454, ...connection });
 
-    App.DatabasePool.connect(error => {
-      if (error) {
-        Logger.printError(error, 'Data Layer');
+      App.DatabasePool.connect((error) => {
+        if (error) {
+          Logger.printError(error, "Data Layer");
 
-        process.exit(1);
-      }
-    });
+          process.exit(1);
+        }
+      });
+    }
 
     // FIXME Doesn't work
     // App.DatabasePool.on('error', error => {

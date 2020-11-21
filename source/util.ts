@@ -122,7 +122,7 @@ export const generateSourceMap = input => {
 
 interface Options {
   stdout?: 'inherit' | 'pipe' | number
-  stderr?: 'inherit' | 'pipe'
+  stderr?: 'inherit' | 'pipe' | number
   cwd?: string
 }
 

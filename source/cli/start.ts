@@ -46,18 +46,21 @@ const reloadSQL = async (pool, file) => {
 
 let sockets = [];
 
-const start = async ({ port }) => {
+const start = async ({ port, database }) => {
 
   let routes: Routes = require(join(CWD, 'dist/config/server/routes')).default;
-  const app = new Kretes({ routes });
+  const app = new Kretes({ routes, isDatabase: database });
   try {
     await app.setup();
   } catch (e) {
     console.error(e.message);
   }
 
-  app.add('POST', '/graphql', await Endpoint.GraphQL())
-  app.add('GET', '/graphiql', await Endpoint.GraphiQL())
+  if (database) {
+    app.add('POST', '/graphql', await Endpoint.GraphQL())
+    app.add('GET', '/graphiql', await Endpoint.GraphiQL())
+  }
+
   app.add('GET', '/__rest.json', () => Endpoint.OpenAPI(app.routePaths));
   app.add('GET', '/__rest', () => Endpoint.RedocApp());
 
@@ -88,24 +91,27 @@ const start = async ({ port }) => {
   const onExit = async _signal => {
     console.log(color`  {grey Stoping...}`);
 
-    console.log(color`  {grey Closing the DB pool...}`);
-    await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl stop'], { stdout });
-    // await App.DatabasePool.end();
+    if (database) {
+      console.log(color`  {grey Closing the DB pool...}`);
+      await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl stop'], { stdout });
+      // await App.DatabasePool.end();
+    }
 
-    console.log(color`  {grey Closing the HTTP server...}`);
+    console.log(color`  Closing the HTTP server...`);
     server.close(async () => {
       process.exit(0);
     });
   }
 
   process.on('SIGINT', onExit);
+  process.on('SIGTERM', onExit);
 
   return [app, server];
 };
 
 const ExcludedDependencies = ['kretes'];
 
-const handler = async ({ port, production }) => {
+const handler = async ({ port, production, database }) => {
   process.env.KRETES = production ? 'production' : 'development';
 
   const dependencies = getDependencies();
@@ -117,11 +123,8 @@ const handler = async ({ port, production }) => {
     console.error(`${''.padStart(12)}${color.gray('https://nixos.org/guides/install-nix.html')}`);
     process.exit(1);
   }
-  console.log(color`  {grey Starting... (it may take few seconds)}`);
 
-  stdout = fs.openSync('./log/database.log', 'a');
-
-  await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl restart'], { stdout, stderr: stdout });
+  await startDatabase(database);
 
   const compiler = new TypescriptCompiler(
     CWD,
@@ -146,7 +149,7 @@ const handler = async ({ port, production }) => {
     fs.ensureDir('dist/tasks');
 
     // start the HTTP server
-    [app, server] = await start({ port });
+    [app, server] = await start({ port, database });
   });
 
   // files other than `.ts` have changed
@@ -156,8 +159,6 @@ const handler = async ({ port, production }) => {
     const extension = extname(filePath);
 
     const timestamp = Date.now();
-
-
     switch (extension) {
       case '.css':
         compileCSS();
@@ -202,7 +203,7 @@ const handler = async ({ port, production }) => {
     sockets = [];
 
     server.close(async () => {
-      [app, server] = await start({ port });
+      [app, server] = await start({ port, database });
     });
 
     // clean the `require` cache
@@ -253,6 +254,17 @@ const getDependencies = () => {
 
   return dependencies;
 }
+const startDatabase = async (database) => {
+  process.stdout.write(color`  PostgreSQL 13: `);
+
+  if (database) {
+    const databaseLog = fs.openSync('./log/database.log', 'a');
+    await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl restart'], { stdout: databaseLog, stderr: databaseLog });
+    process.stdout.write(color` {green OK}\n`);
+  } else {
+    process.stdout.write(color` {yellow skipped}\n`);
+  }
+}
     const location = file.fileName.split(`${CWD}${sep}`)[1];
     console.log(
       color`  {grey in} {underline ${location}}\n   → ${(messageText as DiagnosticMessageChain).messageText || messageText}`
@@ -288,6 +300,7 @@ module.exports = {
   builder: _ => _
     .option('port', { alias: 'p', default: 5544 })
     .option('production', { type: 'boolean', default: false })
+    .option('database', { default: true, type: 'boolean' })
     .default('dir', '.'),
   handler,
 };
