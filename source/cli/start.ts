@@ -213,28 +213,7 @@ const handler = async ({ port, production, database }) => {
     delete require.cache[cacheKey];
 
     if (dir.includes('Service')) {
-      const interfaceFile = await fs.readFile(`${join(CWD, dir, 'index')}.ts`, 'utf-8');
-      const results = parser(interfaceFile);
-      const [_interface, methods] = Object.entries(results).shift();
-      const feature = _interface.split('Service').shift();
-
-      const generatedClient = generateWebRPCOnClient(feature, methods as RemoteMethodList);
-      await fs.writeFile(join(CWD, 'features', feature, 'Caller.ts'), generatedClient);
-
-      const serviceClass = require(cacheKey).default;
-      const service = new serviceClass()
-
-      // TODO add removal of routes
-      for (const [method, { input, output }] of Object.entries(methods)) {
-        app.add('POST', `/rpc/${feature}/${method}`, async () => {
-          const result = await service[method]();
-          return {
-            statusCode: 200,
-            body: JSON.stringify(result),
-            type: 'application/json',
-          };
-        });
-      }
+      makeRemoteService(app, dir, name);
     }
   });
 
@@ -271,9 +250,27 @@ const startDatabase = async (database) => {
     );
   });
 
+const makeRemoteService = async (app, dir, name) => {
+  const interfaceFile = await fs.readFile(`${join(CWD, dir, 'index')}.ts`, 'utf-8');
+  const results = parser(interfaceFile);
+  const [_interface, methods] = Object.entries(results).shift();
+  const feature = _interface.split('Service').shift();
 
-  //compileCSS();
-};
+  const generatedClient = generateWebRPCOnClient(feature, methods as RemoteMethodList);
+  await fs.writeFile(join(CWD, 'features', feature, 'Caller.ts'), generatedClient);
+
+  const compiledModule = `${join(CWD, 'dist', dir, name)}.js`;
+  const serviceClass = require(compiledModule).default;
+  const service = new serviceClass()
+
+  // TODO add removal of routes
+  for (const [method, { input, output }] of Object.entries(methods)) {
+    app.add('POST', `/rpc/${feature}/${method}`, async () => {
+      const result = await service[method]();
+      return JSONPayload(result, 200);
+    });
+  }
+}
 
 const compileCSS = async () => {
   const { transformers } = require(join(CWD, 'config', 'css.config'));
