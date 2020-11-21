@@ -9,22 +9,21 @@ import { TypescriptCompiler } from '@poppinss/chokidar-ts';
 import fs from 'fs-extra';
 import postcss from 'postcss';
 import { lookpath } from 'lookpath';
-import { startService } from 'esbuild'
+import { BuildOptions, startService } from 'esbuild'
 import WebSocket from "ws";
-import { Routes } from 'retes';
+import { Routes, Response } from 'retes';
+import { DiagnosticMessageChain } from 'typescript';
+import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
+import { install, printStats } from 'esinstall';
 
 import { App } from "../manifest";
 import * as Endpoint from '../endpoint';
-import * as Middleware from '../middleware';
 import Kretes from '../';
-import { NotFound } from '../response';
 import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
 import { VueHandler } from '../machine/watcher';
 import { run } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
-import { DiagnosticMessageChain } from 'typescript';
-import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
 
 const CWD = process.cwd();
 const VERSION = require('../../package.json').version;
@@ -104,39 +103,13 @@ const start = async ({ port }) => {
   return [app, server];
 };
 
-const ExcludedDependencies = ['kretes', 'react', 'react-dom'];
+const ExcludedDependencies = ['kretes'];
 
 const handler = async ({ port, production }) => {
   process.env.KRETES = production ? 'production' : 'development';
 
-  if (!App.ESBuild) {
-    App.ESBuild = await startService();
-  }
-
-  const packageJSONPath = join(process.cwd(), 'package.json');
-  const packageJSONContent = require(packageJSONPath);
-
-  const dependencies = Object.keys(packageJSONContent.dependencies)
-    .filter(item => ExcludedDependencies.indexOf(item) < 0);
-
-  for (const dependency of dependencies) {
-    const dependencyPath = join(process.cwd(), 'node_modules', dependency, 'package.json');
-    const dependencyContent = require(dependencyPath);
-    const dependencyModule = dependencyContent.module;
-
-    if (dependencyModule) {
-      const modulePath = join(process.cwd(), 'node_modules', dependency, dependencyModule);
-      const entryPoints = [modulePath];
-      const outfile = `.modules/${dependency}.js`;
-
-      App.ESBuild.build({ entryPoints, outfile,
-        bundle: true,
-        sourcemap: true,
-        format: "esm",
-        external: ["react", "react-dom"],
-      });
-    }
-  }
+  const dependencies = getDependencies();
+  await install(dependencies, { dest: 'dist/modules', logger: { ...console, debug: () => {} }});
 
   const isNixInstalled = await lookpath('nix-shell');
   if (!isNixInstalled) {
@@ -271,6 +244,15 @@ const handler = async ({ port, production }) => {
 
   if (output.diagnostics.length > 0) console.log(color`  {red.bold Errors:}`);
   output.diagnostics.forEach(({ file, messageText }) => {
+const getDependencies = () => {
+  const packageJSONPath = join(process.cwd(), 'package.json');
+  const packageJSONContent = require(packageJSONPath);
+
+  const dependencies = Object.keys(packageJSONContent.dependencies)
+    .filter(item => ExcludedDependencies.indexOf(item) < 0)
+
+  return dependencies;
+}
     const location = file.fileName.split(`${CWD}${sep}`)[1];
     console.log(
       color`  {grey in} {underline ${location}}\n   → ${(messageText as DiagnosticMessageChain).messageText || messageText}`

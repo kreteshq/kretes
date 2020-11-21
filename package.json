@@ -57,6 +57,7 @@
     "error-stack-parser": "^2.0.6",
     "es-module-lexer": "^0.3.26",
     "esbuild": "^0.8.12",
+    "esinstall": "^0.3.7",
     "fast-glob": "3.2.4",
     "fs-extra": "^9.0.1",
     "graphile-worker": "^0.8.1",

@@ -8,7 +8,7 @@ import { promises as fs } from "fs";
 import { join } from "path";
 
 import RE from "../regexp";
-import { InternalServerError, JavaScriptString } from "../response";
+import { OK, NotFound, InternalServerError, JavaScriptString } from "../response";
 
 const resolve = (directory, moduleName) => {
   const filename = join(directory, "noop.js");
@@ -52,8 +52,9 @@ const Resolving = () => {
     if (!id.endsWith('.map')) {
       const filepaths = [
         join("node_modules", id, Lookup.get(id) || ""),
-        join(".modules", `${id}.js`),
-        resolve(process.cwd(), id),
+        join("dist", "modules", id),
+        join("dist", "modules", `${id}.js`),
+        //resolve(process.cwd(), id),
       ]
 
       for (const filepath of filepaths) {

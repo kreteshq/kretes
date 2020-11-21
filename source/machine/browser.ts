@@ -1,5 +1,6 @@
 const debug = require('debug')('ks:machine:browser')
 
+import { join, dirname } from 'path';
 import url from 'url';
 import RE from '../regexp'
 import MagicString from 'magic-string'
@@ -47,6 +48,9 @@ const rewrite = async (source: string, importer: string) => {
             resolved = `/@modules/${id}`
           } else if (RE.IsFeaturesImport.test(id)) {
             resolved = `/features/${id}`
+          } else if (RE.IsRelative.test(id)) {
+            // resolved = RE.IsRelative.test(importer) ? join(dirname(importer), id) : join(importer, id);
+            resolved = join(dirname(importer), id);
           } else {
             resolved = id
           }
