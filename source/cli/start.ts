@@ -85,7 +85,7 @@ const start = async ({ port, database }) => {
   })
 
   console.log(
-    color`{bold.blue ┌ Kretes} {bold ${VERSION}} {grey on} {bold localhost:${port}}\n{bold.blue └ }{grey Started: }${new Date().toLocaleTimeString()}`
+    color`{bold.blue ┌ Kretes} {underline ${VERSION}} on {underline localhost:${port}}\n{bold.blue └ }Started {bold ${new Date().toLocaleTimeString()}}`
   );
 
   const onExit = async _signal => {
@@ -137,16 +137,15 @@ const handler = async ({ port, production, database }) => {
     return;
   }
 
-  const watcher = compiler.watcher(config, 'lsp') as LspWatcher;
-
   let server;
   let app;
 
+  const watcher = compiler.watcher(config, 'lsp') as LspWatcher;
   watcher.on('watcher:ready', async () => {
     // const stream = fg.stream([`${CWD}/features/**/*.sql`], { dot: true });
     // for await (const entry of stream) await reloadSQL(pool, entry);
 
-    fs.ensureDir('dist/tasks');
+    await fs.ensureDir('dist/tasks');
 
     // start the HTTP server
     [app, server] = await start({ port, database });
