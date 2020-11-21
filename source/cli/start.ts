@@ -188,18 +188,12 @@ const handler = async ({ port, production, database }) => {
   watcher.on('subsequent:build', async ({ relativePath: filePath, diagnostics }) => {
     console.clear();
     console.log(color`  {underline ${filePath}} {green reloaded}`);
-    diagnostics.forEach(({ file, messageText }) => {
-      const location = file.fileName.split(`${CWD}${sep}`)[1];
-      console.log(
-        color`  {red.bold Errors:}\n  {grey in} {underline ${location}}\n   → ${
-          (messageText as DiagnosticMessageChain).messageText || messageText
-        }`
-      );
-    });
+    displayCompilationMessages(diagnostics);
+
+    const { dir, name } = parse(filePath);
 
     // restart the HTTP server
     sockets.filter(socket => !socket.destroyed).forEach(socket => socket.destroy());
-
     sockets = [];
 
     server.close(async () => {
@@ -207,8 +201,6 @@ const handler = async ({ port, production, database }) => {
     });
 
     // clean the `require` cache
-    const { dir, name } = parse(filePath);
-
     const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
     delete require.cache[cacheKey];
 
@@ -217,13 +209,13 @@ const handler = async ({ port, production, database }) => {
     }
   });
 
-  const output = watcher.watch(
-    ['config', 'features', 'stylesheets'],
-    { ignored: [] }
-  );
+  const { diagnostics } = watcher.watch(['config', 'features', 'stylesheets'], { ignored: [] });
 
-  if (output.diagnostics.length > 0) console.log(color`  {red.bold Errors:}`);
-  output.diagnostics.forEach(({ file, messageText }) => {
+  displayCompilationMessages(diagnostics);
+
+  //compileCSS();
+};
+
 const getDependencies = () => {
   const packageJSONPath = join(process.cwd(), 'package.json');
   const packageJSONContent = require(packageJSONPath);
@@ -244,11 +236,17 @@ const startDatabase = async (database) => {
     process.stdout.write(color` {yellow skipped}\n`);
   }
 }
+
+const displayCompilationMessages = (messages) => {
+  if (messages.length > 0) console.log(color`  {red.bold Errors:}`);
+  messages.forEach(({ file, messageText }) => {
     const location = file.fileName.split(`${CWD}${sep}`)[1];
+    const msg = (messageText as DiagnosticMessageChain).messageText || messageText;
     console.log(
-      color`  {grey in} {underline ${location}}\n   → ${(messageText as DiagnosticMessageChain).messageText || messageText}`
+      color`  {grey in} {underline ${location}}\n   → ${msg}`
     );
   });
+}
 
 const makeRemoteService = async (app, dir, name) => {
   const interfaceFile = await fs.readFile(`${join(CWD, dir, 'index')}.ts`, 'utf-8');
