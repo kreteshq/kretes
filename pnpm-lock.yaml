@@ -1,7 +1,7 @@
 dependencies:
   '@casl/ability': 4.1.6
   '@graphile-contrib/pg-simplify-inflector': 6.1.0
-  '@poppinss/chokidar-ts': 2.2.1
+  '@poppinss/chokidar-ts': 3.1.1
   '@sqorn/pg': 0.0.45
   '@vue/compiler-sfc': 3.0.2_vue@3.0.2
   argon2: 0.27.0
@@ -972,14 +972,14 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-m7X9U6BG2+J+R1lSOdCiITLLrxm+cWlNI3HUFA92oLO77ObGNzaKdh8pMLqdZcshtkKuV84olNNXDfMc4FezBQ==
-  /@poppinss/chokidar-ts/2.2.1:
+  /@poppinss/chokidar-ts/3.1.1:
     dependencies:
       builtin-modules: 3.1.0
       chokidar: 3.4.3
-      debug: 4.2.0
+      debug: 4.3.1
       emittery: 0.7.2
       fs-extra: 9.0.1
-      mem: 6.1.1
+      mem: 8.0.0
       picomatch: 2.2.2
     dev: false
     resolution:
@@ -6311,7 +6311,7 @@ specifiers:
   '@ava/typescript': ^1.1.1
   '@casl/ability': ^4.1.6
   '@graphile-contrib/pg-simplify-inflector': ^6.1.0
-  '@poppinss/chokidar-ts': ^2.2.1
+  '@poppinss/chokidar-ts': ^3.1.1
   '@sqorn/pg': 0.0.45
   '@types/config': ^0.0.36
   '@types/es-module-lexer': ^0.3.0
@@ -6325,6 +6325,7 @@ specifiers:
   boxwood: ^0.47.0
   busboy: ^0.3.1
   chalk: ^4.1.0
+  chokidar: ^3.4.3
   colorette: ^1.2.1
   config: ^3.3.2
   cookie: ^0.4.1

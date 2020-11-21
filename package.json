@@ -40,7 +40,7 @@
   "dependencies": {
     "@casl/ability": "^4.1.6",
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
-    "@poppinss/chokidar-ts": "^2.2.1",
+    "@poppinss/chokidar-ts": "^3.1.1",
     "@sqorn/pg": "0.0.45",
     "@vue/compiler-sfc": "3.0.2",
     "argon2": "^0.27.0",

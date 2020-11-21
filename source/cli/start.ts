@@ -24,6 +24,7 @@ import { VueHandler } from '../machine/watcher';
 import { run } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 import { DiagnosticMessageChain } from 'typescript';
+import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
 
 const CWD = process.cwd();
 const VERSION = require('../../package.json').version;
@@ -160,7 +161,7 @@ const handler = async ({ port, production }) => {
     return;
   }
 
-  const watcher = compiler.watcher(config);
+  const watcher = compiler.watcher(config, 'lsp') as LspWatcher;
 
   let server;
   let app;
@@ -176,7 +177,7 @@ const handler = async ({ port, production }) => {
   });
 
   // files other than `.ts` have changed
-  watcher.on('change', async filePath => {
+  watcher.on('change', async ({ relativePath: filePath }) => {
     console.clear();
     console.log(color`  {underline ${filePath}} {green reloaded}`);
     const extension = extname(filePath);
@@ -210,7 +211,7 @@ const handler = async ({ port, production }) => {
     }
   });
 
-  watcher.on('subsequent:build', async ({ path: filePath, diagnostics }) => {
+  watcher.on('subsequent:build', async ({ relativePath: filePath, diagnostics }) => {
     console.clear();
     console.log(color`  {underline ${filePath}} {green reloaded}`);
     diagnostics.forEach(({ file, messageText }) => {
