@@ -1,11 +1,21 @@
 const debug = require('debug')('ks:machine:browser')
 
+import {promises as fs} from 'fs';
 import { join, dirname } from 'path';
 import url from 'url';
 import RE from '../regexp'
 import MagicString from 'magic-string'
 import Lexer from 'es-module-lexer'
 import { App } from '../manifest';
+
+const isDirectory = async path => {
+  try {
+    const stat = await fs.lstat(path);
+    return stat.isDirectory();
+  } catch (error) {
+    return false;
+  }
+}
 
 const rewrite = async (source: string, importer: string) => {
   try {
@@ -49,8 +59,9 @@ const rewrite = async (source: string, importer: string) => {
           } else if (RE.IsFeaturesImport.test(id)) {
             resolved = `/features/${id}`
           } else if (RE.IsRelative.test(id)) {
-            // resolved = RE.IsRelative.test(importer) ? join(dirname(importer), id) : join(importer, id);
-            resolved = join(dirname(importer), id);
+            const p = join(process.cwd(), importer);
+            const isDir = await isDirectory(p);
+            resolved = !isDir ? join(dirname(importer), id) : join(importer, id);
           } else {
             resolved = id
           }
