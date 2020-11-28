@@ -9,12 +9,11 @@ import { TypescriptCompiler } from '@poppinss/chokidar-ts';
 import fs from 'fs-extra';
 import postcss from 'postcss';
 import { lookpath } from 'lookpath';
-import { BuildOptions, startService } from 'esbuild'
 import WebSocket from "ws";
 import { Routes, Response } from 'retes';
 import { DiagnosticMessageChain } from 'typescript';
 import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
-import { install, printStats } from 'esinstall';
+import { install } from 'esinstall';
 
 import { App } from "../manifest";
 import * as Endpoint from '../endpoint';
