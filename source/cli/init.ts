@@ -73,7 +73,8 @@ export async function handler({ dir, installDependencies, template }) {
     // Setup development database
     const stdout = fs.openSync(join(cwd, dir, 'log/database.log'), 'a');
 
-    await run('/usr/bin/env', ['nix-shell', '--pure', '--run', 'initdb -A trust --encoding=UTF8 --locale=en_US.UTF-8 --lc-collate=C'], { stdout, cwd: projectDir  });
+    // FIXME investigate: no `pure` as `locale` error on MacOS
+    await run('/usr/bin/env', ['nix-shell', '--run', 'initdb -A trust --encoding=UTF8 --locale=en_US.UTF-8 --lc-collate=C'], { stdout, cwd: projectDir  });
     await run('/usr/bin/env', ['nix-shell', '--pure', '--run', 'pg_ctl start -o "-k /tmp" -l ./log/postgresql.log'], { stdout, cwd: projectDir });
     await run('/usr/bin/env', ['nix-shell', '--pure', '--run', `createdb ${name}`], { cwd: projectDir });
     await run('/usr/bin/env', ['nix-shell', '--pure', '--run', 'pg_ctl stop -o "-k /tmp" -l ./log/postgresql.log'], { stdout, cwd: projectDir });
