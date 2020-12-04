@@ -17,7 +17,7 @@ dependencies:
   dumper.js: 1.3.1
   error-stack-parser: 2.0.6
   es-module-lexer: 0.3.26
-  esbuild: 0.8.17
+  esbuild: 0.8.18
   esinstall: 0.3.7
   fast-glob: 3.2.4
   fs-extra: 9.0.1
@@ -34,7 +34,7 @@ dependencies:
   merge-deep: 3.0.2
   mime-types: 2.1.27
   pg: 8.5.1
-  postcss: 8.1.13
+  postcss: 8.1.14
   postgraphile: 4.10.0
   resolve-from: 5.0.0
   retes: 'link:../retes'
@@ -2609,12 +2609,12 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-SWCUodYFOkKcu2Jbum12NbD98MoQq2EWWvHfQtpR2C9RkPzRr1BE4cavYjQpQV01hBR19UAftXl0TVLjka/i3Q==
-  /esbuild/0.8.17:
+  /esbuild/0.8.18:
     dev: false
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-ReHap+Iyn5BQF0B8F3xrLwu+j57ri5uDUw2ej9XTPAuFDebYiWwRzBY4jhF610bklveXLbCGim/8/2wQKQlu1w==
+      integrity: sha512-EPbCSr7Ems1loeoy1faUGnJOwTwSrGcoYVQ4f4T4JMKjxJxrWAg+zqXkZK7GvqxfvokPp3HV6Raqn6rqAuW7+Q==
   /escalade/3.1.1:
     engines:
       node: '>=6'
@@ -4987,17 +4987,16 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-3QT8bBJeX/S5zKTTjTCIjRF3If4avAT6kqxcASlTWEtAFCb9NH0OUxNDfgZSWdP5fJnBYCMEWkIFfWeugjzYMg==
-  /postcss/8.1.13:
+  /postcss/8.1.14:
     dependencies:
       colorette: 1.2.1
       nanoid: 3.1.20
       source-map: 0.6.1
-      vfile-location: 3.2.0
     dev: false
     engines:
       node: ^10 || ^12 || >=14
     resolution:
-      integrity: sha512-D++wck3XhQkICYfysZRx90JCDgaTTdq8YxLswB9cjBzfxwcVcQjn3LsjXon0PQ6TIOof2IGWLRHhSgXZuJct4w==
+      integrity: sha512-KatkyVPBKfENS+c3dpXJoDXnDD5UZs5exAnDksLqaRJPKwYphEPZt4N0m0i049v2/BtWVQibAhxW4ilXXcolpA==
   /postgraphile-core/4.10.0_graphql@14.7.0+pg@8.5.1:
     dependencies:
       graphile-build: 4.10.0_graphql@14.7.0
@@ -6176,10 +6175,6 @@ packages:
       node: '>=7.6'
     resolution:
       integrity: sha512-Y+vJv+xR3XsaQM8W1rQvwc6is/sgCUBv3lvNKc2DZ1HcVcEWAaHVSFB5uoxkQnw2riUq77Rg5nv1u8YuuSu/Zw==
-  /vfile-location/3.2.0:
-    dev: false
-    resolution:
-      integrity: sha512-aLEIZKv/oxuCDZ8lkJGhuhztf/BW4M+iHdCwglA/eWc+vtuRFJj8EtgceYFX4LRjOhCAAiNHsKGssC6onJ+jbA==
   /vue-template-compiler/2.6.12:
     dependencies:
       de-indent: 1.0.2
@@ -6431,7 +6426,7 @@ specifiers:
   dumper.js: ^1.3.1
   error-stack-parser: ^2.0.6
   es-module-lexer: ^0.3.26
-  esbuild: ^0.8.17
+  esbuild: ^0.8.18
   esinstall: ^0.3.7
   eslint: ^7.14.0
   eslint-config-prettier: ^6.15.0
@@ -6452,7 +6447,7 @@ specifiers:
   merge-deep: ^3.0.2
   mime-types: ^2.1.27
   pg: ^8.5.1
-  postcss: ^8.1.13
+  postcss: ^8.1.14
   postgraphile: ^4.10.0
   prettier: 2.2.1
   resolve-from: ^5.0.0
