@@ -4,7 +4,7 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
-    "kretes": "^0.76.1"
+    "kretes": "^0.77.0"
   },
   "browserslist": [
     "> 1%",

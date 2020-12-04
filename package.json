@@ -76,7 +76,7 @@
     "postcss": "^8.1.14",
     "postgraphile": "^4.10.0",
     "resolve-from": "^5.0.0",
-    "retes": "link:../retes",
+    "retes": "^0.3.0",
     "rollup": "^2.34.1",
     "rsyncwrapper": "^3.0.1",
     "semver": "^7.3.4",
