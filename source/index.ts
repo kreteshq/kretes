@@ -13,15 +13,15 @@ import { startService } from 'esbuild';
 import * as Middleware from './middleware';
 import { App } from './manifest';
 import { glob } from './filesystem';
-import { build, translate } from './controller';
 import { readAll } from './filesystem';
 import { precompile } from './view';
 import { NotFound } from './response';
 import Logger from './logger';
 import HTMLifiedError from './error';
 
+import { setupControllersFromFilesystem } from './core';
+
 const cwd = process.cwd();
-const handlerDir = join(cwd, 'dist');
 
 import { Routes, Handler, ServerApp, handle } from 'retes';
 
@@ -59,7 +59,6 @@ export interface ScheduleInput {
 //   [name: string]: Handler | any[]
 // }
 
-
 const lookupViews = async () => {
   const path = join(cwd, 'features/**/*.html');
   const files = await glob(path);
@@ -84,29 +83,6 @@ export default class Kretes extends ServerApp {
 
     this.staticDir = staticDir;
     this.isDatabase = isDatabase;
-
-    // if (graphql) {
-    //   try {
-    //     const { graphql, graphiql, makeSchema } = require('./graphql');
-
-    //     const { typeDefs, resolvers } = require(join(cwd, 'graphql'));
-    //     const schema = makeSchema({ typeDefs, resolvers });
-
-    //     // this.post('/graphql', graphql({ schema }));
-    //     // this.get('/graphql', graphql({ schema }));
-    //     // this.get('/graphiql', graphiql({ endpointURL: 'graphql' }));
-    //   } catch (error) {
-    //     switch (error.code) {
-    //       case 'MODULE_NOT_FOUND':
-    //         console.log('GraphQL is not set up.');
-    //         break;
-    //       default:
-    //         console.error(error);
-    //         break;
-    //     }
-    //   }
-    // }
-
   }
 
   async setup() {
@@ -140,34 +116,7 @@ export default class Kretes extends ServerApp {
       precompile(views, { paths: [parts] })
     }
 
-    if (true) {
-      const handlers = build();
-      for (let { resource, operation, dir } of handlers) {
-        try {
-          const { [operation]: handler } = require(`${join(handlerDir, dir, operation)}.js`);
-
-          // FIXME better description
-          // it happens when the function name inside the handler file
-          // is different than the file name
-          if (undefined === handler) {
-            throw new Error(`Handler name mismatch for ${operation}`)
-          }
-
-          let { method, route } = translate(operation, resource.toLowerCase());
-
-          route = route.replace('_', ':');
-
-          if (Array.isArray(handler)) {
-            this.add(method, route, ...handler);
-          } else {
-            this.add(method, route, handler);
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    }
-
+    setupControllersFromFilesystem(this);
   }
 
   async start(port: number = 0) {
