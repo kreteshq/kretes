@@ -122,14 +122,6 @@ const handler = async ({ port, production, database }) => {
   const dependencies = getDependencies();
   await install(dependencies, { dest: 'dist/modules', logger: { ...console, debug: () => {} }});
 
-  const isNixInstalled = await lookpath('nix-shell');
-  if (!isNixInstalled) {
-    console.error(`${color.red('Error'.padStart(10))}: Kretes requires the Nix package manager`);
-    console.error(`${''.padStart(12)}${color.gray('https://nixos.org/guides/install-nix.html')}`);
-    process.exit(1);
-  }
-
-  await startDatabase(database);
 
   const compiler = new TypescriptCompiler(
     CWD,
@@ -228,17 +220,6 @@ const getDependencies = () => {
     .filter(item => ExcludedDependencies.indexOf(item) < 0)
 
   return dependencies;
-}
-const startDatabase = async (database) => {
-  process.stdout.write(color`  PostgreSQL 13: `);
-
-  if (database) {
-    const databaseLog = fs.openSync('./log/database.log', 'a');
-    await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl restart'], { stdout: databaseLog, stderr: databaseLog });
-    process.stdout.write(color` {green OK}\n`);
-  } else {
-    process.stdout.write(color` {yellow skipped}\n`);
-  }
 }
 
 const displayCompilationMessages = (messages) => {

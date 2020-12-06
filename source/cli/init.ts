@@ -27,12 +27,6 @@ export async function handler({ dir, installDependencies, template }) {
 
   const name = dir.replace(/-/g, '_');
 
-  const isNixInstalled = await lookpath('nix-shell');
-  if (!isNixInstalled) {
-    console.error(`${red('Error'.padStart(10))}: Kretes requires the Nix package manager`);
-    console.error(`${''.padStart(12)}${__.gray('https://nixos.org/guides/install-nix.html')}`);
-    process.exit(1);
-  }
   println(`${bold(blue('Kretes'.padStart(10)))} ${bold(VERSION)}`);
   println(`${magenta('new'.padStart(10))} creating a project in ${underline(dir)}${template !== 'base' ? ` using the ${underline(TemplateNaming[template])} template` : ''}`);
 
@@ -58,16 +52,6 @@ export async function handler({ dir, installDependencies, template }) {
     const tmplVSCodeSettings = await fs.readFile(join(themeDir, 'vscode', 'settings.json'), 'utf-8');
     const outputVSCodeSettings = join(cwd, dir, '.vscode', 'settings.json');
     await fs.outputFile(outputVSCodeSettings, substitute(tmplVSCodeSettings, { name }));
-
-
-    // Setup development database
-    const stdout = fs.openSync(join(cwd, dir, 'log/database.log'), 'a');
-
-    // FIXME investigate: no `pure` as `locale` error on MacOS
-    await run('/usr/bin/env', ['nix-shell', '--run', 'initdb -A trust --encoding=UTF8 --locale=en_US.UTF-8 --lc-collate=C'], { stdout, cwd: projectDir  });
-    await run('/usr/bin/env', ['nix-shell', '--pure', '--run', 'pg_ctl start -o "-k /tmp" -l ./log/postgresql.log'], { stdout, cwd: projectDir });
-    await run('/usr/bin/env', ['nix-shell', '--pure', '--run', `createdb ${name}`], { cwd: projectDir });
-    await run('/usr/bin/env', ['nix-shell', '--pure', '--run', 'pg_ctl stop -o "-k /tmp" -l ./log/postgresql.log'], { stdout, cwd: projectDir });
 
     // apply specific template changes
     if (template !== "base") {
