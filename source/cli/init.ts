@@ -51,14 +51,6 @@ export async function handler({ dir, installDependencies, template }) {
     // rename directories
     await fs.rename(join(cwd, dir, 'vscode'), join(cwd, dir, '.vscode'));
 
-    const configTemplate = await fs.readFile(join(themeDir, 'config', 'default.json'), 'utf-8');
-    const configOutput = join(cwd, dir, 'config', 'default.json');
-    const compiled = substitute(configTemplate, {
-      database: name,
-      user: username,
-    });
-    await fs.outputFile(configOutput, compiled);
-
     // parametrize `default.nix`
     const tmplDefaultNix = await fs.readFile(join(themeDir, 'default.nix'), 'utf-8');
     const outputDefaultNix = join(cwd, dir, 'default.nix');

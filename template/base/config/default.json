@@ -1,8 +1,4 @@
 {
-  "db": {
-    "database": "{{database}}",
-    "username": "{{user}}"
-  },
   "deploy": {
     "client": {
       "delete": true,
