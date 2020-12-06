@@ -88,13 +88,12 @@ export default class Kretes extends ServerApp {
   async setup() {
     if (this.isDatabase) {
       const config = require("config");
-      const connection = config.get("db");
-      App.DatabasePool = new pg.Pool({ port: 5454, ...connection });
+      const connection = config.has("db") ? config.get("db") : {} // node-pg supports env variables
 
+      App.DatabasePool = new pg.Pool(connection);
       App.DatabasePool.connect((error) => {
         if (error) {
           Logger.printError(error, "Data Layer");
-
           process.exit(1);
         }
       });

@@ -44,17 +44,24 @@ const reloadSQL = async (pool, file) => {
 
 let sockets = [];
 
-const start = async ({ port, database }) => {
+const isDatabaseConfigured = () => {
+  const config = require(join(CWD, 'config', 'default.json'));
+  return "db" in config;
+}
 
+const start = async ({ port, database }) => {
   let routes: Routes = require(join(CWD, 'dist/config/server/routes')).default;
-  const app = new Kretes({ routes, isDatabase: database });
+
+  const isDatabase = database ? database : isDatabaseConfigured();
+
+  const app = new Kretes({ routes, isDatabase });
   try {
     await app.setup();
   } catch (e) {
     console.error(e.message);
   }
 
-  if (database) {
+  if (isDatabase) {
     app.add('POST', '/graphql', await Endpoint.GraphQL())
     app.add('GET', '/graphiql', await Endpoint.GraphiQL())
   }
@@ -292,7 +299,7 @@ module.exports = {
   builder: _ => _
     .option('port', { alias: 'p', default: 5544 })
     .option('production', { type: 'boolean', default: false })
-    .option('database', { default: true, type: 'boolean' })
+    .option('database', { type: 'boolean' })
     .default('dir', '.'),
   handler,
 };
