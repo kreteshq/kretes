@@ -8,7 +8,7 @@ import __ from 'chalk';
 import { lookpath } from 'lookpath';
 import { red, gray, magenta, underline, cyan, blue, bold } from 'colorette';
 
-import { substitute, run, print } from '../util';
+import { substitute, run, println } from '../util';
 
 const cwd = process.cwd();
 const username = require('os').userInfo().username;
@@ -27,16 +27,14 @@ export async function handler({ dir, installDependencies, template }) {
 
   const name = dir.replace(/-/g, '_');
 
-  print(`${bold(blue('Kretes'.padStart(10)))} ${bold(VERSION)}`);
-
   const isNixInstalled = await lookpath('nix-shell');
   if (!isNixInstalled) {
     console.error(`${red('Error'.padStart(10))}: Kretes requires the Nix package manager`);
     console.error(`${''.padStart(12)}${__.gray('https://nixos.org/guides/install-nix.html')}`);
     process.exit(1);
   }
-
-  print(`${magenta('new'.padStart(10))} creating a project in ${underline(dir)}${template !== 'base' ? ` using the ${underline(TemplateNaming[template])} template` : ''}`);
+  println(`${bold(blue('Kretes'.padStart(10)))} ${bold(VERSION)}`);
+  println(`${magenta('new'.padStart(10))} creating a project in ${underline(dir)}${template !== 'base' ? ` using the ${underline(TemplateNaming[template])} template` : ''}`);
 
   const projectDir = join(cwd, dir);
   try {
@@ -84,7 +82,7 @@ export async function handler({ dir, installDependencies, template }) {
     await fs.outputJson(path, content, { spaces: 2 });
 
     if (installDependencies) {
-      print(`${magenta('new'.padStart(10))} installing dependencies`);
+      println(`${magenta('new'.padStart(10))} installing dependencies`);
       const install = spawn('npx', ['pnpm', 'install'], { cwd: dir, stdio: 'inherit' });
       install.on('close', () => { });
     }

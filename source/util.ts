@@ -4,6 +4,10 @@
 import { spawn } from 'child_process';
 
 export const print = (message: string) => {
+  process.stdout.write(message);
+}
+
+export const println = (message: string = '') => {
   console.log(message)
 }
 
@@ -130,7 +134,7 @@ export const run = async (
   command,
   args,
   { stdout = 'inherit', stderr = 'inherit', cwd = '.' }: Options = {}
-) => {
+): Promise<void> => {
   return await new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       stdio: ['ignore', stdout, stderr],
@@ -138,7 +142,7 @@ export const run = async (
     });
     child.on('exit', code => {
       if (code) reject(new Error('exit code 1'));
-      else resolve('');
+      else resolve();
     });
   });
 };

@@ -8,7 +8,6 @@ import color from 'chalk';
 import { TypescriptCompiler } from '@poppinss/chokidar-ts';
 import fs from 'fs-extra';
 import postcss from 'postcss';
-import { lookpath } from 'lookpath';
 import WebSocket from "ws";
 import { Routes, Response } from 'retes';
 import { DiagnosticMessageChain } from 'typescript';
