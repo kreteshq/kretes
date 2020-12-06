@@ -97,9 +97,8 @@ const start = async ({ port, database }) => {
     console.log(color`  {grey Stoping...}`);
 
     if (database) {
-      console.log(color`  {grey Closing the DB pool...}`);
-      await run('/usr/bin/env', ['nix-shell', '--run', 'pg_ctl stop'], { stdout });
-      // await App.DatabasePool.end();
+      console.log(color`  {grey Closing connections to the DB pool...}`);
+      await App.DatabasePool.end();
     }
 
     console.log(color`  Closing the HTTP server...`);
@@ -121,7 +120,6 @@ const handler = async ({ port, production, database }) => {
 
   const dependencies = getDependencies();
   await install(dependencies, { dest: 'dist/modules', logger: { ...console, debug: () => {} }});
-
 
   const compiler = new TypescriptCompiler(
     CWD,
