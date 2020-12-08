@@ -92,17 +92,19 @@ export default class Kretes extends ServerApp {
       const config = require("config");
       const connection = config.has("db") ? config.get("db") : {} // node-pg supports env variables
 
-      App.DatabasePool = new pg.Pool(connection);
 
       try {
+        App.DatabasePool = new pg.Pool(connection);
         await App.DatabasePool.connect();
         App.Database = true;
         print(notice('Database OK'));
       } catch (error) {
         print(notice('Database Error'));
+        print(notice('Error')(error));
         print(notice('Explain')(error));
       }
     }
+
 
     // FIXME Doesn't work
     // App.DatabasePool.on('error', error => {
@@ -119,6 +121,7 @@ export default class Kretes extends ServerApp {
       const parts = join(cwd, 'views/parts');
       precompile(views, { paths: [parts] })
     }
+
 
     setupControllersFromFilesystem(this);
   }

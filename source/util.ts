@@ -161,16 +161,14 @@ const TemplateNaming = {
 const Display = {
   Kretes: `${bold(blue('Kretes'.padStart(10)))}  ${bold(VERSION)}\n`,
   New: (dir, template) => `${magenta('new'.padStart(10))}  creating a project in ${underline(dir)}${template !== 'base' ? ` using the ${underline(TemplateNaming[template])} template` : ''}\n`,
-  Deps: `${magenta('new'.padStart(10))}  installing dependencies`,
+  Deps: `${magenta('new'.padStart(10))}  installing dependencies\n`,
   ESM: `${gray('ESM'.padStart(10))}  `,
   'Database OK': `${gray('Database'.padStart(10))}  ${green('OK')}\n`,
   'Database Error': `${gray('Database'.padStart(10))}  ${yellow('Not OK')}\n`,
   Listening: (port) => `${gray('Started on'.padStart(10))}  ${underline(`localhost:${port}`)}\n`,
   Logs: `${gray('\n----- Logs\n'.padStart(10))}`,
-  Explain: (error) => {
-    console.error(`${red("Error".padStart(10))}  ${error.message}`);
-    console.error(`${gray("Reason".padStart(10))}  ${explain.forError(error)}`);
-  }
+  Error: error => `${red("Error".padStart(10))}  ${error.message}\n`,
+  Explain: error => `${gray("Reason".padStart(10))}  ${explain.forError(error)}\n`
 }
 
 export const notice = message => Display[message] || "";
