@@ -152,31 +152,25 @@ import { green, red, gray, magenta, underline, cyan, blue, bold, yellow } from '
 import * as explain from './explainer';
 const VERSION = require('../package.json').version;
 
-export const display = message => {
-  switch (message) {
-    case 'Kretes':
-      println(`${bold(blue('Kretes'.padStart(10)))}  ${bold(VERSION)}`);
-      break;
-    case 'ESM':
-      print(`${gray('ESM'.padStart(10))}  `)
-      break
-    case 'Database OK':
-      println(`${gray('Database'.padStart(10))}  ${green('OK')}`)
-      break
-    case 'Database Error':
-      println(`${gray('Database'.padStart(10))}  ${yellow('Not OK')}`)
-      break
-    case 'Listening':
-      return port => println(`${gray('Started on'.padStart(10))}  ${underline(`localhost:${port}`)}`);
-    case 'Logs':
-      println(`${gray('\n----- Logs\n'.padStart(10))}`);
-      break;
-    case 'Explain':
-      return error => {
-        console.error(`${red('Error'.padStart(10))}  ${error.message}`);
-        console.error(`${gray('Reason'.padStart(10))}  ${explain.forError(error)}`);
-      }
-    default:
-      break;
+const TemplateNaming = {
+  react: 'React.js',
+  vue: 'Vue.js',
+  svelte: 'Svelte'
+}
+
+const Display = {
+  Kretes: `${bold(blue('Kretes'.padStart(10)))}  ${bold(VERSION)}\n`,
+  New: (dir, template) => `${magenta('new'.padStart(10))}  creating a project in ${underline(dir)}${template !== 'base' ? ` using the ${underline(TemplateNaming[template])} template` : ''}\n`,
+  Deps: `${magenta('new'.padStart(10))}  installing dependencies`,
+  ESM: `${gray('ESM'.padStart(10))}  `,
+  'Database OK': `${gray('Database'.padStart(10))}  ${green('OK')}\n`,
+  'Database Error': `${gray('Database'.padStart(10))}  ${yellow('Not OK')}\n`,
+  Listening: (port) => `${gray('Started on'.padStart(10))}  ${underline(`localhost:${port}`)}\n`,
+  Logs: `${gray('\n----- Logs\n'.padStart(10))}`,
+  Explain: (error) => {
+    console.error(`${red("Error".padStart(10))}  ${error.message}`);
+    console.error(`${gray("Reason".padStart(10))}  ${explain.forError(error)}`);
   }
 }
+
+export const notice = message => Display[message] || "";

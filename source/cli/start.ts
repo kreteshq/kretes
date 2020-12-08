@@ -20,7 +20,7 @@ import Kretes from '../';
 import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
 import { VueHandler } from '../machine/watcher';
-import { display, print, println } from '../util';
+import { notice, print } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 
 const CWD = process.cwd();
@@ -89,9 +89,8 @@ const start = async ({ port, database }) => {
     }
   })
 
-  console.log(
-    color`{bold.blue ┌ Kretes} {underline ${VERSION}} on {underline localhost:${port}}\n{bold.blue └ }Started {bold ${new Date().toLocaleTimeString()}}`
-  );
+  print(notice('Listening')(port));
+  print(notice('Logs'));
 
   const onExit = async _signal => {
     console.log(color`  {grey Stoping...}`);
@@ -116,10 +115,15 @@ const start = async ({ port, database }) => {
 const ExcludedDependencies = ['kretes'];
 
 const handler = async ({ port, production, database }) => {
+  print(notice('Kretes'));
   process.env.KRETES = production ? 'production' : 'development';
 
   const dependencies = getDependencies();
-  await install(dependencies, { dest: 'dist/modules', logger: { ...console, debug: () => {} }});
+  print(notice('ESM'))
+  if (dependencies.length > 0) {
+    await install(dependencies, { dest: 'dist/modules', logger: { ...console, debug: () => {} }});
+  }
+  print(`${_.yellow(dependencies.length.toString())} compiled\n`)
 
   const compiler = new TypescriptCompiler(
     CWD,

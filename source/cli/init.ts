@@ -5,21 +5,11 @@ import * as fs from 'fs-extra';
 import { join, resolve } from 'path';
 import { spawn } from 'child_process';
 import __ from 'chalk';
-import { lookpath } from 'lookpath';
-import { red, gray, magenta, underline, cyan, blue, bold } from 'colorette';
+import { red } from 'colorette';
 
-import { substitute, run, println } from '../util';
+import { substitute, print, notice } from '../util';
 
 const cwd = process.cwd();
-const username = require('os').userInfo().username;
-
-const VERSION = require('../../package.json').version;
-
-const TemplateNaming = {
-  react: 'React.js',
-  vue: 'Vue.js',
-  svelte: 'Svelte'
-}
 
 export async function handler({ dir, installDependencies, template }) {
   const templateDir = join(resolve(__dirname, '..', '..'), 'template');
@@ -27,10 +17,9 @@ export async function handler({ dir, installDependencies, template }) {
 
   const name = dir.replace(/-/g, '_');
 
-  println(`${bold(blue('Kretes'.padStart(10)))} ${bold(VERSION)}`);
-  println(`${magenta('new'.padStart(10))} creating a project in ${underline(dir)}${template !== 'base' ? ` using the ${underline(TemplateNaming[template])} template` : ''}`);
+  print(notice('Kretes'))
+  print(notice('New')(dir, template));
 
-  const projectDir = join(cwd, dir);
   try {
     await fs.mkdir(join(cwd, dir));
     await fs.mkdir(join(cwd, dir, 'log'));
@@ -66,15 +55,15 @@ export async function handler({ dir, installDependencies, template }) {
     await fs.outputJson(path, content, { spaces: 2 });
 
     if (installDependencies) {
-      println(`${magenta('new'.padStart(10))} installing dependencies`);
+      print(notice('Deps'));
       const install = spawn('npx', ['pnpm', 'install'], { cwd: dir, stdio: 'inherit' });
       install.on('close', () => { });
     }
   } catch (error) {
     if (error.code === 'EEXIST') {
-      console.error(`${red('Error'.padStart(10))} Project already exists`);
+      console.error(`${red('Error'.padStart(10))}  Project already exists`);
     } else {
-      console.error(__`  {red Error}: ${error.message}`);
+      console.error(__`  {red Error}  ${error.message}`);
     }
   }
 }

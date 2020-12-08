@@ -9,6 +9,7 @@ import http from 'http';
 import httpstatus from 'http-status';
 import pg from 'pg';
 import { startService } from 'esbuild';
+import { gray } from 'colorette';
 
 import * as Middleware from './middleware';
 import { App } from './manifest';
@@ -18,7 +19,7 @@ import { precompile } from './view';
 import { NotFound } from './response';
 import Logger from './logger';
 import HTMLifiedError from './error';
-import { display, print } from './util';
+import { notice, print } from './util';
 
 import { setupControllersFromFilesystem } from './core';
 
