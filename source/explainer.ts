@@ -6,8 +6,12 @@ import __ from 'chalk';
 const explanations = {
   'relation "(\\w+)" does not exist': matches =>
     __`I cannot find the table named {underline ${matches[1]}} in your database. Have you run {underline kretes database setup} before starting the application?`,
+  'database "(\\w+)" does not exist': matches =>
+    __`You need to create the {underline ${matches[1]}} database. Have you run {underline kretes database create} ?`,
   'connect ECONNREFUSED 127.0.0.1:5432': _matches =>
-    'It looks like you haven\'t started your database server.'
+    'It looks like you haven\'t started your database server.',
+  'connect ENOENT /tmp/.s.PGSQL.(\\d+)': matches =>
+    __`You configured your database, but you haven\'t started the database process. Be sure PostgreSQL listens on {underline ${matches[1]}}`
 };
 
 const wrap = (text, prepand = '', width = 80) =>
@@ -19,7 +23,7 @@ const wrap = (text, prepand = '', width = 80) =>
 export const forError = error => {
   for (let [pattern, explanation] of Object.entries(explanations)) {
     let matches = error.message.match(pattern);
-    if (matches) return wrap(explanation(matches), '  ');
+    if (matches) return explanation(matches);
   }
   return wrap('(missing)', '  ');
 }
