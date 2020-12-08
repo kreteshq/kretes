@@ -13,6 +13,7 @@ import { Routes, Response } from 'retes';
 import { DiagnosticMessageChain } from 'typescript';
 import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
 import { install } from 'esinstall';
+import * as _ from 'colorette';
 
 import { App } from "../manifest";
 import * as Endpoint from '../endpoint';
