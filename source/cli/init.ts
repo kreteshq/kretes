@@ -57,8 +57,13 @@ export async function handler({ dir, installDependencies, template }) {
     if (installDependencies) {
       print(notice('Deps'));
       const install = spawn('npx', ['pnpm', 'install'], { cwd: dir, stdio: 'inherit' });
-      install.on('close', () => { });
+      install.on('close', () => {
+        print(notice('Finish')(dir))
+      });
+    } else {
+      print(notice('Finish')(dir))
     }
+
   } catch (error) {
     if (error.code === 'EEXIST') {
       console.error(`${red('Error'.padStart(10))}  Project already exists`);
