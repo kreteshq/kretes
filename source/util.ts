@@ -146,3 +146,37 @@ export const run = async (
     });
   });
 };
+
+
+import { green, red, gray, magenta, underline, cyan, blue, bold, yellow } from 'colorette';
+import * as explain from './explainer';
+const VERSION = require('../package.json').version;
+
+export const display = message => {
+  switch (message) {
+    case 'Kretes':
+      println(`${bold(blue('Kretes'.padStart(10)))}  ${bold(VERSION)}`);
+      break;
+    case 'ESM':
+      print(`${gray('ESM'.padStart(10))}  `)
+      break
+    case 'Database OK':
+      println(`${gray('Database'.padStart(10))}  ${green('OK')}`)
+      break
+    case 'Database Error':
+      println(`${gray('Database'.padStart(10))}  ${yellow('Not OK')}`)
+      break
+    case 'Listening':
+      return port => println(`${gray('Started on'.padStart(10))}  ${underline(`localhost:${port}`)}`);
+    case 'Logs':
+      println(`${gray('\n----- Logs\n'.padStart(10))}`);
+      break;
+    case 'Explain':
+      return error => {
+        console.error(`${red('Error'.padStart(10))}  ${error.message}`);
+        console.error(`${gray('Reason'.padStart(10))}  ${explain.forError(error)}`);
+      }
+    default:
+      break;
+  }
+}

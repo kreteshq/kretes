@@ -20,7 +20,7 @@ import Kretes from '../';
 import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
 import { VueHandler } from '../machine/watcher';
-import { run } from '../util';
+import { display, print, println } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 
 const CWD = process.cwd();

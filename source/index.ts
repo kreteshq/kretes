@@ -18,6 +18,7 @@ import { precompile } from './view';
 import { NotFound } from './response';
 import Logger from './logger';
 import HTMLifiedError from './error';
+import { display, print } from './util';
 
 import { setupControllersFromFilesystem } from './core';
 
