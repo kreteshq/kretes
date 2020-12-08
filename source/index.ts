@@ -93,12 +93,15 @@ export default class Kretes extends ServerApp {
       const connection = config.has("db") ? config.get("db") : {} // node-pg supports env variables
 
       App.DatabasePool = new pg.Pool(connection);
-      App.DatabasePool.connect((error) => {
-        if (error) {
-          Logger.printError(error, "Data Layer");
-          process.exit(1);
-        }
-      });
+
+      try {
+        await App.DatabasePool.connect();
+        App.Database = true;
+        print(notice('Database OK'));
+      } catch (error) {
+        print(notice('Database Error'));
+        print(notice('Explain')(error));
+      }
     }
 
     // FIXME Doesn't work

@@ -55,6 +55,7 @@ export const App = {
   Importers: new Map<string, Set<string>>(),
   Importees: new Map<string, Set<string>>(),
   DatabasePool: null as Pool,
+  Database: false,
   ESBuild: null as ESBuildService,
   async transpile(source, { loader }) {
     const { jsxFactory, jsxFragmentFactory: jsxFragment } = this.TypeScriptConfigClient;

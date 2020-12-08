@@ -46,7 +46,8 @@ let sockets = [];
 
 const isDatabaseConfigured = () => {
   const config = require(join(CWD, 'config', 'default.json'));
-  return "db" in config;
+  const { PGHOST, PGPORT, PGDATABASE, PGDATA } = process.env;
+  return ("db" in config) || (PGHOST && PGPORT && PGDATABASE && PGDATA);
 }
 
 const start = async ({ port, database }) => {
@@ -57,13 +58,13 @@ const start = async ({ port, database }) => {
   const app = new Kretes({ routes, isDatabase });
   try {
     await app.setup();
-  } catch (e) {
-    console.error(e.message);
-  }
 
-  if (isDatabase) {
-    app.add('POST', '/graphql', await Endpoint.GraphQL())
-    app.add('GET', '/graphiql', await Endpoint.GraphiQL())
+    if (isDatabase && App.Database) {
+      app.add('POST', '/graphql', await Endpoint.GraphQL())
+      app.add('GET', '/graphiql', await Endpoint.GraphiQL())
+    }
+  } catch (error) {
+    console.error(error.message);
   }
 
   app.add('GET', '/__rest.json', () => Endpoint.OpenAPI(app.routePaths));
@@ -94,13 +95,6 @@ const start = async ({ port, database }) => {
 
   const onExit = async _signal => {
     console.log(color`  {grey Stoping...}`);
-
-    if (database) {
-      console.log(color`  {grey Closing connections to the DB pool...}`);
-      await App.DatabasePool.end();
-    }
-
-    console.log(color`  Closing the HTTP server...`);
     server.close(async () => {
       process.exit(0);
     });
