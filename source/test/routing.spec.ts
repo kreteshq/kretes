@@ -2,6 +2,7 @@ import test from 'ava';
 import axios from 'axios';
 import Kretes, { response, routing } from '..';
 
+const { before, after } = test;
 const { Route } = routing
 const { GET } = Route
 const {
@@ -21,22 +22,31 @@ const {
   InternalServerError
 } = response
 
+
+const routes = [
+  GET('/', _ => 'Hello, Kretes'),
+]
+const app = new Kretes({ routes });
+let get, post;
+
+before(async () => {
+  await app.start();
+  const http = axios.create({ baseURL: `http://localhost:${app.port}` });
+  get = http.get;
+  post = http.post;
+})
+
+after(async () => {
+  await app.stop();
+})
+
 test('GET handlers can return string as the response', async assert => {
-  try {
-    const server = new Kretes({
-      routes: [ GET('/', _ => 'Hello, Kretes')
-    ]});
-    await server.start();
-    const http = axios.create({ baseURL: `http://localhost:${server.port}` });
-    const response = await http.get('/');
-    assert.deepEqual(response.status, 200)
-    assert.deepEqual(response.data, 'Hello, Kretes')
-    await server.stop();
-  } catch (error) {
-    console.log(error.message);
-  }
+  const response = await get('/');
+  assert.deepEqual(response.status, 200)
+  assert.deepEqual(response.data, 'Hello, Kretes')
 });
 
+/*
 test('GET handlers can return objects as the response', async assert => {
   const server = new Kretes({
     routes: [ GET('/', _ => ({ statusCode: 200, body: { foo: "bar" } })) ]
@@ -253,3 +263,5 @@ test('GET handlers can use the InternalServerError response handler', async asse
   }
   await server.stop();
 })
+
+*/

@@ -16,7 +16,6 @@ import { install } from 'esinstall';
 import * as _ from 'colorette';
 
 import { App } from "../manifest";
-import * as Endpoint from '../endpoint';
 import Kretes from '../';
 import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
@@ -57,20 +56,6 @@ const start = async ({ port, database }) => {
   const isDatabase = database ? database : isDatabaseConfigured();
 
   const app = new Kretes({ routes, isDatabase });
-  try {
-    await app.setup();
-
-    if (isDatabase && App.Database) {
-      app.add('POST', '/graphql', await Endpoint.GraphQL())
-      app.add('GET', '/graphiql', await Endpoint.GraphiQL())
-    }
-  } catch (error) {
-    console.error(error.message);
-  }
-
-  app.add('GET', '/__rest.json', () => Endpoint.OpenAPI(app.routePaths));
-  app.add('GET', '/__rest', () => Endpoint.RedocApp());
-
   const server = await app.start(port);
 
   server.on('connection', socket => {

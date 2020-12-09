@@ -24,11 +24,11 @@ const Compositions = [
  ];
 
 const routes = [].concat(GETs, Compositions);
-
-const app = new Kretes({ routes });
+let app
 let get, post;
 
 before(async () => {
+  app = new Kretes({ routes });
   await app.start();
   const http = axios.create({ baseURL: `http://localhost:${app.port}` });
   get = http.get;
