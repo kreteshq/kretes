@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { QueryCache, ReactQueryCacheProvider, useQuery } from 'react-query';
-
-const queryCache = new QueryCache()
+import { useQuery } from 'react-query';
 
 interface City {
   city: string
@@ -23,17 +21,15 @@ function App() {
   const { city, ip } = data;
 
   return (
-    <ReactQueryCacheProvider queryCache={queryCache}>
-      <div className="max-w-2xl mx-auto">
-        <div className="text-3xl">
-          Hello, <span className="font-semibold">{name}</span>
-        </div>
-        <div className="text-gray-400 text-lg">
-          You are now in {city} and your IP is {ip}
-        </div>
-        <div className="text-gray-400">(refresh this page)</div>
+    <div className="max-w-2xl mx-auto">
+      <div className="text-3xl">
+        Hello, <span className="font-semibold">{name}</span>
       </div>
-    </ReactQueryCacheProvider>
+      <div className="text-gray-400 text-lg">
+        You are now in {city} and your IP is {ip}
+      </div>
+      <div className="text-gray-400">(refresh this page)</div>
+    </div>
   );
 }
 
