@@ -2,7 +2,7 @@
   "dependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-query": "^2.26.4"
+    "react-query": "^3.3.2"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
