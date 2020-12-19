@@ -125,6 +125,7 @@ export const generateSourceMap = input => {
 }
 
 interface Options {
+  stdin?: 'ignore' | 'inherit' | 'pipe' | number
   stdout?: 'inherit' | 'pipe' | number
   stderr?: 'inherit' | 'pipe' | number
   cwd?: string
@@ -133,11 +134,11 @@ interface Options {
 export const run = async (
   command,
   args,
-  { stdout = 'inherit', stderr = 'inherit', cwd = '.' }: Options = {}
+  { stdin = 'ignore', stdout = 'inherit', stderr = 'inherit', cwd = '.' }: Options = {}
 ): Promise<void> => {
   return await new Promise((resolve, reject) => {
     const child = spawn(command, args, {
-      stdio: ['ignore', stdout, stderr],
+      stdio: [stdin, stdout, stderr],
       cwd,
     });
     child.on('exit', code => {
