@@ -54,6 +54,8 @@ const rewrite = async (source: string, importer: string) => {
             resolved = `/${id}`
           } else if (RE.IsHotReloadImport.test(id)) {
             resolved = `/${id}`
+          } else if (RE.IsFeature.test(id)) {
+            resolved = `/${id}`.replace('@', '')
           } else if (RE.IsExternalImport.test(id)) {
             resolved = `/@modules/${id}`
           } else if (RE.IsFeaturesImport.test(id)) {
