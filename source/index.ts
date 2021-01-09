@@ -125,8 +125,8 @@ export default class Kretes extends ServerApp {
       }
     }
 
-    this.add("GET", "/__rest.json", () => Endpoint.OpenAPI(this.routePaths));
-    this.add("GET", "/__rest", () => Endpoint.RedocApp());
+    this.add("GET", "/_api.json", () => Endpoint.OpenAPI(this.routePaths));
+    this.add("GET", "/_api", () => Endpoint.RedocApp());
 
     // FIXME Doesn't work
     // App.DatabasePool.on('error', error => {

@@ -28,11 +28,11 @@ export const build = () => {
   });
 };
 
-export const translate = (name, resource) =>
+export const translate = (name, resource, prefix = "/_api") =>
   ({
-    browse: { method: 'get', route: `/${resource}` },
-    fetch: { method: 'get', route: `/${resource}/:id` },
-    create: { method: 'post', route: `/${resource}` },
-    update: { method: 'put', route: `/${resource}/:id` },
-    destroy: { method: 'delete', route: `/${resource}/:id` }
+    browse: { method: 'get', route: `${prefix}/${resource}` },
+    fetch: { method: 'get', route: `${prefix}/${resource}/:id` },
+    create: { method: 'post', route: `${prefix}/${resource}` },
+    update: { method: 'put', route: `${prefix}/${resource}/:id` },
+    destroy: { method: 'delete', route: `${prefix}/${resource}/:id` }
   }[name]);

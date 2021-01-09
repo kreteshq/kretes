@@ -26,7 +26,7 @@ export const RedocApp = () => {
     </style>
   </head>
   <body>
-    <redoc spec-url='/__rest.json'></redoc>
+    <redoc spec-url='/_api.json'></redoc>
     <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
   </body>
 </html>
