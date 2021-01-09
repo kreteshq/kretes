@@ -26,7 +26,8 @@ export const setupControllersFromFilesystem = (app) => {
 
       let { method, route } = translate(operation, resource.toLowerCase());
 
-      route = route.replace('_', ':');
+      // TODO (later)
+      //route = route.replace('_', ':');
 
       if (Array.isArray(handler)) {
         app.add(method, route, ...handler);
