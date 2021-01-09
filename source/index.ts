@@ -160,7 +160,7 @@ export default class Kretes extends ServerApp {
       this.use(Middleware.Transforming());
       this.use(Middleware.TransformingTypeScript());
       this.use(Middleware.HotReloading());
-      this.use(Middleware.SPA());
+      this.use(Middleware.SPA(this.routes));
     }
 
     // append 404 middleware handler: it must be put at the end and only once
