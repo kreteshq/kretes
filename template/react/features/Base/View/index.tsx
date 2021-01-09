@@ -9,7 +9,7 @@ interface City {
 // This path is set in `features/Base/Controller/browse.ts`,
 // this file contains an action that responds when
 // triggering `/base`
-const request = () => fetch('/base').then(response => response.json());
+const request = () => fetch('/_api/base').then(response => response.json());
 
 function App() {
   const [name] = useState('Kretes');

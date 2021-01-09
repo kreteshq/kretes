@@ -3,9 +3,9 @@ import { Handler, response } from 'kretes';
 const { OK } = response;
 
 const Cities = [
-  { city: 'New York City', ip: '1.1.0.1' },
-  { city: 'Paris', ip: '2.2.0.2' },
-  { city: 'Warsaw', ip: '3.3.0.3' }
+  { city: 'New York City', ip: '11.11.0.11' },
+  { city: 'Paris', ip: '22.22.0.22' },
+  { city: 'Warsaw', ip: '33.33.0.33' }
 ]
 
 export const browse: Handler = ({ params }) => {
