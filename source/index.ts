@@ -116,8 +116,8 @@ export default class Kretes extends ServerApp {
         App.Database = true;
         print(notice("Database OK"));
 
-        this.add("POST", "/graphql", await Endpoint.GraphQL());
-        this.add("GET", "/graphiql", await Endpoint.GraphiQL());
+        this.add("POST", "/_api", await Endpoint.GraphQL());
+        this.add("GET", "/_graphiql", await Endpoint.GraphiQL());
       } catch (error) {
         print(notice("Database Error"));
         print(notice("Error")(error));

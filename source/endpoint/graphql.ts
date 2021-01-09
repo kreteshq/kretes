@@ -49,7 +49,7 @@ export const GraphiQL: Endpoint = () => {
 
     <script>
       const fetcher = graphQLParams =>
-        fetch('/graphql', {
+        fetch('/_api', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(graphQLParams),
