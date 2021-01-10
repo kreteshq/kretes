@@ -15,6 +15,9 @@
     "strict": true,
     "moduleResolution": "node",
     "paths": {
+      "@features/*": [
+        "features/*"
+      ],
       "*": [
         "features/*"
       ],
