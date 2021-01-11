@@ -1,6 +1,6 @@
 {
   "name": "kretes",
-  "version": "0.80.1",
+  "version": "0.81.0",
   "description": "A Programming Environment for TypeScript apps built on top of VS Code",
   "main": "dist/index.js",
   "repository": "https://github.com/kreteshq/kretes",
