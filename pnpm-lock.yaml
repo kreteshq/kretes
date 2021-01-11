@@ -30,7 +30,7 @@ dependencies:
   lookpath: 1.1.0
   lru-cache: 6.0.0
   magic-string: 0.25.7
-  merge-deep: 3.0.2
+  merge-deep: 3.0.3
   mime-types: 2.1.28
   pg: 8.5.1
   postcss: 8.2.4
@@ -1721,7 +1721,7 @@ packages:
   /axios/0.21.0_debug@4.3.1:
     dependencies:
       follow-redirects: 1.13.1_debug@4.3.1
-    deprecated: 'Critical security vulnerability fixed in v0.21.1. For more information, see https://github.com/axios/axios/pull/3410'
+    deprecated: Critical security vulnerability fixed in v0.21.1. For more information, see https://github.com/axios/axios/pull/3410
     dev: false
     peerDependencies:
       debug: '*'
@@ -2295,7 +2295,7 @@ packages:
     resolution:
       integrity: sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==
   /core-js/2.6.12:
-    deprecated: 'core-js@<3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.'
+    deprecated: core-js@<3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.
     dev: false
     requiresBuild: true
     resolution:
@@ -4318,7 +4318,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-/SWFvWegAIYAO4NQMpcX+gcra0yEZu4OntmUdrBaWrJncxOqAziGFlHxc7yjKVK2uu3lpPW27P27wkR82wA8mg==
-  /merge-deep/3.0.2:
+  /merge-deep/3.0.3:
     dependencies:
       arr-union: 3.1.0
       clone-deep: 0.2.4
@@ -4327,7 +4327,7 @@ packages:
     engines:
       node: '>=0.10.0'
     resolution:
-      integrity: sha512-T7qC8kg4Zoti1cFd8Cr0M+qaZfOwjlPDEdZIIPPB2JZctjaPM4fX+i7HOId69tAti2fvO6X5ldfYUONDODsrkA==
+      integrity: sha512-qtmzAS6t6grwEkNrunqTBdn0qKwFgNWvlxUbAV8es9M7Ot1EbyApytCnvE0jALPa46ZpKDUo527kKiaWplmlFA==
   /merge-source-map/1.1.0:
     dependencies:
       source-map: 0.6.1
@@ -6602,7 +6602,7 @@ specifiers:
   lookpath: ^1.1.0
   lru-cache: ^6.0.0
   magic-string: ^0.25.7
-  merge-deep: ^3.0.2
+  merge-deep: ^3.0.3
   mime-types: ^2.1.28
   pg: ^8.5.1
   postcss: ^8.2.4

@@ -69,7 +69,7 @@
     "lookpath": "^1.1.0",
     "lru-cache": "^6.0.0",
     "magic-string": "^0.25.7",
-    "merge-deep": "^3.0.2",
+    "merge-deep": "^3.0.3",
     "mime-types": "^2.1.28",
     "pg": "^8.5.1",
     "postcss": "^8.2.4",
