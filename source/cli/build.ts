@@ -15,8 +15,8 @@ export const handler = async () => {
     await installModules();
 
     print(notice('Build'));
-    await run('pnpx', ['tsc', '-p', 'config/client/tsconfig.json'], { cwd });
-    await run('pnpx', ['tsc', '-p', 'config/server/tsconfig.json'], { cwd });
+    await run('pnpx', ['tsc', '-p', './config/client/tsconfig.json'], { cwd });
+    await run('pnpx', ['tsc', '-p', './config/server/tsconfig.json'], { cwd });
     print(`${__.green('done')}\n`)
   } catch (error) {
     console.error(__`  {red Error}: ${error.message}`);
