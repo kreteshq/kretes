@@ -20,7 +20,7 @@ import Kretes from '../';
 import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
 import { VueHandler } from '../machine/watcher';
-import { notice, print } from '../util';
+import { installModules, notice, print } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 
 const CWD = process.cwd();
@@ -92,18 +92,12 @@ const start = async ({ port, database }) => {
   return [app, server];
 };
 
-const ExcludedDependencies = ['kretes'];
 
 const handler = async ({ port, production, database }) => {
   print(notice('Kretes'));
   process.env.KRETES = production ? 'production' : 'development';
 
-  const dependencies = getDependencies();
-  print(notice('ESM'))
-  if (dependencies.length > 0) {
-    await install(dependencies, { dest: 'dist/modules', logger: { ...console, debug: () => {} }});
-  }
-  print(`${_.yellow(dependencies.length.toString())} compiled\n`)
+  await installModules();
 
   const compiler = new TypescriptCompiler(
     CWD,
@@ -194,15 +188,6 @@ const handler = async ({ port, production, database }) => {
   //compileCSS();
 };
 
-const getDependencies = () => {
-  const packageJSONPath = join(process.cwd(), 'package.json');
-  const packageJSONContent = require(packageJSONPath);
-
-  const dependencies = Object.keys(packageJSONContent.dependencies)
-    .filter(item => ExcludedDependencies.indexOf(item) < 0)
-
-  return dependencies;
-}
 
 const displayCompilationMessages = (messages) => {
   if (messages.length > 0) console.log(color`  {red.bold Errors:}`);

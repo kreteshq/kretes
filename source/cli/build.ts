@@ -4,12 +4,23 @@
 import Debug from 'debug';
 const debug = Debug('ks:cli:build'); // eslint-disable-line no-unused-vars
 
-import { spawn } from 'child_process';
+import __ from 'chalk';
+
+import { installModules, run, print, notice } from '../util';
+
+const cwd = process.cwd();
 
 export const handler = async () => {
-  spawn('npm', ['run', 'build'], {
-    stdio: 'inherit'
-  });
+  try {
+    await installModules();
+
+    print(notice('Build'));
+    await run('pnpx', ['tsc', '-p', 'config/client/tsconfig.json'], { cwd });
+    await run('pnpx', ['tsc', '-p', 'config/server/tsconfig.json'], { cwd });
+    print(`${__.green('done')}\n`)
+  } catch (error) {
+    console.error(__`  {red Error}: ${error.message}`);
+  }
 };
 
 export const builder = _ => _;

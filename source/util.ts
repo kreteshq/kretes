@@ -1,7 +1,10 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
+import { join } from 'path';
 import { spawn } from 'child_process';
+import { install } from 'esinstall';
+import * as _ from 'colorette';
 
 export const print = (message: string) => {
   process.stdout.write(message);
@@ -164,6 +167,7 @@ const Display = {
   New: (dir, template) => `${magenta('new'.padStart(10))}  creating a project in '${underline(dir)}'${template !== 'base' ? ` using the ${underline(TemplateNaming[template])} template` : ''}\n`,
   Deps: `${magenta('new'.padStart(10))}  installing dependencies\n`,
   ESM: `${gray('ESM'.padStart(10))}  `,
+  Build: `${gray('Build'.padStart(10))}  `,
   'Database OK': `${gray('Database'.padStart(10))}  ${green('OK')}\n`,
   'Database Error': `${gray('Database'.padStart(10))}  ${yellow('Not OK')}\n`,
   Listening: (port) => `${gray('Started on'.padStart(10))}  ${underline(`localhost:${port}`)}\n`,
@@ -174,3 +178,24 @@ const Display = {
 }
 
 export const notice = message => Display[message] || "";
+
+const ExcludedDependencies = ['kretes'];
+
+const getDependencies = () => {
+  const packageJSONPath = join(process.cwd(), 'package.json');
+  const packageJSONContent = require(packageJSONPath);
+
+  const dependencies = Object.keys(packageJSONContent.dependencies)
+    .filter(item => ExcludedDependencies.indexOf(item) < 0)
+
+  return dependencies;
+}
+
+export const installModules = async () => {
+  const dependencies = getDependencies();
+  print(notice('ESM'))
+  if (dependencies.length > 0) {
+    await install(dependencies, { dest: 'dist/modules', logger: { ...console, debug: () => {} }});
+  }
+  print(`${_.yellow(dependencies.length.toString())} compiled\n`)
+}
