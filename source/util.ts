@@ -170,7 +170,7 @@ const Display = {
   Build: `${gray('Build'.padStart(10))}  `,
   'Database OK': `${gray('Database'.padStart(10))}  ${green('OK')}\n`,
   'Database Error': `${gray('Database'.padStart(10))}  ${yellow('Not OK')}\n`,
-  Listening: (port) => `${gray('Started on'.padStart(10))}  ${underline(`localhost:${port}`)}\n`,
+  Listening: (port) => `${gray('Started on'.padStart(10))}  ${underline(`http://localhost:${port}`)}\n`,
   Logs: `${gray('\n----- Logs\n'.padStart(10))}`,
   Error: error => `${red("Error".padStart(10))}  ${error.message}\n`,
   Explain: error => `${gray("Reason".padStart(10))}  ${explain.forError(error)}\n`,
