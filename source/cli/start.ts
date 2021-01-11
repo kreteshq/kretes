@@ -25,6 +25,7 @@ import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 
 const CWD = process.cwd();
 const VERSION = require('../../package.json').version;
+const { JSONPayload } = Response;
 
 
 let stdout;
@@ -97,95 +98,102 @@ const handler = async ({ port, production, database }) => {
   print(notice('Kretes'));
   process.env.KRETES = production ? 'production' : 'development';
 
-  await installModules();
-
-  const compiler = new TypescriptCompiler(
-    CWD,
-    'config/server/tsconfig.json',
-    require('typescript/lib/typescript')
-  );
-  const { error, config } = compiler.configParser().parse();
-
-  if (error || !config || config.errors.length) {
-    return;
-  }
-
   let server;
   let app;
 
-  const watcher = compiler.watcher(config, 'lsp') as LspWatcher;
-  watcher.on('watcher:ready', async () => {
-    // const stream = fg.stream([`${CWD}/features/**/*.sql`], { dot: true });
-    // for await (const entry of stream) await reloadSQL(pool, entry);
-
+  if (production) {
     await fs.ensureDir('dist/tasks');
-
-    // start the HTTP server
     [app, server] = await start({ port, database });
-  });
+  } else {
+    await installModules();
 
-  // files other than `.ts` have changed
-  watcher.on('change', async ({ relativePath: filePath }) => {
-    console.clear();
-    console.log(color`  {underline ${filePath}} {green reloaded}`);
-    const extension = extname(filePath);
+    const compiler = new TypescriptCompiler(
+      CWD,
+      'config/server/tsconfig.json',
+      require('typescript/lib/typescript')
+    );
+    const { error, config } = compiler.configParser().parse();
 
-    const timestamp = Date.now();
-    switch (extension) {
-      case '.css':
-        compileCSS();
-        break;
-      case '.sql':
-        // reloadSQL(pool, filePath);
-        // try {
-        //   const output = await SQLCompiler.compile(join(CWD, filePath));
-        //   const { dir } = parse(filePath);
-        //   await fs.outputFile(join(CWD, dir, 'index.ts'), output);
-        //   console.log(color`  {underline ${filePath}} {green reloaded}`);
-        // } catch (error) {
-        //   console.log(
-        //     color`  {red.bold Errors:}\n  {grey in} {underline ${filePath}}\n   → ${error.message}`
-        //   );
-        // }
-        break;
-      case '.vue':
-        VueHandler(filePath, timestamp);
-        break;
-
-      default:
-        break;
+    if (error || !config || config.errors.length) {
+      return;
     }
-  });
 
-  watcher.on('subsequent:build', async ({ relativePath: filePath, diagnostics }) => {
-    console.clear();
-    console.log(color`  {underline ${filePath}} {green reloaded}`);
-    displayCompilationMessages(diagnostics);
 
-    const { dir, name } = parse(filePath);
 
-    // restart the HTTP server
-    sockets.filter(socket => !socket.destroyed).forEach(socket => socket.destroy());
-    sockets = [];
+    const watcher = compiler.watcher(config, 'lsp') as LspWatcher;
+    watcher.on('watcher:ready', async () => {
+      // const stream = fg.stream([`${CWD}/features/**/*.sql`], { dot: true });
+      // for await (const entry of stream) await reloadSQL(pool, entry);
 
-    server.close(async () => {
+      await fs.ensureDir('dist/tasks');
+
+      // start the HTTP server
       [app, server] = await start({ port, database });
     });
 
-    // clean the `require` cache
-    const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
-    delete require.cache[cacheKey];
+    // files other than `.ts` have changed
+    watcher.on('change', async ({ relativePath: filePath }) => {
+      console.clear();
+      console.log(color`  {underline ${filePath}} {green reloaded}`);
+      const extension = extname(filePath);
 
-    if (dir.includes('Service')) {
-      makeRemoteService(app, dir, name);
-    }
-  });
+      const timestamp = Date.now();
+      switch (extension) {
+        case '.css':
+          //compileCSS();
+          break;
+        case '.sql':
+          // reloadSQL(pool, filePath);
+          // try {
+          //   const output = await SQLCompiler.compile(join(CWD, filePath));
+          //   const { dir } = parse(filePath);
+          //   await fs.outputFile(join(CWD, dir, 'index.ts'), output);
+          //   console.log(color`  {underline ${filePath}} {green reloaded}`);
+          // } catch (error) {
+          //   console.log(
+          //     color`  {red.bold Errors:}\n  {grey in} {underline ${filePath}}\n   → ${error.message}`
+          //   );
+          // }
+          break;
+        case '.vue':
+          VueHandler(filePath, timestamp);
+          break;
 
-  const { diagnostics } = watcher.watch(['config', 'features', 'stylesheets'], { ignored: [] });
+        default:
+          break;
+      }
+    });
 
-  displayCompilationMessages(diagnostics);
+    watcher.on('subsequent:build', async ({ relativePath: filePath, diagnostics }) => {
+      console.clear();
+      console.log(color`  {underline ${filePath}} {green reloaded}`);
+      displayCompilationMessages(diagnostics);
 
-  //compileCSS();
+      const { dir, name } = parse(filePath);
+
+      // restart the HTTP server
+      sockets.filter(socket => !socket.destroyed).forEach(socket => socket.destroy());
+      sockets = [];
+
+      server.close(async () => {
+        [app, server] = await start({ port, database });
+      });
+
+      // clean the `require` cache
+      const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
+      delete require.cache[cacheKey];
+
+      if (dir.includes('Service')) {
+        makeRemoteService(app, dir, name);
+      }
+    });
+
+    const { diagnostics } = watcher.watch(['config', 'features', 'stylesheets'], { ignored: [] });
+
+    displayCompilationMessages(diagnostics);
+
+    //compileCSS();
+  }
 };
 
 
