@@ -7,7 +7,7 @@ dependencies:
   argon2: 0.27.1
   axios: 0.21.1_debug@4.3.1
   basic-auth: 2.0.1
-  boxwood: 0.50.3_debug@4.3.1
+  boxwood: 0.50.4_debug@4.3.1
   busboy: 0.3.1
   chalk: 4.1.0
   colorette: 1.2.1
@@ -1143,10 +1143,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
-  /@types/estree/0.0.45:
+  /@types/estree/0.0.46:
     dev: false
     resolution:
-      integrity: sha512-jnqIUKDUqJbDIUxm0Uj7bnlMnRm1T/eZ9N+AVMqhPgzrba2GhGG5o/jCTwmdPK709nEZsGoMzXEDUjcXHa3W0g==
+      integrity: sha512-laIjwTQaD+5DukBZaygQ79K1Z0jb1bPEMRrkXSLjtCcZm+abyp5YbrqpSLzD42FwWW6gK/aS4NYpJ804nG2brg==
   /@types/fs-extra/9.0.6:
     dependencies:
       '@types/node': 14.14.20
@@ -1390,21 +1390,19 @@ packages:
     dev: false
     resolution:
       integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
-  /abstract-syntax-tree/2.14.0:
+  /abstract-syntax-tree/2.15.2:
     dependencies:
       ast-types: 0.14.2
       astring: 1.6.0
-      asttv: 1.0.1
       esquery: 1.3.1
-      estemplate: 0.5.1
       estraverse: 5.2.0
       meriyah: 3.1.6
       source-map: 0.7.3
     dev: false
     engines:
-      node: '>=10.15.0'
+      node: '>=14.15.1'
     resolution:
-      integrity: sha512-kZXD9QDUe2U06n4TPVwMOeuDJR+c7WRADEzkc8LTMRXB6eCEI3ToU5Jw0ARFDyw92gggTMJDoEQaIZDibMoXyw==
+      integrity: sha512-cggXnHP6T2ML162S5cgPXCFh63d2MHNLhXz0K/43omQsNxVPc5T07+DwxNjA6axGDkMEg5Dr9nsVspW2/yyBOw==
   /acorn-jsx/5.3.1_acorn@7.4.1:
     dependencies:
       acorn: 7.4.1
@@ -1625,10 +1623,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-8Rhu9cQMu4CSie4IOTAgQl75kZ8dp+gmOipjCAkV1ZVSwuDXRKXDbi8YAlCOKzIh3mws/hNoXJu8EkZwfCakLQ==
-  /asttv/1.0.1:
-    dev: false
-    resolution:
-      integrity: sha512-Ibk9v22jMFoK6yH09oOlea7SIwbDWDzT5nzO56VmCDM5s1sMP/FNqVAcimLuxtVnmgPa75Ffwre1EtQEbysZcg==
   /async-limiter/1.0.1:
     dev: false
     resolution:
@@ -1706,10 +1700,10 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-HGAnk1SHPk4Sx6plFAUkzV/XC1j9+iQhOzt4vBly18/yo0AV8Oytx7mtJd/CR8igCJ5p160N/Oo/cNJi2uSeWA==
-  /axios-extensions/3.1.3_axios@0.21.0:
+  /axios-extensions/3.1.3_axios@0.21.1:
     dependencies:
       '@types/lru-cache': 4.1.2
-      axios: 0.21.0_debug@4.3.1
+      axios: 0.21.1_debug@4.3.1
       lru-cache: 5.1.1
       tslib: 1.14.1
       util: 0.11.1
@@ -1718,15 +1712,6 @@ packages:
       axios: '*'
     resolution:
       integrity: sha512-/OB9OcJLNOIx9pdW4m4/hFRvNo12wlX5BaprIzqpMaLR02I88Mr98/wW4QN9rhx0/yg9rM7i6Af/RpV4MyxXjA==
-  /axios/0.21.0_debug@4.3.1:
-    dependencies:
-      follow-redirects: 1.13.1_debug@4.3.1
-    deprecated: Critical security vulnerability fixed in v0.21.1. For more information, see https://github.com/axios/axios/pull/3410
-    dev: false
-    peerDependencies:
-      debug: '*'
-    resolution:
-      integrity: sha512-fmkJBknJKoZwem3/IKSSLpkdNXZeBu5Q7GA/aRsr2btgrptmSCxi2oFjZHqGdK9DoTil9PIHlPIZw2EcRJXRvw==
   /axios/0.21.1_debug@4.3.1:
     dependencies:
       follow-redirects: 1.13.1_debug@4.3.1
@@ -1861,18 +1846,18 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-eB4uT9RGzg2odpER62bBwSLvUeGC+WbRjjyyFhGsKnc8wp/m0+hQsMUvUe3H2V0D5vw0nBdO1hCJoZo5mKeuIQ==
-  /boxwood/0.50.3_debug@4.3.1:
+  /boxwood/0.50.4_debug@4.3.1:
     dependencies:
-      abstract-syntax-tree: 2.14.0
-      axios: 0.21.0_debug@4.3.1
-      axios-extensions: 3.1.3_axios@0.21.0
-      css-tree: 1.1.1
-      esbuild: 0.8.12
+      abstract-syntax-tree: 2.15.2
+      axios: 0.21.1_debug@4.3.1
+      axios-extensions: 3.1.3_axios@0.21.1
+      css-tree: 1.1.2
+      esbuild: 0.8.31
       himalaya: 1.1.0
       himalaya-walk: 1.0.0
       html-lexer: 0.4.0
       image-size: 0.9.3
-      memoizee: 0.4.14
+      memoizee: 0.4.15
       negate-sentence: 0.2.0
       normalize-newline: 3.0.0
       path-to-regexp: 6.2.0
@@ -1883,13 +1868,13 @@ packages:
       yaml: 1.10.0
     dev: false
     engines:
-      node: '>= 14.15.0'
+      node: '>= 14.15.1'
     optionalDependencies:
       sharp: 0.26.2
     peerDependencies:
       debug: '*'
     resolution:
-      integrity: sha512-L2poXGEYWDVU1q773SS5WyIVPdh6xTQm/ggrmvMe/4q5skOmVBW5Kbfcbl2YlNY72dbVdjTPKN3eezTsWb+Rkw==
+      integrity: sha512-w4+FAMsF+CW56aNIcs9GJtOuF/YzmrpPlRZ7CjkIgQktXqc57WQBoyQ94rl1Msx0kpbaKqd2NhAgmSBTCKuq/w==
   /brace-expansion/1.1.11:
     dependencies:
       balanced-match: 1.0.0
@@ -1967,13 +1952,13 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-Oj3cAGPCqOZX7Rz64Uny2GYAZNliQSqfbePrgAQ1wKAihYmCUnraBtJtKcGR4xz7wF+LoJC+ssFZvv5BgF9Igg==
-  /call-bind/1.0.1:
+  /call-bind/1.0.2:
     dependencies:
       function-bind: 1.1.1
       get-intrinsic: 1.0.2
     dev: false
     resolution:
-      integrity: sha512-tvAvUwNcRikl3RVF20X9lsYmmepsovzTWeJiXjO0PkJp15uy/6xKFZOQtuiSULwYW+6ToZBprphCgWXC2dSgcQ==
+      integrity: sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==
   /caller-id/0.1.0:
     dependencies:
       stack-trace: 0.0.10
@@ -2338,7 +2323,7 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
-  /css-tree/1.1.1:
+  /css-tree/1.1.2:
     dependencies:
       mdn-data: 2.0.14
       source-map: 0.6.1
@@ -2346,7 +2331,7 @@ packages:
     engines:
       node: '>=8.0.0'
     resolution:
-      integrity: sha512-NVN42M2fjszcUNpDbdkvutgQSlFYsr1z7kqeuCagHnNLBfYor6uP1WL1KrkmdYZ5Y1vTBCIOI/C/+8T98fJ71w==
+      integrity: sha512-wCoWush5Aeo48GLhfHPbmvZs59Z+M7k5+B1xDnXbdWNcEF423DoFdqSWE0PM5aNk5nI5cp1q7ms36zGApY/sKQ==
   /cssesc/3.0.0:
     dev: false
     engines:
@@ -2673,12 +2658,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-p5um32HOTO1kP+w7PRnB+5lQ43Z6muuMuIMffvDN8ZB4GcnjLBV6zGStpbASIMk4DCAvEaamhe2zhyCb/QXXsA==
-  /esbuild/0.8.12:
-    dev: false
-    hasBin: true
-    requiresBuild: true
-    resolution:
-      integrity: sha512-SWCUodYFOkKcu2Jbum12NbD98MoQq2EWWvHfQtpR2C9RkPzRr1BE4cavYjQpQV01hBR19UAftXl0TVLjka/i3Q==
   /esbuild/0.8.31:
     dev: false
     hasBin: true
@@ -2850,13 +2829,6 @@ packages:
       node: ^10.12.0 || >=12.0.0
     resolution:
       integrity: sha512-v3JCNCE64umkFpmkFGqzVKsOT0tN1Zr+ueqLZfpV1Ob8e+CEgPWa+OxCoGH3tnhimMKIaBm4m/vaRpJ/krRz2g==
-  /esprima/2.7.3:
-    dev: false
-    engines:
-      node: '>=0.10.0'
-    hasBin: true
-    resolution:
-      integrity: sha1-luO3DVd59q1JzQMmc9HDEnZ7pYE=
   /esprima/4.0.1:
     dev: true
     engines:
@@ -2879,14 +2851,8 @@ packages:
       node: '>=4.0'
     resolution:
       integrity: sha512-KmfKL3b6G+RXvP8N1vr3Tq1kL/oCFgn2NYXEtqP8/L3pKapUA4G8cFVaoF3SU323CD4XypR/ffioHmkti6/Tag==
-  /estemplate/0.5.1:
-    dependencies:
-      esprima: 2.7.3
-      estraverse: 4.3.0
-    dev: false
-    resolution:
-      integrity: sha1-FxSp1GGQc4rJWLyv1J4CnNpWo54=
   /estraverse/4.3.0:
+    dev: true
     engines:
       node: '>=4.0'
     resolution:
@@ -3868,7 +3834,7 @@ packages:
       integrity: sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==
   /is-reference/1.2.1:
     dependencies:
-      '@types/estree': 0.0.45
+      '@types/estree': 0.0.46
     dev: false
     resolution:
       integrity: sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==
@@ -4305,7 +4271,7 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-qrcJOe6uD+EW8Wrci1Vdiua/15Xw3n/QnaNXE7varnB6InxSk7nu3/i5jfy3S6kWxr8WYJ6R1o0afMUtvorTsA==
-  /memoizee/0.4.14:
+  /memoizee/0.4.15:
     dependencies:
       d: 1.0.1
       es5-ext: 0.10.53
@@ -4317,7 +4283,7 @@ packages:
       timers-ext: 0.1.7
     dev: false
     resolution:
-      integrity: sha512-/SWFvWegAIYAO4NQMpcX+gcra0yEZu4OntmUdrBaWrJncxOqAziGFlHxc7yjKVK2uu3lpPW27P27wkR82wA8mg==
+      integrity: sha512-UBWmJpLZd5STPm7PMUlOw/TSy972M+z8gcyQ5veOnSDRREz/0bmpyTfKt3/51DhEBqCZQn1udM/5flcSPYhkdQ==
   /merge-deep/3.0.3:
     dependencies:
       arr-union: 3.1.0
@@ -4644,7 +4610,7 @@ packages:
       integrity: sha512-jgSbThcoR/s+XumvGMTMf81QVBmah+/Q7K7YduKeKVWL7N111unR2d6pZZarSk6kY/caeNxUDyxOvMWyzoU2eg==
   /object.assign/4.1.2:
     dependencies:
-      call-bind: 1.0.1
+      call-bind: 1.0.2
       define-properties: 1.1.3
       has-symbols: 1.0.1
       object-keys: 1.1.1
@@ -6575,7 +6541,7 @@ specifiers:
   ava: ^3.15.0
   axios: ^0.21.1
   basic-auth: ^2.0.1
-  boxwood: ^0.50.3
+  boxwood: ^0.50.4
   busboy: ^0.3.1
   chalk: ^4.1.0
   colorette: ^1.2.1

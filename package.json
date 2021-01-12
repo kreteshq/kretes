@@ -46,7 +46,7 @@
     "argon2": "^0.27.1",
     "axios": "^0.21.1",
     "basic-auth": "^2.0.1",
-    "boxwood": "^0.50.3",
+    "boxwood": "^0.50.4",
     "busboy": "^0.3.1",
     "chalk": "^4.1.0",
     "colorette": "^1.2.1",
