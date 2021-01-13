@@ -1,6 +1,6 @@
 .git/
 .gitignore
 .dockerignore
-config/docker/
+config/docker/Dockerfile.*
 node_modules/
 dist/

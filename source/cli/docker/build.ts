@@ -14,11 +14,10 @@ export const handler = async () => {
   try {
     print('Building Docker containers:\n')
     print('    app: ')
-    await run('/usr/bin/env', ['docker', 'build', '-f', './config/docker/Dockerfile.app', '--tag kretes:app', '.'], { cwd });
+    await run('/usr/bin/env', ['docker', 'build', '-f', './config/docker/Dockerfile.app', '--tag', 'kretes:app', '.'], { cwd });
     print(`${__.green('done')}\n`)
     print('  nginx: ')
-    // todo
-    // await run('/usr/bin/env', ['docker', 'build', '-f', './config/docker/Dockerfile.nginx', '--tag kretes:nginx', '.'], { cwd });
+    await run('/usr/bin/env', ['docker', 'build', '-f', './config/docker/Dockerfile.nginx', '--tag', 'kretes:nginx', '.'], { cwd });
     print(`${__.green('done')}\n`)
   } catch (error) {
     console.error(__`  {red Error}: ${error.message}`);
