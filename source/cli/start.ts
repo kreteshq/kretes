@@ -82,9 +82,8 @@ const start = async ({ port, database }) => {
 
   const onExit = async _signal => {
     console.log(color`  {grey Stoping...}`);
-    server.close(async () => {
-      process.exit(0);
-    });
+    // await app.stop() FIXME is this really necessary?!
+    process.exit(0);
   }
 
   process.on('SIGINT', onExit);
@@ -117,8 +116,6 @@ const handler = async ({ port, production, database }) => {
     if (error || !config || config.errors.length) {
       return;
     }
-
-
 
     const watcher = compiler.watcher(config, 'lsp') as LspWatcher;
     watcher.on('watcher:ready', async () => {
