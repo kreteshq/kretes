@@ -18,7 +18,7 @@ function App() {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  const { city, ip } = data;
+  const { city, ip } = data as City;
 
   return (
     <div className="max-w-2xl mx-auto">
