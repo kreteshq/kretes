@@ -2,7 +2,5 @@ version: "3.9"
 services:
   app:
     image: kretes:app
-  nginx:
-    image: kretes:nginx
     ports:
-      - 80:80
+      - 5544:5544

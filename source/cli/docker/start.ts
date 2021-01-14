@@ -14,9 +14,6 @@ export const handler = async () => {
   try {
     print('Starting Docker containers:\n')
     await run('/usr/bin/env', ['docker', 'compose', '-f', './config/docker/docker-compose.yml', 'up'], { cwd });
-    // await run('/usr/bin/env', ['docker', 'network', 'create', 'kretes-network'], { cwd });
-    // await run('/usr/bin/env', ['docker', 'run', '-d', '--network', 'kretes-network', '--name', 'app', 'kretes:app'], { cwd });
-    // await run('/usr/bin/env', ['docker', 'run', '-d', '--network', 'kretes-network', '--link', 'app:kretes', 'kretes:nginx'], { cwd });
   } catch (error) {
     console.error(__`  {red Error}: ${error.message}`);
   }
