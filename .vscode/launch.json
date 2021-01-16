@@ -6,6 +6,17 @@
   "configurations": [
 
     {
+      "name": "Attach to Process",
+      "type": "node",
+      "protocol": "inspector",
+      "request": "attach",
+      "stopOnEntry": false,
+      "processId": "${command:PickProcess}",
+      "localRoot": "/Users/zaiste/code/kreteshq/kretes",
+      "remoteRoot": "/Users/zaiste/code/kreteshq/kretes",
+      "sourceMaps": true
+    },
+    {
       "type": "node",
       "request": "attach",
       "name": "Attach by Process ID",
