@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0
 
 import { join } from 'path';
-import { spawn } from 'child_process';
+import { spawn } from 'cross-spawn';
 import { install } from 'esinstall';
 import * as _ from 'colorette';
 
