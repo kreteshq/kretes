@@ -3,7 +3,6 @@
 import pg from 'pg';
 import sqorn from '@sqorn/pg';
 
-import { App } from './manifest';
 import { SQF } from '@sqorn/pg/types/sq';
 
 // interface SQLStatement {
@@ -17,7 +16,10 @@ export default new Proxy({}, {
   get(_target, prop, receiver) {
     // TODO That's a trick, improve it in the future
     if (sq == undefined) {
-      sq = sqorn({ pg, pool: App.DatabasePool });
+      const config = require("config");
+      const connection = config.has("db") ? config.get("db") : {}; // node-pg supports env variables
+      const pool = new pg.Pool(connection);
+      sq = sqorn({ pg, pool });
     }
     return Reflect.get(sq, prop, receiver);
   },

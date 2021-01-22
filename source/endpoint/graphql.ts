@@ -4,13 +4,18 @@
 import Debug from 'debug';
 const debug = Debug('ks:graphql'); // eslint-disable-line no-unused-vars
 
+import pg from 'pg';
+
 import { JSONPayload, HTMLString } from '../response';
 import { makeGraphQLRunner } from '../machine/graphql';
-import { App } from '../manifest';
 import { Endpoint } from '.';
 
 export const GraphQL: Endpoint = async () => {
-  const runner = await makeGraphQLRunner(App.DatabasePool);
+  const config = require("config");
+  const connection = config.has("db") ? config.get("db") : {}; // node-pg supports env variables
+  const pool = new pg.Pool(connection);
+
+  const runner = await makeGraphQLRunner(pool);
 
   // TODO
   // https://www.graphile.org/postgraphile/make-extend-schema-plugin/
