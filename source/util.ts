@@ -1,10 +1,11 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import { join } from 'path';
+import { join, parse } from 'path';
 import { spawn } from 'cross-spawn';
 import { install } from 'esinstall';
 import * as _ from 'colorette';
+import fg from 'fast-glob';
 
 export const print = (message: string) => {
   process.stdout.write(message);
@@ -194,8 +195,14 @@ const getDependencies = () => {
 export const installModules = async () => {
   const dependencies = getDependencies();
   print(notice('ESM'))
-  if (dependencies.length > 0) {
-    await install(dependencies, { dest: 'dist/modules', logger: { ...console, debug: () => {} }});
+
+  // FIXME improve for handling of nested deps
+  const r = await fg(['*.js'], { cwd: 'dist/modules' })
+  const installedDependencies = r.map(parse).map(({ name }) => name);
+  const depsToInstall = dependencies.filter(_ => !installedDependencies.includes(_));
+
+  if (depsToInstall.length > 0) {
+    await install(depsToInstall, { dest: 'dist/modules', logger: { ...console, debug: () => {} }});
   }
-  print(`${_.yellow(dependencies.length.toString())} compiled\n`)
+  print(`${_.yellow(depsToInstall.length.toString())} compiled\n`)
 }
