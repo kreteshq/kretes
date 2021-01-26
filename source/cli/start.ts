@@ -137,7 +137,7 @@ const handler = async ({ port, production, database }) => {
       const timestamp = Date.now();
       switch (extension) {
         case '.css':
-          //compileCSS();
+          compileCSS();
           break;
         case '.sql':
           // reloadSQL(pool, filePath);
@@ -189,7 +189,7 @@ const handler = async ({ port, production, database }) => {
 
     displayCompilationMessages(diagnostics);
 
-    //compileCSS();
+    compileCSS();
   }
 };
 
@@ -228,11 +228,11 @@ const makeRemoteService = async (app, dir, name) => {
 }
 
 const compileCSS = async () => {
-  const { transformers } = require(join(CWD, 'config', 'css.config'));
+  const { plugins } = require(join(CWD, 'config', 'postcss.config'));
 
   try {
     const content = await fs.readFile(join(CWD, 'stylesheets', 'main.css'));
-    const { css } = await postcss(transformers).process(content, {
+    const { css } = await postcss(plugins).process(content, {
       from: 'stylesheets/main.css',
       to: 'main.css',
       map: { inline: true },
