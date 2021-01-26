@@ -9,15 +9,16 @@ const cwd = process.cwd();
 
 const VERSION = require('../../package.json').version;
 
-export async function handler({ pkg }) {
+export async function handler({ pkg, dev }) {
   console.log(`${__.bold.blue('Kretes'.padStart(10))} ` + __`{bold ${VERSION}}`);
-  console.log(__`{magenta ${'add'.padStart(10)}} {underline ${pkg}}`);
+  console.log(__`{magenta ${'add'.padStart(10)}} {underline ${pkg}} {gray ${dev ? '(dev dependency)' : ''}}`);
 
   try {
-    await run('npx', ['pnpm', 'add', pkg], { cwd });
+    await run('npx', ['pnpm', 'add', dev ? '-D' : '', pkg], { cwd });
   } catch (error) {
     console.error(__`  {red Error}: ${error.message}`);
   }
 }
 
 export const builder = _ => _
+  .option('dev', { alias: 'D', type: 'boolean', default: false })
