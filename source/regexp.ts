@@ -1,5 +1,5 @@
 const IsModule = /^\/@modules\//
-const IsFeature = /^@features\//
+const IsFeature = /^@\//
 const IsFeaturesImport = /^([A-Z][\.\w\/-]+)/
 const IsExternalImport = /^[^A-Z\/\.]/
 const IsSpecialImport = /^@modules/

@@ -8,11 +8,11 @@
     "allowJs": false,
     "outDir": "../../dist",
     "rootDir": "../../",
+    "baseUrl": "../../",
     "strict": true,
     "moduleResolution": "node",
-    "baseUrl": "../..",
     "paths": {
-      "*": [
+      "@/*": [
         "features/*"
       ]
     },

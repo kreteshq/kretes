@@ -9,9 +9,9 @@
       "scripthost"
     ],
     "allowJs": false,
-    "outDir": "../../dist",
-    "rootDir": "../../",
-    "baseUrl": "../../",
+    "outDir": "dist",
+    "rootDir": ".",
+    "baseUrl": ".",
     "strict": true,
     "moduleResolution": "node",
     "paths": {
@@ -26,13 +26,13 @@
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "jsx": "react"
   },
   "include": [
-    "*.ts",
-    "*.tsx",
-    "../../features/**/View/*.ts",
-    "../../features/**/View/*.vue"
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.vue",
   ],
   "exclude": [
     "node_modules"
