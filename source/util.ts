@@ -206,3 +206,13 @@ export const installModules = async () => {
   }
   print(`${_.yellow(depsToInstall.length.toString())} compiled\n`)
 }
+
+export const interpolate = (template: string, vars: object = {}) => {
+  const handler = new Function('vars', [
+    'const tagged = ( ' + Object.keys(vars).join(', ') + ' ) =>',
+      '`' + template + '`',
+    'return tagged(...Object.values(vars))'
+  ].join('\n'))
+
+  return handler(vars)
+}
