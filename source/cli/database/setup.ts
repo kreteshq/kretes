@@ -20,7 +20,7 @@ export const handler = async () => {
     process.exit(1);
   }
 
-  const { database, user } = config.get('db');
+  const { database, user = process.env.USER } = config.get('db');
 
   const stdin = FS.openSync(Path.join(CWD, 'db/setup.sql'), 'r');
   const stdout = FS.openSync(Path.join(CWD, 'log/database.log'), 'a');
