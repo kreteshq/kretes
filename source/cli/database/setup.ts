@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0
 
 import Path from 'path';
-import FS from 'fs';
+import FS from 'fs-extra';
 import * as _ from 'colorette';
 
 import { run, print, println } from '../../util';
@@ -23,7 +23,10 @@ export const handler = async () => {
   const { database, user = process.env.USER } = config.get('db');
 
   const stdin = FS.openSync(Path.join(CWD, 'db/setup.sql'), 'r');
-  const stdout = FS.openSync(Path.join(CWD, 'log/database.log'), 'a');
+
+  const dbLogPath = Path.join(CWD, 'log/database.log')
+  await FS.ensureFile(dbLogPath)
+  const stdout = FS.openSync(dbLogPath, 'a');
 
   try {
     await run('/usr/bin/env', ['psql', database, user], { stdout, stdin });
