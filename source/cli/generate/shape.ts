@@ -18,7 +18,7 @@ export const handler = async ({ feature }: { feature: string }) => {
   const cwd = process.cwd();
   try {
     const templateDir = Path.join(Path.resolve(__dirname, '..', '..', '..'), 'template', 'cli');
-    const content = await readFile(Path.join(templateDir, 'shape.template'), 'utf-8');
+    const content = await readFile(Path.join(templateDir, 'shape.template.ts'), 'utf-8');
     const interpolated = interpolate(content, { feature });
 
     await outputFile(Path.join(cwd, 'features', feature, 'Shape', 'index.ts'), interpolated, { flag: 'wx' });
