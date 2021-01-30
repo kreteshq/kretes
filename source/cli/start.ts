@@ -113,6 +113,7 @@ const handler = async ({ port, production, database }) => {
     const { error, config } = compiler.configParser().parse();
 
     if (error || !config || config.errors.length) {
+      console.error(error.messageText)
       return;
     }
 
