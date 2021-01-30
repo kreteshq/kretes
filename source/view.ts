@@ -4,9 +4,9 @@
 import { compile, escape } from 'boxwood';
 
 interface Options {
-  context?: object
-  paths?: string[]
-  path?: string
+  context?: object;
+  paths?: string[];
+  path?: string;
 }
 
 interface CompilerError {
@@ -50,7 +50,7 @@ export const precompile = async (files: File[], { paths } = { paths: [] }): Prom
     return compile(source, {
       cache: true,
       paths: [path, ...paths],
-      path
+      path,
     });
   });
   return Promise.all(promises);

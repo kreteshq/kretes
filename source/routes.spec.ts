@@ -4,8 +4,8 @@ import Kretes, { routing } from '.';
 
 // const { Route: { Resource } } = routing;
 
-test('routes for REST resources', async assert => {
-  assert.is(true, true)
+test('routes for REST resources', async (assert) => {
+  assert.is(true, true);
 });
 
 // test('routes for REST resources', async assert => {
@@ -21,4 +21,3 @@ test('routes for REST resources', async assert => {
 //   assert.deepEqual(response.data, "You need to create 'features/Task/Controller/browse.js'");
 //   await app.stop();
 // })
-

@@ -8,13 +8,13 @@ import color from 'chalk';
 import { TypescriptCompiler } from '@poppinss/chokidar-ts';
 import fs from 'fs-extra';
 import postcss from 'postcss';
-import WebSocket from "ws";
+import WebSocket from 'ws';
 import { Routes, Response } from 'retes';
 import { DiagnosticMessageChain } from 'typescript';
 import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
 import * as _ from 'colorette';
 
-import { App } from "../manifest";
+import { App } from '../manifest';
 import Kretes from '../';
 import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
@@ -25,7 +25,6 @@ import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 const CWD = process.cwd();
 const VERSION = require('../../package.json').version;
 const { JSONPayload } = Response;
-
 
 let stdout;
 
@@ -47,8 +46,8 @@ let sockets = [];
 const isDatabaseConfigured = () => {
   const config = require(join(CWD, 'config', 'default.json'));
   const { PGHOST, PGPORT, PGDATABASE, PGDATA } = process.env;
-  return ("db" in config) || (PGHOST && PGPORT && PGDATABASE && PGDATA);
-}
+  return 'db' in config || (PGHOST && PGPORT && PGDATABASE && PGDATA);
+};
 
 const start = async ({ port, database }) => {
   let routes: Routes = require(join(CWD, 'dist/config/server/routes')).default;
@@ -58,39 +57,38 @@ const start = async ({ port, database }) => {
   const app = new Kretes({ routes, isDatabase });
   const server = await app.start(port);
 
-  server.on('connection', socket => {
+  server.on('connection', (socket) => {
     sockets.push(socket);
   });
 
   const wss = new WebSocket.Server({ server });
-  wss.on('connection', socket => {
-    App.WebSockets.add(socket)
-    socket.send(JSON.stringify({ type: 'connected' }))
-    socket.on('close', () => App.WebSockets.delete(socket))
-  })
+  wss.on('connection', (socket) => {
+    App.WebSockets.add(socket);
+    socket.send(JSON.stringify({ type: 'connected' }));
+    socket.on('close', () => App.WebSockets.delete(socket));
+  });
 
   wss.on('error', (error: Error & { code: string }) => {
     if (error.code !== 'EADDRINUSE') {
-      console.error(`ws error:`)
-      console.error(error)
+      console.error(`ws error:`);
+      console.error(error);
     }
-  })
+  });
 
   print(notice('Listening')(port));
   print(notice('Logs'));
 
-  const onExit = async _signal => {
+  const onExit = async (_signal) => {
     console.log(color`  {grey Stoping...}`);
     // await app.stop() FIXME is this really necessary?!
     process.exit(0);
-  }
+  };
 
   process.on('SIGINT', onExit);
   process.on('SIGTERM', onExit);
 
   return [app, server];
 };
-
 
 const handler = async ({ port, production, database }) => {
   print(notice('Kretes'));
@@ -113,7 +111,7 @@ const handler = async ({ port, production, database }) => {
     const { error, config } = compiler.configParser().parse();
 
     if (error || !config || config.errors.length) {
-      console.error(error.messageText)
+      console.error(error.messageText);
       return;
     }
 
@@ -169,7 +167,7 @@ const handler = async ({ port, production, database }) => {
       const { dir, name } = parse(filePath);
 
       // restart the HTTP server
-      sockets.filter(socket => !socket.destroyed).forEach(socket => socket.destroy());
+      sockets.filter((socket) => !socket.destroyed).forEach((socket) => socket.destroy());
       sockets = [];
 
       server.close(async () => {
@@ -193,17 +191,14 @@ const handler = async ({ port, production, database }) => {
   }
 };
 
-
 const displayCompilationMessages = (messages) => {
   if (messages.length > 0) console.log(color`  {red.bold Errors:}`);
   messages.forEach(({ file, messageText }) => {
     const location = file.fileName.split(`${CWD}${sep}`)[1];
     const msg = (messageText as DiagnosticMessageChain).messageText || messageText;
-    console.log(
-      color`  {grey in} {underline ${location}}\n   → ${msg}`
-    );
+    console.log(color`  {grey in} {underline ${location}}\n   → ${msg}`);
   });
-}
+};
 
 const makeRemoteService = async (app, dir, name) => {
   const interfaceFile = await fs.readFile(`${join(CWD, dir, 'index')}.ts`, 'utf-8');
@@ -216,7 +211,7 @@ const makeRemoteService = async (app, dir, name) => {
 
   const compiledModule = `${join(CWD, 'dist', dir, name)}.js`;
   const serviceClass = require(compiledModule).default;
-  const service = new serviceClass()
+  const service = new serviceClass();
 
   // TODO add removal of routes
   for (const [method, { input, output }] of Object.entries(methods)) {
@@ -225,7 +220,7 @@ const makeRemoteService = async (app, dir, name) => {
       return JSONPayload(result, 200);
     });
   }
-}
+};
 
 const compileCSS = async () => {
   const { plugins } = require(join(CWD, 'config', 'postcss.config'));
@@ -249,10 +244,10 @@ const compileCSS = async () => {
 };
 
 module.exports = {
-  builder: _ => _
-    .option('port', { alias: 'p', default: 5544 })
-    .option('production', { type: 'boolean', default: false })
-    .option('database', { type: 'boolean' })
-    .default('dir', '.'),
+  builder: (_) =>
+    _.option('port', { alias: 'p', default: 5544 })
+      .option('production', { type: 'boolean', default: false })
+      .option('database', { type: 'boolean' })
+      .default('dir', '.'),
   handler,
 };
