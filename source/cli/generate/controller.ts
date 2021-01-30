@@ -4,6 +4,7 @@
 import { outputFile, readFile } from 'fs-extra';
 import Path from 'path';
 import { red, underline } from 'colorette';
+import { Argv } from 'yargs';
 
 import { print, interpolate } from '../../util'
 
@@ -38,7 +39,7 @@ export const handler = async ({ feature, action }: { feature: string, action: st
 };
 
 export const command = 'controller <feature> <action>';
-export const builder = _ => _
+export const builder = (_: Argv) => _
   .positional("action", {
     choices: ["all", ...BCFUD],
   });

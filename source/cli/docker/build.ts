@@ -7,6 +7,7 @@ const debug = Debug('ks:cli:build'); // eslint-disable-line no-unused-vars
 import __ from 'chalk';
 
 import { run, print } from '../../util';
+import { Argv } from 'yargs';
 
 const cwd = process.cwd();
 
@@ -20,4 +21,4 @@ export const handler = async () => {
   }
 };
 
-export const builder = _ => _;
+export const builder = (_: Argv) => _;

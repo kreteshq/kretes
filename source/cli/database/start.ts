@@ -5,8 +5,9 @@ import FS from 'fs';
 
 import { run, print, println } from '../../util';
 import { verifyIfInNixEnvironment } from '../../nix';
+import { Argv } from 'yargs';
 
-export async function handler({ daemon }) {
+export async function handler({ daemon }: { daemon: boolean }) {
   verifyIfInNixEnvironment();
 
   if (daemon) {
@@ -27,6 +28,6 @@ export async function handler({ daemon }) {
   }
 }
 
-export const builder = _ => _
+export const builder = (_: Argv) => _
   .option('daemon', { default: false, type: 'boolean' })
 export const command = 'start';

@@ -3,7 +3,7 @@
 
 import { spawn, SpawnOptions } from 'child_process';
 
-export const handler = ({ password }) => {
+export const handler = ({ password }: { password: string }) => {
   const cwd = process.cwd();
 
   const options: SpawnOptions = { cwd, stdio: 'inherit', shell: true };

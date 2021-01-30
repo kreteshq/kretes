@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0
 
 import __ from 'chalk';
+import { Argv } from 'yargs';
 
 import { run } from '../util';
 
@@ -9,7 +10,7 @@ const cwd = process.cwd();
 
 const VERSION = require('../../package.json').version;
 
-export async function handler({ pkg, dev }) {
+export async function handler({ pkg, dev }: { pkg: string, dev: boolean }) {
   console.log(`${__.bold.blue('Kretes'.padStart(10))} ` + __`{bold ${VERSION}}`);
   console.log(__`{magenta ${'add'.padStart(10)}} {underline ${pkg}} {gray ${dev ? '(dev dependency)' : ''}}`);
 
@@ -20,5 +21,5 @@ export async function handler({ pkg, dev }) {
   }
 }
 
-export const builder = _ => _
+export const builder = (_: Argv) => _
   .option('dev', { alias: 'D', type: 'boolean', default: false })

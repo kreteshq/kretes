@@ -8,6 +8,7 @@ import { Pool } from 'pg';
 import { run } from 'graphile-worker';
 
 import Logger from '../../logger';
+import { Argv } from 'yargs';
 
 export const handler = async () => {
   const pgPool = new Pool();
@@ -21,4 +22,4 @@ export const handler = async () => {
   }
 };
 
-export const builder = _ => _;
+export const builder = (_: Argv) => _;
