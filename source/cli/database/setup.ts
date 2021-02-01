@@ -28,6 +28,8 @@ export const handler = async () => {
   await FS.ensureFile(dbLogPath)
   const stdout = FS.openSync(dbLogPath, 'a');
 
+  process.env.PGOPTIONS='--client-min-messages=warning'
+
   try {
     await run('/usr/bin/env', ['psql', database, user], { stdout, stdin });
   } catch (error) {
