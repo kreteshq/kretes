@@ -75,7 +75,7 @@
     "postgraphile": "^4.11.0",
     "resolve-from": "^5.0.0",
     "retes": "^0.4.1",
-    "rollup": "^2.38.3",
+    "rollup": "^2.38.4",
     "rsyncwrapper": "^3.0.1",
     "semver": "^7.3.4",
     "stack-trace": "0.0.10",
