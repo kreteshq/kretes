@@ -20,12 +20,19 @@ export default class Logger {
     const { pathname, query } = parse(context.request.url, true); // TODO Test perf vs RegEx
     const { statusCode } = response;
 
+    // obfuscate certain params
+    const SensitiveParams = ['password']
+    const paramsCopy = {...params};
+    for (const p of SensitiveParams) {
+      if (paramsCopy[p]) paramsCopy[p] = '(redacted)'
+    }
+
     console.log(
       color`┌ {magenta ${method}} {bold ${pathname}} → ${displayStatusCode(statusCode)} ${
         httpstatus[statusCode]
       }
 └ {gray Params}
-${util.inspect(params, { compact: false, colors: true, sorted: true }).slice(2, -2)}`
+${util.inspect(paramsCopy, { compact: false, colors: true, sorted: true }).slice(2, -2)}`
     );
   }
 
