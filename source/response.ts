@@ -28,6 +28,15 @@ const { render } = require("./view");
 
 const cwd = process.cwd();
 
+
+const Conflict = (content: string = '') => {
+  return {
+    statusCode: 409,
+    body: content
+  }
+
+}
+
 const NotFound = (headers = {}) => {
   return {
     statusCode: 404,
@@ -89,4 +98,5 @@ export {
   Redirect,
   StyleSheetString,
   Unauthorized,
+  Conflict,
 };
