@@ -1,11 +1,8 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import { join, parse } from 'path';
-import { spawn } from 'cross-spawn';
-import { install } from 'esinstall';
+import { spawn } from 'child_process';
 import * as _ from 'colorette';
-import fg from 'fast-glob';
 
 export const print = (message: string) => {
   process.stdout.write(message);
@@ -179,33 +176,6 @@ const Display = {
 }
 
 export const notice = message => Display[message] || "";
-
-const ExcludedDependencies = ['kretes'];
-
-const getDependencies = () => {
-  const packageJSONPath = join(process.cwd(), 'package.json');
-  const packageJSONContent = require(packageJSONPath);
-
-  const dependencies = Object.keys(packageJSONContent.dependencies)
-    .filter(item => ExcludedDependencies.indexOf(item) < 0)
-
-  return dependencies;
-}
-
-export const installModules = async () => {
-  const dependencies = getDependencies();
-  print(notice('ESM'))
-
-  // FIXME improve for handling of nested deps
-  const r = await fg(['*.js'], { cwd: 'dist/modules' })
-  const installedDependencies = r.map(parse).map(({ name }) => name);
-  const depsToInstall = dependencies.filter(_ => !installedDependencies.includes(_));
-
-  if (depsToInstall.length > 0) {
-    await install(depsToInstall, { dest: 'dist/modules', logger: { ...console, debug: () => {} }});
-  }
-  print(`${_.yellow(depsToInstall.length.toString())} compiled\n`)
-}
 
 export const interpolate = (template: string, vars: object = {}) => {
   const handler = new Function('vars', [

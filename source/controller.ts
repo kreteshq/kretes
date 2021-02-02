@@ -5,10 +5,10 @@ import fg from 'fast-glob';
 import { sep, parse } from 'path';
 
 export const build = () => {
-  const handlers = fg.sync(['features/**/controller/**/*.(js|ts)']);
+  const handlers = fg.sync(['site/_api/**/*.(js|ts)']);
 
   return handlers.map(path => {
-    const pattern = /([\.\w]+)\/controller\/([\w\/]+).(js|ts)/;
+    const pattern = /site\/_api\/([\.\w]+)\/([\w\/]+).(js|ts)/;
     const [_, resource, operation] = pattern.exec(path);
 
     const { dir } = parse(path);

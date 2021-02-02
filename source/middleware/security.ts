@@ -1,7 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const security = () => {
+export const Security = () => {
   return async (context, next) => {
     const { response } = context;
 
@@ -12,5 +12,3 @@ const security = () => {
     return next(context);
   };
 };
-
-export default security;

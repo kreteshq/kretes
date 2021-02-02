@@ -6,13 +6,13 @@ const debug = Debug('ks:cli:build'); // eslint-disable-line no-unused-vars
 
 import __ from 'chalk';
 
-import { installModules, run, print, notice } from '../util';
+import { run, print, notice } from '../util';
 
 const cwd = process.cwd();
 
 export const handler = async () => {
   try {
-    await installModules();
+    // FIXME hook Snowpack
 
     print(notice('Build'));
     await run('pnpx', ['tsc', '-p', './config/client/tsconfig.json'], { cwd });

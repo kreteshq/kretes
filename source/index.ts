@@ -8,6 +8,7 @@ import { join } from "path";
 import httpstatus from "http-status";
 import pg from "pg";
 import { startService } from "esbuild";
+import { createConfiguration, startDevServer, startServer } from "snowpack";
 
 import * as Endpoint from "./endpoint";
 import * as Middleware from "./middleware";
@@ -154,13 +155,31 @@ export default class Kretes extends ServerApp {
     this.use(Middleware.Extractor());
 
     if (process.env.NODE_ENV != "production") {
+      const config = createConfiguration({
+        root: process.cwd(),
+        alias: {
+          "@/": "./components"
+        },
+        "mount": {
+          "components": "/@/",
+          "site": "/",
+          "public": {url: "/", static: true, resolve: false}
+        },
+        packageOptions: {
+          external: ["kretes"],
+        },
+        exclude: ["./site/_api/**/*"],
+        devOptions: {
+          hmr: true,
+          port: 3333,
+          open: "none",
+          output: "stream",
+        },
+      });
+      const snowpack = await startServer({ config, lockfile: null });
+
       // middlewares to run ONLY in Development
-      this.use(Middleware.Rewriting());
-      this.use(Middleware.Resolving());
-      this.use(Middleware.Transforming());
-      this.use(Middleware.TransformingTypeScript());
-      this.use(Middleware.HotReloading());
-      this.use(Middleware.SPA(this.routes));
+      this.use(Middleware.Snowpack(snowpack))
     }
 
     // append 404 middleware handler: it must be put at the end and only once

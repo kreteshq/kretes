@@ -18,8 +18,7 @@ import { App } from '../manifest';
 import Kretes from '../';
 import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
-import { VueHandler } from '../machine/watcher';
-import { installModules, notice, print } from '../util';
+import { notice, print } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 
 const CWD = process.cwd();
@@ -101,8 +100,6 @@ const handler = async ({ port, production, database }) => {
     await fs.ensureDir('dist/tasks');
     [app, server] = await start({ port, database });
   } else {
-    await installModules();
-
     const compiler = new TypescriptCompiler(
       CWD,
       'config/server/tsconfig.json',
@@ -150,10 +147,6 @@ const handler = async ({ port, production, database }) => {
           //   );
           // }
           break;
-        case '.vue':
-          VueHandler(filePath, timestamp);
-          break;
-
         default:
           break;
       }
