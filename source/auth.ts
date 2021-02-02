@@ -99,9 +99,9 @@ class Session {
     const hash = sha256.update(token).digest('base64');
 
     if (transaction) {
-      await db`session`.insert({ token: hash, person_id }).one(transaction);
+      await db.from('session').insert({ token: hash, person_id }).one(transaction);
     } else {
-      await db`session`.insert({ token: hash, person_id });
+      await db.from('session').insert({ token: hash, person_id });
     }
 
     return token;
