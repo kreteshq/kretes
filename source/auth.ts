@@ -45,7 +45,7 @@ const bearer = (authorization = '') =>
 const authenticate = action => async request => {
   const { cookies = {}, headers = {}, params = {} } = request;
 
-  const token = cookies.__hcsession || bearer(headers.authorization) || params.token;
+  const token = cookies.__ks_session || bearer(headers.authorization) || params.token;
 
   if (!token) return Unauthorized();
 
@@ -137,7 +137,7 @@ const register = ({ table = 'person', fields = [] } = {}) => async ({ params }) 
     return Created(
       { person_id, token },
       {
-        'Set-Cookie': Cookie.create('__hcsession', token, {
+        'Set-Cookie': Cookie.create('__ks_session', token, {
           httpOnly: true,
           sameSite: true,
         })
@@ -168,7 +168,7 @@ const login = (finder: Finder) => async ({ params }) => {
       const token = await Session.create(person_id);
       const { password: _, ...rest } = person; // delete is slow, use spread instead
       return Created(Object.assign({ token }, rest), {
-        'Set-Cookie': Cookie.create('__hcsession', token, {
+        'Set-Cookie': Cookie.create('__ks_session', token, {
           httpOnly: true,
           sameSite: true
         })
