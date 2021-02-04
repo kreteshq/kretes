@@ -162,18 +162,25 @@ const login = (finder: Finder) => async ({ params }) => {
   if (person) {
     const { id: person_id, password: hashed_password } = person;
 
-    const match = await compare(hashed_password, password);
+    try {
+      const match = await compare(hashed_password, password);
 
-    if (match) {
-      const token = await Session.create(person_id);
-      const { password: _, ...rest } = person; // delete is slow, use spread instead
-      return Created(Object.assign({ token }, rest), {
-        'Set-Cookie': Cookie.create('__ks_session', token, {
-          httpOnly: true,
-          sameSite: true
-        })
-      });
-    } else {
+      if (match) {
+        const token = await Session.create(person_id);
+        const { password: _, ...rest } = person; // delete is slow, use spread instead
+        return Created(Object.assign({ token }, rest), {
+          'Set-Cookie': Cookie.create('__ks_session', token, {
+            httpOnly: true,
+            sameSite: true
+          })
+        });
+      } else {
+        return Unauthorized();
+      }
+    } catch (error) {
+      // FIXME Log internally the issue
+      console.error(error.message);
+
       return Unauthorized();
     }
   } else {
