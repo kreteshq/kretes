@@ -48,12 +48,41 @@ const isDatabaseConfigured = () => {
   return 'db' in config || (PGHOST && PGPORT && PGDATABASE && PGDATA);
 };
 
-const start = async ({ port, database }) => {
+const startSnowpack = async () => {
+  // FIXME Error https://github.com/snowpackjs/snowpack/discussions/2267
+  const { createConfiguration, startServer } = require('snowpack');
+  const config = createConfiguration({
+    root: process.cwd(),
+    alias: {
+      '@/': './components',
+    },
+    mount: {
+      components: '/@/',
+      site: '/',
+      public: { url: '/', static: true, resolve: false },
+    },
+    packageOptions: {
+      external: ['kretes'],
+    },
+    exclude: ['./site/_api/**/*'],
+    devOptions: {
+      hmr: true,
+      port: 3333,
+      open: 'none',
+      output: 'stream',
+    },
+  });
+  const snowpack = await startServer({ config, lockfile: null });
+
+  return snowpack;
+};
+
+const start = async ({ port, database, snowpack = null }) => {
   let routes: Routes = require(join(CWD, 'dist/config/server/routes')).default;
 
   const isDatabase = database ? database : isDatabaseConfigured();
 
-  const app = new Kretes({ routes, isDatabase });
+  const app = new Kretes({ routes, isDatabase, snowpack });
   const server = await app.start(port);
 
   server.on('connection', (socket) => {
@@ -112,6 +141,8 @@ const handler = async ({ port, production, database }) => {
       return;
     }
 
+    const snowpack = await startSnowpack();
+
     const watcher = compiler.watcher(config, 'lsp') as LspWatcher;
     watcher.on('watcher:ready', async () => {
       // const stream = fg.stream([`${CWD}/features/**/*.sql`], { dot: true });
@@ -120,7 +151,7 @@ const handler = async ({ port, production, database }) => {
       await fs.ensureDir('dist/tasks');
 
       // start the HTTP server
-      [app, server] = await start({ port, database });
+      [app, server] = await start({ port, database, snowpack });
     });
 
     // files other than `.ts` have changed
@@ -164,7 +195,7 @@ const handler = async ({ port, production, database }) => {
       sockets = [];
 
       server.close(async () => {
-        [app, server] = await start({ port, database });
+        [app, server] = await start({ port, database, snowpack });
       });
 
       // clean the `require` cache

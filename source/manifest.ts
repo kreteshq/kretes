@@ -5,6 +5,7 @@ import { resolve, join, dirname } from 'path';
 import WebSocket from 'ws';
 import { Service as ESBuildService } from 'esbuild';
 import { Pool } from 'pg';
+import { SnowpackDevServer } from 'snowpack';
 
 export const App = {
   features(cursor: string) {
@@ -36,7 +37,8 @@ export const App = {
 
     const { code: transpiled } = await this.ESBuild.transform(source, { loader, jsxFactory, jsxFragment })
     return transpiled;
-  }
+  },
+  SnowpackServr: null as SnowpackDevServer
 }
 
 const ImportName = 'kretes/hot'

@@ -8,7 +8,6 @@ import { join } from "path";
 import httpstatus from "http-status";
 import pg from "pg";
 import { startService } from "esbuild";
-import { createConfiguration, startDevServer, startServer } from "snowpack";
 
 import * as Endpoint from "./endpoint";
 import * as Middleware from "./middleware";
@@ -90,6 +89,7 @@ export default class Kretes extends ServerApp {
   staticDir: string;
   routePaths: Object;
   isDatabase: boolean;
+  snowpack: SnowpackDevServer;
 
   constructor({
     staticDir = join(cwd, "public"),
@@ -99,11 +99,13 @@ export default class Kretes extends ServerApp {
     isDatabase = true,
     _verbose = false,
     routes = [] as Routes,
+    snowpack = null
   } = {}) {
     super(routes, handleError, append);
 
     this.staticDir = staticDir;
     this.isDatabase = isDatabase;
+    this.snowpack = snowpack;
   }
 
   async setup() {
@@ -155,31 +157,9 @@ export default class Kretes extends ServerApp {
     this.use(Middleware.Extractor());
 
     if (process.env.NODE_ENV != "production") {
-      const config = createConfiguration({
-        root: process.cwd(),
-        alias: {
-          "@/": "./components"
-        },
-        "mount": {
-          "components": "/@/",
-          "site": "/",
-          "public": {url: "/", static: true, resolve: false}
-        },
-        packageOptions: {
-          external: ["kretes"],
-        },
-        exclude: ["./site/_api/**/*"],
-        devOptions: {
-          hmr: true,
-          port: 3333,
-          open: "none",
-          output: "stream",
-        },
-      });
-      const snowpack = await startServer({ config, lockfile: null });
 
       // middlewares to run ONLY in Development
-      this.use(Middleware.Snowpack(snowpack))
+      this.use(Middleware.Snowpack(this.snowpack))
     }
 
     // append 404 middleware handler: it must be put at the end and only once
@@ -213,6 +193,7 @@ import database from "./db";
 export { database };
 
 import Schema from "validate";
+import { SnowpackDevServer } from "snowpack";
 export { Schema };
 
 export { Handler, Routes };
