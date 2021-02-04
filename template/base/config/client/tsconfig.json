@@ -16,12 +16,7 @@
     "moduleResolution": "node",
     "paths": {
       "@/*": [
-        "features/*"
-      ],
-      "/modules/*.js": [
-        "node_modules/@types/*",
-        "node_modules/*",
-        "modules/*.js"
+        "components/*"
       ]
     },
     "esModuleInterop": true,
@@ -31,10 +26,11 @@
   "include": [
     "*.ts",
     "*.tsx",
-    "../../features/**/View/*.ts",
-    "../../features/**/View/*.vue"
+    "../../site/**/*.ts",
+    "../../site/**/*.vue"
   ],
   "exclude": [
+    "../../site/_api",
     "node_modules"
   ]
 }

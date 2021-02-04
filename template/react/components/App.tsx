@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 
-interface City {
-  city: string
-  ip: string
-}
+import { City } from '../types';
 
 // This path is set in `features/Base/Controller/browse.ts`,
 // this file contains an action that responds when
 // triggering `/base`
 const request = () => fetch('/_api/base').then(response => response.json());
 
-function App() {
+export const App: React.FC = () => {
   const [name] = useState('Kretes');
   const { data, isLoading, error } = useQuery<City, Error>('example', request);
 
@@ -32,5 +29,3 @@ function App() {
     </div>
   );
 }
-
-export { App };

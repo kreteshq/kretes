@@ -46,7 +46,7 @@ export async function handler({ dir, installDependencies, template }) {
     if (template !== "base") {
       await fs.copy(join(templateDir, template), join(cwd, dir), { overwrite: true, errorOnExist: true });
       await fs.remove(join(cwd, dir, 'config', 'client', 'index.ts'));
-      await fs.remove(join(cwd, dir, 'features', 'Base', 'View', 'index.ts'));
+      await fs.remove(join(cwd, dir, 'site', 'index.ts'));
     }
 
     // Overwrites `package.json` copied above

@@ -1,4 +1,4 @@
-import { App } from 'Base/View';
+const App = 'Hello, World';
 
 const appElement = document.getElementById("app")!
 appElement.innerHTML = App;

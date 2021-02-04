@@ -13,7 +13,7 @@
     "moduleResolution": "node",
     "paths": {
       "@/*": [
-        "features/*"
+        "components/*"
       ]
     },
     "esModuleInterop": true,
@@ -24,6 +24,6 @@
   "include": [
     "*.ts",
     "../../tasks/**.ts",
-    "../../features/**/Controller/**/**.ts",
+    "../../site/_api/**/*.ts",
   ]
 }

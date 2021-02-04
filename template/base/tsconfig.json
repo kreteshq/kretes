@@ -16,12 +16,7 @@
     "moduleResolution": "node",
     "paths": {
       "@/*": [
-        "features/*"
-      ],
-      "/modules/*.js": [
-        "node_modules/@types/*",
-        "node_modules/*",
-        "modules/*.js"
+        "components/*"
       ]
     },
     "esModuleInterop": true,
