@@ -5,7 +5,7 @@ dependencies:
   '@sqorn/pg': 0.0.45
   argon2: 0.27.1
   basic-auth: 2.0.1
-  boxwood: 0.52.2_debug@4.3.1
+  boxwood: 0.53.0_debug@4.3.1
   busboy: 0.3.1
   chalk: 4.1.0
   colorette: 1.2.1
@@ -51,7 +51,7 @@ devDependencies:
   prettier: 2.2.1
 lockfileVersion: 5.2
 packages:
-  /@apollo/client/3.3.7_graphql@15.5.0:
+  /@apollo/client/3.3.8_graphql@15.5.0:
     dependencies:
       '@graphql-typed-document-node/core': 3.1.0_graphql@15.5.0
       '@types/zen-observable': 0.8.2
@@ -78,7 +78,7 @@ packages:
       subscriptions-transport-ws:
         optional: true
     resolution:
-      integrity: sha512-Cb0OqqvlehlRHtHIXRIS/Pe5WYU4hHl1FznXTRSxBAN42WmBUM3zy/Unvw183RdWMyV6Kc2pFKOEuaG1K7JTAQ==
+      integrity: sha512-nYKoTfz2ivwzVee+uVHUSWS+xK166m4ycgxM7INq1kR1PD8o3WjBLmCmlajnqSx6KSZCFaTnH75PsfHvtUi1iA==
   /@ardatan/aggregate-error/0.0.6:
     dependencies:
       tslib: 2.0.3
@@ -103,10 +103,10 @@ packages:
   /@babel/core/7.12.13:
     dependencies:
       '@babel/code-frame': 7.12.13
-      '@babel/generator': 7.12.13
+      '@babel/generator': 7.12.15
       '@babel/helper-module-transforms': 7.12.13
       '@babel/helpers': 7.12.13
-      '@babel/parser': 7.12.14
+      '@babel/parser': 7.12.15
       '@babel/template': 7.12.13
       '@babel/traverse': 7.12.13
       '@babel/types': 7.12.13
@@ -122,14 +122,14 @@ packages:
       node: '>=6.9.0'
     resolution:
       integrity: sha512-BQKE9kXkPlXHPeqissfxo0lySWJcYdEP0hdtJOH/iJfDdhOCcgtNCjftCJg3qqauB4h+lz2N6ixM++b9DN1Tcw==
-  /@babel/generator/7.12.13:
+  /@babel/generator/7.12.15:
     dependencies:
       '@babel/types': 7.12.13
       jsesc: 2.5.2
       source-map: 0.5.7
     dev: false
     resolution:
-      integrity: sha512-9qQ8Fgo8HaSvHEt6A5+BATP7XktD/AdAnObUeTRz5/e2y3kbrxZgz32qUJJsdmwUvBJzF4AeV21nGTNwv05Mpw==
+      integrity: sha512-6F2xHxBiFXWNSGb7vyCUTBF8RCLY66rS0zEPcP8t/nQyXjha5EuK4z7H5o7fWG8B4M7y6mqVWq1J+1PuwRhecQ==
   /@babel/helper-annotate-as-pure/7.12.13:
     dependencies:
       '@babel/types': 7.12.13
@@ -251,13 +251,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-z7n7ybOUzaRc3wwqLpAX8UFIXsrVXUJhtNGBwAnLz6d1KUapqyq7ad2La8gZ6CXhHmGAIL32cop8Tst4/PNWLw==
-  /@babel/parser/7.12.14:
+  /@babel/parser/7.12.15:
     dev: false
     engines:
       node: '>=6.0.0'
     hasBin: true
     resolution:
-      integrity: sha512-xcfxDq3OrBnDsA/Z8eK5/2iPcLD8qbOaSSfOw4RA6jp4i7e6dEQ7+wTwxItEwzcXPQcsry5nZk96gmVPKletjQ==
+      integrity: sha512-AQBOU2Z9kWwSZMd6lNjCX0GUgFonL1wAM1db8L8PMk9UDaGsRCArBkU4Sc+UCM3AE4hjbXx+h58Lb3QT4oRmrA==
   /@babel/plugin-proposal-class-properties/7.12.13_@babel+core@7.12.13:
     dependencies:
       '@babel/core': 7.12.13
@@ -529,7 +529,7 @@ packages:
   /@babel/traverse/7.12.13:
     dependencies:
       '@babel/code-frame': 7.12.13
-      '@babel/generator': 7.12.13
+      '@babel/generator': 7.12.15
       '@babel/helper-function-name': 7.12.13
       '@babel/helper-split-export-declaration': 7.12.13
       '@babel/parser': 7.12.13
@@ -1340,7 +1340,7 @@ packages:
       integrity: sha512-mM8522psRCqzV+6LhomX5wgp25YVibjh8Wj23I5RPkPppSVSjyKD2A2mBJmWGa+KN7f2D6LNh9jkBCeyLktzjg==
   /apollo-upload-client/14.1.2_graphql@15.5.0:
     dependencies:
-      '@apollo/client': 3.3.7_graphql@15.5.0
+      '@apollo/client': 3.3.8_graphql@15.5.0
       '@babel/runtime': 7.12.13
       extract-files: 9.0.0
       graphql: 15.5.0
@@ -1641,7 +1641,7 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-5bvsqw+hhgUi3oYGK0Vf4WpIkyemp60WBInn7+WNfoISzAqk/HX4L7WNROq38E6UR/y3YADpv6pEm4BfkeEAdA==
-  /boxwood/0.52.2_debug@4.3.1:
+  /boxwood/0.53.0_debug@4.3.1:
     dependencies:
       '@rollup/plugin-commonjs': 17.1.0_rollup@2.38.4
       '@rollup/plugin-node-resolve': 11.1.1_rollup@2.38.4
@@ -1649,7 +1649,7 @@ packages:
       axios: 0.21.1_debug@4.3.1
       axios-extensions: 3.1.3_axios@0.21.1
       css-tree: 1.1.2
-      esbuild: 0.8.36
+      esbuild: 0.8.41
       himalaya: 1.1.0
       himalaya-walk: 1.0.0
       html-lexer: 0.4.0
@@ -1670,7 +1670,7 @@ packages:
     peerDependencies:
       debug: '*'
     resolution:
-      integrity: sha512-Rivp+6+LM0ZNGGTVPm+0aVo4GQAxYB05fTMXIj5GE2AZk8IUveeWDMSYyopvwwGsgt9Ip78c32F7wuE42D8qdQ==
+      integrity: sha512-X+zYk8TBCNNAv/pQ09swoyu6q2wkTXsGYRK1m+8QDaqRReLVgGwACp7C0sfA6MaPxo6bI08eDEdUEPLfLfmTnQ==
   /brace-expansion/1.1.11:
     dependencies:
       balanced-match: 1.0.0
@@ -1812,7 +1812,7 @@ packages:
     engines:
       node: '>= 8.10.0'
     optionalDependencies:
-      fsevents: 2.3.1
+      fsevents: 2.3.2
     resolution:
       integrity: sha512-9+s+Od+W0VJJzawDma/gvBNQqkTiqYTWLuZoyAsivsI4AaWTCzHG06/TMjsf1cYe9Cb97UCEhjz7HvnPk2p/tw==
   /chownr/1.1.4:
@@ -2359,12 +2359,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-p5um32HOTO1kP+w7PRnB+5lQ43Z6muuMuIMffvDN8ZB4GcnjLBV6zGStpbASIMk4DCAvEaamhe2zhyCb/QXXsA==
-  /esbuild/0.8.36:
-    dev: false
-    hasBin: true
-    requiresBuild: true
-    resolution:
-      integrity: sha512-kcUQB61Tf8rLJ3mOwP2ruWi/iFufaQcEs4No+JA6e7W2kMOtFExOsbyeFpEF6zNacwk2RF5fYUz5jfZwgn/SJg==
   /esbuild/0.8.41:
     dev: false
     hasBin: true
@@ -2769,14 +2763,14 @@ packages:
   /fs.realpath/1.0.0:
     resolution:
       integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
-  /fsevents/2.3.1:
+  /fsevents/2.3.2:
     engines:
       node: ^8.16.0 || ^10.6.0 || >=11.0.0
     optional: true
     os:
       - darwin
     resolution:
-      integrity: sha512-YR47Eg4hChJGAB1O3yEAOkGO+rlzutoICGqGo9EZ4lKWokzZRSyIW1QmTzqjtw8MJdj9srP869CuWw/hyzSiBw==
+      integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
   /function-bind/1.1.1:
     resolution:
       integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
@@ -4738,8 +4732,8 @@ packages:
   /relay-compiler/10.1.0_graphql@15.5.0:
     dependencies:
       '@babel/core': 7.12.13
-      '@babel/generator': 7.12.13
-      '@babel/parser': 7.12.14
+      '@babel/generator': 7.12.15
+      '@babel/parser': 7.12.15
       '@babel/runtime': 7.12.13
       '@babel/traverse': 7.12.13
       '@babel/types': 7.12.13
@@ -4867,9 +4861,18 @@ packages:
       node: '>=10.0.0'
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.1
+      fsevents: 2.3.2
     resolution:
       integrity: sha512-B0LcJhjiwKkTl79aGVF/u5KdzsH8IylVfV56Ut6c9ouWLJcUK17T83aZBetNYSnZtXf2OHD4+2PbmRW+Fp5ulg==
+  /rollup/2.38.5:
+    dev: false
+    engines:
+      node: '>=10.0.0'
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    resolution:
+      integrity: sha512-VoWt8DysFGDVRGWuHTqZzT02J0ASgjVq/hPs9QcBOGMd7B+jfTr/iqMVEyOi901rE3xq+Deq66GzIT1yt7sGwQ==
   /rsyncwrapper/3.0.1:
     dev: false
     engines:
@@ -4991,13 +4994,13 @@ packages:
     dependencies:
       esbuild: 0.8.41
       open: 7.4.0
-      rollup: 2.38.4
+      rollup: 2.38.5
     dev: false
     engines:
       node: '>=10.19.0'
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.1
+      fsevents: 2.3.2
     resolution:
       integrity: sha512-lBxgkvWTgdg0szE31JUt01wQkA9Lnmm+6lxqeV9rxDfflpx7ASnldVHFvu7Se70QJmPTQB0UJjfKI+xmYGwiiQ==
   /source-map-support/0.5.19:
@@ -5746,7 +5749,7 @@ specifiers:
   ava: ^3.15.0
   axios: ^0.21.1
   basic-auth: ^2.0.1
-  boxwood: ^0.52.2
+  boxwood: ^0.53.0
   busboy: ^0.3.1
   chalk: ^4.1.0
   colorette: ^1.2.1
