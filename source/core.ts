@@ -1,8 +1,10 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import { build, translate } from './controller';
+import { ServerApp } from 'retes';
 import Path from 'path';
+
+import { build, translate } from './controller';
 
 const cwd = process.cwd();
 const handlerDir = Path.join(cwd, 'dist');
@@ -11,7 +13,7 @@ export class Kretes {
   constructor() {}
 }
 
-export const setupControllersFromFilesystem = (app) => {
+export const setupControllersFromFilesystem = (app: ServerApp) => {
   const handlers = build();
   for (let { resource, operation, dir } of handlers) {
     try {
