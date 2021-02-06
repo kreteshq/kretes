@@ -43,11 +43,13 @@ interface RouteMethod {
 
 type TranslateRouteMethod = (name: string, resource: string, prefix?: string) => RouteMethod
 
+export const ResourceRoutes = (resource, prefix = "_api") => ({
+  browse: { method: 'GET' as HTTPMethod, route: `${prefix}/${resource}` },
+  fetch: { method: 'GET' as HTTPMethod, route: `${prefix}/${resource}/:id` },
+  create: { method: 'POST' as HTTPMethod, route: `${prefix}/${resource}` },
+  update: { method: 'PUT' as HTTPMethod, route: `${prefix}/${resource}/:id` },
+  destroy: { method: 'DELETE' as HTTPMethod, route: `${prefix}/${resource}/:id` }
+})
+
 export const translate: TranslateRouteMethod = (name, resource, prefix = "/_api") =>
-  ({
-    browse: { method: 'GET' as HTTPMethod, route: `${prefix}/${resource}` },
-    fetch: { method: 'GET' as HTTPMethod, route: `${prefix}/${resource}/:id` },
-    create: { method: 'POST' as HTTPMethod, route: `${prefix}/${resource}` },
-    update: { method: 'PUT' as HTTPMethod, route: `${prefix}/${resource}/:id` },
-    destroy: { method: 'DELETE' as HTTPMethod, route: `${prefix}/${resource}/:id` }
-  }[name]);
+  ResourceRoutes[name];
