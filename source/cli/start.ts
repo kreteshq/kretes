@@ -10,7 +10,7 @@ import fs from 'fs-extra';
 import postcss from 'postcss';
 import WebSocket from 'ws';
 import { Routes, Response } from 'retes';
-import { CompilerOptions, DiagnosticMessageChain } from 'typescript';
+import { DiagnosticMessageChain } from 'typescript';
 import transformPaths from '@zerollup/ts-transform-paths';
 import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
 import * as _ from 'colorette';
