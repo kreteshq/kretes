@@ -5,7 +5,13 @@ import fg from 'fast-glob';
 import { sep, parse } from 'path';
 import { HTTPMethod } from 'retes';
 
-export const build = () => {
+interface Controller {
+  [name: string]: string[]
+}
+
+type BuildController = () => Controller;
+
+export const build: BuildController = () => {
   const pattern = /site\/_api\/([\.\w]+)\/([\w\/]+).(js|ts)/;
   const handlers = fg.sync(['site/_api/**/*.(js|ts)']);
 
