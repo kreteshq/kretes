@@ -11,11 +11,11 @@ export const handler = () => {
   console.log(__`╒ {cyan Routes on the {underline server}}`);
   console.log('│');
 
-  for (let { resource, operation } of build()) {
-    let { method, route } = translate(operation, resource.toLowerCase());
+  // for (let { resource, operation } in build()) {
+  //   let { method, route } = translate(operation, resource.toLowerCase());
 
-    console.log(__`├ {magenta ${method.toUpperCase().padEnd(13, ' ')}} ${route}`);
-  }
+  //   console.log(__`├ {magenta ${method.toUpperCase().padEnd(13, ' ')}} ${route}`);
+  // }
   console.log('└─');
 
   console.log(__`╒ {cyan Routes on the {underline client}}`);
