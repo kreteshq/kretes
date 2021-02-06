@@ -15,7 +15,7 @@ interface File {
   path: string;
 }
 
-export const read = async (path, options: Options = {}): Promise<string> => {
+export const read = async (path: string, options: Options = {}): Promise<string> => {
   const { cache } = options
   if (cache && memory[path]) { return new Promise(resolve => resolve(memory[path])) }
   const content = await fs.readFile(path, 'utf-8')

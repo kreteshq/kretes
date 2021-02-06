@@ -89,7 +89,7 @@ export default class Kretes extends ServerApp {
   staticDir: string;
   routePaths: Object;
   isDatabase: boolean;
-  snowpack: SnowpackDevServer;
+  snowpack: SnowpackDevServer | undefined;
 
   constructor({
     staticDir = join(cwd, "public"),

@@ -28,7 +28,7 @@ export const build = () => {
   });
 };
 
-export const translate = (name, resource, prefix = "/_api") =>
+export const translate = (name: string, resource: string, prefix = "/_api") =>
   ({
     browse: { method: 'get', route: `${prefix}/${resource}` },
     fetch: { method: 'get', route: `${prefix}/${resource}/:id` },

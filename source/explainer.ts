@@ -14,7 +14,7 @@ const explanations = {
     __`You configured your database, but you haven\'t started the database process. Be sure PostgreSQL listens on {underline ${matches[1]}}`
 };
 
-const wrap = (text, prepand = '', width = 80) =>
+const wrap = (text: string, prepand = '', width = 80) =>
   text.replace(
     new RegExp(`(?![^\\n]{1,${width}}$)([^\\n]{1,${width}})\\s`, 'g'),
     `$1\n${prepand}`

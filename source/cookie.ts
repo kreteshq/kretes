@@ -73,7 +73,7 @@ export default class Cookie {
     return cookie;
   }
 
-  static destroy(name) {
+  static destroy(name: string) {
     return name;
   }
 }

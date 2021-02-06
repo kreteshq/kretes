@@ -11,7 +11,7 @@ const {
 const expected = validRange(version);
 const actual = valid(process.version);
 
-if (!satisfies(actual, expected)) {
+if (actual && !satisfies(actual, expected)) {
   console.error(`Expected node ${expected}, but found ${actual}`);
   process.exit(1);
 }

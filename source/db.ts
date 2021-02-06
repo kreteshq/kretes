@@ -10,7 +10,7 @@ import { SQF } from '@sqorn/pg/types/sq';
 //   values: (string | number)[]
 // }
 
-let sq: SQF = undefined;
+let sq: SQF | undefined = undefined;
 
 export default new Proxy({}, {
   get(_target, prop, receiver) {

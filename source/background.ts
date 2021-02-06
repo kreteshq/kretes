@@ -4,7 +4,7 @@
 import db from './db';
 import { ScheduleInput } from '.';
 
-export const schedule = async ({ task, payload = {}, queue = null, runAt = null, maxAttempts = null }: ScheduleInput) => {
+export const schedule = async ({ task, payload = {}, queue , runAt, maxAttempts }: ScheduleInput) => {
   await db.sql`
     SELECT * FROM graphile_worker.add_job(
       identifier => ${task.name}::text,
