@@ -52,4 +52,4 @@ export const ResourceRoutes = (resource, prefix = "_api") => ({
 })
 
 export const translate: TranslateRouteMethod = (name, resource, prefix = "/_api") =>
-  ResourceRoutes[name];
+  ResourceRoutes(resource, prefix)[name];
