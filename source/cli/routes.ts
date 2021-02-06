@@ -11,7 +11,7 @@ import { ResourceRoutes, build, translate } from '../controller';
 export const handler = () => {
   console.log(__`Routes on the {underline server}\n`);
   
-  const { default: r } = require(join(process.cwd(), 'dist', 'config', 'server', 'routes.js');
+  const { default: r } = require(join(process.cwd(), 'dist', 'config', 'server', 'routes.js'));
   for (const [path] of r) {
     // FIXME get the method name
     console.log(path)
