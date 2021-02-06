@@ -10,7 +10,8 @@ import fs from 'fs-extra';
 import postcss from 'postcss';
 import WebSocket from 'ws';
 import { Routes, Response } from 'retes';
-import { DiagnosticMessageChain } from 'typescript';
+import { CompilerOptions, DiagnosticMessageChain } from 'typescript';
+import transformPaths from '@zerollup/ts-transform-paths';
 import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
 import * as _ from 'colorette';
 
@@ -20,6 +21,7 @@ import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
 import { notice, print } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
+import { PluginFn } from '@poppinss/chokidar-ts/build/src/Contracts';
 
 const CWD = process.cwd();
 const VERSION = require('../../package.json').version;
@@ -129,10 +131,11 @@ const handler = async ({ port, production, database }) => {
     await fs.ensureDir('dist/tasks');
     [app, server] = await start({ port, database });
   } else {
+    const TS = require('typescript/lib/typescript');
     const compiler = new TypescriptCompiler(
       CWD,
       'config/server/tsconfig.json',
-      require('typescript/lib/typescript')
+      TS 
     );
     const { error, config } = compiler.configParser().parse();
 
@@ -142,6 +145,19 @@ const handler = async ({ port, production, database }) => {
     }
 
     const snowpack = await startSnowpack();
+
+    // transforms `paths` defined in tsconfig.json
+    // for the server-side code
+    //@ts-ignore
+    const plugin: PluginFn = (ts, _config) => {
+      const { options, fileNames } = config;
+      const host = ts.createCompilerHost(options);
+      const program = ts.createProgram(fileNames, options, host);
+      const r = transformPaths(program);
+      return context => r.before(context);
+    };
+
+    compiler.use(plugin, 'before');
 
     const watcher = compiler.watcher(config, 'lsp') as LspWatcher;
     watcher.on('watcher:ready', async () => {
