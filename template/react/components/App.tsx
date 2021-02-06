@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 
 import { City } from '../types';
 
-// This path is set in `features/Base/Controller/browse.ts`,
+// This path is set at `site/_api/base/browse.ts`,
 // this file contains an action that responds when
 // triggering `/base`
 const request = () => fetch('/_api/base').then(response => response.json());
