@@ -54,10 +54,10 @@ const startSnowpack = async () => {
   const config = createConfiguration({
     root: process.cwd(),
     alias: {
-      '@/': './components',
+      '@/components': './components',
     },
     mount: {
-      components: '/@/',
+      components: '/@/components/',
       site: '/',
       public: { url: '/', static: true, resolve: false },
     },
