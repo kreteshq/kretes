@@ -60,7 +60,7 @@ export interface ScheduleInput {
 // }
 
 const lookupViews = async () => {
-  const path = join(cwd, "features/**/*.html");
+  const path = join(cwd, "site/**/*.html");
   const files = await glob(path);
   return readAll(files, { cache: true });
 };
