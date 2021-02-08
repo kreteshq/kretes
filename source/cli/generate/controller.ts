@@ -3,17 +3,17 @@
 
 import { outputFile, readFile } from 'fs-extra';
 import Path from 'path';
-import { red, underline } from 'colorette';
+import { bold, red, underline } from 'colorette';
 import { Argv } from 'yargs';
 
 import { print, interpolate } from '../../util'
 
-const IsPascalCase = /^[A-Z0-9]\w*/
+const IsLowerCase = /^[a-z0-9]\w*/
 const BCFUD = ['browse', 'fetch', 'create', 'update', 'delete'];
 
-export const handler = async ({ feature, action }: { feature: string, action: string }) => {
-  if (!IsPascalCase.test(feature)) {
-    print(`${red("Error".padStart(10))} Names of files for features should be written in ${underline('PascalCase')}\n`)
+export const handler = async ({ name, action }: { name: string, action: string }) => {
+  if (!IsLowerCase.test(name)) {
+    print(`${red("Error".padStart(10))} Controller names should be ${underline('lower-case')}\n`)
     process.exit(1);
   }
 
@@ -26,8 +26,9 @@ export const handler = async ({ feature, action }: { feature: string, action: st
   for (let action of toGenerate) {
     try {
       const interpolated = interpolate(content, { action });
-      await outputFile(Path.join(cwd, 'features', feature, 'controller', `${action}.ts`), interpolated, { flag: 'wx' });
-      print(`Created '${action}' in 'features/${feature}/view'\n`);
+
+      await outputFile(Path.join(cwd, 'site', '_api', name, `${action}.ts`), interpolated, { flag: 'wx' });
+      print(`Created ${underline(action)} in ${underline(`site/_api/${name}`)}\n`);
     } catch (error) {
       if (error.code === 'EEXIST') {
         print(`${red("Error".padStart(10))} The file '${action}' already exists\n`)
@@ -38,9 +39,10 @@ export const handler = async ({ feature, action }: { feature: string, action: st
   }
 };
 
-export const command = 'controller <feature> <action>';
+export const command = 'controller <name> [action]';
 export const builder = (_: Argv) => _
   .positional("action", {
-    choices: ["all", ...BCFUD],
+    default: 'all',
+    choices: ['all', ...BCFUD],
   });
 
