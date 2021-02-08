@@ -1,7 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import { createReadStream, ReadStream } from "fs";
+import { createReadStream } from "fs";
 import { dirname, join } from "path";
 
 import { Response } from "retes";

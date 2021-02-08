@@ -67,7 +67,7 @@
     "pg": "^8.5.1",
     "postcss": "^8.2.5",
     "postgraphile": "^4.11.0",
-    "retes": "^0.5.0",
+    "retes": "^0.6.0",
     "rsyncwrapper": "^3.0.1",
     "semver": "^7.3.4",
     "snowpack": "^3.0.11",

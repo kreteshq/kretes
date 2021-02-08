@@ -28,7 +28,7 @@ dependencies:
   pg: 8.5.1
   postcss: 8.2.5
   postgraphile: 4.11.0
-  retes: 0.5.0
+  retes: 0.6.0
   rsyncwrapper: 3.0.1
   semver: 7.3.4
   snowpack: 3.0.11
@@ -3098,7 +3098,7 @@ packages:
       graphql: '>=0.11 <=15'
     resolution:
       integrity: sha512-DxJP1y2YzCqVLy7DrQN0iuR2l48vMOBWukX2d/J9aN2o5x9un5psIIq/2UFRh91UGARmfvPH86y1p4qbC1dITg==
-  /graphql-ws/4.1.2_graphql@15.5.0:
+  /graphql-ws/4.1.3_graphql@15.5.0:
     dependencies:
       graphql: 15.5.0
     dev: false
@@ -3107,7 +3107,7 @@ packages:
     peerDependencies:
       graphql: '>=0.11 <=15'
     resolution:
-      integrity: sha512-c/iOE4kGW6J5h9hmHWaYvgsjAQacioae3ZXvq3JDuVw8uXo3Tbmky71Fzn0+emSKRaRNL1jQuzYtRqFKge2PIw==
+      integrity: sha512-G32UQ/Fw5b8Z1kMwO4lv9vsdS1ndJXm+OJfC7CM+WxElAXe8TGA7GhMjd0hQ2dymXyeIt8T3vK/6dYLlUmJ8zA==
   /graphql/15.5.0:
     dev: false
     engines:
@@ -4517,7 +4517,7 @@ packages:
       finalhandler: 1.1.2
       graphile-utils: 4.11.2
       graphql: 15.5.0
-      graphql-ws: 4.1.2_graphql@15.5.0
+      graphql-ws: 4.1.3_graphql@15.5.0
       http-errors: 1.8.0
       iterall: 1.3.0
       json5: 2.2.0
@@ -4855,14 +4855,14 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-l+sSefzHpj5qimhFSE5a8nufZYAM3sBSVMAPtYkmC+4EH2anSGaEMXSD0izRQbu9nfyQ9y5JrVmp7E8oZrUjvA==
-  /retes/0.5.0:
+  /retes/0.6.0:
     dependencies:
       busboy: 0.3.1
       debug: 4.3.1
       zod: 2.0.0-beta.30
     dev: false
     resolution:
-      integrity: sha512-2MC/4LbSw1GVJFO1Pzd2s+cxCnFZhl2vUJPtU5a6/IbreVBRGT+vv6N28VC4Q7XZYr68dbQvkKThnil30sCYzA==
+      integrity: sha512-AxibP0mJyF/YH2LApQO3zoOt39ovzWoNDZ6akjXw97z3Qtc9gAjpcCosq+jdrWDMnz6LjJZDyPlOPXG1yCdOhg==
   /reusify/1.0.4:
     engines:
       iojs: '>=1.0.0'
@@ -5810,7 +5810,7 @@ specifiers:
   postcss: ^8.2.5
   postgraphile: ^4.11.0
   prettier: 2.2.1
-  retes: ^0.5.0
+  retes: ^0.6.0
   rsyncwrapper: ^3.0.1
   semver: ^7.3.4
   snowpack: ^3.0.11
