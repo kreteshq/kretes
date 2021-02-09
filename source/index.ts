@@ -6,7 +6,6 @@ const debug = Debug("ks:index"); // eslint-disable-line no-unused-vars
 
 import { join } from "path";
 import httpstatus from "http-status";
-import pg from "pg";
 import { startService } from "esbuild";
 
 import * as Endpoint from "./endpoint";
@@ -110,15 +109,7 @@ export default class Kretes extends ServerApp {
 
   async setup() {
     if (this.isDatabase) {
-      const config = require("config");
-      const connection = config.has("db") ? config.get("db") : {}; // node-pg supports env variables
-
       try {
-        App.DatabasePool = new pg.Pool(connection);
-        await App.DatabasePool.connect();
-        App.Database = true;
-        print(notice("Database OK"));
-
         this.add("POST", "/_api", await Endpoint.GraphQL());
         this.add("GET", "/_graphiql", await Endpoint.GraphiQL());
       } catch (error) {

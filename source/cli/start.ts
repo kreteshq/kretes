@@ -14,6 +14,7 @@ import { DiagnosticMessageChain } from 'typescript';
 import transformPaths from '@zerollup/ts-transform-paths';
 import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
 import * as _ from 'colorette';
+import pg from "pg";
 
 import { App } from '../manifest';
 import Kretes from '../';
@@ -126,6 +127,21 @@ const handler = async ({ port, production, database }) => {
 
   let server;
   let app;
+
+  // I N I T  B L O C K {
+
+  if (isDatabaseConfigured()) {
+    const config = require("config");
+    const connection = config.has("db") ? config.get("db") : {}; // node-pg supports env variables
+
+    App.DatabasePool = new pg.Pool(connection);
+    await App.DatabasePool.connect();
+    App.Database = true;
+    print(notice("Database OK"));
+  }
+
+  // }
+
 
   if (production) {
     await fs.ensureDir('dist/tasks');
