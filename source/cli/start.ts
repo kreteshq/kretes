@@ -28,6 +28,9 @@ const CWD = process.cwd();
 const VERSION = require('../../package.json').version;
 const { JSONPayload } = Response;
 
+const sleep = (ms: number) =>
+  new Promise(resolve => setTimeout(resolve, ms));
+
 let stdout;
 
 const reloadSQL = async (pool, file) => {
@@ -42,8 +45,6 @@ const reloadSQL = async (pool, file) => {
     }
   }
 };
-
-let sockets = [];
 
 const isDatabaseConfigured = () => {
   const config = require(join(CWD, 'config', 'default.json'));
@@ -67,7 +68,7 @@ const startSnowpack = async () => {
     packageOptions: {
       external: ['kretes'],
     },
-    exclude: ['./site/_api/**/*'],
+    exclude: ['**/site/_api/**/*', '**/controllers/**/*'],
     devOptions: {
       hmr: true,
       port: 3333,
@@ -87,10 +88,6 @@ const start = async ({ port, database, snowpack = null }) => {
 
   const app = new Kretes({ routes, isDatabase, snowpack });
   const server = await app.start(port);
-
-  server.on('connection', (socket) => {
-    sockets.push(socket);
-  });
 
   const wss = new WebSocket.Server({ server });
   wss.on('connection', (socket) => {
@@ -118,7 +115,7 @@ const start = async ({ port, database, snowpack = null }) => {
   process.on('SIGINT', onExit);
   process.on('SIGTERM', onExit);
 
-  return [app, server];
+  return app;
 };
 
 const handler = async ({ port, production, database }) => {
@@ -126,7 +123,7 @@ const handler = async ({ port, production, database }) => {
   process.env.KRETES = production ? 'production' : 'development';
 
   let server;
-  let app;
+  let app: Kretes;
 
   // I N I T  B L O C K {
 
@@ -145,13 +142,13 @@ const handler = async ({ port, production, database }) => {
 
   if (production) {
     await fs.ensureDir('dist/tasks');
-    [app, server] = await start({ port, database });
+    app = await start({ port, database });
   } else {
     const TS = require('typescript/lib/typescript');
     const compiler = new TypescriptCompiler(
       CWD,
       'config/server/tsconfig.json',
-      TS 
+      TS
     );
     const { error, config } = compiler.configParser().parse();
 
@@ -183,13 +180,13 @@ const handler = async ({ port, production, database }) => {
       await fs.ensureDir('dist/tasks');
 
       // start the HTTP server
-      [app, server] = await start({ port, database, snowpack });
+      app = await start({ port, database, snowpack });
     });
 
     // files other than `.ts` have changed
     watcher.on('change', async ({ relativePath: filePath }) => {
-      console.clear();
-      console.log(color`  {underline ${filePath}} {green reloaded}`);
+      //console.clear();
+      console.log(color`{yellow •} {green RELOADED} {underline ${filePath}} `);
       const extension = extname(filePath);
 
       const timestamp = Date.now();
@@ -216,19 +213,21 @@ const handler = async ({ port, production, database }) => {
     });
 
     watcher.on('subsequent:build', async ({ relativePath: filePath, diagnostics }) => {
-      console.clear();
-      console.log(color`  {underline ${filePath}} {green reloaded}`);
+      //console.clear();
+      console.log(color`{yellow •} {green RELOADED} {underline ${filePath}} `);
       displayCompilationMessages(diagnostics);
 
       const { dir, name } = parse(filePath);
 
-      // restart the HTTP server
-      sockets.filter((socket) => !socket.destroyed).forEach((socket) => socket.destroy());
-      sockets = [];
+      try {
+        await app.stop();
+      } catch (error) {
+        // disregard
+      }
 
-      server.close(async () => {
-        [app, server] = await start({ port, database, snowpack });
-      });
+      await sleep(400);
+
+      app = await start({ port, database, snowpack });
 
       // clean the `require` cache
       const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
@@ -239,7 +238,7 @@ const handler = async ({ port, production, database }) => {
       }
     });
 
-    const { diagnostics } = watcher.watch(['config', 'features', 'stylesheets'], { ignored: [] });
+    const { diagnostics } = watcher.watch(['config', 'controllers', 'site', 'stylesheets'], { ignored: [] });
 
     displayCompilationMessages(diagnostics);
 
