@@ -51,7 +51,7 @@ const authenticate = action => async request => {
 
   const sha256 = crypto.createHash('sha256');
   const hashedToken = sha256.update(token).digest('base64');
-  const [found] = await db`person`.join`session`.on`person.id = session.person_id`
+  const [found] = await db.from('person').join`session`.on`person.id = session.person_id`
     .where`token = ${hashedToken}`;
 
   if (found) {
