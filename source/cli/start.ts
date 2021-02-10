@@ -8,21 +8,21 @@ import color from 'chalk';
 import { TypescriptCompiler } from '@poppinss/chokidar-ts';
 import fs from 'fs-extra';
 import postcss from 'postcss';
-import WebSocket from 'ws';
-import { Routes, Response } from 'retes';
+import { Response } from 'retes';
 import { DiagnosticMessageChain } from 'typescript';
 import transformPaths from '@zerollup/ts-transform-paths';
 import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
+import { PluginFn } from '@poppinss/chokidar-ts/build/src/Contracts';
 import * as _ from 'colorette';
 import pg from "pg";
 
-import { App } from '../manifest';
 import Kretes from '../';
 import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
 import { notice, print } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
-import { PluginFn } from '@poppinss/chokidar-ts/build/src/Contracts';
+import { App } from '../manifest'
+import { start } from './run';
 
 const CWD = process.cwd();
 const VERSION = require('../../package.json').version;
@@ -44,12 +44,6 @@ const reloadSQL = async (pool, file) => {
       console.error(error.message);
     }
   }
-};
-
-const isDatabaseConfigured = () => {
-  const config = require(join(CWD, 'config', 'default.json'));
-  const { PGHOST, PGPORT, PGDATABASE, PGDATA } = process.env;
-  return 'db' in config || (PGHOST && PGPORT && PGDATABASE && PGDATA);
 };
 
 const startSnowpack = async () => {
@@ -81,41 +75,10 @@ const startSnowpack = async () => {
   return snowpack;
 };
 
-const start = async ({ port, database, snowpack = null }) => {
-  let routes: Routes = require(join(CWD, 'dist/config/server/routes')).default;
-
-  const isDatabase = database ? database : isDatabaseConfigured();
-
-  const app = new Kretes({ routes, isDatabase, snowpack });
-  const server = await app.start(port);
-
-  const wss = new WebSocket.Server({ server });
-  wss.on('connection', (socket) => {
-    App.WebSockets.add(socket);
-    socket.send(JSON.stringify({ type: 'connected' }));
-    socket.on('close', () => App.WebSockets.delete(socket));
-  });
-
-  wss.on('error', (error: Error & { code: string }) => {
-    if (error.code !== 'EADDRINUSE') {
-      console.error(`ws error:`);
-      console.error(error);
-    }
-  });
-
-  print(notice('Listening')(port));
-  print(notice('Logs'));
-
-  const onExit = async (_signal) => {
-    console.log(color`  {grey Stoping...}`);
-    // await app.stop() FIXME is this really necessary?!
-    process.exit(0);
-  };
-
-  process.on('SIGINT', onExit);
-  process.on('SIGTERM', onExit);
-
-  return app;
+const isDatabaseConfigured = () => {
+  const config = require(join(CWD, 'config', 'default.json'));
+  const { PGHOST, PGPORT, PGDATABASE, PGDATA } = process.env;
+  return 'db' in config || (PGHOST && PGPORT && PGDATABASE && PGDATA);
 };
 
 const handler = async ({ port, production, database }) => {
@@ -124,7 +87,6 @@ const handler = async ({ port, production, database }) => {
 
   let app: Kretes;
 
-  // I N I T  B L O C K {
 
   if (isDatabaseConfigured()) {
     const config = require("config");
@@ -136,11 +98,9 @@ const handler = async ({ port, production, database }) => {
     print(notice("Database OK"));
   }
 
-  // }
-
-
   if (production) {
     await fs.ensureDir('dist/tasks');
+
     app = await start({ port, database });
   } else {
     const TS = require('typescript/lib/typescript');
