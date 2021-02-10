@@ -53,6 +53,7 @@ const startSnowpack = async () => {
     root: process.cwd(),
     alias: {
       '@/components': './components',
+      '@/types': './types',
     },
     mount: {
       components: '/@/components/',
