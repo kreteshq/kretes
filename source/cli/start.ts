@@ -216,8 +216,6 @@ const handler = async ({ port, production, database }) => {
     watcher.on('subsequent:build', async ({ relativePath: filePath, diagnostics }) => {
       //console.clear();
 
-      console.log(diagnostics)
-
       if (!restartInProgress) {
         restartInProgress = true;
 
@@ -246,7 +244,7 @@ const handler = async ({ port, production, database }) => {
       }
     });
 
-    const { diagnostics } = watcher.watch(['config', 'controllers', 'site', 'stylesheets'], { ignored: [] });
+    const { diagnostics } = watcher.watch(['abilities', 'config', 'controllers', 'lib', 'site', 'stylesheets'], { ignored: [] });
 
     displayCompilationMessages(diagnostics);
 
