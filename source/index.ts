@@ -6,11 +6,9 @@ const debug = Debug("ks:index"); // eslint-disable-line no-unused-vars
 
 import { join } from "path";
 import httpstatus from "http-status";
-import { startService } from "esbuild";
 
 import * as Endpoint from "./endpoint";
 import * as Middleware from "./middleware";
-import { App } from "./manifest";
 import { glob } from "./filesystem";
 import { readAll } from "./filesystem";
 import { precompile } from "./view";
@@ -126,11 +124,6 @@ export default class Kretes extends ServerApp {
     // App.DatabasePool.on('error', error => {
     //   console.log("boo")
     // })
-
-    debug("starting ESBuild service");
-    if (!App.ESBuild) {
-      App.ESBuild = await startService();
-    }
 
     if (process.env.NODE_ENV === "production") {
       const views = await lookupViews();
