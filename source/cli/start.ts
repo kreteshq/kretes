@@ -122,7 +122,6 @@ const handler = async ({ port, production, database }) => {
   print(notice('Kretes'));
   process.env.KRETES = production ? 'production' : 'development';
 
-  let server;
   let app: Kretes;
 
   // I N I T  B L O C K {
@@ -172,6 +171,8 @@ const handler = async ({ port, production, database }) => {
 
     compiler.use(plugin, 'before');
 
+    let restartInProgress = false;
+
     const watcher = compiler.watcher(config, 'lsp') as LspWatcher;
     watcher.on('watcher:ready', async () => {
       // const stream = fg.stream([`${CWD}/features/**/*.sql`], { dot: true });
@@ -214,27 +215,34 @@ const handler = async ({ port, production, database }) => {
 
     watcher.on('subsequent:build', async ({ relativePath: filePath, diagnostics }) => {
       //console.clear();
-      console.log(color`{yellow •} {green RELOADED} {underline ${filePath}} `);
-      displayCompilationMessages(diagnostics);
 
-      const { dir, name } = parse(filePath);
+      console.log(diagnostics)
 
-      try {
-        await app.stop();
-      } catch (error) {
-        // disregard
-      }
+      if (!restartInProgress) {
+        restartInProgress = true;
 
-      await sleep(400);
+        console.log(color`{yellow •} {green RELOADED} {underline ${filePath}} `);
+        displayCompilationMessages(diagnostics);
 
-      app = await start({ port, database, snowpack });
+        const { dir, name } = parse(filePath);
 
-      // clean the `require` cache
-      const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
-      delete require.cache[cacheKey];
+        await new Promise((resolve) => {
+          app.server.close(() => {
+            resolve(true);
+          });
+        });
+        setImmediate(() => { app.server.emit('close'); });
+        app = await start({ port, database, snowpack });
 
-      if (dir.includes('Service')) {
-        makeRemoteService(app, dir, name);
+        // clean the `require` cache
+        const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
+        delete require.cache[cacheKey];
+
+        if (dir.includes('Service')) {
+          makeRemoteService(app, dir, name);
+        }
+
+        restartInProgress = false;
       }
     });
 
