@@ -143,6 +143,8 @@ const handler = async ({ port, production, database }) => {
 
       // start the HTTP server
       app = await start({ port, database, snowpack });
+
+      await compileCSS();
       print(notice('CSS'));
 
       print(notice('Listening')(port));
@@ -212,8 +214,6 @@ const handler = async ({ port, production, database }) => {
     print(notice("TypeScript"))
 
     displayCompilationMessages(diagnostics);
-
-    compileCSS();
   }
 };
 
