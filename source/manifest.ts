@@ -1,10 +1,9 @@
 const debug = require('debug')('ks:manifest');
 
-import { resolve, join, dirname } from 'path';
+import { resolve, join } from 'path';
 
 import WebSocket from 'ws';
 import { Pool } from 'pg';
-import { SnowpackDevServer } from 'snowpack';
 
 export const App = {
   features(cursor: string) {
@@ -30,7 +29,6 @@ export const App = {
   Importees: new Map<string, Set<string>>(),
   DatabasePool: null as Pool,
   Database: false,
-  SnowpackServr: null as SnowpackDevServer
 }
 
 const ImportName = 'kretes/hot'
