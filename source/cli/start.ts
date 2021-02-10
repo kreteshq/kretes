@@ -193,7 +193,6 @@ const handler = async ({ port, production, database }) => {
           });
         });
         setImmediate(() => { app.server.emit('close'); });
-        app = await start({ port, database, snowpack });
 
         // clean the `require` cache
         const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
@@ -202,6 +201,8 @@ const handler = async ({ port, production, database }) => {
         if (dir.includes('Service')) {
           makeRemoteService(app, dir, name);
         }
+
+        app = await start({ port, database, snowpack });
 
         restartInProgress = false;
       }
