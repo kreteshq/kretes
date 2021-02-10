@@ -117,6 +117,7 @@ const handler = async ({ port, production, database }) => {
     }
 
     const snowpack = await startSnowpack();
+    print(notice("Snowpack"))
 
     // transforms `paths` defined in tsconfig.json
     // for the server-side code
@@ -142,6 +143,10 @@ const handler = async ({ port, production, database }) => {
 
       // start the HTTP server
       app = await start({ port, database, snowpack });
+      print(notice('CSS'));
+
+      print(notice('Listening')(port));
+      print(notice('Logs'));
     });
 
     // files other than `.ts` have changed
@@ -174,8 +179,6 @@ const handler = async ({ port, production, database }) => {
     });
 
     watcher.on('subsequent:build', async ({ relativePath: filePath, diagnostics }) => {
-      //console.clear();
-
       if (!restartInProgress) {
         restartInProgress = true;
 
@@ -205,6 +208,7 @@ const handler = async ({ port, production, database }) => {
     });
 
     const { diagnostics } = watcher.watch(['abilities', 'config', 'controllers', 'lib', 'site', 'stylesheets'], { ignored: [] });
+    print(notice("TypeScript"))
 
     displayCompilationMessages(diagnostics);
 
