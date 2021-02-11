@@ -198,8 +198,13 @@ const handler = async ({ port, production, database }) => {
         setImmediate(() => { app.server.emit('close'); });
 
         // clean the `require` cache
-        const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
-        delete require.cache[cacheKey];
+        console.log('clean cache')
+        for (const key of Object.keys(require.cache)) {
+          if (key.includes(join(CWD, 'dist'))) {
+            delete require.cache[key];
+          }
+        }
+        // const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
 
         if (dir.includes('Service')) {
           makeRemoteService(app, dir, name);
