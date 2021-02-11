@@ -15,13 +15,8 @@
     "strict": true,
     "moduleResolution": "node",
     "paths": {
-      "*": [
-        "features/*"
-      ],
-      "/modules/*.js": [
-        "node_modules/@types/*",
-        "node_modules/*",
-        "modules/*.js"
+      "@/*": [
+        "*"
       ]
     },
     "esModuleInterop": true,
@@ -32,8 +27,11 @@
   "include": [
     "*.ts",
     "*.tsx",
-    "../../features/**/View/*.ts",
-    "../../features/**/View/*.vue"
+    "../../components/**/*.tsx",
+    "../../components/**/*.ts",
+    "../../site/**/*.tsx",
+    "../../site/**/*.ts",
+    "../../site/**/*.vue"
   ],
   "exclude": [
     "node_modules"
