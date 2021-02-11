@@ -198,12 +198,17 @@ const handler = async ({ port, production, database }) => {
         setImmediate(() => { app.server.emit('close'); });
 
         // clean the `require` cache
-        console.log('clean cache')
+        const controllersCursor = join(CWD, 'dist', 'controllers');
+        const apiCursor = join(CWD, 'dist', 'site', '_api');
+
+        debug('clean require.cache')
         for (const key of Object.keys(require.cache)) {
-          if (key.includes(join(CWD, 'dist'))) {
+          // TODO change to RegEx
+          if (key.includes(controllersCursor) || key.includes(apiCursor)) {
             delete require.cache[key];
           }
         }
+        debug('require.cache cleaned')
         // const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
 
         if (dir.includes('Service')) {
