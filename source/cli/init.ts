@@ -77,7 +77,7 @@ export const builder = _ => _
   .option('install-dependencies', { default: true, type: 'boolean' })
   .option('template', {
     type: 'string',
-    choices: ['base', 'react', 'vue', 'preact'],
+    choices: ['base', 'react', 'vue', 'preact', 'solid'],
     default: 'base'
   })
   .default('dir', '.');
@@ -85,8 +85,8 @@ export const builder = _ => _
 function generatePackageJSON(name, template = 'base') {
   const content = require('../../template/base/package.json');
 
-  if (template === 'react') {
-    const { dependencies, devDependencies } = require('../../template/react/package.json');
+  if (template !== 'base') {
+    const { dependencies, devDependencies } = require(`../../template/${template}/package.json`);
 
     Object.assign(content.dependencies, dependencies)
     Object.assign(content.devDependencies, devDependencies);

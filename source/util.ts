@@ -157,7 +157,8 @@ const VERSION = require('../package.json').version;
 const TemplateNaming = {
   react: 'React.js',
   vue: 'Vue.js',
-  svelte: 'Svelte'
+  svelte: 'Svelte',
+  solid: 'Solid.js'
 }
 
 const Display = {

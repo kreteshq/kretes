@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "solid-js": "^0.24.6"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.12.16",
+    "@snowpack/plugin-babel": "^2.1.6",
+    "babel-preset-solid": "^0.24.2"
+  }
+}
