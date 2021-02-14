@@ -49,7 +49,8 @@ const reloadSQL = async (pool, file) => {
 const startSnowpack = async () => {
   // FIXME Error https://github.com/snowpackjs/snowpack/discussions/2267
   const { createConfiguration, startServer } = require('snowpack');
-  const config = createConfiguration({
+
+  const defaultConfig = {
     root: process.cwd(),
     alias: {
       '@/components': './components',
@@ -70,10 +71,16 @@ const startSnowpack = async () => {
       open: 'none',
       output: 'stream',
     },
-  });
-  const snowpack = await startServer({ config, lockfile: null });
+  };
 
-  return snowpack;
+  const { snowpack: snowpackConfig } = require(join(CWD, 'config', 'default.json'));
+
+  const snowpackPlugins = Object.entries(snowpackConfig.plugins || []).map(([name, options]) => [`@snowpack/plugin-${name}`, options])
+
+  const config = createConfiguration({ ...defaultConfig, plugins: snowpackPlugins });
+  const server = await startServer({ config, lockfile: null });
+
+  return server;
 };
 
 const isDatabaseConfigured = () => {

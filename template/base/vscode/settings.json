@@ -88,6 +88,14 @@
                 "type": "object"
               }
             }
+          },
+          "snowpack": {
+            "type": "object",
+            "properties": {
+              "plugins": {
+                "type": "object"
+              }
+            }
           }
         }
       }
