@@ -73,7 +73,7 @@ const startSnowpack = async () => {
     },
   };
 
-  const { snowpack: snowpackConfig } = require(join(CWD, 'config', 'default.json'));
+  const { snowpack: snowpackConfig = {} } = require(join(CWD, 'config', 'default.json'));
 
   const snowpackPlugins = Object.entries(snowpackConfig.plugins || []).map(([name, options]) => [`@snowpack/plugin-${name}`, options])
 
