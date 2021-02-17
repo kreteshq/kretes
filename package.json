@@ -91,5 +91,13 @@
         "source/": "dist/"
       }
     }
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./http": {
+      "import": "./dist/http/index.js"
+    }
   }
 }
