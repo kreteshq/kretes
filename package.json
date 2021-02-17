@@ -26,12 +26,12 @@
     "prettier": "2.2.1"
   },
   "scripts": {
-    "prepublishOnly": "tsc",
+    "prepublishOnly": "tsc && tsc -p http",
     "pretest": "tsc",
     "test": "ava",
     "dev:main": "tsc -w",
-    "dev:client": "tsc -w -p source/hot",
-    "build": "rm -rf dist && tsc -p . && tsc -p source/hot",
+    "dev:client": "tsc -w -p http",
+    "build": "rm -rf dist && tsc -p . && tsc -p http",
     "debug": "node --inspect cli.js",
     "prepack": "node scripts/prepack",
     "clean": "rm -rf dist",
