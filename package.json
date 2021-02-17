@@ -3,6 +3,7 @@
   "version": "1.0.0-alpha.13",
   "description": "A Programming Environment for TypeScript apps built on top of VS Code",
   "main": "dist/index.js",
+  "types": "dist/index.d.js",
   "repository": "https://github.com/kreteshq/kretes",
   "author": "Zaiste",
   "license": "Apache-2.0",
@@ -94,10 +95,12 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
     },
     "./http": {
-      "import": "./dist/http/index.js"
+      "import": "./dist/http/index.js",
+      "default": "./dist/http/index.js"
     }
   }
 }

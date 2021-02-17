@@ -61,9 +61,7 @@ const startSnowpack = async () => {
       site: '/',
       public: { url: '/', static: true, resolve: false },
     },
-    packageOptions: {
-      external: ['kretes'],
-    },
+    packageOptions: {},
     exclude: ['**/site/_api/**/*', '**/controllers/**/*'],
     devOptions: {
       hmr: true,
