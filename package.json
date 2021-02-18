@@ -102,5 +102,19 @@
       "import": "./dist/http/index.js",
       "default": "./dist/http/index.js"
     }
-  }
+  },
+  "keywords": [
+    "kretes",
+    "typescript",
+    "framework",
+    "node.js",
+    "web",
+    "snowpack",
+    "esbuild",
+    "api",
+    "react",
+    "vue",
+    "solidjs",
+    "front-end"
+  ],
 }
