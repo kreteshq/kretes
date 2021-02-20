@@ -43,8 +43,11 @@ export async function handler({ dir, installDependencies, template }) {
     await fs.outputFile(outputVSCodeSettings, substitute(tmplVSCodeSettings, { name }));
 
     // apply specific template changes
-    if (template !== "base") {
+    if (!['base'].includes(template)) {
       await fs.copy(join(templateDir, template), join(cwd, dir), { overwrite: true, errorOnExist: true });
+    }
+
+    if (!['base', 'vue'].includes(template)) {
       await fs.remove(join(cwd, dir, 'config', 'client', 'index.ts'));
       await fs.remove(join(cwd, dir, 'site', 'index.ts'));
     }

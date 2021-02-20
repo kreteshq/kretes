@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@snowpack/plugin-vue": "^2.3.0"
+  }
+}
