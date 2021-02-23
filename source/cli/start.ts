@@ -54,10 +54,12 @@ const startSnowpack = async () => {
     root: process.cwd(),
     alias: {
       '@/components': './components',
+      '@/hooks': './hooks',
       '@/types': './types',
     },
     mount: {
       components: '/@/components/',
+      hooks: '/@/hooks/',
       site: '/',
       public: { url: '/', static: true, resolve: false },
     },
