@@ -5,7 +5,6 @@ import Schema from 'validate';
 
 import { JSONPayload } from './response';
 
-
 const validate = shape => {
   const schema = new Schema(shape);
 

@@ -6,9 +6,20 @@ const debug = Debug("ks:index"); // eslint-disable-line no-unused-vars
 
 import { join } from "path";
 import httpstatus from "http-status";
+import { ServerApp } from "retes";
+
+// Types
+import { 
+  Request,
+  Response,
+  Handler, 
+  Routes, 
+  LocalMiddleware,
+  Pipeline,
+} from "retes";
 
 import * as Endpoint from "./endpoint";
-import * as Middleware from "./middleware";
+import * as M from "./middleware";
 import { glob } from "./filesystem";
 import { readAll } from "./filesystem";
 import { precompile } from "./view";
@@ -16,45 +27,9 @@ import { NotFound } from "./response";
 import Logger from "./logger";
 import HTMLifiedError from "./error";
 import { notice, print } from "./util";
-
 import { setupControllersFromFilesystem } from "./core";
 
 const cwd = process.cwd();
-
-import { Handler, Routes, ServerApp } from "retes";
-
-export interface Resource {
-  feature: string;
-  alias?: string;
-  children?: Resource[];
-}
-
-export interface Meta {
-  summary?: string;
-  description?: string;
-  parameters?: Array<any>;
-  responses?: Object;
-}
-
-export interface Payload {
-  [key: string]: any;
-}
-
-export type Task = (input: Payload) => Promise<void>;
-export type Queue = any;
-
-export interface ScheduleInput {
-  task: Task;
-  payload?: Payload;
-  queue?: Queue;
-  runAt?: Date;
-  maxAttempts?: number;
-}
-
-// export interface Routes {
-//   // FIXME [plug1, plug2, ..., plugk, handler] what's the type?
-//   [name: string]: Handler | any[]
-// }
 
 const lookupViews = async () => {
   const path = join(cwd, "site/**/*.html");
@@ -62,23 +37,22 @@ const lookupViews = async () => {
   return readAll(files, { cache: true });
 };
 
-const handleError = (context) =>
-  (error) => {
-    const { request, response } = context;
+const handleError = (context) => (error) => {
+  const { request, response } = context;
 
-    response.statusCode = 500;
-    error.status = `500 ${httpstatus[500]}`;
+  response.statusCode = 500;
+  error.status = `500 ${httpstatus[500]}`;
 
-    // TODO remove at runtime in `production`, keep only in `development`
-    Logger.printRequestResponse(context);
-    Logger.printError(error, "HTTP");
+  // TODO remove at runtime in `production`, keep only in `development`
+  Logger.printRequestResponse(context);
+  Logger.printError(error, "HTTP");
 
-    const htmlifiedError = new HTMLifiedError(error, request);
+  const htmlifiedError = new HTMLifiedError(error, request);
 
-    htmlifiedError.generate().then((html) => {
-      response.writeHead(500, { "Content-Type": "text/html" }).end(html);
-    });
-  };
+  htmlifiedError.generate().then((html) => {
+    response.writeHead(500, { "Content-Type": "text/html" }).end(html);
+  });
+};
 
 const append = context => () => Logger.printRequestResponse(context);
 
@@ -133,17 +107,17 @@ export default class Kretes extends ServerApp {
 
     setupControllersFromFilesystem(this);
 
-    this.use(Middleware.Security());
-    this.use(Middleware.CORS());
-    this.use(Middleware.Routing(this.router));
-    this.use(Middleware.Caching());
-    this.use(Middleware.Serve(this.staticDir));
-    this.use(Middleware.Extractor());
+    this.use(M.Security());
+    this.use(M.CORS());
+    this.use(M.Routing(this.router));
+    this.use(M.Caching());
+    this.use(M.Serve(this.staticDir));
+    this.use(M.Extractor());
 
     if (process.env.NODE_ENV != "production") {
 
       // middlewares to run ONLY in Development
-      this.use(Middleware.Snowpack(this.snowpack))
+      this.use(M.Snowpack(this.snowpack))
     }
 
     // append 404 middleware handler: it must be put at the end and only once
@@ -180,4 +154,11 @@ import Schema from "validate";
 import { SnowpackDevServer } from "snowpack";
 export { Schema };
 
-export { Handler, Routes };
+export { 
+  Request,
+  Response,
+  Handler, 
+  Routes, 
+  LocalMiddleware as Middleware,
+  Pipeline,
+} 

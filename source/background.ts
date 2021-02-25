@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0
 
 import db from './db';
-import { ScheduleInput } from '.';
+import { ScheduleInput } from './types';
 
 export const schedule = async ({ task, payload = {}, queue , runAt, maxAttempts }: ScheduleInput) => {
   await db.sql`
