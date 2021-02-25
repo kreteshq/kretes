@@ -3,7 +3,7 @@
 
 import { Row } from "@sqorn/pg/types/methods";
 
-import { ForbiddenError } from '@casl/ability';
+import { Ability, ForbiddenError } from '@casl/ability';
 import basicAuth from 'basic-auth';
 import argon2 from 'argon2';
 import crypto from 'crypto';
@@ -11,6 +11,7 @@ import crypto from 'crypto';
 import { Unauthorized, Created, Forbidden, InternalServerError } from './response';
 import db from './db';
 import Cookie from './cookie';
+import { Request } from "retes";
 
 const compare = argon2.verify;
 const hash = argon2.hash;
@@ -70,12 +71,12 @@ const authenticate = action => async request => {
 const authorization = ({ using: rules }) => ({
   permission = 'read',
   entity = 'all'
-}) => action => async request => {
+}) => (action: any) => async (request: Request) => {
   const { user } = request;
-  const permissions = rules(user);
+  const permissions = rules(user) as Ability;
 
   try {
-    permissions.throwUnlessCan(permission, entity);
+    ForbiddenError.from(permissions).throwUnlessCan(permission, entity);
 
     return action(request);
   } catch (error) {
