@@ -27,7 +27,7 @@ dependencies:
   pg: 8.5.1
   postcss: 8.2.6
   postgraphile: 4.11.0
-  retes: 0.7.0
+  retes: 0.8.0
   rsyncwrapper: 3.0.1
   semver: 7.3.4
   snowpack: 3.0.13
@@ -1778,7 +1778,7 @@ packages:
     dependencies:
       caniuse-lite: 1.0.30001192
       colorette: 1.2.2
-      electron-to-chromium: 1.3.673
+      electron-to-chromium: 1.3.674
       escalade: 3.1.1
       node-releases: 1.1.71
     dev: false
@@ -2388,10 +2388,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-IvyXa/rzBuCDmjHbjoITSA+vuJM=
-  /electron-to-chromium/1.3.673:
+  /electron-to-chromium/1.3.674:
     dev: false
     resolution:
-      integrity: sha512-ms+QR2ckfrrpEAjXweLx6kNCbpAl66DcW//3BZD4BV5KhUgr0RZRce1ON/9J3QyA3JO28nzgb5Xv8DnPr05ILg==
+      integrity: sha512-DBmEKRVYLZAoQSW+AmLcTF5Bpwhk4RUkobtzXVDlfPPYIlbsH3Jfg3QbBjAfFcRARzMIo4YiMhp3N+RnMuo1Eg==
   /emittery/0.8.1:
     engines:
       node: '>=10'
@@ -4947,14 +4947,14 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-l+sSefzHpj5qimhFSE5a8nufZYAM3sBSVMAPtYkmC+4EH2anSGaEMXSD0izRQbu9nfyQ9y5JrVmp7E8oZrUjvA==
-  /retes/0.7.0:
+  /retes/0.8.0:
     dependencies:
       busboy: 0.3.1
       debug: 4.3.1
       zod: 2.0.0-beta.30
     dev: false
     resolution:
-      integrity: sha512-MDVbLWKSYt+c+NVfknDX8/y2efulu0Sdb6NiJ6XqPXkB0EIY7/qkGpkjeDIKSALo9MEPp0EDe16nN4FZq2g8lA==
+      integrity: sha512-bwSjC8npEGrmTrOJSuRrrzzHL/eF0VdhixyK+HLZ3WvsIkp6/UbRsXyVOVtZlgHFJHvs2f/oANP18LpMpHKmwg==
   /reusify/1.0.4:
     engines:
       iojs: '>=1.0.0'
@@ -5910,7 +5910,7 @@ specifiers:
   postcss: ^8.2.6
   postgraphile: ^4.11.0
   prettier: 2.2.1
-  retes: ^0.7.0
+  retes: ^0.8.0
   rsyncwrapper: ^3.0.1
   semver: ^7.3.4
   snowpack: ^3.0.13
