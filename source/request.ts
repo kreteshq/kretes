@@ -13,10 +13,7 @@ const validate = shape => {
     const errors = schema.validate(params);
 
     if (errors.length) {
-      return JSONPayload(
-        errors.map(_ => _['message']),
-        422
-      );
+      return JSONPayload(errors, 422);
     } else {
       return next(request);
     }
