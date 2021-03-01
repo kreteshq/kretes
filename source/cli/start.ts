@@ -15,6 +15,7 @@ import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
 import { PluginFn } from '@poppinss/chokidar-ts/build/src/Contracts';
 import * as _ from 'colorette';
 import pg from "pg";
+import { createConfiguration, startServer, logger, SnowpackUserConfig } from 'snowpack';
 
 import Kretes from '../';
 import { parser } from '../parser';
@@ -47,8 +48,7 @@ const reloadSQL = async (pool, file) => {
 };
 
 const startSnowpack = async () => {
-  // FIXME Error https://github.com/snowpackjs/snowpack/discussions/2267
-  const { createConfiguration, startServer } = require('snowpack');
+  logger.level = 'silent';
 
   const defaultConfig = {
     root: process.cwd(),
@@ -71,11 +71,12 @@ const startSnowpack = async () => {
       open: 'none',
       output: 'stream',
     },
-  };
+  } as SnowpackUserConfig;
 
   const { snowpack: snowpackConfig = {} } = require(join(CWD, 'config', 'default.json'));
 
-  const snowpackPlugins = Object.entries(snowpackConfig.plugins || []).map(([name, options]) => [`@snowpack/plugin-${name}`, options])
+  const snowpackPlugins = Object.entries(snowpackConfig.plugins || [])
+    .map<[string, any]>(([name, options]) => [`@snowpack/plugin-${name}`, options])
 
   const config = createConfiguration({ ...defaultConfig, plugins: snowpackPlugins });
   const server = await startServer({ config, lockfile: null });
