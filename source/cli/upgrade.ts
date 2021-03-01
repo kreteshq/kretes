@@ -14,6 +14,7 @@ export async function handler() {
 
   try {
     await run('npx', ['ncu', '-u'], { cwd });
+    await run('npx', ['pnpm', 'update'], { cwd });
   } catch (error) {
     console.error(__`  {red Error}: ${error.message}`);
   }
