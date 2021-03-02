@@ -28,7 +28,6 @@ const { render } = require("./view");
 
 const cwd = process.cwd();
 
-
 const Conflict = (content: string = '') => {
   return {
     statusCode: 409,

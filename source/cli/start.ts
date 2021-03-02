@@ -9,7 +9,6 @@ import { TypescriptCompiler } from '@poppinss/chokidar-ts';
 import fs from 'fs-extra';
 import postcss from 'postcss';
 import { Response } from 'retes';
-import { DiagnosticMessageChain } from 'typescript';
 import transformPaths from '@zerollup/ts-transform-paths';
 import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
 import { PluginFn } from '@poppinss/chokidar-ts/build/src/Contracts';
@@ -194,7 +193,11 @@ const handler = async ({ port, production, database }) => {
         restartInProgress = true;
 
         console.log(color`{yellow •} {green RELOADED} {underline ${filePath}} `);
-        displayCompilationMessages(diagnostics);
+
+        // FIXME instead of displaying error messages,
+        // display just the info about errors to check
+        // in VS Code
+        // displayCompilationMessages(diagnostics);
 
         const { dir, name } = parse(filePath);
 
@@ -229,20 +232,9 @@ const handler = async ({ port, production, database }) => {
       }
     });
 
-    const { diagnostics } = watcher.watch(['abilities', 'config', 'controllers', 'lib', 'site', 'stylesheets'], { ignored: [] });
+    watcher.watch(['abilities', 'config', 'controllers', 'lib', 'site', 'stylesheets'], { ignored: [] });
     print(notice("TypeScript"))
-
-    displayCompilationMessages(diagnostics);
   }
-};
-
-const displayCompilationMessages = (messages) => {
-  if (messages.length > 0) console.log(color`  {red.bold Errors:}`);
-  messages.forEach(({ file, messageText }) => {
-    const location = file.fileName.split(`${CWD}${sep}`)[1];
-    const msg = (messageText as DiagnosticMessageChain).messageText || messageText;
-    console.log(color`  {grey in} {underline ${location}}\n   → ${msg}`);
-  });
 };
 
 const makeRemoteService = async (app, dir, name) => {
