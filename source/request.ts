@@ -13,7 +13,12 @@ const validate = shape => {
     const errors = schema.validate(params);
 
     if (errors.length) {
-      return JSONPayload(errors, 422);
+      // @ts-ignore
+      const r = errors.reduce((stored, { path, message }) => {
+        stored[path] = (stored[path] || []).concat(message)
+        return stored;
+      }, {});
+      return JSONPayload(r, 422);
     } else {
       return next(request);
     }
