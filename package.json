@@ -101,6 +101,20 @@
     "./http": {
       "import": "./dist/http/index.js",
       "default": "./dist/http/index.js"
+    },
+    "./request": {
+      "import": "./dist/request.js",
+      "default": "./dist/request.js"
+    },
+    "./response": {
+      "import": "./dist/response.js",
+      "default": "./dist/response.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "request": ["dist/request"],
+      "response": ["dist/response"]
     }
   },
   "keywords": [

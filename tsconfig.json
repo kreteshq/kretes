@@ -12,5 +12,8 @@
     "declaration": true
   },
   "include": ["source/**/*"],
-  "exclude": ["http/**/*", "template/**/*"]
+  "exclude": [
+    "http/**/*", 
+    "template/**/*"
+  ]
 }
