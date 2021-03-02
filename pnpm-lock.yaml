@@ -30,7 +30,7 @@ dependencies:
   retes: 0.8.0
   rsyncwrapper: 3.0.1
   semver: 7.3.4
-  snowpack: 3.1.0-pre.10
+  snowpack: 3.0.13
   stack-trace: 0.0.10
   typescript: 4.2.2
   validate: 5.1.0
@@ -114,11 +114,11 @@ packages:
   /@babel/core/7.13.8:
     dependencies:
       '@babel/code-frame': 7.12.13
-      '@babel/generator': 7.13.0
+      '@babel/generator': 7.13.9
       '@babel/helper-compilation-targets': 7.13.8_@babel+core@7.13.8
       '@babel/helper-module-transforms': 7.13.0
       '@babel/helpers': 7.13.0
-      '@babel/parser': 7.13.4
+      '@babel/parser': 7.13.9
       '@babel/template': 7.12.13
       '@babel/traverse': 7.13.0
       '@babel/types': 7.13.0
@@ -134,14 +134,14 @@ packages:
       node: '>=6.9.0'
     resolution:
       integrity: sha512-oYapIySGw1zGhEFRd6lzWNLWFX2s5dA/jm+Pw/+59ZdXtjyIuwlXbrId22Md0rgZVop+aVoqow2riXhBLNyuQg==
-  /@babel/generator/7.13.0:
+  /@babel/generator/7.13.9:
     dependencies:
       '@babel/types': 7.13.0
       jsesc: 2.5.2
       source-map: 0.5.7
     dev: false
     resolution:
-      integrity: sha512-zBZfgvBB/ywjx0Rgc2+BwoH/3H+lDtlgD4hBOpEv5LxRnYsm/753iRuLepqnYlynpjC3AdQxtxsoeHJoEEwOAw==
+      integrity: sha512-mHOOmY0Axl/JCTkxTU6Lf5sWOg/v8nUa+Xkt4zMTftX0wqmb6Sh7J8gvcehBw7q0AhrhAR+FDacKjCZ2X8K+Sw==
   /@babel/helper-annotate-as-pure/7.12.13:
     dependencies:
       '@babel/types': 7.13.0
@@ -183,7 +183,7 @@ packages:
       integrity: sha512-TZvmPn0UOqmvi5G4vvw0qZTpVptGkB1GL61R6lKvrSdIxGm5Pky7Q3fpKiIkQCAtRCBUwB0PaThlx9vebCDSwA==
   /@babel/helper-get-function-arity/7.12.13:
     dependencies:
-      '@babel/types': 7.12.13
+      '@babel/types': 7.13.0
     dev: false
     resolution:
       integrity: sha512-DjEVzQNz5LICkzN0REdpD5prGoidvbdYk1BVgRUOINaWJP2t6avB27X1guXK1kXNrX0WMfsrm1A/ZBthYuIMQg==
@@ -279,13 +279,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-c/+u9cqV6F0+4Hpq01jnJO+GLp2DdT63ppz9Xa+6cHaajM9VFzK/iDXiKK65YtpeVwu+ctfS6iqlMqRgQRzeCw==
-  /@babel/parser/7.13.4:
+  /@babel/parser/7.13.9:
     dev: false
     engines:
       node: '>=6.0.0'
     hasBin: true
     resolution:
-      integrity: sha512-uvoOulWHhI+0+1f9L4BoozY7U5cIkZ9PgJqvb041d6vypgUmtVPG4vmGm4pSggjl8BELzvHyUeJSUyEMY6b+qA==
+      integrity: sha512-nEUfRiARCcaVo3ny3ZQjURjHQZUo/JkEw7rLlSZy/psWGnvwXFtPcr6jb7Yb41DVW5LTe6KRq9LGleRNsg1Frw==
   /@babel/plugin-proposal-class-properties/7.13.0_@babel+core@7.13.8:
     dependencies:
       '@babel/core': 7.13.8
@@ -542,24 +542,24 @@ packages:
       '@babel/core': ^7.0.0-0
     resolution:
       integrity: sha512-d67umW6nlfmr1iehCcBv69eSUSySk1EsIS8aTDX4Xo9qajAh6mYtcl4kJrBkGXuxZPEgVr7RVfAvNW6YQkd4Mw==
-  /@babel/runtime/7.13.8:
+  /@babel/runtime/7.13.9:
     dependencies:
       regenerator-runtime: 0.13.7
     dev: false
     resolution:
-      integrity: sha512-CwQljpw6qSayc0fRG1soxHAKs1CnQMOChm4mlQP6My0kf9upVGizj/KhlTTgyUnETmHpcUXjaluNAkteRFuafg==
+      integrity: sha512-aY2kU+xgJ3dJ1eU6FMB9EH8dIe8dmusF1xEku52joLvw6eAFN0AI+WxCLDnpev2LEejWBAy2sBvBOBAjI3zmvA==
   /@babel/template/7.12.13:
     dependencies:
       '@babel/code-frame': 7.12.13
       '@babel/parser': 7.12.16
-      '@babel/types': 7.12.13
+      '@babel/types': 7.13.0
     dev: false
     resolution:
       integrity: sha512-/7xxiGA57xMo/P2GVvdEumr8ONhFOhfgq2ihK3h1e6THqzTAkHbkXgB0xI9yeTfIUoH3+oAeHhqm/I43OTbbjA==
   /@babel/traverse/7.12.13:
     dependencies:
       '@babel/code-frame': 7.12.13
-      '@babel/generator': 7.13.0
+      '@babel/generator': 7.13.9
       '@babel/helper-function-name': 7.12.13
       '@babel/helper-split-export-declaration': 7.12.13
       '@babel/parser': 7.12.16
@@ -573,10 +573,10 @@ packages:
   /@babel/traverse/7.13.0:
     dependencies:
       '@babel/code-frame': 7.12.13
-      '@babel/generator': 7.13.0
+      '@babel/generator': 7.13.9
       '@babel/helper-function-name': 7.12.13
       '@babel/helper-split-export-declaration': 7.12.13
-      '@babel/parser': 7.13.4
+      '@babel/parser': 7.13.9
       '@babel/types': 7.13.0
       debug: 4.3.1
       globals: 11.12.0
@@ -1421,7 +1421,7 @@ packages:
   /apollo-upload-client/14.1.3_graphql@15.5.0:
     dependencies:
       '@apollo/client': 3.3.11_graphql@15.5.0
-      '@babel/runtime': 7.13.8
+      '@babel/runtime': 7.13.9
       extract-files: 9.0.0
       graphql: 15.5.0
     dev: false
@@ -1544,7 +1544,7 @@ packages:
       cli-truncate: 2.1.0
       code-excerpt: 3.0.0
       common-path-prefix: 3.0.0
-      concordance: 5.0.2
+      concordance: 5.0.3
       convert-source-map: 1.7.0
       currently-unhandled: 0.4.1
       debug: 4.3.1
@@ -1777,9 +1777,9 @@ packages:
       integrity: sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==
   /browserslist/4.16.3:
     dependencies:
-      caniuse-lite: 1.0.30001192
+      caniuse-lite: 1.0.30001194
       colorette: 1.2.2
-      electron-to-chromium: 1.3.675
+      electron-to-chromium: 1.3.677
       escalade: 3.1.1
       node-releases: 1.1.71
     dev: false
@@ -1887,10 +1887,10 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==
-  /caniuse-lite/1.0.30001192:
+  /caniuse-lite/1.0.30001194:
     dev: false
     resolution:
-      integrity: sha512-63OrUnwJj5T1rUmoyqYTdRWBqFFxZFlyZnRRjDR8NSUQFB6A+j/uBORU/SyJ5WzDLg4SPiZH40hQCBNdZ/jmAw==
+      integrity: sha512-iDUOH+oFeBYk5XawYsPtsx/8fFpndAPUQJC7gBTfxHM8xw5nOZv7ceAD4frS1MKCLUac7QL5wdAJiFQlDRjXlA==
   /chalk/2.4.2:
     dependencies:
       ansi-styles: 3.2.1
@@ -1966,6 +1966,7 @@ packages:
     resolution:
       integrity: sha512-I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==
   /cli-spinners/2.5.0:
+    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -2068,7 +2069,7 @@ packages:
   /concat-map/0.0.1:
     resolution:
       integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
-  /concordance/5.0.2:
+  /concordance/5.0.3:
     dependencies:
       date-time: 3.1.0
       esutils: 2.0.3
@@ -2082,7 +2083,7 @@ packages:
     engines:
       node: '>=10.18.0 <11 || >=12.14.0 <13 || >=14'
     resolution:
-      integrity: sha512-hC63FKdGM9tBcd4VQIa+LQjmrgorrnxESb8B3J21Qe/FzL0blBv0pb8iNyymt+bmsvGSUqO0uhPi2ZSLgLtLdg==
+      integrity: sha512-niSG8GwnplIe5fXZCmIrbAaF41Eqt2A1PVG269flPzndjccwKbyIhyZYsbTBW+0IF5lWf4RWn9WstSxyKq8hIg==
   /config/3.3.4:
     dependencies:
       json5: 2.2.0
@@ -2388,10 +2389,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-IvyXa/rzBuCDmjHbjoITSA+vuJM=
-  /electron-to-chromium/1.3.675:
+  /electron-to-chromium/1.3.677:
     dev: false
     resolution:
-      integrity: sha512-GEQw+6dNWjueXGkGfjgm7dAMtXfEqrfDG3uWcZdeaD4cZ3dKYdPRQVruVXQRXtPLtOr5GNVVlNLRMChOZ611pQ==
+      integrity: sha512-Tcmk+oKQgpjcM+KYanlkd76ZtpzalkpUULnlJDP6vjHtR7UU564IM9Qv5DxqHZNBQjzXm6mkn7Y8bw2OoE3FmQ==
   /emittery/0.8.1:
     engines:
       node: '>=10'
@@ -4856,9 +4857,9 @@ packages:
   /relay-compiler/10.1.0_graphql@15.5.0:
     dependencies:
       '@babel/core': 7.13.8
-      '@babel/generator': 7.13.0
-      '@babel/parser': 7.13.4
-      '@babel/runtime': 7.13.8
+      '@babel/generator': 7.13.9
+      '@babel/parser': 7.13.9
+      '@babel/runtime': 7.13.9
       '@babel/traverse': 7.13.0
       '@babel/types': 7.13.0
       babel-preset-fbjs: 3.3.0_@babel+core@7.13.8
@@ -4880,7 +4881,7 @@ packages:
       integrity: sha512-HPqc3N3tNgEgUH5+lTr5lnLbgnsZMt+MRiyS0uAVNhuPY2It0X1ZJG+9qdA3L9IqKFUNwVn6zTO7RArjMZbARQ==
   /relay-runtime/10.1.0:
     dependencies:
-      '@babel/runtime': 7.13.8
+      '@babel/runtime': 7.13.9
       fbjs: 3.0.0
     dev: false
     resolution:
@@ -5116,9 +5117,8 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-qMCMfhY040cVHT43K9BFygqYbUPFZKHOg7K73mtTWJRb8pyP3fzf4Ixd5SzdEJQ6MRUg/WBnOLxghZtKKurENQ==
-  /snowpack/3.1.0-pre.10:
+  /snowpack/3.0.13:
     dependencies:
-      cli-spinners: 2.5.0
       default-browser-id: 2.0.0
       esbuild: 0.8.54
       open: 7.4.2
@@ -5131,7 +5131,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     resolution:
-      integrity: sha512-sBVdgVZuq67cwCCzc2YzcEnfHWfnhG9mpRn1zDwk4VvFAhxqGDOTqk2cqKYK3I00NwC+to9elqQKB2u2/qf4Zg==
+      integrity: sha512-USTcpfJ68rbuFvUygw+3n9qS1CC/tGsr/JNVc6FNk0ZRfGBE4OmB+Mmk5nWtdxi546GeCr/GvveJenYLen/WpA==
   /source-map-support/0.5.19:
     dependencies:
       buffer-from: 1.1.1
@@ -5909,7 +5909,7 @@ specifiers:
   retes: ^0.8.0
   rsyncwrapper: ^3.0.1
   semver: ^7.3.4
-  snowpack: 3.1.0-pre.10
+  snowpack: 3.0.13
   stack-trace: 0.0.10
   typescript: 4.2.2
   validate: ^5.1.0

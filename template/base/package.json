@@ -5,7 +5,7 @@
     "start": "kretes start --production"
   },
   "dependencies": {
-    "kretes": "^1.0.0-alpha.17"
+    "kretes": "^1.0.0-alpha.18"
   },
   "browserslist": [
     "> 1%",
@@ -18,7 +18,7 @@
     "chokidar": "^3.5.1",
     "cross-env": "^7.0.3",
     "node-pg-migrate": "^5.9.0",
-    "npm-check-updates": "^11.1.9",
+    "npm-check-updates": "^11.1.10",
     "pnpm": "5.18.1",
     "prettier": "^2.2.1",
     "rollup": "^2.40.0",
