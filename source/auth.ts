@@ -199,6 +199,25 @@ function login(finder: Finder): Handler {
   }
 }
 
+const identify: Middleware = action => async request => {
+  const { cookies = {} } = request;
+
+  // @ts-ignore
+  const token = cookies.__ks_session;
+
+  if (token) {
+    const hashedToken = makeSHA256asBase64(token);
+    const [found] = await findUserByToken(hashedToken);
+
+    if (found) {
+      const { password: _, ...user } = found; // delete is slow, use spread instead
+      request.user = user;
+    }
+  }
+
+  return action(request);
+};
+
 export {
   auth,
   authenticate,
@@ -208,5 +227,6 @@ export {
   Session,
   register,
   login,
+  identify,
   Finder,
 };
