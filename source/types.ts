@@ -1,3 +1,4 @@
+import { Row } from "@sqorn/pg/types/methods";
 import { Middleware } from "retes";
 
 export interface Resource {
@@ -28,6 +29,10 @@ export interface ScheduleInput {
   maxAttempts?: number;
 }
 
+interface Criteria {
+  [name: string]: any
+}
+export type Finder = (criteria: Criteria) => Promise<Row[]>
 
 // export interface Routes {
 //   // FIXME [plug1, plug2, ..., plugk, handler] what's the type?

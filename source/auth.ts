@@ -1,8 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import { Row } from "@sqorn/pg/types/methods";
-
+import { Handler, Request } from "retes";
 import { Ability, ForbiddenError } from '@casl/ability';
 import basicAuth from 'basic-auth';
 import argon2 from 'argon2';
@@ -11,7 +10,8 @@ import crypto from 'crypto';
 import { Unauthorized, Created, Forbidden, InternalServerError } from './response';
 import db from './db';
 import Cookie from './cookie';
-import { Request } from "retes";
+import { Middleware } from ".";
+import { Finder } from "./types";
 
 const compare = argon2.verify;
 const hash = argon2.hash;
@@ -43,9 +43,10 @@ function auth({ users }) {
 const bearer = (authorization = '') =>
   authorization.startsWith('Bearer ') ? authorization.substring(7) : undefined;
 
-const authenticate = action => async request => {
+const authenticate: Middleware = action => async request => {
   const { cookies = {}, headers = {}, params = {} } = request;
 
+  //@ts-ignore
   const token = cookies.__ks_session || bearer(headers.authorization) || params.token;
 
   if (!token) return Unauthorized();
@@ -109,85 +110,84 @@ class Session {
   }
 }
 
-const register = ({ table = 'person', fields = [] } = {}) => async ({ params }) => {
-  const { password } = params;
+function register({ table = 'person', fields = [] } = {}): Handler {
+  return async ({ params }) => {
+    const { password } = params;
 
-  const hashed_password = await hash(password);
+    const hashed_password = await hash(password);
 
-  let person = {};
-  for (let field of fields) {
-    person[field] = params[field];
-  }
-  Object.assign(person, { password: hashed_password });
+    let person = {};
+    for (let field of fields) {
+      person[field] = params[field];
+    }
+    Object.assign(person, { password: hashed_password });
 
-  const transaction = await db.transaction();
-
-  try {
-    // @ts-ignore
-    const { id: person_id } = await db
-      .from(table)
-      .insert(person)
-      .return('id')
-      .one(transaction);
-
-    // TODO generalize this so people are not force to use `person` table
-    const token = await Session.create(person_id, transaction);
-
-    await transaction.commit();
-
-    return Created(
-      { person_id, token },
-      {
-        'Set-Cookie': Cookie.create('__ks_session', token, {
-          httpOnly: true,
-          sameSite: true,
-        })
-      }
-    );
-  } catch (error) {
-    await transaction.rollback();
-    throw error;
-  }
-};
-
-interface Criteria  {
-  [name: string]: any
-}
-export type Finder = (criteria: Criteria) => Promise<Row[]>
-
-const login = (finder: Finder) => async ({ params }) => {
-  const { password } = params;
-
-  const [person] = await finder(params);
-
-  if (person) {
-    const { id: person_id, password: hashed_password } = person;
+    const transaction = await db.transaction();
 
     try {
-      const match = await compare(hashed_password, password);
+      // @ts-ignore
+      const { id: person_id } = await db
+        .from(table)
+        .insert(person)
+        .return('id')
+        .one(transaction);
 
-      if (match) {
-        const token = await Session.create(person_id);
-        const { password: _, ...rest } = person; // delete is slow, use spread instead
-        return Created(Object.assign({ token }, rest), {
+      // TODO generalize this so people are not force to use `person` table
+      const token = await Session.create(person_id, transaction);
+
+      await transaction.commit();
+
+      return Created(
+        { person_id, token },
+        {
           'Set-Cookie': Cookie.create('__ks_session', token, {
             httpOnly: true,
-            sameSite: true
+            sameSite: true,
           })
-        });
-      } else {
+        }
+      );
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
+  }
+}
+
+function login(finder: Finder): Handler {
+  return async ({ params }) => {
+    const { password } = params;
+
+    const [person] = await finder(params);
+
+    if (person) {
+      const { id: person_id, password: hashed_password } = person;
+
+      try {
+        const match = await compare(hashed_password, password);
+
+        if (match) {
+          const token = await Session.create(person_id);
+          const { password: _, ...rest } = person; // delete is slow, use spread instead
+          return Created(Object.assign({ token }, rest), {
+            'Set-Cookie': Cookie.create('__ks_session', token, {
+              httpOnly: true,
+              sameSite: true
+            })
+          });
+        } else {
+          return Unauthorized();
+        }
+      } catch (error) {
+        // FIXME Log internally the issue
+        console.error(error.message);
+
         return Unauthorized();
       }
-    } catch (error) {
-      // FIXME Log internally the issue
-      console.error(error.message);
-
+    } else {
       return Unauthorized();
     }
-  } else {
-    return Unauthorized();
   }
-};
+}
 
 export {
   auth,
