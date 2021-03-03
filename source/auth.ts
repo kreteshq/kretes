@@ -200,4 +200,5 @@ export {
   Session,
   register,
   login,
+  Finder,
 };
