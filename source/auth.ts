@@ -18,6 +18,11 @@ const hash = argon2.hash;
 
 const fromBase64 = (base64: string) => base64.replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
 
+const findUserByToken = async (token: string) => 
+  await db.from('person').join`session`.on`person.id = session.person_id`
+    .where`token = ${token}`
+    .return`person.*`;
+
 function auth({ users }) {
   return async (context, next) => {
     const credentials = basicAuth(context.request);
@@ -43,6 +48,12 @@ function auth({ users }) {
 const bearer = (authorization = '') =>
   authorization.startsWith('Bearer ') ? authorization.substring(7) : undefined;
 
+const makeSHA256asBase64 = (input: string) =>
+  crypto
+    .createHash('sha256')
+    .update(input)
+    .digest('base64');
+
 const authenticate: Middleware = action => async request => {
   const { cookies = {}, headers = {}, params = {} } = request;
 
@@ -51,11 +62,8 @@ const authenticate: Middleware = action => async request => {
 
   if (!token) return Unauthorized();
 
-  const sha256 = crypto.createHash('sha256');
-  const hashedToken = sha256.update(token).digest('base64');
-  const [found] = await db.from('person').join`session`.on`person.id = session.person_id`
-    .where`token = ${hashedToken}`
-    .return`person.*`;
+  const hashedToken = makeSHA256asBase64(token) 
+  const [found] = await findUserByToken(hashedToken);
 
   if (found) {
     const { password: _, ...user } = found; // delete is slow, use spread instead
