@@ -109,12 +109,17 @@
     "./response": {
       "import": "./dist/response.js",
       "default": "./dist/response.js"
+    },
+    "./auth": {
+      "import": "./dist/auth.js",
+      "default": "./dist/auth.js"
     }
   },
   "typesVersions": {
     "*": {
       "request": ["dist/request"],
-      "response": ["dist/response"]
+      "response": ["dist/response"],
+      "auth": ["dist/auth"]
     }
   },
   "keywords": [
