@@ -1,12 +1,11 @@
 import test from 'ava';
 import axios from 'axios';
 
+import Kretes, { routing } from '.';
+import { validation } from './request';
+import { Page } from './response';
+
 const { before, after } = test;
-
-import Kretes, { response, request, routing } from '.';
-
-const { Page } = response;
-const { validate } = request;
 const { Route: { GET, POST } } = routing;
 
 const GETs = [
@@ -18,7 +17,7 @@ const Compositions = [
     ({ params: { admin } }) =>
       `Admin param (${admin}) should be absent from this request payload`,
       {
-        middleware: [ validate({ name: { type: String, required: true } }) ]
+        middleware: [ validation({ name: { type: String, required: true } }) ]
       }
   ),
  ];
@@ -86,7 +85,7 @@ test('built-in validation with invalid request', async assert => {
     await get('/request-validation');
   } catch ({ response: { status, data } }) {
     assert.is(status, 422);
-    assert.deepEqual(data, ['name is required.']);
+    assert.deepEqual(data, { name: ['name is required.'] });
   }
 });
 

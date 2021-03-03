@@ -1,11 +1,12 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import Schema from 'validate';
+import { LocalMiddleware as Middleware } from 'retes';
+import Schema, { SchemaDefinition } from 'validate';
 
 import { JSONPayload } from './response';
 
-const validate = shape => {
+function validation(shape: SchemaDefinition): Middleware {
   const schema = new Schema(shape);
 
   return next => request => {
@@ -26,5 +27,5 @@ const validate = shape => {
 };
 
 export {
-  validate,
+  validation,
 };
