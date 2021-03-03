@@ -58,7 +58,8 @@ const authenticate: Middleware = action => async request => {
     .return`person.*`;
 
   if (found) {
-    request.user = found;
+    const { password: _, ...user } = found; // delete is slow, use spread instead
+    request.user = user;
 
     return action(request);
   } else {
