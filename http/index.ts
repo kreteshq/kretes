@@ -13,7 +13,7 @@ const defaultHeaders = {
   'Content-Type': 'application/json'
 };
 
-const params = (method: string, payload: Payload, headers) => ({
+const params = (method: string, payload: Payload, headers: Payload) => ({
   method,
   headers,
   body: JSON.stringify(payload)
