@@ -159,36 +159,8 @@ const handler = async ({ port, production, database }) => {
       print(notice('Logs'));
     });
 
-    // files other than `.ts` have changed
-    watcher.on('change', async ({ relativePath: filePath }) => {
-      //console.clear();
-      console.log(color`{yellow •} {green RELOADED} {underline ${filePath}} `);
-      const extension = extname(filePath);
 
-      const timestamp = Date.now();
-      switch (extension) {
-        case '.css':
-          compileCSS();
-          break;
-        case '.sql':
-          // reloadSQL(pool, filePath);
-          // try {
-          //   const output = await SQLCompiler.compile(join(CWD, filePath));
-          //   const { dir } = parse(filePath);
-          //   await fs.outputFile(join(CWD, dir, 'index.ts'), output);
-          //   console.log(color`  {underline ${filePath}} {green reloaded}`);
-          // } catch (error) {
-          //   console.log(
-          //     color`  {red.bold Errors:}\n  {grey in} {underline ${filePath}}\n   → ${error.message}`
-          //   );
-          // }
-          break;
-        default:
-          break;
-      }
-    });
-
-    watcher.on('subsequent:build', async ({ relativePath: filePath, diagnostics }) => {
+    watcher.on('subsequent:build', async ({ relativePath: filePath, skipped, diagnostics }) => {
       if (!restartInProgress) {
         restartInProgress = true;
 
@@ -215,9 +187,9 @@ const handler = async ({ port, production, database }) => {
         debug('clean require.cache')
         for (const key of Object.keys(require.cache)) {
           // TODO change to RegEx
-          if (key.includes(controllersCursor) || key.includes(apiCursor)) {
+          // if (key.includes(controllersCursor) || key.includes(apiCursor)) {
             delete require.cache[key];
-          }
+          // }
         }
         debug('require.cache cleaned')
         // const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
@@ -229,6 +201,35 @@ const handler = async ({ port, production, database }) => {
         app = await start({ port, database, snowpack });
 
         restartInProgress = false;
+      }
+    });
+
+    // files other than `.ts` have changed
+    watcher.on('change', async ({ relativePath: filePath }) => {
+      //console.clear();
+      console.log(color`{yellow •} {green RELOADED} {underline ${filePath}} `);
+      const extension = extname(filePath);
+
+      const timestamp = Date.now();
+      switch (extension) {
+        case '.css':
+          compileCSS();
+          break;
+        case '.sql':
+          // reloadSQL(pool, filePath);
+          // try {
+          //   const output = await SQLCompiler.compile(join(CWD, filePath));
+          //   const { dir } = parse(filePath);
+          //   await fs.outputFile(join(CWD, dir, 'index.ts'), output);
+          //   console.log(color`  {underline ${filePath}} {green reloaded}`);
+          // } catch (error) {
+          //   console.log(
+          //     color`  {red.bold Errors:}\n  {grey in} {underline ${filePath}}\n   → ${error.message}`
+          //   );
+          // }
+          break;
+        default:
+          break;
       }
     });
 
