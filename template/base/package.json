@@ -5,7 +5,7 @@
     "start": "kretes start --production"
   },
   "dependencies": {
-    "kretes": "^1.0.0-alpha.19"
+    "kretes": "^1.0.0-alpha.20"
   },
   "browserslist": [
     "> 1%",
