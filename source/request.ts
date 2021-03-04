@@ -5,6 +5,7 @@ import { LocalMiddleware as Middleware } from 'retes';
 import Schema, { SchemaDefinition } from 'validate';
 
 import { JSONPayload } from './response';
+import Cookie from './cookie';
 
 function validation(shape: SchemaDefinition): Middleware {
   const schema = new Schema(shape);
@@ -26,6 +27,17 @@ function validation(shape: SchemaDefinition): Middleware {
   };
 };
 
+const Header = {
+  ExpiredCookie: {
+    'Set-Cookie': Cookie.create('__ks_session', '', {
+      httpOnly: true,
+      expires: new Date(Date.UTC(1985, 11, 24, 10, 30, 59, 900)),
+      sameSite: true
+    })
+  }
+}
+
 export {
+  Header,
   validation,
 };

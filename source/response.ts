@@ -33,7 +33,6 @@ const Conflict = (content: string = '') => {
     statusCode: 409,
     body: content
   }
-
 }
 
 const NotFound = (headers = {}) => {
