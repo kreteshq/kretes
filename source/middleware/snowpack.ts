@@ -19,7 +19,7 @@ export const Snowpack = (server: SnowpackDevServer, routes = []) => {
     }
 
     const paths = routes.map(([name]) => name);
-    if (!paths.includes(context.path)) {
+    if (!(context.path.startsWith('/_api') || paths.includes(context.path))) {
       let html = await fs.readFile(App.BaseHTML, 'utf-8')
       html = html!.replace('</body>', `${scriptSnippet}\n</body>`)
       return HTMLString(html)
