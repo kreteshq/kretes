@@ -199,7 +199,7 @@ function login(finder: Finder): Handler {
   }
 }
 
-const identify: Middleware = action => async request => {
+const recognize: Middleware = action => async request => {
   const { cookies = {} } = request;
 
   // @ts-ignore
@@ -227,6 +227,6 @@ export {
   Session,
   register,
   login,
-  identify,
+  recognize,
   Finder,
 };
