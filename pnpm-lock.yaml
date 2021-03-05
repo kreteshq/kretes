@@ -3,7 +3,7 @@ dependencies:
   '@graphile-contrib/pg-simplify-inflector': 6.1.0
   '@poppinss/chokidar-ts': 3.2.1
   '@sqorn/pg': 0.0.45
-  '@zerollup/ts-transform-paths': 1.7.18_typescript@4.2.2
+  '@zerollup/ts-transform-paths': 1.7.18_typescript@4.2.3
   argon2: 0.27.1
   basic-auth: 2.0.1
   boxwood: 0.53.2_debug@4.3.1
@@ -27,12 +27,12 @@ dependencies:
   pg: 8.5.1
   postcss: 8.2.7
   postgraphile: 4.11.0
-  retes: 0.9.0
+  retes: 0.10.0
   rsyncwrapper: 3.0.1
   semver: 7.3.4
   snowpack: 3.0.13
   stack-trace: 0.0.10
-  typescript: 4.2.2
+  typescript: 4.2.3
   validate: 5.1.0
   ws: 7.4.3
   yargs: 16.1.0
@@ -1171,14 +1171,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
-  /@types/pg/7.14.10:
+  /@types/pg/7.14.11:
     dependencies:
       '@types/node': 14.14.31
       pg-protocol: 1.4.0
       pg-types: 2.2.0
     dev: false
     resolution:
-      integrity: sha512-m6G0mrpj71YgVgHJF0cIHC3OZTKiQSUzTkMj869a+YWXF2tdbmO2PmIpNnDkiFPhHWcoGq2bk5P2e0CZX0F9Mg==
+      integrity: sha512-EnZkZ1OMw9DvNfQkn2MTJrwKmhJYDEs5ujWrPfvseWNoI95N8B4HzU/Ltrq5ZfYxDX/Zg8mTzwr6UAyTjjFvXA==
   /@types/resolve/1.17.1:
     dependencies:
       '@types/node': 14.14.31
@@ -1271,19 +1271,19 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-OxqBB39x6MfHaa2HpMiRMfhuUnQTddD32Ko020eBeJXq87ivX6xnSSnzKHVbA21p7iqBASz8n/07b6W5wW1BVQ==
-  /@zerollup/ts-helpers/1.7.18_typescript@4.2.2:
+  /@zerollup/ts-helpers/1.7.18_typescript@4.2.3:
     dependencies:
       resolve: 1.20.0
-      typescript: 4.2.2
+      typescript: 4.2.3
     dev: false
     peerDependencies:
       typescript: '>=3.7.2'
     resolution:
       integrity: sha512-S9zN+y+i5yN/evfWquzSO3lubqPXIsPQf6p9OiPMpRxDx/0totPLF39XoRw48Dav5dSvbIE8D2eAPpXXJxvKwg==
-  /@zerollup/ts-transform-paths/1.7.18_typescript@4.2.2:
+  /@zerollup/ts-transform-paths/1.7.18_typescript@4.2.3:
     dependencies:
-      '@zerollup/ts-helpers': 1.7.18_typescript@4.2.2
-      typescript: 4.2.2
+      '@zerollup/ts-helpers': 1.7.18_typescript@4.2.3
+      typescript: 4.2.3
     dev: false
     peerDependencies:
       typescript: '>=3.7.2'
@@ -1734,7 +1734,7 @@ packages:
       axios: 0.21.1_debug@4.3.1
       axios-extensions: 3.1.3_axios@0.21.1
       css-tree: 1.1.2
-      esbuild: 0.8.55
+      esbuild: 0.8.56
       himalaya: 1.1.0
       himalaya-walk: 1.0.0
       html-lexer: 0.4.0
@@ -1779,7 +1779,7 @@ packages:
     dependencies:
       caniuse-lite: 1.0.30001196
       colorette: 1.2.2
-      electron-to-chromium: 1.3.680
+      electron-to-chromium: 1.3.681
       escalade: 3.1.1
       node-releases: 1.1.71
     dev: false
@@ -2389,10 +2389,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-IvyXa/rzBuCDmjHbjoITSA+vuJM=
-  /electron-to-chromium/1.3.680:
+  /electron-to-chromium/1.3.681:
     dev: false
     resolution:
-      integrity: sha512-XBACJT9RdpdWtoMXQPR8Be3ZtmizWWbxfw8cY2b5feUwiDO3FUl8qo4W2jXoq/WnnA3xBRqafu1XbpczqyUvlA==
+      integrity: sha512-W6uYvSUTHuyX2DZklIESAqx57jfmGjUkd7Z3RWqLdj9Mmt39ylhBuvFXlskQnvBHj0MYXIeQI+mjiwVddZLSvA==
   /emittery/0.8.1:
     engines:
       node: '>=10'
@@ -2474,12 +2474,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-p5um32HOTO1kP+w7PRnB+5lQ43Z6muuMuIMffvDN8ZB4GcnjLBV6zGStpbASIMk4DCAvEaamhe2zhyCb/QXXsA==
-  /esbuild/0.8.55:
+  /esbuild/0.8.56:
     dev: false
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-mM/s7hjYe5mQR+zAWOM5JVrCtYCke182E9l1Bbs6rG5EDP3b1gZF9sHZka53PD/iNt6OccymVZRWkTtBfcKW4w==
+      integrity: sha512-PTMdAWK3JI2MNW811znGssGP5GR44tQPr++VQ1rPP0n8Z1cTKbCPD3S/kXPLr3ZZDIwAaVm08fuFym6Rp8l/0A==
   /escalade/3.1.1:
     engines:
       node: '>=6'
@@ -3058,7 +3058,7 @@ packages:
   /graphile-worker/0.9.0:
     dependencies:
       '@types/debug': 4.1.5
-      '@types/pg': 7.14.10
+      '@types/pg': 7.14.11
       chokidar: 3.5.1
       cosmiconfig: 7.0.0
       json5: 2.2.0
@@ -4457,7 +4457,7 @@ packages:
   /pg-sql2/4.11.0_pg@8.5.1:
     dependencies:
       '@graphile/lru': 4.11.0
-      '@types/pg': 7.14.10
+      '@types/pg': 7.14.11
       debug: 4.3.1
       pg: 8.5.1
       tslib: 2.1.0
@@ -4583,7 +4583,7 @@ packages:
       '@graphile/lru': 4.11.0
       '@types/json5': 0.0.30
       '@types/jsonwebtoken': 8.5.0
-      '@types/pg': 7.14.10
+      '@types/pg': 7.14.11
       '@types/ws': 7.4.0
       body-parser: 1.19.0
       chalk: 2.4.2
@@ -4933,14 +4933,14 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-l+sSefzHpj5qimhFSE5a8nufZYAM3sBSVMAPtYkmC+4EH2anSGaEMXSD0izRQbu9nfyQ9y5JrVmp7E8oZrUjvA==
-  /retes/0.9.0:
+  /retes/0.10.0:
     dependencies:
       busboy: 0.3.1
       debug: 4.3.1
       zod: 2.0.0-beta.30
     dev: false
     resolution:
-      integrity: sha512-HXCnQB4XWDPP5dJuZioLUzWzKIaPoA2oJUncEVGP2nIWsaAbDew5NEjkMDeeCaKXNf8olUpL6Sq0/JiQM9aGOw==
+      integrity: sha512-n/z/F/EfWCxGELB8bMduXdsO9crml/BkjBncYgfJwtfThtV+9QF5H1CSfRtPyBHsW2ndEhDjLC3ByY8PoZQkGg==
   /reusify/1.0.4:
     engines:
       iojs: '>=1.0.0'
@@ -5096,7 +5096,7 @@ packages:
   /snowpack/3.0.13:
     dependencies:
       default-browser-id: 2.0.0
-      esbuild: 0.8.55
+      esbuild: 0.8.56
       open: 7.4.2
       resolve: 1.20.0
       rollup: 2.40.0
@@ -5510,13 +5510,13 @@ packages:
     dev: true
     resolution:
       integrity: sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==
-  /typescript/4.2.2:
+  /typescript/4.2.3:
     dev: false
     engines:
       node: '>=4.2.0'
     hasBin: true
     resolution:
-      integrity: sha512-tbb+NVrLfnsJy3M59lsDgrzWIflR4d4TIUjz+heUnHZwdF7YsrMTKoRERiIvI2lvBG95dfpLxB21WZhys1bgaQ==
+      integrity: sha512-qOcYwxaByStAWrBf4x0fibwZvMRG+r4cQoTjbPtUlrWjBHbmCAww1i448U0GJ+3cNNEtebDteo/cHOR3xJ4wEw==
   /ua-parser-js/0.7.24:
     dev: false
     resolution:
@@ -5882,12 +5882,12 @@ specifiers:
   postcss: ^8.2.7
   postgraphile: ^4.11.0
   prettier: 2.2.1
-  retes: ^0.9.0
+  retes: 0.10.0
   rsyncwrapper: ^3.0.1
   semver: ^7.3.4
   snowpack: 3.0.13
   stack-trace: 0.0.10
-  typescript: 4.2.2
+  typescript: 4.2.3
   validate: ^5.1.0
   ws: ^7.4.3
   yargs: 16.1.0
