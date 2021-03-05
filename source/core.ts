@@ -1,7 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import { Handler, ServerApp } from 'retes';
+import { Handler, Pipeline, ServerApp } from 'retes';
 import Path from 'path';
 
 import { build, translate } from './controller';
@@ -38,7 +38,7 @@ export const setupControllersFromFilesystem = (app: ServerApp) => {
       }
     }
 
-    for (const [operation, handler] of Object.entries(controller)) {
+    for (const [operation, handler] of Object.entries<Handler | Pipeline>(controller)) {
       let { method, route } = translate(operation, resource.toLowerCase());
 
       // TODO (later)
@@ -49,7 +49,6 @@ export const setupControllersFromFilesystem = (app: ServerApp) => {
       } else {
         app.add(method, route, handler as Handler);
       }
-
     }
   }
 }
