@@ -27,13 +27,16 @@ export default class Logger {
       if (paramsCopy[p]) paramsCopy[p] = '(redacted)'
     }
 
-    console.log(
-      color`┌ {magenta ${method}} {bold ${pathname}} → ${displayStatusCode(statusCode)} ${
-        httpstatus[statusCode]
-      }
+    // hide internal requests for the browser
+    if (!(pathname.startsWith("/_snowpack") || pathname.startsWith("/@/") || pathname.startsWith("/favicon.ico"))) {
+      console.log(
+        color`┌ {magenta ${method}} {bold ${pathname}} →  ${displayStatusCode(statusCode)} ${
+          httpstatus[statusCode]
+        }
 └ {gray Params}
 ${util.inspect(paramsCopy, { compact: false, colors: true, sorted: true }).slice(2, -2)}`
-    );
+      );
+    }
   }
 
   static printError(error, layer = 'General') {
