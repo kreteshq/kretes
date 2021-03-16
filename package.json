@@ -20,7 +20,7 @@
     "ava": "^3.15.0",
     "axios": "^0.21.1",
     "chalk": "^4.1.0",
-    "eslint": "^7.21.0",
+    "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "form-data": "^4.0.0",
@@ -65,7 +65,7 @@
     "lookpath": "^1.2.0",
     "mime-types": "^2.1.29",
     "pg": "^8.5.1",
-    "postcss": "^8.2.7",
+    "postcss": "^8.2.8",
     "postgraphile": "^4.11.0",
     "retes": "^0.10.0",
     "rsyncwrapper": "^3.0.1",
@@ -117,9 +117,15 @@
   },
   "typesVersions": {
     "*": {
-      "request": ["dist/request"],
-      "response": ["dist/response"],
-      "auth": ["dist/auth"]
+      "request": [
+        "dist/request"
+      ],
+      "response": [
+        "dist/response"
+      ],
+      "auth": [
+        "dist/auth"
+      ]
     }
   },
   "keywords": [
