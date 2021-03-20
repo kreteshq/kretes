@@ -2,8 +2,8 @@
   "dependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-hook-form": "^6.15.4",
-    "react-query": "^3.12.2",
+    "react-hook-form": "^6.15.5",
+    "react-query": "^3.13.0",
     "wouter": "^2.7.4",
     "clsx": "1.1.1"
   },

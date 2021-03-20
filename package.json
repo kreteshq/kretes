@@ -70,7 +70,7 @@
     "retes": "^0.10.0",
     "rsyncwrapper": "^3.0.1",
     "semver": "^7.3.4",
-    "snowpack": "3.0.13",
+    "snowpack": "3.1.2",
     "stack-trace": "0.0.10",
     "typescript": "4.2.3",
     "validate": "^5.1.0",
