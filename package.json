@@ -94,26 +94,11 @@
     }
   },
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    },
-    "./http": {
-      "import": "./dist/http/index.js",
-      "default": "./dist/http/index.js"
-    },
-    "./request": {
-      "import": "./dist/request.js",
-      "default": "./dist/request.js"
-    },
-    "./response": {
-      "import": "./dist/response.js",
-      "default": "./dist/response.js"
-    },
-    "./auth": {
-      "import": "./dist/auth.js",
-      "default": "./dist/auth.js"
-    }
+    ".": "./dist/index.js",
+    "./http": "./dist/http/index.js",
+    "./request": "./dist/request.js",
+    "./response": "./dist/response.js",
+    "./auth": "./dist/auth.js"
   },
   "typesVersions": {
     "*": {
