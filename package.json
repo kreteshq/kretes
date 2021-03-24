@@ -41,7 +41,7 @@
   "dependencies": {
     "@casl/ability": "^5.2.2",
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
-    "@poppinss/chokidar-ts": "^3.2.1",
+    "@poppinss/chokidar-ts": "^3.2.2",
     "@sqorn/pg": "0.0.45",
     "@zerollup/ts-transform-paths": "^1.7.18",
     "argon2": "^0.27.1",
@@ -69,7 +69,7 @@
     "postgraphile": "^4.11.0",
     "retes": "^0.10.0",
     "rsyncwrapper": "^3.0.1",
-    "semver": "^7.3.4",
+    "semver": "^7.3.5",
     "snowpack": "3.1.2",
     "stack-trace": "0.0.10",
     "typescript": "4.2.3",
