@@ -16,6 +16,7 @@ import {
   Routes, 
   LocalMiddleware,
   Pipeline,
+  CompoundResponse
 } from "retes";
 
 import * as Endpoint from "./endpoint";
@@ -156,6 +157,7 @@ export { Schema };
 export { 
   Request,
   Response,
+  CompoundResponse,
   Handler, 
   Routes, 
   LocalMiddleware as Middleware,
