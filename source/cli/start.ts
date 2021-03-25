@@ -15,6 +15,7 @@ import { PluginFn } from '@poppinss/chokidar-ts/build/src/Contracts';
 import * as _ from 'colorette';
 import pg from "pg";
 import { createConfiguration, startServer, logger, SnowpackUserConfig } from 'snowpack';
+import dotenv from 'dotenv';
 
 import Kretes from '../';
 import { parser } from '../parser';
@@ -49,6 +50,10 @@ const reloadSQL = async (pool, file) => {
 const startSnowpack = async () => {
   logger.level = 'silent';
 
+  const { parsed: envs } = dotenv.config();
+  const snowpackEnv = Object.fromEntries(Object.entries(envs)
+    .filter(([name, value]) => name.startsWith("PUBLIC_")));
+
   const defaultConfig = {
     root: process.cwd(),
     alias: {
@@ -76,7 +81,7 @@ const startSnowpack = async () => {
 
   const snowpackPlugins = Object.entries(snowpackConfig.plugins || [])
     .map<[string, any]>(([name, options]) => [`@snowpack/plugin-${name}`, options])
-  const snowpackEnv = snowpackConfig.env;
+
 
   const config = createConfiguration({ ...defaultConfig, plugins: snowpackPlugins });
   const server = await startServer(
