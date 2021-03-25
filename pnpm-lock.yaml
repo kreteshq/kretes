@@ -1131,10 +1131,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
-  /@types/estree/0.0.46:
+  /@types/estree/0.0.47:
     dev: false
     resolution:
-      integrity: sha512-laIjwTQaD+5DukBZaygQ79K1Z0jb1bPEMRrkXSLjtCcZm+abyp5YbrqpSLzD42FwWW6gK/aS4NYpJ804nG2brg==
+      integrity: sha512-c5ciR06jK8u9BstrmJyO97m+klJrrhCf9u3rLu3DEAJBirxRqSCvDQoYKmxuYwQI5SZChAWu+tq9oVlGRuzPAg==
   /@types/fs-extra/9.0.8:
     dependencies:
       '@types/node': 14.14.35
@@ -2482,12 +2482,12 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-j02SFrUwFTRUqiY0Kjplwjm1psuzO1d6AjaXKuOR9hrY0HuPsT6sV42B6myW34h1q4CRy+Y3g4RU/cGJeI/nNA==
-  /esbuild/0.9.6:
+  /esbuild/0.9.7:
     dev: false
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-F6vASxU0wT/Davt9aj2qtDwDNSkQxh9VbyO56M7PDWD+D/Vgq/rmUDGDQo7te76W5auauVojjnQr/wTu3vpaUA==
+      integrity: sha512-VtUf6aQ89VTmMLKrWHYG50uByMF4JQlVysb8dmg6cOgW8JnFCipmz7p+HNBl+RR3LLCuBxFGVauAe2wfnF9bLg==
   /escalade/3.1.1:
     engines:
       node: '>=6'
@@ -3555,7 +3555,7 @@ packages:
       integrity: sha512-hvpoI6korhJMnej285dSg6nu1+e6uxs7zG3BYAm5byqDsgJNWwxzM6z6iZiAgQR4TJ30JmBTOwqZUw3WlyH3AQ==
   /is-reference/1.2.1:
     dependencies:
-      '@types/estree': 0.0.46
+      '@types/estree': 0.0.47
     dev: false
     resolution:
       integrity: sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==
@@ -5139,7 +5139,7 @@ packages:
     dependencies:
       cli-spinners: 2.6.0
       default-browser-id: 2.0.0
-      esbuild: 0.9.6
+      esbuild: 0.9.7
       fdir: 5.0.0
       open: 7.4.2
       picomatch: 2.2.2
