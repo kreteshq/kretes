@@ -76,9 +76,18 @@ const startSnowpack = async () => {
 
   const snowpackPlugins = Object.entries(snowpackConfig.plugins || [])
     .map<[string, any]>(([name, options]) => [`@snowpack/plugin-${name}`, options])
+  const snowpackEnv = snowpackConfig.env;
 
   const config = createConfiguration({ ...defaultConfig, plugins: snowpackPlugins });
-  const server = await startServer({ config, lockfile: null });
+  const server = await startServer(
+    {
+      config: {
+        ...config,
+        env: snowpackEnv,
+      }, 
+      lockfile: null
+    }
+  );
 
   return server;
 };
