@@ -101,6 +101,8 @@ const handler = async ({ port, production, database }) => {
 
     app = await start({ port, database });
   } else {
+    await fs.emptyDir('public')
+
     const TS = require('typescript/lib/typescript');
     const compiler = new TypescriptCompiler(
       CWD,
