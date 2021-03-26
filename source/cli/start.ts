@@ -7,7 +7,6 @@ import { join, parse, sep, extname } from 'path';
 import color from 'chalk';
 import { TypescriptCompiler } from '@poppinss/chokidar-ts';
 import fs from 'fs-extra';
-import postcss from 'postcss';
 import { Response } from 'retes';
 import transformPaths from '@zerollup/ts-transform-paths';
 import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
@@ -25,6 +24,7 @@ import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 import { App } from '../manifest'
 import { start } from './run';
 import { SnowpackConfig } from '../config/snowpack';
+import { compileCSS } from '../compiler/css';
 
 const CWD = process.cwd();
 const VERSION = require('../../package.json').version;
@@ -247,27 +247,6 @@ const makeRemoteService = async (app, dir, name) => {
       const result = await service[method]();
       return JSONPayload(result, 200);
     });
-  }
-};
-
-const compileCSS = async () => {
-  const { plugins } = require(join(CWD, 'config', 'postcss.config'));
-
-  try {
-    const content = await fs.readFile(join(CWD, 'stylesheets', 'main.css'));
-    const { css } = await postcss(plugins).process(content, {
-      from: 'stylesheets/main.css',
-      to: 'main.css',
-      map: { inline: true },
-    });
-
-    fs.outputFile(join(CWD, 'public', 'main.css'), css);
-  } catch (error) {
-    if (error.name === 'CssSyntaxError') {
-      console.error(`  ${error.message}\n${error.showSourceCode()}`);
-    } else {
-      throw error;
-    }
   }
 };
 
