@@ -13,10 +13,10 @@
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
     "@types/config": "^0.0.38",
-    "@types/fs-extra": "^9.0.8",
+    "@types/fs-extra": "^9.0.9",
     "@types/lru-cache": "^5.1.0",
     "@types/semver": "^7.3.4",
-    "@types/yargs": "^16.0.0",
+    "@types/yargs": "^16.0.1",
     "ava": "^3.15.0",
     "axios": "^0.21.1",
     "chalk": "^4.1.0",
