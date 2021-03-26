@@ -28,21 +28,12 @@ const rsync = async (options, showCommand = false) => {
 export const handler = async ({ showCommand }) => {
   const { default: config } = await import('config'); // defer the config loading
 
-  const { server, client } = config.get('deploy');
+  const deployOptions = config.get('deploy');
   try {
     console.log(
-      `${bold.blue('Kretes:')} ${underline(VERSION)} ${green('rsync')} - deploying ${magenta(
-        'server'
-      )} ...`
+      `${bold.blue('Kretes:')} ${underline(VERSION)} ${green('rsync')} - deploying ...`
     );
-    await rsync(server, showCommand);
-
-    console.log(
-      `${bold.blue('Kretes:')} ${underline(VERSION)} ${green('rsync')} - deploying ${magenta(
-        'client'
-      )} ...`
-    );
-    await rsync(client, showCommand);
+    await rsync(deployOptions, showCommand);
   } catch (error) {
     switch (error.message) {
       case 'rsync exited with code 3':
@@ -52,6 +43,7 @@ export const handler = async ({ showCommand }) => {
         break;
       default:
         console.log('[rsync] Unknown Error');
+        console.error(error.message)
         break;
     }
   }
