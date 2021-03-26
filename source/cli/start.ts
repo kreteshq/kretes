@@ -14,7 +14,7 @@ import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
 import { PluginFn } from '@poppinss/chokidar-ts/build/src/Contracts';
 import * as _ from 'colorette';
 import pg from "pg";
-import { createConfiguration, startServer, logger, SnowpackUserConfig } from 'snowpack';
+import { createConfiguration, startServer, logger } from 'snowpack';
 import dotenv from 'dotenv';
 
 import Kretes from '../';
@@ -24,6 +24,7 @@ import { notice, print } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 import { App } from '../manifest'
 import { start } from './run';
+import { SnowpackConfig } from '../config/snowpack';
 
 const CWD = process.cwd();
 const VERSION = require('../../package.json').version;
@@ -54,36 +55,12 @@ const startSnowpack = async () => {
   const snowpackEnv = Object.fromEntries(Object.entries(envs)
     .filter(([name, value]) => name.startsWith("PUBLIC_")));
 
-  const defaultConfig = {
-    root: process.cwd(),
-    alias: {
-      '@/components': './components',
-      '@/hooks': './hooks',
-      '@/types': './types',
-    },
-    mount: {
-      components: '/@/components/',
-      hooks: '/@/hooks/',
-      site: '/',
-      public: { url: '/', static: true, resolve: false },
-    },
-    packageOptions: {},
-    exclude: ['**/site/_api/**/*', '**/controllers/**/*'],
-    devOptions: {
-      hmr: true,
-      port: 3333,
-      open: 'none',
-      output: 'stream',
-    },
-  } as SnowpackUserConfig;
-
   const { snowpack: snowpackConfig = {} } = require(join(CWD, 'config', 'default.json'));
 
   const snowpackPlugins = Object.entries(snowpackConfig.plugins || [])
     .map<[string, any]>(([name, options]) => [`@snowpack/plugin-${name}`, options])
 
-
-  const config = createConfiguration({ ...defaultConfig, plugins: snowpackPlugins });
+  const config = createConfiguration({ ...SnowpackConfig, plugins: snowpackPlugins });
   const server = await startServer(
     {
       config: {
@@ -108,7 +85,6 @@ const handler = async ({ port, production, database }) => {
   process.env.KRETES = production ? 'production' : 'development';
 
   let app: Kretes;
-
 
   if (isDatabaseConfigured()) {
     const config = require("config");
