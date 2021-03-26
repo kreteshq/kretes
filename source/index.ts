@@ -116,8 +116,9 @@ export default class Kretes extends ServerApp {
     this.use(M.Extractor());
     if (process.env.KRETES != "production") {
       // middlewares to run ONLY in Development
-      this.use(M.Snowpack(this.snowpack, this.routes))
+      this.use(M.Snowpack(this.snowpack))
     }
+    this.use(M.SPA(this.routes));
 
     // append 404 middleware handler: it must be put at the end and only once
     // TODO Move to `catch` for pattern matching ?

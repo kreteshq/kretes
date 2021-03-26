@@ -8,6 +8,7 @@ export { Routing } from './routing';
 export { Security } from './security';
 export { Serve } from './serve';
 export { Snowpack } from './snowpack';
+export { SPA } from './spa';
 
 export class Base extends Array {
   async next(context, last, current, done?, called?, func?) {
