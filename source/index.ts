@@ -114,8 +114,7 @@ export default class Kretes extends ServerApp {
     this.use(M.Caching());
     this.use(M.Serve(this.staticDir));
     this.use(M.Extractor());
-
-    if (process.env.NODE_ENV != "production") {
+    if (process.env.KRETES != "production") {
       // middlewares to run ONLY in Development
       this.use(M.Snowpack(this.snowpack, this.routes))
     }
