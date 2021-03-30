@@ -5,21 +5,24 @@ const { exec } = require('child_process');
 const cwd = process.cwd();
 import * as _ from 'colorette';
 
-import { print, println, run } from '../../util';
+import { isDatabaseConfigured, print, println, run } from '../../util';
 
 export const handler = async () => {
-  const { default: config } = await import('config'); // defer the config loading
-
-  if (!config.has("db")) {
+  if (!isDatabaseConfigured()) {
     println(`${_.red('Error')}`)
     println(`Provide the database details in 'config/default.json'`)
 
     process.exit(1);
   }
 
-  const { database } = config.get('db');
+  const { default: config } = await import('config'); // defer the config loading
+  const { database, user, password } = config.get('db');
 
-  print(`Droping database '${database}': `);
+  // FIXME this doesn't look good
+  process.env.PGUSER = user || process.env.PGUSER || "";
+  process.env.PGPASSWORD = password || process.env.PGPASSWORD || "";
+
+  print(`Dropping database '${database}': `);
   await run('dropdb', [database, '--if-exists'], { cwd });
   println(_.green('OK'));
 

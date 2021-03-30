@@ -1,6 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
+import { join } from 'path';
 import { spawn } from 'child_process';
 import * as _ from 'colorette';
 
@@ -130,16 +131,18 @@ interface Options {
   stdout?: 'inherit' | 'pipe' | number
   stderr?: 'inherit' | 'pipe' | number
   cwd?: string
+  env?: any 
 }
 
 export const run = async (
   command,
   args,
-  { stdin = 'ignore', stdout = 'inherit', stderr = 'inherit', cwd = '.' }: Options = {}
+  { stdin = 'ignore', stdout = 'inherit', stderr = 'inherit', cwd = '.', env = {} }: Options = {}
 ): Promise<void> => {
   return await new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       stdio: [stdin, stdout, stderr],
+      env: {...process.env, ...env},
       cwd,
     });
     child.on('exit', code => {
@@ -190,3 +193,9 @@ export const interpolate = (template: string, vars: object = {}) => {
 
   return handler(vars)
 }
+
+export const isDatabaseConfigured = () => {
+  const config = require(join(process.cwd(), 'config', 'default.json'));
+  const { PGHOST, PGPORT, PGDATABASE, PGDATA } = process.env;
+  return 'db' in config || (PGHOST && PGPORT && PGDATABASE && PGDATA);
+};

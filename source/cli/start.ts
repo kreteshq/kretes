@@ -19,7 +19,7 @@ import dotenv from 'dotenv';
 import Kretes from '../';
 import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
-import { notice, print } from '../util';
+import { isDatabaseConfigured, notice, print } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 import { App } from '../manifest'
 import { start } from './run';
@@ -72,12 +72,6 @@ const startSnowpack = async () => {
   );
 
   return server;
-};
-
-const isDatabaseConfigured = () => {
-  const config = require(join(CWD, 'config', 'default.json'));
-  const { PGHOST, PGPORT, PGDATABASE, PGDATA } = process.env;
-  return 'db' in config || (PGHOST && PGPORT && PGDATABASE && PGDATA);
 };
 
 const handler = async ({ port, production, database }) => {
