@@ -1,12 +1,17 @@
 <p align="center">
-  <img width="250" src="/docs/kretes-logo.svg">
+  <a href="https://kretes.dev">
+    <img width="180" src="/docs/kretes-logo.svg">
+  </a>
+</p>
+
+<h1 align="center">Kretes</h1>
+
+<p align="center">
+  <img src="/docs/kretes-header.png">
 </p>
 
 <p align="center">
-  <h1 align="center">Programming Environment <br/> for <span style="color: #4299e1">TypeScript</span> & Node.js</h1>
-</p>
-
-<h3 align="center">A battery-included TypeScript framework built on top of Visual Studio Code</h3>
+Kretes is a <strong>programming environment</strong> for building modern web applications using TypeScript & Node.js with <em>batteries included</em> approach. It is an <strong>integrated</strong> solution that optimizes for programmers productivity by reducing choices and incorporating community conventions. </p>
 
 <h3 align="center"><a href="https://kretes.dev" target="_blank">Website</a></h3>
 
@@ -17,9 +22,6 @@
   <a href="https://www.npmjs.com/package/kretes"><img src="https://img.shields.io/npm/v/kretes.svg?style=for-the-badge" alt="Kretes Package on NPM"></a>
   <a href="https://www.youtube.com/playlist?list=PLhXZp00uXBk72m_G7E2Bshzd7PDpaInE1"><img src="https://img.shields.io/badge/YouTube-Watch%20Screencasts-red?style=for-the-badge" alt="Kretes related screencasts on YouTube"></a>
 </a>
-
-Kretes is a **programming environment** for building modern web applications
-using TypeScript & Node.js with « batteries included » approach. It is an **integrated** solution that optimizes for programmers productivity by reducing choices and incorporating community conventions.
 
 
 ## Table of Contents
