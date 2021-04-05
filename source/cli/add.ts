@@ -21,5 +21,5 @@ export async function handler({ pkg, dev }: { pkg: string, dev: boolean }) {
   }
 }
 
-export const builder = (_: Argv) => _
+export const builder = _ => _
   .option('dev', { alias: 'D', type: 'boolean', default: false })

@@ -4,6 +4,8 @@
 // Licensed under the Apache License, Version 2.0
 
 import { valid, satisfies, validRange } from 'semver';
+import yargs from 'yargs';
+
 const {
   engines: { node: version }
 } = require('../package.json');
@@ -16,31 +18,50 @@ if (actual && !satisfies(actual, expected)) {
   process.exit(1);
 }
 
-const _argv = require('yargs')
+import generate from './cli/generate';
+import background from './cli/background';
+import database from './cli/database';
+import docker from './cli/docker';
+
+import * as init from './cli/init';
+import * as start from './cli/start';
+import * as run from './cli/run';
+import * as add from './cli/add';
+import * as install from './cli/install';
+import * as upgrade from './cli/upgrade';
+import * as setup from './cli/setup';
+import * as build from './cli/build';
+import * as deploy from './cli/deploy';
+import * as routes from './cli/routes';
+import * as migrate from './cli/migrate';
+import * as doctor from './cli/doctor';
+import * as clean from './cli/clean';
+
+const _argv = yargs 
   .version()
   .alias('V', 'version')
   .usage('Usage: $0 <command> [options]')
-  .command(['new [dir]', 'init', 'n'], 'Create new project', require('./cli/init'))
-  .command(['start', 's'], 'Start the application', require('./cli/start'))
-  .command(['run'], 'Start the application', require('./cli/run'))
-  .command(['add <pkg>'], 'Add package as project dependency', require('./cli/add'))
-  .command(['install', 'i'], 'Install dependencies', require('./cli/install'))
-  .command(['upgrade', 'up'], 'Upgrade packages', require('./cli/upgrade'))
-  .command(['setup'], 'Setup the development environment', require('./cli/setup'))
-  .command(['build', 'b'], 'Build the application for production', require('./cli/build'))
-  .command(['database [command]', 'db'], 'Database operations', require('./cli/database'))
-  .command(['deploy', 'deploy', 'de'], 'Deploy the application', require('./cli/deploy'))
-  .command(['generate [command]', 'g'], 'Generate various artifacts', require('./cli/generate'))
-  .command(['docker [command]'], 'Docker interface', require('./cli/docker'))
-  .command(['routes', 'r'], 'Display routes', require('./cli/routes'))
-  // .command(['migrate', 'm'], 'Run database migrations', require('./cli/migrate'))
-  .command(['background', 'bg'], 'Run background processing', require('./cli/background'))
-  .command(['doctor', 'doc'], 'Run the doctor utility', require('./cli/doctor'))
+  .command(['new [dir]', 'init', 'n'], 'Create new project', init.builder, init.handler)
+  .command(['start', 's'], 'Start the application', start.builder, start.handler)
+  .command(['run'], 'Start the application', run.builder, run.handler)
+  .command(['add <pkg>'], 'Add package as project dependency', add.builder, add.handler)
+  .command(['install', 'i'], 'Install dependencies', install.builder, install.handler)
+  .command(['upgrade', 'up'], 'Upgrade packages', upgrade.builder, upgrade.handler)
+  .command(['setup'], 'Setup the development environment', setup.builder, setup.handler)
+  .command(['build', 'b'], 'Build the application for production', build.builder, build.handler)
+  .command(['database [command]', 'db'], 'Database operations', database)
+  .command(['deploy', 'deploy', 'de'], 'Deploy the application', deploy.builder, deploy.handler)
+  .command(['generate [command]', 'g'], 'Generate various artifacts', generate)
+  .command(['docker [command]'], 'Docker interface', docker)
+  .command(['routes', 'r'], 'Display routes', routes.builder, routes.handler)
+  .command(['migrate', 'm'], 'Run database migrations', migrate.builder, migrate.handler)
+  .command(['background', 'bg'], 'Run background processing', background)
+  .command(['doctor', 'doc'], 'Run the doctor utility', doctor.builder, doctor.handler)
   .example('$0 new my-project', 'Create and initialize `my-project` directory')
   .example('$0 start', 'Start the application')
-  // .example('$0 build', 'Build the application for production')
-  // .example('$0 deploy', 'Deploy the application')
-  .command(['clean'], 'Clear the cache', require('./cli/clean'))
+  .example('$0 build', 'Build the application for production')
+  .example('$0 deploy', 'Deploy the application')
+  .command(['clean'], 'Clear the cache', clean.builder, clean.handler)
   .strictCommands()
   .demandCommand(1, 'You need at least one command before moving on')
   .help('h')

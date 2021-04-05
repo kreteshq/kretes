@@ -36,7 +36,7 @@ dependencies:
   typescript: 4.2.3
   validate: 5.1.0
   ws: 7.4.4
-  yargs: 16.1.0
+  yargs: 16.2.0
 devDependencies:
   '@ava/typescript': 1.1.1
   '@types/config': 0.0.38
@@ -53,7 +53,7 @@ devDependencies:
   prettier: 2.2.1
 lockfileVersion: 5.2
 packages:
-  /@apollo/client/3.3.13_graphql@15.5.0:
+  /@apollo/client/3.3.14_graphql@15.5.0:
     dependencies:
       '@graphql-typed-document-node/core': 3.1.0_graphql@15.5.0
       '@types/zen-observable': 0.8.2
@@ -80,7 +80,7 @@ packages:
       subscriptions-transport-ws:
         optional: true
     resolution:
-      integrity: sha512-usiVmXiOq0J/GpyIOIhlF8ItHpiPJObC7zoxLYPoOYj3G3OB0hCIcUKs3aTJ3ATW7u8QxvYgRaJg72NN7E1WOg==
+      integrity: sha512-z7YwMvF9grmpWUG+26e3gPcBAOA/r/Ci5gwK7JVm3bGYG9kKqG8MF6sMXEbuwTsFseE4duSp0icJ6tdzxJhhlA==
   /@ardatan/aggregate-error/0.0.6:
     dependencies:
       tslib: 2.0.3
@@ -1433,7 +1433,7 @@ packages:
       integrity: sha512-mM8522psRCqzV+6LhomX5wgp25YVibjh8Wj23I5RPkPppSVSjyKD2A2mBJmWGa+KN7f2D6LNh9jkBCeyLktzjg==
   /apollo-upload-client/14.1.3_graphql@15.5.0:
     dependencies:
-      '@apollo/client': 3.3.13_graphql@15.5.0
+      '@apollo/client': 3.3.14_graphql@15.5.0
       '@babel/runtime': 7.13.10
       extract-files: 9.0.0
       graphql: 15.5.0
@@ -3491,13 +3491,13 @@ packages:
       has: 1.0.3
     resolution:
       integrity: sha512-XRAfAdyyY5F5cOXn7hYQDqh2Xmii+DEfIcQGxK/uNwMHhIkPWO0g8msXcbzLe+MpGoR951MlqM/2iIlU4vKDdQ==
-  /is-docker/2.1.1:
+  /is-docker/2.2.0:
     dev: false
     engines:
       node: '>=8'
     hasBin: true
     resolution:
-      integrity: sha512-ZOoqiXfEwtGknTiuDEy8pN2CfE3TxMHprvNer1mXiqwkOT77Rw3YVrUQ52EqAOU3QAWDQ+bQdx7HJzrv7LS2Hw==
+      integrity: sha512-K4GwB4i/HzhAzwP/XSlspzRdFTI9N8OxJOyOU7Y5Rz+p+WBokXWVWblaJeBkggthmoSV0OoGTH5thJNvplpkvQ==
   /is-error/2.2.2:
     dev: true
     resolution:
@@ -3624,7 +3624,7 @@ packages:
       integrity: sha512-knxG2q4UC3u8stRGyAVJCOdxFmv5DZiRcdlIaAQXAbSfJya+OhopNotLQrstBhququ4ZpuKbDc/8S6mgXgPFPw==
   /is-wsl/2.2.0:
     dependencies:
-      is-docker: 2.1.1
+      is-docker: 2.2.0
     dev: false
     engines:
       node: '>=8'
@@ -4254,7 +4254,7 @@ packages:
       integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==
   /open/7.4.2:
     dependencies:
-      is-docker: 2.1.1
+      is-docker: 2.2.0
       is-wsl: 2.2.0
     dev: false
     engines:
@@ -5852,20 +5852,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
-  /yargs/16.1.0:
-    dependencies:
-      cliui: 7.0.4
-      escalade: 3.1.1
-      get-caller-file: 2.0.5
-      require-directory: 2.1.1
-      string-width: 4.2.2
-      y18n: 5.0.6
-      yargs-parser: 20.2.7
-    dev: false
-    engines:
-      node: '>=10'
-    resolution:
-      integrity: sha512-upWFJOmDdHN0syLuESuvXDmrRcWd1QafJolHskzaw79uZa7/x53gxQKiR07W59GWY1tFhhU/Th9DrtSfpS782g==
   /yargs/16.2.0:
     dependencies:
       cliui: 7.0.4
@@ -5944,4 +5930,4 @@ specifiers:
   typescript: 4.2.3
   validate: ^5.1.0
   ws: ^7.4.4
-  yargs: 16.1.0
+  yargs: 16.2.0

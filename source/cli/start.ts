@@ -66,7 +66,7 @@ const startSnowpack = async () => {
       config: {
         ...config,
         env: snowpackEnv,
-      }, 
+      },
       lockfile: null
     }
   );
@@ -74,7 +74,7 @@ const startSnowpack = async () => {
   return server;
 };
 
-const handler = async ({ port, production, database }) => {
+export const handler = async ({ port, production, database }) => {
   print(notice('Kretes'));
   process.env.KRETES = production ? 'production' : 'development';
 
@@ -174,7 +174,7 @@ const handler = async ({ port, production, database }) => {
         for (const key of Object.keys(require.cache)) {
           // TODO change to RegEx
           // if (key.includes(controllersCursor) || key.includes(apiCursor)) {
-            delete require.cache[key];
+          delete require.cache[key];
           // }
         }
         debug('require.cache cleaned')
@@ -246,11 +246,9 @@ const makeRemoteService = async (app, dir, name) => {
   }
 };
 
-module.exports = {
-  builder: (_) =>
-    _.option('port', { alias: 'p', default: 5544 })
-      .option('production', { type: 'boolean', default: false })
-      .option('database', { type: 'boolean' })
-      .default('dir', '.'),
-  handler,
-};
+
+export const builder = _ => _
+  .option('port', { alias: 'p', default: 5544 })
+  .option('production', { type: 'boolean', default: false })
+  .option('database', { type: 'boolean' })
+  .default('dir', '.');

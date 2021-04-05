@@ -6,7 +6,7 @@ const { exec } = require('child_process');
 
 const { run } = require('../util');
 
-async function handler(_) {
+export async function handler(_) {
   console.log('Setup...');
 
   const cwd = process.cwd();
@@ -30,8 +30,4 @@ async function handler(_) {
   // stderr.pipe(process.stderr);
 }
 
-module.exports = {
-  command: 'setup',
-  builder: {},
-  handler,
-};
+export const builder = _ => {};
