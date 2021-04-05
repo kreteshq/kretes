@@ -1,24 +1,18 @@
-<p align="center">
-  <a href="https://kretes.dev">
-    <img width="180" src="/docs/kretes-logo.svg">
-  </a>
-</p>
-
-<h1 align="center">Kretes</h1>
 
 <p align="center">
   <img src="/docs/kretes-header.png">
 </p>
 
-<p align="center">
-Kretes is a <strong>programming environment</strong> for building modern web applications using TypeScript & Node.js with <em>batteries included</em> approach. It is an <strong>integrated</strong> solution that optimizes for programmers productivity by reducing choices and incorporating community conventions. </p>
+<h1>Kretes</h1>
 
-<h3 align="center"><a href="https://kretes.dev" target="_blank">Website</a></h3>
+Kretes is a <strong>programming environment</strong> for building modern web applications using TypeScript & Node.js with <em>batteries included</em> approach. It is an <strong>integrated</strong> solution that optimizes for programmers productivity by reducing choices and incorporating community conventions. 
+
+<h3><a href="https://kretes.dev" target="_blank">kretes.dev</a> • <a href="https://kretes.dev/docs/tutorial/">Tutorial</a></h3>
 
 <br>
 
-<p align="center">
-  <a href="https://discord.gg/befPaNb"><img src="https://img.shields.io/badge/Discord-join%20the%20community-738bd7.svg?style=for-the-badge" alt="Kretes channel on Discord"></a>
+<p>
+  <a href="https://discord.gg/befPaNb"><img src="https://img.shields.io/discord/565644888889098241?color=738bd7&label=Let%27s%20chat&style=for-the-badge" alt="Kretes channel on Discord"></a>
   <a href="https://www.npmjs.com/package/kretes"><img src="https://img.shields.io/npm/v/kretes.svg?style=for-the-badge" alt="Kretes Package on NPM"></a>
   <a href="https://www.youtube.com/playlist?list=PLhXZp00uXBk72m_G7E2Bshzd7PDpaInE1"><img src="https://img.shields.io/badge/YouTube-Watch%20Screencasts-red?style=for-the-badge" alt="Kretes related screencasts on YouTube"></a>
 </a>
