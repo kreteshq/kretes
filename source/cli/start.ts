@@ -51,7 +51,7 @@ const reloadSQL = async (pool, file) => {
 const startSnowpack = async () => {
   logger.level = 'silent';
 
-  const { parsed: envs } = dotenv.config();
+  const { parsed: envs = {} } = dotenv.config();
   const snowpackEnv = Object.fromEntries(Object.entries(envs)
     .filter(([name, value]) => name.startsWith("PUBLIC_")));
 
