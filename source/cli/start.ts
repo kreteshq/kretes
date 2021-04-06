@@ -60,7 +60,14 @@ const startSnowpack = async () => {
   const snowpackPlugins = Object.entries(snowpackConfig.plugins || [])
     .map<[string, any]>(([name, options]) => [`@snowpack/plugin-${name}`, options])
 
-  const config = createConfiguration({ ...SnowpackConfig, plugins: snowpackPlugins });
+  const config = createConfiguration({
+    ...SnowpackConfig, plugins: [
+      ...snowpackPlugins, 
+      ["@snowpack/plugin-postcss", { config: join(process.cwd(), 'config', 'postcss.config.js') }],
+      ["@kretes/plugin-refresh", {}],
+    ]
+  });
+  
   const server = await startServer(
     {
       config: {

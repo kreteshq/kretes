@@ -8,7 +8,7 @@ export const Snowpack = (server: SnowpackDevServer) => {
   return async (context, next) => {
     const { request: { url } } = context;
 
-    if (url.endsWith(".js")) {
+    if (url.endsWith(".js") || url.endsWith(".css")) {
       const { contents, contentType } = await server.loadUrl(url);
       return OK(contents.toString(), { 'Content-Type': contentType })
     }

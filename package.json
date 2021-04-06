@@ -12,6 +12,8 @@
   },
   "devDependencies": {
     "@ava/typescript": "^1.1.1",
+    "@kretes/plugin-refresh": "link:scripts/refresh",
+    "@snowpack/plugin-postcss": "^1.2.2",
     "@types/config": "^0.0.38",
     "@types/fs-extra": "^9.0.10",
     "@types/lru-cache": "^5.1.0",
