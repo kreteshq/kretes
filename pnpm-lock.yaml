@@ -4,7 +4,6 @@ specifiers:
   '@ava/typescript': ^1.1.1
   '@casl/ability': ^5.2.2
   '@graphile-contrib/pg-simplify-inflector': ^6.1.0
-  '@kretes/plugin-refresh': link:scripts/refresh
   '@poppinss/chokidar-ts': ^3.2.2
   '@snowpack/plugin-postcss': ^1.2.2
   '@sqorn/pg': 0.0.45
@@ -39,6 +38,7 @@ specifiers:
   graphql-tag: ^2.11.0
   graphql-tools: ^7.0.4
   http-status: ^1.5.0
+  kretes-snowpack-refresh: ^0.0.3
   lookpath: ^1.2.0
   mime-types: ^2.1.30
   pg: ^8.5.1
@@ -97,7 +97,6 @@ dependencies:
 
 devDependencies:
   '@ava/typescript': 1.1.1
-  '@kretes/plugin-refresh': link:scripts/refresh
   '@snowpack/plugin-postcss': 1.2.2_postcss@8.2.9
   '@types/config': 0.0.38
   '@types/fs-extra': 9.0.10
@@ -110,6 +109,7 @@ devDependencies:
   eslint-config-prettier: 8.1.0_eslint@7.23.0
   eslint-plugin-prettier: 3.3.1_b12b1e2728f2b373ebd5879b14325d0d
   form-data: 4.0.0
+  kretes-snowpack-refresh: 0.0.3_snowpack@3.2.2
   prettier: 2.2.1
 
 packages:
@@ -246,7 +246,7 @@ packages:
   /@babel/helper-get-function-arity/7.12.13:
     resolution: {integrity: sha512-DjEVzQNz5LICkzN0REdpD5prGoidvbdYk1BVgRUOINaWJP2t6avB27X1guXK1kXNrX0WMfsrm1A/ZBthYuIMQg==}
     dependencies:
-      '@babel/types': 7.13.14
+      '@babel/types': 7.12.13
     dev: false
 
   /@babel/helper-member-expression-to-functions/7.13.12:
@@ -625,7 +625,7 @@ packages:
     resolution: {integrity: sha512-/7xxiGA57xMo/P2GVvdEumr8ONhFOhfgq2ihK3h1e6THqzTAkHbkXgB0xI9yeTfIUoH3+oAeHhqm/I43OTbbjA==}
     dependencies:
       '@babel/code-frame': 7.12.13
-      '@babel/parser': 7.12.16
+      '@babel/parser': 7.13.13
       '@babel/types': 7.13.14
     dev: false
 
@@ -1741,8 +1741,8 @@ packages:
     resolution: {integrity: sha1-MasayLEpNjRj41s+u2n038+6eUc=}
     dev: false
 
-  /balanced-match/1.0.1:
-    resolution: {integrity: sha512-qyTw2VPYRg31SlVU5WDdvCSyMTJ3YSP4Kz2CidWZFPFawCiHJdCyKyZeXIGMJ5ebMQYXEI56kDR8tcnDkbZstg==}
+  /balanced-match/1.0.2:
+    resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
   /base64-js/1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
@@ -1843,7 +1843,7 @@ packages:
   /brace-expansion/1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
     dependencies:
-      balanced-match: 1.0.1
+      balanced-match: 1.0.2
       concat-map: 0.0.1
 
   /braces/3.0.2:
@@ -3698,6 +3698,15 @@ packages:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
     dev: false
+
+  /kretes-snowpack-refresh/0.0.3_snowpack@3.2.2:
+    resolution: {integrity: sha512-jJabORUMLOJMAgm83SwybKZdkVjkAF2hMqeWS/a+YArnTXWxTRuJxxhsjjGmNI7m9d2vz0iNMEF9cBZCnZbi7w==}
+    peerDependencies:
+      snowpack: ^3.2.2
+      tailwindcss: ^2.1.0
+    dependencies:
+      snowpack: 3.2.2
+    dev: true
 
   /latest-version/5.1.0:
     resolution: {integrity: sha512-weT+r0kTkRQdCdYCNtkMwWXQTMEswKrFBkm4ckQOMVhhqhIMI1UT2hMj+1iigIhgSZm5gTmrRXBNoGUgaTY1xA==}

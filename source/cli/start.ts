@@ -64,7 +64,7 @@ const startSnowpack = async () => {
     ...SnowpackConfig, plugins: [
       ...snowpackPlugins, 
       ["@snowpack/plugin-postcss", { config: join(process.cwd(), 'config', 'postcss.config.js') }],
-      ["@kretes/plugin-refresh", {}],
+      ["kretes-snowpack-refresh", {}],
     ]
   });
   
