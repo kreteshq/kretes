@@ -23,3 +23,4 @@ export const handler = async () => {
 };
 
 export const builder = (_: Argv) => _;
+export const command = 'start';
