@@ -32,7 +32,7 @@
     "prepublishOnly": "tsc && tsc -p http",
     "pretest": "tsc",
     "test": "ava",
-    "dev:main": "tsc -w",
+    "dev:main": "rm -rf dist && tsc -w",
     "dev:client": "tsc -w -p http",
     "build": "rm -rf dist && tsc -p . && tsc -p http",
     "debug": "node --inspect cli.js",
