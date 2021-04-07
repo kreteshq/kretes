@@ -55,14 +55,20 @@ const startSnowpack = async () => {
   const snowpackEnv = Object.fromEntries(Object.entries(envs)
     .filter(([name, value]) => name.startsWith("PUBLIC_")));
 
-  const { snowpack: snowpackConfig = {} } = require(join(CWD, 'config', 'default.json'));
+  const { default: config } = await import('config');
 
-  const snowpackPlugins = Object.entries(snowpackConfig.plugins || [])
+  let plugins = []
+  if (config.has('snowpack')) {
+    plugins = config.get('snowpack.plugins');
+  }
+
+  const snowpackPlugins = Object.entries(plugins)
     .map<[string, any]>(([name, options]) => [`@snowpack/plugin-${name}`, options])
 
-  const config = createConfiguration({
-    ...SnowpackConfig, plugins: [
-      ...snowpackPlugins, 
+  const snowpackConfig = createConfiguration({
+    ...SnowpackConfig,
+    plugins: [
+      ...snowpackPlugins,
       ["@snowpack/plugin-postcss", { config: join(process.cwd(), 'config', 'postcss.config.js') }],
       ["kretes-snowpack-refresh", {}],
     ]
@@ -71,7 +77,7 @@ const startSnowpack = async () => {
   const server = await startServer(
     {
       config: {
-        ...config,
+        ...snowpackConfig,
         env: snowpackEnv,
       },
       lockfile: null

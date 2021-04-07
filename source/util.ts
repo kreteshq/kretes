@@ -194,8 +194,8 @@ export const interpolate = (template: string, vars: object = {}) => {
   return handler(vars)
 }
 
-export const isDatabaseConfigured = () => {
-  const config = require(join(process.cwd(), 'config', 'default.json'));
+export const isDatabaseConfigured = async () => {
+  const { default: config } = await import('config'); // defer the config loading
   const { PGHOST, PGPORT, PGDATABASE, PGDATA } = process.env;
-  return 'db' in config || (PGHOST && PGPORT && PGDATABASE && PGDATA);
+  return config.has('db') || (PGHOST && PGPORT && PGDATABASE && PGDATA);
 };
