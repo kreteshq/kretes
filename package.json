@@ -76,7 +76,7 @@
     "semver": "^7.3.5",
     "snowpack": "3.2.2",
     "stack-trace": "0.0.10",
-    "typescript": "4.2.3",
+    "typescript": "4.2.4",
     "validate": "^5.1.0",
     "ws": "^7.4.4",
     "yargs": "16.2.0"
