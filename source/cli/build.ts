@@ -13,7 +13,7 @@ import { PluginFn } from '@poppinss/chokidar-ts/build/src/Contracts';
 import { TypescriptCompiler } from '@poppinss/chokidar-ts';
 
 import { run, print, notice, println } from '../util';
-import { SnowpackConfig } from '../config/snowpack';
+import { SnowpackConfig as DefaultSnowpackConfig } from '../config/snowpack';
 import { compileCSS } from '../compiler/css';
 
 const scriptSnippet = '<script type="module" src="/index.js"></script>';
@@ -54,8 +54,13 @@ export const handler = async () => {
   try {
     println(notice('Build'));
 
-    // FIXME hook Snowpack
-    const config = createConfiguration(SnowpackConfig);
+    const config = createConfiguration({
+      ...DefaultSnowpackConfig,
+      plugins: [
+        ["@snowpack/plugin-postcss", { config: join(process.cwd(), 'config', 'postcss.config.js') }],
+      ]
+    })
+
     const result = await build({ config, lockfile: null });
 
     const indexHTML = join(cwd, 'public', 'index.html');
