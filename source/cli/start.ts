@@ -83,7 +83,7 @@ const startSnowpack = async () => {
 
 export const handler = async ({ port, production, database }) => {
   print(notice('Kretes'));
-  process.env.KRETES = production ? 'production' : 'development';
+  process.env.KRETES = process.env.NODE_ENV = production ? 'production' : 'development';
 
   let app: Kretes;
 
