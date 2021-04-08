@@ -1,21 +1,14 @@
 {
   "deploy": {
-    "client": {
-      "delete": true,
-      "dest": "YOUR DESTINATION",
-      "src": "dist/"
-    },
-    "server": {
-      "delete": true,
-      "dest": "YOUR DESTINATION",
-      "exclude": [
-        "dist",
-        "node_modules",
-        ".git",
-        "static/upload",
-        "config/default.yaml"
-      ],
-      "src": "."
-    }
+    "delete": false,
+    "dest": "DESTINATION",
+    "exclude": [
+      "dist",
+      "node_modules",
+      ".git",
+      "static/upload",
+      "config/default.json"
+    ],
+    "src": "."
   }
 }

@@ -1,31 +1,26 @@
 {
-    "deploy": {
-      "client": {
-        "delete": true,
-        "dest": "YOUR DESTINATION",
-        "src": "dist/"
-      },
-      "server": {
-        "delete": true,
-        "dest": "YOUR DESTINATION",
-        "exclude": [
-          "dist",
-          "node_modules",
-          ".git",
-          "static/upload",
-          "config/default.yaml"
-        ],
-        "src": "."
-      }
-    },
-    "snowpack": {
-      "plugins": {
-        "babel": {
-          "transformOptions": {
-            "presets": ["babel-preset-solid", "@babel/preset-typescript"]
-          }
+  "deploy": {
+    "delete": false,
+    "dest": "DESTINATION",
+    "exclude": [
+      "dist",
+      "node_modules",
+      ".git",
+      "static/upload",
+      "config/default.json"
+    ],
+    "src": "."
+  },
+  "snowpack": {
+    "plugins": {
+      "babel": {
+        "transformOptions": {
+          "presets": [
+            "babel-preset-solid",
+            "@babel/preset-typescript"
+          ]
         }
       }
     }
   }
-  
+}
