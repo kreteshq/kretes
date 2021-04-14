@@ -112,8 +112,8 @@ devDependencies:
 
 packages:
 
-  /@apollo/client/3.3.14_graphql@15.5.0:
-    resolution: {integrity: sha512-z7YwMvF9grmpWUG+26e3gPcBAOA/r/Ci5gwK7JVm3bGYG9kKqG8MF6sMXEbuwTsFseE4duSp0icJ6tdzxJhhlA==}
+  /@apollo/client/3.3.15_graphql@15.5.0:
+    resolution: {integrity: sha512-/WQmNvLEZMA0mA3u+FkEPTXKzxZD/KhyO7WlbKcy3zKGrXKza83tAbNMzsitQE7DTcSc3DLEcIu1Z5Rc7PFq0Q==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0
       react: ^16.8.0 || ^17.0.0
@@ -1499,7 +1499,7 @@ packages:
     peerDependencies:
       graphql: 14 - 15
     dependencies:
-      '@apollo/client': 3.3.14_graphql@15.5.0
+      '@apollo/client': 3.3.15_graphql@15.5.0
       '@babel/runtime': 7.13.10
       extract-files: 9.0.0
       graphql: 15.5.0
@@ -1848,7 +1848,7 @@ packages:
     dependencies:
       caniuse-lite: 1.0.30001208
       colorette: 1.2.2
-      electron-to-chromium: 1.3.713
+      electron-to-chromium: 1.3.716
       escalade: 3.1.1
       node-releases: 1.1.71
     dev: false
@@ -2420,8 +2420,8 @@ packages:
     deprecated: Use @eivifj/dot instead
     dev: false
 
-  /electron-to-chromium/1.3.713:
-    resolution: {integrity: sha512-HWgkyX4xTHmxcWWlvv7a87RHSINEcpKYZmDMxkUlHcY+CJcfx7xEfBHuXVsO1rzyYs1WQJ7EgDp2CoErakBIow==}
+  /electron-to-chromium/1.3.716:
+    resolution: {integrity: sha512-yUWKAfpJH5ovgwIlNbBHioedAWolzTVl6tmMaXP1RmCMyYv+U+ukvo9gwA10mLW0eFbyW4n/oC4UIN12gTMn/w==}
     dev: false
 
   /emittery/0.8.1:
@@ -2630,7 +2630,7 @@ packages:
       semver: 7.3.5
       strip-ansi: 6.0.0
       strip-json-comments: 3.1.1
-      table: 6.0.9
+      table: 6.1.0
       text-table: 0.2.0
       v8-compile-cache: 2.3.0
     transitivePeerDependencies:
@@ -3191,8 +3191,8 @@ packages:
       graphql: 15.5.0
     dev: false
 
-  /graphql-ws/4.4.0_graphql@15.5.0:
-    resolution: {integrity: sha512-ZInnJEvEzgFUPUROhjaKH0wVUkUSz6mZY4ix/8QhTb6B4QlWtGtSMmVGG+uKPRi6YuMyoTwMnTcZTOSlC+gMAA==}
+  /graphql-ws/4.4.1_graphql@15.5.0:
+    resolution: {integrity: sha512-kHgDohfRQFDdzXzLqsV4wZM141sO1ukaXW/RSLlmIUsxT4N3r/4eQYTbkeLd4yRXaDkmv/rYf1EHL09Y5KO+Uw==}
     engines: {node: '>=10'}
     peerDependencies:
       graphql: '>=0.11 <=15'
@@ -3392,8 +3392,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /irregular-plurals/3.2.0:
-    resolution: {integrity: sha512-YqTdPLfwP7YFN0SsD3QUVCkm9ZG2VzOXv3DOrw5G5mkMbVwptTwVcFv7/C0vOpBmgTxAeTG19XpUs1E522LW9Q==}
+  /irregular-plurals/3.3.0:
+    resolution: {integrity: sha512-MVBLKUTangM3EfRPFROhmWQQKRDsrgI83J8GS3jXy+OwYqiR2/aoWndYQ5416jLE3uaGgLH7ncme3X9y09gZ3g==}
     engines: {node: '>=8'}
     dev: true
 
@@ -4429,7 +4429,7 @@ packages:
     resolution: {integrity: sha512-4UGewrYgqDFw9vV6zNV+ADmPAUAfJPKtGvb/VdpQAx25X5f3xXdGdyOEVFwkl8Hl/tl7+xbeHqSEM+D5/TirUg==}
     engines: {node: '>=10'}
     dependencies:
-      irregular-plurals: 3.2.0
+      irregular-plurals: 3.3.0
     dev: true
 
   /pluralize/7.0.0:
@@ -4479,7 +4479,7 @@ packages:
       finalhandler: 1.1.2
       graphile-utils: 4.11.2
       graphql: 15.5.0
-      graphql-ws: 4.4.0_graphql@15.5.0
+      graphql-ws: 4.4.1_graphql@15.5.0
       http-errors: 1.8.0
       iterall: 1.3.0
       json5: 2.2.0
@@ -5170,8 +5170,8 @@ packages:
       node-fetch: 2.6.1
     dev: false
 
-  /table/6.0.9:
-    resolution: {integrity: sha512-F3cLs9a3hL1Z7N4+EkSscsel3z55XT950AvB05bwayrNg5T1/gykXtigioTAjbltvbMSJvvhFCbnf6mX+ntnJQ==}
+  /table/6.1.0:
+    resolution: {integrity: sha512-T4G5KMmqIk6X87gLKWyU5exPpTjLjY5KyrFWaIjv3SvgaIUGXV7UEzGEnZJdTA38/yUS6f9PlKezQ0bYXG3iIQ==}
     engines: {node: '>=10.0.0'}
     dependencies:
       ajv: 8.1.0
