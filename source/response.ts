@@ -62,10 +62,10 @@ const Page = async (location: string, context: object) => {
     path = join(dir, `${name}.html`);
     paths = [dir, join(views, "parts")];
   } else {
-    const views = join(cwd, "views");
+    const views = join(cwd, "site");
 
-    path = join(views, "pages", `${location}.html`);
-    paths = [join(views, "parts")];
+    path = join(views, `${location}.html`);
+    paths = [join(cwd, "parts")];
   }
 
   const content = await read(path, { cache });
