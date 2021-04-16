@@ -14,9 +14,10 @@ import {
   Response,
   Handler, 
   Routes, 
-  LocalMiddleware,
+  Middleware,
   Pipeline,
   CompoundResponse
+  middleware
 } from "retes";
 
 import * as Endpoint from "./endpoint";
@@ -119,10 +120,6 @@ export default class Kretes extends ServerApp {
       this.use(M.Snowpack(this.snowpack))
     }
     this.use(M.SPA(this.routes));
-
-    // append 404 middleware handler: it must be put at the end and only once
-    // TODO Move to `catch` for pattern matching ?
-    this.use(() => NotFound());
   }
 }
 
@@ -160,6 +157,6 @@ export {
   CompoundResponse,
   Handler, 
   Routes, 
-  LocalMiddleware as Middleware,
+  Middleware,
   Pipeline,
 } 

@@ -9,14 +9,15 @@ import path from 'path';
 import assert from 'assert';
 import mime from 'mime-types';
 import { parse } from 'url';
+import { Middleware } from 'retes';
 
-export const Serve = (root, opts = { index: 'index.html' }) => {
+export const Serve = (root, opts = { index: 'index.html' }): Middleware => {
   assert(root, 'you need to specify `root` directory');
   debug('"%s" %j', root, opts);
 
-  return async (context, next) => {
-    const method = context.request.method;
-    const { pathname } = parse(context.request.url, true); // TODO Test perf vs RegEx
+  return next => async request => {
+    const method = request.method;
+    const { pathname } = parse(request.url, true); // TODO Test perf vs RegEx
     debug('"%s" -> %s', method, pathname);
 
     if (method.toUpperCase() === 'HEAD' || method.toUpperCase() === 'GET') {
@@ -43,10 +44,10 @@ export const Serve = (root, opts = { index: 'index.html' }) => {
         };
       } catch (error) {
         // TODO distinguish between no file on disk and other error
-        return next(context);
+        return next(request);
       }
     } else {
-      return next(context);
+      return next(request);
     }
   };
 };

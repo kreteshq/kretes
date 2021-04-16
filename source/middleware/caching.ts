@@ -7,12 +7,13 @@ const debug = Debug('ks:middleware:caching'); // eslint-disable-line no-unused-v
 import crypto from 'crypto';
 import Stream from 'stream';
 import { NotModified } from '../response';
+import { CompoundResponse, Middleware, Response } from 'retes';
 
-export const Caching = () => {
-  return async (context, next) => {
-    const response = await next();
+export const Caching = (): Middleware => {
+  return (next) => async (request) => {
+    const response = await next(request);
 
-    const { body, headers = {}, statusCode } = response;
+    const { body, headers = {}, statusCode } = response as CompoundResponse;
 
     if (!body || 'ETag' in headers) return response;
 
@@ -40,9 +41,10 @@ export const Caching = () => {
           : 666;
 
     const etag = `"${length.toString(16)}-${hash}"`;
+    //@ts-ignore
     headers.ETag = etag;
 
-    if (isFresh(context.request.headers, headers)) {
+    if (isFresh(request.headers, headers)) {
       return NotModified(headers);
     }
 

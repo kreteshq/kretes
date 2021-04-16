@@ -1,9 +1,11 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-export const CORS = () => {
-  return async (context, next) => {
-    const { method } = context.request;
+import { Middleware } from "retes";
+
+export const CORS = (): Middleware => {
+  return next => request => {
+    const { method } = request;
 
     const headers = {
       'Access-Control-Allow-Origin': '*',
@@ -19,6 +21,8 @@ export const CORS = () => {
       };
     }
 
-    return next({ headers });
+    request.headers = { ...request.headers, ...headers }
+
+    return next(request);
   };
 }

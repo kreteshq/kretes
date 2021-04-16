@@ -1,7 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import { LocalMiddleware as Middleware } from 'retes';
+import { Middleware } from 'retes';
 import Schema, { SchemaDefinition } from 'validate';
 
 import { JSONPayload } from './response';
