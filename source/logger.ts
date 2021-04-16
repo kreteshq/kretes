@@ -5,6 +5,7 @@ import stackParser from 'error-stack-parser';
 import httpstatus from 'http-status';
 
 import * as explain from './explainer';
+import { Request } from 'retes';
 
 const displayStatusCode = statusCode =>
   ({
@@ -14,10 +15,9 @@ const displayStatusCode = statusCode =>
   }[~~(statusCode / 100)]);
 
 export default class Logger {
-  static printRequestResponse(context) {
-    const { request, response, params } = context;
-    const { method } = request;
-    const { pathname, query } = parse(context.request.url, true); // TODO Test perf vs RegEx
+  static printRequestResponse(context: Request) {
+    const { response, params, method } = context;
+    const { pathname, query } = parse(context.url, true); // TODO Test perf vs RegEx
     const { statusCode } = response;
 
     // obfuscate certain params
