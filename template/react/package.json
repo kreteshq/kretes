@@ -3,7 +3,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.1.1",
-    "react-query": "^3.13.9",
+    "react-query": "^3.13.10",
     "wouter": "^2.7.4",
     "clsx": "1.1.1"
   },

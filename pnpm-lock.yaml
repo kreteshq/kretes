@@ -26,14 +26,14 @@ specifiers:
   dotenv: ^8.2.0
   dumper.js: ^1.3.1
   error-stack-parser: ^2.0.6
-  esbuild: ^0.11.11
+  esbuild: ^0.11.12
   eslint: ^7.24.0
   eslint-config-prettier: ^8.2.0
   eslint-plugin-prettier: ^3.4.0
   fast-glob: 3.2.5
   form-data: ^4.0.0
   fs-extra: ^9.1.0
-  graphile-worker: ^0.9.0
+  graphile-worker: ^0.10.0
   graphql: 15.5.0
   graphql-tag: ^2.11.0
   graphql-tools: ^7.0.4
@@ -47,7 +47,7 @@ specifiers:
   retes: ^0.13.0
   rsyncwrapper: ^3.0.1
   semver: ^7.3.5
-  snowpack: 3.3.1
+  snowpack: 3.3.3
   stack-trace: 0.0.10
   typescript: 4.2.4
   validate: ^5.1.0
@@ -72,10 +72,10 @@ dependencies:
   dotenv: 8.2.0
   dumper.js: 1.3.1
   error-stack-parser: 2.0.6
-  esbuild: 0.11.11
+  esbuild: 0.11.12
   fast-glob: 3.2.5
   fs-extra: 9.1.0
-  graphile-worker: 0.9.0
+  graphile-worker: 0.10.0
   graphql: 15.5.0
   graphql-tag: 2.11.0_graphql@15.5.0
   graphql-tools: 7.0.4_graphql@15.5.0
@@ -88,7 +88,7 @@ dependencies:
   retes: 0.13.0
   rsyncwrapper: 3.0.1
   semver: 7.3.5
-  snowpack: 3.3.1
+  snowpack: 3.3.3
   stack-trace: 0.0.10
   typescript: 4.2.4
   validate: 5.1.0
@@ -874,7 +874,7 @@ packages:
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0
     dependencies:
-      '@graphql-tools/merge': 6.2.12_graphql@15.5.0
+      '@graphql-tools/merge': 6.2.13_graphql@15.5.0
       '@graphql-tools/utils': 7.7.3_graphql@15.5.0
       globby: 11.0.3
       graphql: 15.5.0
@@ -886,8 +886,8 @@ packages:
       valid-url: 1.0.9
     dev: false
 
-  /@graphql-tools/merge/6.2.12_graphql@15.5.0:
-    resolution: {integrity: sha512-SWq09Nv04QN/A5TlB54gKn8K3qmRIilyYWFTfyMTfKWWIaJFJG7XDWB1ZNDFTRb1h9XvKr0LCi4nL/Po8zMbSg==}
+  /@graphql-tools/merge/6.2.13_graphql@15.5.0:
+    resolution: {integrity: sha512-Qjlki0fp+bBQPinhdv7rv24eurvThZ5oIFvGMpLxMZplbw/ovJ2c6llwXr5PCuWAk9HGZsyM9NxxDgtTRfq3dQ==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0
     dependencies:
@@ -968,7 +968,7 @@ packages:
     dependencies:
       '@graphql-tools/batch-delegate': 7.0.2_graphql@15.5.0
       '@graphql-tools/delegate': 7.1.2_graphql@15.5.0
-      '@graphql-tools/merge': 6.2.12_graphql@15.5.0
+      '@graphql-tools/merge': 6.2.13_graphql@15.5.0
       '@graphql-tools/schema': 7.1.3_graphql@15.5.0
       '@graphql-tools/utils': 7.7.3_graphql@15.5.0
       '@graphql-tools/wrap': 7.0.5_graphql@15.5.0
@@ -1897,7 +1897,7 @@ packages:
       axios: 0.21.1_debug@4.3.1
       axios-extensions: 3.1.3_axios@0.21.1
       css-tree: 1.1.3
-      esbuild: 0.11.11
+      esbuild: 0.11.12
       himalaya: 1.1.0
       himalaya-walk: 1.0.0
       html-lexer: 0.4.0
@@ -2654,8 +2654,8 @@ packages:
       es6-symbol: 3.1.3
     dev: false
 
-  /esbuild/0.11.11:
-    resolution: {integrity: sha512-iq5YdV63vY/nUAFIvY92BXVkYjMbOchnofLKoLKMPZIa4uuIJAJG9WRA+ZRjQBZbrsORUwvZcANeG2d3p46PJQ==}
+  /esbuild/0.11.12:
+    resolution: {integrity: sha512-c8cso/1RwVj+fbDvLtUgSG4ZJQ0y9Zdrl6Ot/GAjyy4pdMCHaFnDMts5gqFnWRPLajWtEnI+3hlET4R9fVoZng==}
     hasBin: true
     requiresBuild: true
     dev: false
@@ -3248,8 +3248,8 @@ packages:
       - supports-color
     dev: false
 
-  /graphile-worker/0.9.0:
-    resolution: {integrity: sha512-tb3zT0k3XCsVWUqReA1NlepkD4Pezmd1Ot9+9ItKxLLElK2T17eYpkMEsk48vH3yR7tMQSnwJHrEuirtn9z6fg==}
+  /graphile-worker/0.10.0:
+    resolution: {integrity: sha512-TGIBXb6SZYoyGgPXwsQZkOxIaLUoxkwtrttFDe6mXZhkx20mLU4La3OrmP0lJQ6T63eXu0m5Knj/A26ECZ77hw==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     dependencies:
@@ -3322,7 +3322,7 @@ packages:
       '@graphql-tools/links': 7.1.0_graphql@15.5.0
       '@graphql-tools/load': 6.2.8_graphql@15.5.0
       '@graphql-tools/load-files': 6.3.2_graphql@15.5.0
-      '@graphql-tools/merge': 6.2.12_graphql@15.5.0
+      '@graphql-tools/merge': 6.2.13_graphql@15.5.0
       '@graphql-tools/mock': 7.0.0_graphql@15.5.0
       '@graphql-tools/module-loader': 6.2.7_graphql@15.5.0
       '@graphql-tools/optimize': 1.0.1_graphql@15.5.0
@@ -5467,8 +5467,8 @@ packages:
     engines: {node: '>= 6.0.0', npm: '>= 3.0.0'}
     dev: false
 
-  /snowpack/3.3.1:
-    resolution: {integrity: sha512-93utJcqKkvQ9StnliIKqDp02laf+7MnPVULacuvNEVg8nHdmON0jKVuG5ezGAMtFRUGBfeQ+kO417tifG1lQUw==}
+  /snowpack/3.3.3:
+    resolution: {integrity: sha512-ASPyveGfzAbhyp1k5XmLtZoS0J6PpY8jArGm6JLM8ztuB4AWA2z1Qg/QiTOIguOhZN0QKKUe6slkYfSWteIzFA==}
     engines: {node: '>=10.19.0'}
     hasBin: true
     dependencies:
