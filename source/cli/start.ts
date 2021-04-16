@@ -7,7 +7,6 @@ import { join, parse, sep, extname } from 'path';
 import color from 'chalk';
 import { TypescriptCompiler } from '@poppinss/chokidar-ts';
 import fs from 'fs-extra';
-import { Response } from 'retes';
 import transformPaths from '@zerollup/ts-transform-paths';
 import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
 import { PluginFn } from '@poppinss/chokidar-ts/build/src/Contracts';
@@ -15,6 +14,9 @@ import * as _ from 'colorette';
 import pg from "pg";
 import { createConfiguration, startServer, logger } from 'snowpack';
 import dotenv from 'dotenv';
+
+import { response } from 'retes';
+const { JSONPayload } = response;
 
 import Kretes from '../';
 import { parser } from '../parser';
@@ -28,7 +30,6 @@ import { compileCSS } from '../compiler/css';
 
 const CWD = process.cwd();
 const VERSION = require('../../package.json').version;
-const { JSONPayload } = Response;
 
 const sleep = (ms: number) =>
   new Promise(resolve => setTimeout(resolve, ms));

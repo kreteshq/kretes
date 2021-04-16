@@ -4,8 +4,8 @@
 import { createReadStream } from "fs";
 import { dirname, join } from "path";
 
-import { Response } from "retes";
-
+// change to import maps when TS supports it
+import { response } from 'retes';
 const {
   OK,
   Created,
@@ -21,7 +21,7 @@ const {
   Unauthorized,
   Forbidden,
   InternalServerError,
-} = Response;
+} = response;
 
 const { read } = require("./filesystem");
 const { render } = require("./view");

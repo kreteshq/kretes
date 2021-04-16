@@ -16,7 +16,7 @@ import {
   Routes, 
   Middleware,
   Pipeline,
-  CompoundResponse
+  CompoundResponse,
   middleware
 } from "retes";
 
