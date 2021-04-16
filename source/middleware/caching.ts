@@ -7,10 +7,10 @@ const debug = Debug('ks:middleware:caching'); // eslint-disable-line no-unused-v
 import crypto from 'crypto';
 import Stream from 'stream';
 import { NotModified } from '../response';
-import { CompoundResponse, Middleware, Response } from 'retes';
+import { CompoundResponse, Middleware } from 'retes';
 
 export const Caching = (): Middleware => {
-  return (next) => async (request) => {
+  return next => async request => {
     const response = await next(request);
 
     const { body, headers = {}, statusCode } = response as CompoundResponse;

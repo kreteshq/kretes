@@ -9,8 +9,8 @@ import { parse } from 'url';
 
 export const Extractor = (): Middleware => {
   return next => request => {
-    const method = request.method;
-    const { pathname, query } = parse(request.url, true); // TODO Test perf vs RegEx
+    const { method, url } = request;
+    const { pathname, query } = parse(url, true); // TODO Test perf vs RegEx
 
     Object.assign(request, { path: pathname, query, method });
 

@@ -16,8 +16,8 @@ export const Serve = (root, opts = { index: 'index.html' }): Middleware => {
   debug('"%s" %j', root, opts);
 
   return next => async request => {
-    const method = request.method;
-    const { pathname } = parse(request.url, true); // TODO Test perf vs RegEx
+    const { method, url } = request;
+    const { pathname } = parse(url, true); 
     debug('"%s" -> %s', method, pathname);
 
     if (method.toUpperCase() === 'HEAD' || method.toUpperCase() === 'GET') {
