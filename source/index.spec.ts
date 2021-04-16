@@ -9,7 +9,7 @@ const { before, after } = test;
 const { Route: { GET, POST } } = routing;
 
 const GETs = [
-  GET('/error', _ => Page('index@Unknown', {}))
+  GET('/error', _ => Page('no-such-file'))
 ]
 
 const Compositions = [

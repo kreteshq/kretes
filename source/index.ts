@@ -8,7 +8,6 @@ import { join } from "path";
 import httpstatus from "http-status";
 import { ServerApp } from "retes";
 
-// Types
 import { 
   Request,
   Response,
@@ -17,27 +16,17 @@ import {
   Middleware,
   Pipeline,
   CompoundResponse,
-  middleware
 } from "retes";
 
 import * as Endpoint from "./endpoint";
 import * as M from "./middleware";
-import { glob } from "./filesystem";
-import { readAll } from "./filesystem";
-import { precompile } from "./view";
-import { NotFound } from "./response";
+import { precompile, lookupViews } from "./view";
 import Logger from "./logger";
 import HTMLifiedError from "./error";
 import { notice, print } from "./util";
 import { setupControllersFromFilesystem } from "./core";
 
 const cwd = process.cwd();
-
-const lookupViews = async () => {
-  const path = join(cwd, "site/**/*.html");
-  const files = await glob(path);
-  return readAll(files, { cache: true });
-};
 
 const handleError = (context) => (error) => {
   const { request, response } = context;

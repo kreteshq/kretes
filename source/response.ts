@@ -23,8 +23,7 @@ const {
   InternalServerError,
 } = response;
 
-const { read } = require("./filesystem");
-const { render } = require("./view");
+import { render, read } from "./view";
 
 const cwd = process.cwd();
 
@@ -46,30 +45,17 @@ const NotFound = (headers = {}) => {
 
 const cache = process.env.NODE_ENV === "production";
 
-const Page = async (location: string, context: object) => {
-  let path, paths;
+interface Options { 
+  location?: string, 
+}
 
-  if (location.endsWith(".html")) {
-    const dir = dirname(location);
-
-    path = location;
-    paths = [dir];
-  } else if (location.includes("@")) {
-    const [name, feature] = location.split("@");
-    const views = join(cwd, "views");
-    const dir = join(cwd, "features", feature, "Page");
-
-    path = join(dir, `${name}.html`);
-    paths = [dir, join(views, "parts")];
-  } else {
-    const views = join(cwd, "site");
-
-    path = join(views, `${location}.html`);
-    paths = [join(cwd, "parts")];
-  }
+const Page = async (name: string, variables: object = {}, { location = 'site' }: Options = {}) => {
+  const path = join(cwd, location, `${name}.html`);
+  const paths = [join(cwd, "parts")];
 
   const content = await read(path, { cache });
-  const html = await render(content.toString(), { context, paths });
+  const html = await render(content.toString(), { context: variables, paths });
+
   return HTMLString(html);
 };
 

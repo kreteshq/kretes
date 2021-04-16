@@ -2,7 +2,8 @@ import test from 'ava';
 import { join } from 'path';
 import { tmpdir } from 'os';
 import { writeFileSync, unlinkSync } from 'fs';
-import { read, glob, readAll } from './filesystem';
+import fg from 'fast-glob';
+import { read, readAll } from './view';
 
 test('read: it returns data from cache', async assert => {
   const dir = tmpdir();
@@ -30,7 +31,7 @@ test('read: it reads data multiple time without cache', async assert => {
 
 test('glob: it finds files', async assert => {
   const dir = join(__dirname, '..', 'resources');
-  const paths = await glob(`${dir}/**/*.html`);
+  const paths = await fg(`${dir}/**/*.html`);
   assert.deepEqual(paths, [
     join(__dirname, '..', 'resources/404.html'),
     join(__dirname, '..', 'resources/error.html')
