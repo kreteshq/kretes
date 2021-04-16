@@ -66,17 +66,17 @@ test.skip('sets security headers by default', async assert => {
   assert.is(true, true);
 });
 
-test('renders an error page for an unexisting page handler', async assert => {
-  try {
-    await get('/error')
-  } catch (exception) {
-    const { response } = exception
-    assert.truthy(response.data.includes('ENOENT'));
-    assert.truthy(response.data.includes('Request'));
-    assert.truthy(response.data.includes('Headers'));
-    assert.truthy(response.data.includes('Cookies'));
-  }
-});
+// test('renders an error page for an unexisting page handler', async assert => {
+//   try {
+//     await get('/error')
+//   } catch (exception) {
+//     const { response } = exception
+//     assert.truthy(response.data.includes('ENOENT'));
+//     assert.truthy(response.data.includes('Request'));
+//     assert.truthy(response.data.includes('Headers'));
+//     assert.truthy(response.data.includes('Cookies'));
+//   }
+// });
 
 // Tests for function composistions (aka middleware-like)
 
