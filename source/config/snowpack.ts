@@ -25,5 +25,10 @@ export const SnowpackConfig = {
   buildOptions: {
     out: 'public',
     watch: false
+  },
+  optimize: {
+    bundle: true,
+    minify: true,
+    target: 'es2018'
   }
 } as SnowpackUserConfig;
