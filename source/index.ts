@@ -61,9 +61,10 @@ export default class Kretes extends ServerApp {
     isDatabase = true,
     _verbose = false,
     routes = [] as Routes,
+    middlewares = [] as Middleware[],
     snowpack = null
   } = {}) {
-    super(routes, handleError, append);
+    super(routes, middlewares, handleError, append);
 
     this.staticDir = staticDir;
     this.isDatabase = isDatabase;

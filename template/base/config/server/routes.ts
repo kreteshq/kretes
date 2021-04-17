@@ -4,7 +4,7 @@ import { Routes, response, routing } from 'kretes';
 const { OK } = response;
 const { Route: { GET, POST } } = routing;
 
-const routes: Routes = [
+export const routes: Routes = [
   // implicit `return` with a `text/plain` response
   GET('/hello', _ => 'Hello, Kretes!'),
   GET('/json', _ => {
@@ -24,5 +24,3 @@ const routes: Routes = [
     return `Hello POST! ${request.params.name}`;
   })
 ];
-
-export default routes;

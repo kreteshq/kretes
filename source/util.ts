@@ -1,7 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import { join } from 'path';
+import Path from 'path';
 import { spawn } from 'child_process';
 import * as _ from 'colorette';
 
@@ -199,3 +199,9 @@ export const isDatabaseConfigured = async () => {
   const { PGHOST, PGPORT, PGDATABASE, PGDATA } = process.env;
   return config.has('db') || (PGHOST && PGPORT && PGDATABASE && PGDATA);
 };
+
+export const __compiled = (location: string) => 
+  Path.join(process.cwd(), `dist/${location}.js`);
+
+export const __source = (location: string) => 
+  Path.join(process.cwd(), `${location}.ts`)

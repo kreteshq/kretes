@@ -4,15 +4,9 @@
 import Path from 'path';
 import FS from 'fs-extra';
 import * as _ from 'colorette';
-import { buildSync } from 'esbuild';
+// import { buildSync } from 'esbuild';
 
 import { run, print, println } from '../../util';
-
-const compiled = (location: string) => 
-  Path.join(process.cwd(), `dist/${location}.js`);
-
-const source = (location: string) => 
-  Path.join(process.cwd(), `${location}.ts`);
 
 export const handler = async () => {
   print('Seeding the database: ');

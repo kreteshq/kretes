@@ -44,7 +44,7 @@ specifiers:
   postcss: ^8.2.10
   postgraphile: ^4.11.0
   prettier: 2.2.1
-  retes: ^0.13.0
+  retes: ^0.14.0
   rsyncwrapper: ^3.0.1
   semver: ^7.3.5
   snowpack: 3.3.3
@@ -85,7 +85,7 @@ dependencies:
   pg: 8.6.0
   postcss: 8.2.10
   postgraphile: 4.11.0
-  retes: 0.13.0
+  retes: 0.14.0
   rsyncwrapper: 3.0.1
   semver: 7.3.5
   snowpack: 3.3.3
@@ -5311,8 +5311,8 @@ packages:
       signal-exit: 3.0.3
     dev: true
 
-  /retes/0.13.0:
-    resolution: {integrity: sha512-ZyqaHoo8HysyHJ2bPmDDqeI3We5r4kR/oa9HLWgb4V8Q77h2hZkJ/B2f9gpGoum+RRFbW+6U6L7Zgi4CC8RFsw==}
+  /retes/0.14.0:
+    resolution: {integrity: sha512-YqJ7t/vrQqBTK883Xi/3lLlyhW1fv8Egnx+3k6uU5TF8KxyORj5Rxcj4vCPM0ytUqcYm7eNtJuChhdkcSUdHfw==}
     dependencies:
       busboy: 0.3.1
       debug: 4.3.1

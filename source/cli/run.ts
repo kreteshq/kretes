@@ -1,14 +1,13 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import { join, parse, sep, extname } from 'path';
+import { join } from 'path';
 import color from 'chalk';
 import { Argv } from 'yargs';
 import WebSocket from 'ws';
-import { Routes, Response } from 'retes';
 
 import Kretes from '../';
-import { notice, print, run } from '../util';
+import { __compiled } from '../util';
 import { App } from '../manifest';
 
 const cwd = process.cwd();
@@ -16,9 +15,9 @@ const cwd = process.cwd();
 const VERSION = require('../../package.json').version;
 
 export const start = async ({ port, database, snowpack = null }) => {
-  let routes: Routes = require(join(process.cwd(), 'dist/config/server/routes')).default;
+  const { routes, middlewares } = require(__compiled('config/server/index'));
 
-  const app = new Kretes({ routes, isDatabase: database, snowpack });
+  const app = new Kretes({ routes, middlewares, isDatabase: database, snowpack });
   const server = await app.start(port);
 
   const wss = new WebSocket.Server({ server });
