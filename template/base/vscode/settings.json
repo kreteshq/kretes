@@ -7,28 +7,6 @@
   },
   "typescript.tsc.autoDetect": "off",
   "terminal.integrated.fontSize": 20,
-  "workbench.colorCustomizations": {
-    "terminal.background":"#282C34",
-    "terminal.foreground":"#abb2bf",
-    "terminalCursor.background":"#9EA7A6",
-    "terminalCursor.foreground":"#9EA7A6",
-    "terminal.ansiBlack":"#232C31",
-    "terminal.ansiBlue":"#10b1fe",
-    "terminal.ansiBrightBlack":"#636d83",
-    "terminal.ansiBrightBlue":"#3691ff",
-    "terminal.ansiBrightCyan":"#1abc9c",
-    "terminal.ansiBrightGreen":"#2ecc71",
-    "terminal.ansiBrightMagenta":"#ff78f8",
-    "terminal.ansiBrightRed":"#ff6480",
-    "terminal.ansiBrightWhite":"#EDEDED",
-    "terminal.ansiBrightYellow":"#f9c859",
-    "terminal.ansiCyan":"#16a085",
-    "terminal.ansiGreen":"#3fc56b",
-    "terminal.ansiMagenta":"#9f7efe",
-    "terminal.ansiRed":"#e74c3c",
-    "terminal.ansiWhite":"#ecf0f1",
-    "terminal.ansiYellow":"#f1c40f"
-  },
   "files.associations": {
     "default.json": "jsonc"
   },
