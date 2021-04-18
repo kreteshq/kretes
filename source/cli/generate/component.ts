@@ -22,7 +22,7 @@ export const handler = async ({ name }: { name: string }) => {
     const interpolated = interpolate(content, { name });
 
     await outputFile(Path.join(cwd, 'components', `${name}.tsx`), interpolated, { flag: 'wx' });
-    await appendFile(Path.join(cwd, 'components', 'index.tsx'), `export { ${name} } from './${name}';\n`)
+    await appendFile(Path.join(cwd, 'components', 'index.ts'), `export { ${name} } from './${name}';\n`)
     print(`Created '${name}' in 'components/'\n`);
   } catch (error) {
     if (error.code === 'EEXIST') {
