@@ -52,7 +52,7 @@ specifiers:
   stack-trace: 0.0.10
   typescript: 4.2.4
   validate: ^5.1.0
-  ws: ^7.4.4
+  ws: ^7.4.5
   yargs: 16.2.0
 
 dependencies:
@@ -94,7 +94,7 @@ dependencies:
   stack-trace: 0.0.10
   typescript: 4.2.4
   validate: 5.1.0
-  ws: 7.4.4
+  ws: 7.4.5
   yargs: 16.2.0
 
 devDependencies:
@@ -1941,7 +1941,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001209
+      caniuse-lite: 1.0.30001211
       colorette: 1.2.2
       electron-to-chromium: 1.3.717
       escalade: 3.1.1
@@ -2064,8 +2064,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /caniuse-lite/1.0.30001209:
-    resolution: {integrity: sha512-2Ktt4OeRM7EM/JaOZjuLzPYAIqmbwQMNnYbgooT+icoRGrKOyAxA1xhlnotBD1KArRSPsuJp3TdYcZYrL7qNxA==}
+  /caniuse-lite/1.0.30001211:
+    resolution: {integrity: sha512-v3GXWKofIkN3PkSidLI5d1oqeKNsam9nQkqieoMhP87nxOY0RPDC8X2+jcv8pjV4dRozPLSoMqNii9sDViOlIg==}
     dev: false
 
   /caseless/0.12.0:
@@ -2785,7 +2785,7 @@ packages:
       semver: 7.3.5
       strip-ansi: 6.0.0
       strip-json-comments: 3.1.1
-      table: 6.1.0
+      table: 6.2.0
       text-table: 0.2.0
       v8-compile-cache: 2.3.0
     transitivePeerDependencies:
@@ -4950,7 +4950,7 @@ packages:
       postgraphile-core: 4.11.2_graphql@15.5.0+pg@8.6.0
       subscriptions-transport-ws: 0.9.18_graphql@15.5.0
       tslib: 2.2.0
-      ws: 7.4.4
+      ws: 7.4.5
     transitivePeerDependencies:
       - bufferutil
       - graphile-build
@@ -5495,13 +5495,13 @@ packages:
     dependencies:
       agent-base: 6.0.2
       debug: 4.3.1
-      socks: 2.6.0
+      socks: 2.6.1
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /socks/2.6.0:
-    resolution: {integrity: sha512-mNmr9owlinMplev0Wd7UHFlqI4ofnBnNzFuzrm63PPaHgbkqCFe4T5LzwKmtQ/f2tX0NTpcdVLyD/FHxFBstYw==}
+  /socks/2.6.1:
+    resolution: {integrity: sha512-kLQ9N5ucj8uIcxrDwjm0Jsqk06xdpBjGNQtpXy4Q8/QY2k+fY7nZH8CARy+hkbG+SGAovmzzuauCpBlb8FrnBA==}
     engines: {node: '>= 10.13.0', npm: '>= 3.0.0'}
     dependencies:
       ip: 1.1.5
@@ -5747,8 +5747,8 @@ packages:
       node-fetch: 2.6.1
     dev: false
 
-  /table/6.1.0:
-    resolution: {integrity: sha512-T4G5KMmqIk6X87gLKWyU5exPpTjLjY5KyrFWaIjv3SvgaIUGXV7UEzGEnZJdTA38/yUS6f9PlKezQ0bYXG3iIQ==}
+  /table/6.2.0:
+    resolution: {integrity: sha512-WMBBLuauiLXJjth35K4vOnd/xkaZ/dxEcyoZ+YhxSwfxFqvh+av06+oRqIwbR14m1lENB1egSWOFv/bNEt2D8A==}
     engines: {node: '>=10.0.0'}
     dependencies:
       ajv: 8.1.0
@@ -6142,6 +6142,19 @@ packages:
 
   /ws/7.4.4:
     resolution: {integrity: sha512-Qm8k8ojNQIMx7S+Zp8u/uHOx7Qazv3Yv4q68MiWWWOJhiwG5W3x7iqmRtJo8xxrciZUY4vRxUTJCKuRnF28ZZw==}
+    engines: {node: '>=8.3.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false
+
+  /ws/7.4.5:
+    resolution: {integrity: sha512-xzyu3hFvomRfXKH8vOFMU3OguG6oOvhXMo3xsGy3xWExqaM2dxBbVxuD99O7m3ZUFMvvscsZDqxfgMaRr/Nr1g==}
     engines: {node: '>=8.3.0'}
     peerDependencies:
       bufferutil: ^4.0.1
