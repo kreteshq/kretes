@@ -109,7 +109,7 @@ export default class Kretes extends ServerApp {
       // middlewares to run ONLY in Development
       this.use(M.Snowpack(this.snowpack))
     }
-    this.use(M.SPA(this.routes));
+    this.use(M.SPA(this.routes, this.snowpack));
   }
 }
 
@@ -149,4 +149,4 @@ export {
   Routes, 
   Middleware,
   Pipeline,
-} 
+}

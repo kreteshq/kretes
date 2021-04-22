@@ -65,7 +65,7 @@ export const handler = async () => {
 
     const indexHTML = join(cwd, 'public', 'index.html');
     let html = await fs.readFile(indexHTML, 'utf-8')
-    html = html!.replace('</body>', `${scriptSnippet}\n</body>`)
+    // html = html!.replace('</body>', `${scriptSnippet}\n</body>`)
     await fs.outputFile(indexHTML, html);
 
     await compileCSS();
