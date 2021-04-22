@@ -28,14 +28,14 @@ import { setupControllersFromFilesystem } from "./core";
 
 const cwd = process.cwd();
 
-const handleError = (context) => (error) => {
-  const { request, response } = context;
+const handleError = (request: Request) => (error) => {
+  const { response } = request;
 
   response.statusCode = 500;
   error.status = `500 ${httpstatus[500]}`;
 
   // TODO remove at runtime in `production`, keep only in `development`
-  Logger.printRequestResponse(context);
+  Logger.printRequestResponse(request);
   Logger.printError(error, "HTTP");
 
   const htmlifiedError = new HTMLifiedError(error, request);
