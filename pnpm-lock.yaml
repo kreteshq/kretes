@@ -216,7 +216,7 @@ packages:
       '@babel/compat-data': 7.13.15
       '@babel/core': 7.13.16
       '@babel/helper-validator-option': 7.12.17
-      browserslist: 4.16.4
+      browserslist: 4.16.5
       semver: 6.3.0
     dev: false
 
@@ -1121,8 +1121,8 @@ packages:
       infer-owner: 1.0.4
     dev: false
 
-  /@npmcli/run-script/1.8.4:
-    resolution: {integrity: sha512-Yd9HXTtF1JGDXZw0+SOn+mWLYS0e7bHBHVC/2C8yqs4wUrs/k8rwBSinD7rfk+3WG/MFGRZKxjyoD34Pch2E/A==}
+  /@npmcli/run-script/1.8.5:
+    resolution: {integrity: sha512-NQspusBCpTjNwNRFMtz2C5MxoxyzlbuJ4YEhxAKrIonTiirKDtatsZictx9RgamQIx6+QuHMNmPl0wQdoESs9A==}
     dependencies:
       '@npmcli/node-gyp': 1.0.2
       '@npmcli/promise-spawn': 1.3.2
@@ -1939,8 +1939,8 @@ packages:
     dependencies:
       fill-range: 7.0.1
 
-  /browserslist/4.16.4:
-    resolution: {integrity: sha512-d7rCxYV8I9kj41RH8UKYnvDYCRENUlHRgyXy/Rhr/1BaeLGfiCptEdFE8MIrvGfWbBFNjVYx76SQWvNX1j+/cQ==}
+  /browserslist/4.16.5:
+    resolution: {integrity: sha512-C2HAjrM1AI/djrpAUU/tr4pml1DqLIzJKSLDBXBrNErl9ZCCTXdhwxdJjYc16953+mBWf7Lw+uUJgpgb8cN71A==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
@@ -4680,7 +4680,7 @@ packages:
       '@npmcli/git': 2.0.8
       '@npmcli/installed-package-contents': 1.0.7
       '@npmcli/promise-spawn': 1.3.2
-      '@npmcli/run-script': 1.8.4
+      '@npmcli/run-script': 1.8.5
       cacache: 15.0.6
       chownr: 2.0.0
       fs-minipass: 2.1.0
