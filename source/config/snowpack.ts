@@ -12,7 +12,7 @@ export const SnowpackConfig = {
     hooks: '/@/hooks/',
     stylesheets: '/stylesheets/',
     site: '/',
-    public: { url: '/', static: true, resolve: false },
+    static: { url: '/', static: true, resolve: false },
   },
   packageOptions: {},
   exclude: ['**/site/_api/**/*', '**/controllers/**/*'],
