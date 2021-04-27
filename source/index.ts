@@ -54,7 +54,7 @@ export default class Kretes extends ServerApp {
   snowpack: SnowpackDevServer | undefined;
 
   constructor({
-    staticDir = join(cwd, "public"),
+    staticDir = join(cwd, "static"),
     graphql = false,
     implicitControllers = true,
     WebRPC = true,
