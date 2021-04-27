@@ -1,7 +1,6 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import { join } from 'path';
 import color from 'chalk';
 import { Argv } from 'yargs';
 import WebSocket from 'ws';

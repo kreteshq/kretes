@@ -94,20 +94,27 @@ export const handler = async ({ port, production, database }) => {
 
   let app: Kretes;
 
-  if (isDatabaseConfigured()) {
-    const config = require("config");
-    const connection = config.has("db") ? config.get("db") : {}; // node-pg supports env variables
+  const config = require("config");
+  const connection = config.has("db") ? config.get("db") : {}; // node-pg supports env variables
 
+  let databaseConnected = false;
+  try {
     App.DatabasePool = new pg.Pool(connection);
     await App.DatabasePool.connect();
-    App.Database = true;
+    databaseConnected = true;
     print(notice("Database OK"));
+  } catch (error) {
+    print(notice("Database Error"));
+    print(notice("Error")(error));
+    print(notice("Explain")(error));
+
+    // can continue
   }
 
   if (production) {
     await fs.ensureDir('dist/tasks');
 
-    app = await start({ port, database });
+    app = await start({ port, database: databaseConnected });
   } else {
     await fs.emptyDir('public')
 
@@ -150,7 +157,7 @@ export const handler = async ({ port, production, database }) => {
       await fs.ensureDir('dist/tasks');
 
       // start the HTTP server
-      app = await start({ port, database, snowpack });
+      app = await start({ port, database: databaseConnected, snowpack });
 
       await compileCSS();
       print(notice('CSS'));
