@@ -18,14 +18,18 @@ export const App: React.FC = () => {
   const { city, ip } = data as City;
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="text-3xl">
-        Hello, <span className="font-semibold">{name}</span>
-      </div>
-      <div className="text-gray-400 text-lg">
-        You are now in {city} and your IP is {ip}
-      </div>
-      <div className="text-gray-400">(refresh this page)</div>
-    </div>
+    <main>
+      <section>
+        <header>
+          <h1>
+            Hello, <span className="font-semibold">{name}</span>
+          </h1>
+          <div>
+            You are now in {city} and your IP is {ip}
+          </div>
+          <small>(refresh this page)</small>
+        </header>
+      </section>
+    </main>
   );
 }
