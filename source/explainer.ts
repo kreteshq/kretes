@@ -7,7 +7,7 @@ const explanations = {
   'relation "(\\w+)" does not exist': matches =>
     __`I cannot find the table named {underline ${matches[1]}} in your database. Have you run {underline kretes database setup} before starting the application?`,
   'database "(\\w+)" does not exist': matches =>
-    __`You need to create the {underline ${matches[1]}} database. Have you run {underline kretes database create} ?`,
+    __`You need to create the {underline ${matches[1]}} database. You can run {underline kretes database create} once you define your database connection in {underline config/default.json}`,
   'connect ECONNREFUSED 127.0.0.1:5432': _matches =>
     'It looks like you haven\'t started your database server.',
   'connect ENOENT /tmp/.s.PGSQL.(\\d+)': matches =>
