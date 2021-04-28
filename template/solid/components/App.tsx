@@ -1,27 +1,42 @@
-import { Component, createSignal } from 'solid-js';
+import { Component, createResource, createSignal, Switch, Match } from 'solid-js';
+import { City } from '../types'
+
+const request = () => fetch('/_api/base').then(response => response.json());
 
 export const App: Component = () => {
-  const [count, setCount] = createSignal(0);
+  const [name] = createSignal('Kretes');
+  const [data] = createResource<City, string>('base', request)
+  const [count, setCount] = createSignal(1);
   const increment = (by = 1) => setCount(count() + by);
   const decrement = (by = 1) => setCount(count() - by);
 
   return (
-    <>
-      <button
-        type="button"
-        onClick={[decrement, 2]}
-        class="bg-gray-900 text-gray-100 p-4 text-3xl"
-      >
-        -
-      </button>
-      <span class="p-4 text-3xl">{count()}</span>
-      <button
-        type="button"
-        onClick={[increment, 1]}
-        class="bg-gray-900 text-gray-100 p-4 text-3xl"
-      >
-        +
-      </button>
-    </>
+    <main>
+      <section>
+        <Switch fallback={"Failed to load"}>
+          <Match when={data.loading}>Loading...</Match>
+          <Match when={data.error}>Something Went Wrong</Match>
+          <Match when={data()}>{({ city, ip }) =>
+            <header>
+              <img src="/huncwot.svg" width="120" />
+              <h1>
+                Hello, <span className="font-semibold">{name}</span>
+              </h1>
+              <div>
+                You are now in {city} and your IP is {ip}
+              </div>
+              <small>(refresh the page)</small>
+              <hr />
+              <h2>{count()}</h2>
+              <p>
+                <a href="#" onClick={() => decrement()}><b>Dec</b></a>
+                <a href="#" onClick={() => increment()}><b>Inc</b></a>
+              </p>
+              <small>(play with the counter)</small>
+            </header>
+          }</Match>
+        </Switch>
+      </section>
+    </main>
   );
 };
