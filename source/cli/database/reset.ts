@@ -1,7 +1,6 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-const { exec } = require('child_process');
 const cwd = process.cwd();
 import * as _ from 'colorette';
 

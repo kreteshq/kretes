@@ -3,7 +3,7 @@
 import Debug from 'debug';
 const debug = Debug('ks:start'); // eslint-disable-line no-unused-vars
 
-import { join, parse, sep, extname } from 'path';
+import { join, parse, extname } from 'path';
 import color from 'chalk';
 import { TypescriptCompiler } from '@poppinss/chokidar-ts';
 import fs from 'fs-extra';
@@ -21,7 +21,7 @@ const { JSONPayload } = response;
 import Kretes from '../';
 import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
-import { isDatabaseConfigured, notice, print } from '../util';
+import { notice, print } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 import { App } from '../manifest'
 import { start } from './run';

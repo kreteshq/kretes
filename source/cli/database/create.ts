@@ -2,9 +2,9 @@
 // Licensed under the Apache License, Version 2.0
 
 const { exec } = require('child_process');
-const { basename } = require('path');
-const cwd = process.cwd();
 import * as _ from 'colorette';
+
+const cwd = process.cwd();
 
 import { print, println } from '../../util';
 

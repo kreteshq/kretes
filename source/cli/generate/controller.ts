@@ -3,7 +3,7 @@
 
 import { outputFile, readFile } from 'fs-extra';
 import Path from 'path';
-import { bold, red, underline } from 'colorette';
+import { red, underline } from 'colorette';
 import { Argv } from 'yargs';
 
 import { print, interpolate } from '../../util'

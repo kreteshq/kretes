@@ -23,7 +23,6 @@ import * as M from "./middleware";
 import { precompile, lookupViews } from "./view";
 import Logger from "./logger";
 import HTMLifiedError from "./error";
-import { notice, print } from "./util";
 import { setupControllersFromFilesystem } from "./core";
 
 const cwd = process.cwd();

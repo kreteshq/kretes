@@ -4,7 +4,7 @@ import Debug from 'debug';
 const debug = Debug('ks:cli:deploy'); // eslint-disable-line no-unused-vars
 
 import rsyncwrapper from 'rsyncwrapper';
-import { bold, underline, green, magenta } from 'chalk';
+import { bold, underline, green } from 'chalk';
 
 const VERSION = require('../../package.json').version;
 

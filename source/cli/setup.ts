@@ -2,14 +2,12 @@
 // Licensed under the Apache License, Version 2.0
 
 const fs = require('fs');
-const { exec } = require('child_process');
 
 const { run } = require('../util');
 
 export async function handler(_) {
   console.log('Setup...');
 
-  const cwd = process.cwd();
   const config = require('config');
   const { database, username } = config.get('db');
   const stdout = fs.openSync('./log/database.log', 'a');

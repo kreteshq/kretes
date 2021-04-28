@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0
 
 import __ from 'chalk';
-import { Argv } from 'yargs';
 
 import { run } from '../util';
 

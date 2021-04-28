@@ -9,8 +9,6 @@ import Kretes from '../';
 import { __compiled } from '../util';
 import { App } from '../manifest';
 
-const cwd = process.cwd();
-
 const VERSION = require('../../package.json').version;
 
 export const start = async ({ port, database, snowpack = null }) => {

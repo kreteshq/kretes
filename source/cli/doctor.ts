@@ -5,8 +5,6 @@ import __ from 'chalk';
 
 import { spawn } from 'child_process';
 
-const cwd = process.cwd();
-
 const VERSION = require('../../package.json').version;
 
 export async function handler({ library }) {

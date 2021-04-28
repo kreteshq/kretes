@@ -12,11 +12,9 @@ import transformPaths from '@zerollup/ts-transform-paths';
 import { PluginFn } from '@poppinss/chokidar-ts/build/src/Contracts';
 import { TypescriptCompiler } from '@poppinss/chokidar-ts';
 
-import { run, print, notice, println } from '../util';
+import { print, notice, println } from '../util';
 import { SnowpackConfig as DefaultSnowpackConfig } from '../config/snowpack';
 import { compileCSS } from '../compiler/css';
-
-const scriptSnippet = '<script type="module" src="/index.js"></script>';
 
 const compileServerSide = () => {
   const TS = require('typescript/lib/typescript');
