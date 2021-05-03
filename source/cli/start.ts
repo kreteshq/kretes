@@ -239,7 +239,15 @@ export const handler = async ({ port, production, database }) => {
       }
     });
 
-    watcher.watch(['abilities', 'config', 'controllers', 'lib', 'site', 'stylesheets'], { ignored: [] });
+    watcher.watch([
+      'app/controllers',
+      'app/abilities',
+      'config',
+      'lib',
+      'site',
+      'stylesheets'
+    ], { ignored: [] });
+
     print(notice("TypeScript"))
   }
 };

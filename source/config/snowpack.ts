@@ -3,19 +3,22 @@ import { SnowpackUserConfig } from 'snowpack';
 export const SnowpackConfig = {
   root: process.cwd(),
   alias: {
-    '@/components': './components',
-    '@/hooks': './hooks',
-    '@/types': './types',
+    '@/components': './app/components',
+    '@/hooks': './app/hooks',
+    '@/types': './app/types',
   },
   mount: {
-    components: '/@/components/',
-    hooks: '/@/hooks/',
+    "app/components": '/@/components/',
+    "app/hooks": '/@/hooks/',
     stylesheets: '/stylesheets/',
     site: '/',
     static: { url: '/', static: true, resolve: false },
   },
   packageOptions: {},
-  exclude: ['**/site/_api/**/*', '**/controllers/**/*'],
+  exclude: [
+    '**/site/_api/**/*', 
+    '**/app/controllers/**/*',
+  ],
   devOptions: {
     hmr: true,
     port: 3333,
