@@ -1,7 +1,9 @@
-#!/usr/bin/env node
+#!/usr/bin/env node 
 
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
+
+process.removeAllListeners('warning')
 
 import { valid, satisfies, validRange } from 'semver';
 import yargs from 'yargs';
