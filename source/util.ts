@@ -165,20 +165,19 @@ const TemplateNaming = {
 }
 
 const Display = {
+  OK: name => `${gray(name.padStart(10))}  ${green('OK')}\n`,
+  Error: name => error => `${gray(name.padStart(10))}  ${red('Error:')} ${error.message}\n`,
   Kretes: `${bold(blue('Kretes'.padStart(10)))}  ${bold(VERSION)}\n`,
   New: (dir, template) => `${magenta('new'.padStart(10))}  creating a project in '${underline(dir)}'${template !== 'base' ? ` using the ${underline(TemplateNaming[template])} template` : ''}\n`,
   Deps: `${magenta('new'.padStart(10))}  installing dependencies\n`,
   ESM: `${gray('ESM'.padStart(10))}  `,
   Build: `${gray('Build'.padStart(10))}  `,
-  'Database OK': `${gray('Database'.padStart(10))}  ${green('OK')}\n`,
-  'Snowpack': `${gray('Snowpack'.padStart(10))}  ${green('OK')}\n`,
-  'TypeScript': `${gray('TypeScript'.padStart(10))}  ${green('OK')}\n`,
-  'CSS': `${gray('CSS'.padStart(10))}  ${green('OK')}\n`,
-  'Database Error': `${gray('Database'.padStart(10))}  ${yellow('Not OK')}\n`,
+  Snowpack: `${gray('Snowpack'.padStart(10))}  ${green('OK')}\n`,
+  TypeScript: `${gray('TypeScript'.padStart(10))}  ${green('OK')}\n`,
+  CSS: `${gray('CSS'.padStart(10))}  ${green('OK')}\n`,
   Listening: (port) => `${gray('Started on'.padStart(10))}  ${underline(`http://localhost:${port}`)}\n`,
   Logs: `${gray('\n----- Logs\n\n'.padStart(10))}`,
-  Error: error => `${red("Error".padStart(10))}  ${error.message}\n`,
-  Explain: error => `${gray("Reason".padStart(10))}  ${explain.forError(error)}\n`,
+  Explain: error => `${gray("->")} ${explain.forError(error)}\n`,
   Finish: dir => `${magenta('new'.padStart(10))}  Success! Run '${underline(`cd ${dir}`)}' and then '${underline('kretes start')}' (or just '${underline('ks s')}')\n`,
 }
 

@@ -102,10 +102,9 @@ export const handler = async ({ port, production, database }) => {
     App.DatabasePool = new pg.Pool(connection);
     await App.DatabasePool.connect();
     databaseConnected = true;
-    print(notice("Database OK"));
+    print(notice("OK")("Database"));
   } catch (error) {
-    print(notice("Database Error"));
-    print(notice("Error")(error));
+    print(notice("Error")("Database")(error));
     print(notice("Explain")(error));
 
     // can continue
