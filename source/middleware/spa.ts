@@ -31,7 +31,7 @@ export const SPA = (routes = [], server: SnowpackDevServer): Middleware => {
         const { exports: { render } } = await runtime.importModule(`${path === '/' ? '' : path}/_server.js`);
         app = render();
       } catch (error) {
-        console.log(error.message)
+        // skip SSR flow
       }
 
       let html = await fs.readFile(App.BaseHTML, 'utf-8')
