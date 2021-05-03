@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0
 
 import { createReadStream } from "fs";
-import { dirname, join } from "path";
+import { join } from "path";
 
 // change to import maps when TS supports it
 import { response } from 'retes';
@@ -21,6 +21,8 @@ const {
   Unauthorized,
   Forbidden,
   InternalServerError,
+  MethodNotAllowed,
+  BadRequest
 } = response;
 
 import { render, read } from "./view";
@@ -83,4 +85,6 @@ export {
   StyleSheetString,
   Unauthorized,
   Conflict,
+  MethodNotAllowed,
+  BadRequest
 };
