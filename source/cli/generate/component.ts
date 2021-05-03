@@ -21,8 +21,8 @@ export const handler = async ({ name }: { name: string }) => {
     const content = await readFile(Path.join(templateDir, 'react.template.tsx'), 'utf-8');
     const interpolated = interpolate(content, { name });
 
-    await outputFile(Path.join(cwd, 'components', `${name}.tsx`), interpolated, { flag: 'wx' });
-    await appendFile(Path.join(cwd, 'components', 'index.ts'), `export { ${name} } from './${name}';\n`)
+    await outputFile(Path.join(cwd, 'app', 'components', `${name}.tsx`), interpolated, { flag: 'wx' });
+    await appendFile(Path.join(cwd, 'app', 'components', 'index.ts'), `export { ${name} } from './${name}';\n`)
     print(`Created '${name}' in 'components/'\n`);
   } catch (error) {
     if (error.code === 'EEXIST') {

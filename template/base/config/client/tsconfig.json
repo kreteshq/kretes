@@ -16,7 +16,7 @@
     "moduleResolution": "node",
     "paths": {
       "@/*": [
-        "*"
+        "app/*"
       ]
     },
     "esModuleInterop": true,
