@@ -74,7 +74,7 @@ export default class Kretes extends ServerApp {
 
   async setup() {
     try {
-      const { typeDefs, resolvers } = await import(`${join(cwd, 'dist', 'site', '_api', 'index')}.js`);
+      const { types: typeDefs, resolvers } = await import(`${join(cwd, 'dist', 'site', '_api', 'index')}.js`);
 
       this.add("POST", "/_api", await Endpoint.GraphQL({
         schema: makeExecutableSchema({ typeDefs, resolvers })
