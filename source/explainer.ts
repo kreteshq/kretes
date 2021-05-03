@@ -25,5 +25,5 @@ export const forError = error => {
     let matches = error.message.match(pattern);
     if (matches) return explanation(matches);
   }
-  return wrap('(missing)', '  ');
+  return wrap('(no explanation available)', '  ');
 }
