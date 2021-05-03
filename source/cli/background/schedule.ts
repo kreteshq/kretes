@@ -7,12 +7,12 @@ const debug = Debug('ks:cli:background'); // eslint-disable-line no-unused-vars
 import { quickAddJob } from "graphile-worker";
 import { Argv } from 'yargs';
 
-export const handler = async ({ task = '', payload = '{}', options = {} }) => {
+export const handler = async ({ job = '', payload = '{}', options = {} }) => {
   const { default: config } = await import('config'); // defer the config loading
   const connectionString: string = `postgresql:///${config.get('db.database')}`;
 
-  await quickAddJob({ connectionString }, task, JSON.parse(payload))
+  await quickAddJob({ connectionString }, job, JSON.parse(payload))
 } ;
 
 export const builder = (_: Argv) => _;
-export const command = 'schedule <task> [payload]';
+export const command = 'schedule <job> [payload]';

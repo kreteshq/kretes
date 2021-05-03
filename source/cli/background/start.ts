@@ -12,7 +12,7 @@ import { Argv } from 'yargs';
 
 export const handler = async () => {
   const pgPool = new Pool();
-  const taskDirectory = `${process.cwd()}/dist/tasks`;
+  const taskDirectory = `${process.cwd()}/dist/jobs`;
 
   try {
     const _runner = await run({ pgPool, taskDirectory });
