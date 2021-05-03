@@ -13,7 +13,7 @@ type BuildController = () => Controller;
 
 export const build: BuildController = () => {
   const pattern = /site\/_api\/([\.\w]+)\/([\w\/]+).(js|ts)/;
-  const handlers = fg.sync(['site/_api/**/*.(js|ts)']);
+  const handlers = fg.sync(['site/_api/**/*.(js|ts)'], { ignore: ['site/_api/index.ts'] });
 
   const controllers = {}
   for (const path of handlers) {

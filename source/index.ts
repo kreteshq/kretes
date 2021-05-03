@@ -7,6 +7,7 @@ const debug = Debug("ks:index"); // eslint-disable-line no-unused-vars
 import { join } from "path";
 import httpstatus from "http-status";
 import { ServerApp } from "retes";
+import { makeExecutableSchema } from 'graphql-tools'
 
 import { 
   Request,
@@ -24,6 +25,7 @@ import { precompile, lookupViews } from "./view";
 import Logger from "./logger";
 import HTMLifiedError from "./error";
 import { setupControllersFromFilesystem } from "./core";
+import { print, notice } from './util';
 
 const cwd = process.cwd();
 
@@ -71,13 +73,22 @@ export default class Kretes extends ServerApp {
   }
 
   async setup() {
+    try {
+      const { typeDefs, resolvers } = await import(`${join(cwd, 'dist', 'site', '_api', 'index')}.js`);
+
+      this.add("POST", "/_api", await Endpoint.GraphQL({
+        schema: makeExecutableSchema({ typeDefs, resolvers })
+      }));
+      this.add("GET", "/_graphiql", await Endpoint.GraphiQL());
+
+      print(notice("OK")("GraphQL"));
+    } catch (error) {
+      print(notice("Error")("GraphQL")(error));
+      print(notice("Explain")(error));
+    }
+
     if (this.isDatabase) {
-      try {
-        this.add("POST", "/_api", await Endpoint.GraphQL());
-        this.add("GET", "/_graphiql", await Endpoint.GraphiQL());
-      } catch (error) {
-        console.error("Database Error that shouldn't happen")
-      }
+      // enable Postgraphile
     }
 
     this.add("GET", "/_api.json", () => Endpoint.OpenAPI(this.routePaths));
