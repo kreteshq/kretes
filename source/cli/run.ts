@@ -12,7 +12,8 @@ import { App } from '../manifest';
 const VERSION = require('../../package.json').version;
 
 export const start = async ({ port, database, snowpack = null }) => {
-  const { routes, middlewares } = require(__compiled('config/server/index'));
+  const { routes } = require(__compiled('app/routes/index'));
+  const { middlewares } = require(__compiled('app/middlewares/index'));
 
   const app = new Kretes({ routes, middlewares, isDatabase: database, snowpack });
   const server = await app.start(port);
