@@ -51,13 +51,10 @@ const cwd = process.cwd();
 
 export const render = async (source: string, options: Options = {}): Promise<string> => {
   const { context = {}, paths = [], path = '.' } = options;
-  const { template, html } = await compile(source, {
+  const { template } = await compile(source, {
     cache: process.env.NODE_ENV === 'production',
     paths: [path, ...paths],
   });
-  if (html) {
-    return html;
-  }
   return template(context, escape);
 };
 

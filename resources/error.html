@@ -16,14 +16,13 @@
       <div class="frames">
         <div class="frame-stack">
           <div class="frames-list">
-            <for frame in frames>
-              { frame.index }
-              <div class="frame-row { classes }">
+            <for frame and index of frames>
+              <div class="frame-row { frame.classes }">
                 <div class="frame-row-filepath">
                   { frame.file }:{ frame.line }:{ frame.column }
                 </div>
                 <div class="frame-row-code">
-                  { frame.method }
+                  { frame.method } 
                 </div>
                 <div class="frame-context"
                   data-start="{frame.context.start}"
@@ -32,9 +31,9 @@
                   data-method="{frame.method}"
                   data-line-column="{ frame.line }:{ frame.column }"
                   >
-                  { frame.context.pre }
-                  { frame.context.line }
-                  { frame.context.post }
+{ frame.context.pre }
+{ frame.context.line }
+{ frame.context.post }
                 </div>
               </div>
             </for>

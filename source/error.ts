@@ -29,7 +29,7 @@ export default class HTMLifiedError {
   }
 
   async provideSnippetForFrame(frame) {
-    const path = frame.getFileName().replace(/dist\/webpack:\//g, '');
+    const path = frame.getFileName().replace(/dist\//g, '').replace(/.js$/, '.ts');
 
     const content = await fs.readFile(path, 'utf-8');
     const lines = content.split(/\r?\n/);
