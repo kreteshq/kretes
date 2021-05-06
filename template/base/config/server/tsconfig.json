@@ -24,6 +24,8 @@
   "include": [
     "*.ts",
     "../../app/jobs/**.ts",
+    "../../app/routes/**.ts",
+    "../../app/middlewares/**.ts",
     "../../app/controllers/**.ts",
     "../../site/_api/**/*.ts",
   ]
