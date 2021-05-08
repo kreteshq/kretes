@@ -51,7 +51,7 @@ interface Options {
   location?: string, 
 }
 
-const Page = async (name: string, variables: object = {}, { location = 'site' }: Options = {}) => {
+const Page = async (name: string, variables: object = {}, { location = 'app/views' }: Options = {}) => {
   const path = join(cwd, location, `${name}.html`);
   const paths = [join(cwd, "parts")];
 

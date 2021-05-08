@@ -70,7 +70,7 @@ export const precompile = async (files: File[], { paths } = { paths: [] }): Prom
 };
 
 export const lookupViews = async () => {
-  const path = join(cwd, "site/**/*.html");
+  const path = join(cwd, "app/views/**/*.html");
   const files = await fg(path);
   return readAll(files, { cache: true });
 };
