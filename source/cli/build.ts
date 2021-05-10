@@ -11,6 +11,7 @@ import fs from 'fs-extra';
 import transformPaths from '@zerollup/ts-transform-paths';
 import { PluginFn } from '@poppinss/chokidar-ts/build/src/Contracts';
 import { TypescriptCompiler } from '@poppinss/chokidar-ts';
+import dotenv from 'dotenv';
 
 import { print, notice, println } from '../util';
 import { SnowpackConfig as DefaultSnowpackConfig } from '../config/snowpack';
@@ -52,8 +53,13 @@ export const handler = async () => {
   try {
     println(notice('Build'));
 
+    const { parsed: envs = {} } = dotenv.config();
+    const env = Object.fromEntries(Object.entries(envs)
+      .filter(([name, value]) => name.startsWith("PUBLIC_")));
+
     const config = createConfiguration({
       ...DefaultSnowpackConfig,
+      env, 
       plugins: [
         ["@snowpack/plugin-postcss", { config: join(process.cwd(), 'config', 'postcss.config.js') }],
       ]
