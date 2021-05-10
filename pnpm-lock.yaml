@@ -23,7 +23,7 @@ specifiers:
   config: ^3.3.6
   cookie: ^0.4.1
   debug: ^4.3.1
-  dotenv: ^9.0.0
+  dotenv: ^9.0.1
   dumper.js: ^1.3.1
   error-stack-parser: ^2.0.6
   esbuild: ^0.11.20
@@ -43,7 +43,7 @@ specifiers:
   pg: ^8.6.0
   postcss: ^8.2.14
   postgraphile: ^4.11.0
-  prettier: 2.2.1
+  prettier: 2.3.0
   retes: ^0.15.0
   rsyncwrapper: ^3.0.1
   semver: ^7.3.5
@@ -69,7 +69,7 @@ dependencies:
   config: 3.3.6
   cookie: 0.4.1
   debug: 4.3.1
-  dotenv: 9.0.0
+  dotenv: 9.0.1
   dumper.js: 1.3.1
   error-stack-parser: 2.0.6
   esbuild: 0.11.20
@@ -106,9 +106,9 @@ devDependencies:
   axios: 0.21.1_debug@4.3.1
   eslint: 7.26.0
   eslint-config-prettier: 8.3.0_eslint@7.26.0
-  eslint-plugin-prettier: 3.4.0_7abce37ca9bca0aaa6aa91e2037aefea
+  eslint-plugin-prettier: 3.4.0_39fed7ca8f33f3403e39ca7e7aa90c0f
   form-data: 4.0.0
-  prettier: 2.2.1
+  prettier: 2.3.0
 
 packages:
 
@@ -1517,8 +1517,8 @@ packages:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
 
-  /ajv/8.2.0:
-    resolution: {integrity: sha512-WSNGFuyWd//XO8n/m/EaOlNLtO0yL8EXT/74LqT4khdhpZjP7lkj/kT5uwRmGitKEVp/Oj7ZUHeGfPtgHhQ5CA==}
+  /ajv/8.3.0:
+    resolution: {integrity: sha512-RYE7B5An83d7eWnDR8kbdaIFqmKCNsP16ay1hDbJEU+sa0e3H9SebskCt0Uufem6cfAVu7Col6ubcn/W+Sm8/Q==}
     dependencies:
       fast-deep-equal: 3.1.3
       json-schema-traverse: 1.0.0
@@ -1771,7 +1771,7 @@ packages:
   /axios/0.21.1_debug@4.3.1:
     resolution: {integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==}
     dependencies:
-      follow-redirects: 1.14.0_debug@4.3.1
+      follow-redirects: 1.14.1_debug@4.3.1
     transitivePeerDependencies:
       - debug
 
@@ -1948,7 +1948,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001223
+      caniuse-lite: 1.0.30001227
       colorette: 1.2.2
       electron-to-chromium: 1.3.727
       escalade: 3.1.1
@@ -2072,8 +2072,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /caniuse-lite/1.0.30001223:
-    resolution: {integrity: sha512-k/RYs6zc/fjbxTjaWZemeSmOjO0JJV+KguOBA3NwPup8uzxM1cMhR2BD9XmO86GuqaqTCO8CgkgH9Rz//vdDiA==}
+  /caniuse-lite/1.0.30001227:
+    resolution: {integrity: sha512-HHZT4QpUw4Pf45IE3xxKAPgAN3q2aRai/x5TSHP8lrrKzARoH0IeBviwStcRi5lsFlscTkBbXC7gXyms43151A==}
     dev: false
 
   /caseless/0.12.0:
@@ -2521,8 +2521,8 @@ packages:
       is-obj: 2.0.0
     dev: true
 
-  /dotenv/9.0.0:
-    resolution: {integrity: sha512-yy3x9XjojW8ROTBePD25AcMoHqGHsvHmtfw8QWlpEXyMMXXPj6brUA464AptUvHuTPRmNz6Sd3ZLNLeJl6dHJA==}
+  /dotenv/9.0.1:
+    resolution: {integrity: sha512-W8FNeNnnvJoYfgkFRKzp8kTgz0T2YY4TJ9xy1Ma0hSebPTK8iquRtpG12TUrSTX5zIN9D/wSLEEuI+Ad35tlyw==}
     engines: {node: '>=10'}
     dev: false
 
@@ -2706,7 +2706,7 @@ packages:
       eslint: 7.26.0
     dev: true
 
-  /eslint-plugin-prettier/3.4.0_7abce37ca9bca0aaa6aa91e2037aefea:
+  /eslint-plugin-prettier/3.4.0_39fed7ca8f33f3403e39ca7e7aa90c0f:
     resolution: {integrity: sha512-UDK6rJT6INSfcOo545jiaOwB701uAIt2/dR7WnFQoGCVl1/EMqdANBmwUaqqQ45aXprsTGzSa39LI1PyuRBxxw==}
     engines: {node: '>=6.0.0'}
     peerDependencies:
@@ -2719,7 +2719,7 @@ packages:
     dependencies:
       eslint: 7.26.0
       eslint-config-prettier: 8.3.0_eslint@7.26.0
-      prettier: 2.2.1
+      prettier: 2.3.0
       prettier-linter-helpers: 1.0.0
     dev: true
 
@@ -2995,8 +2995,8 @@ packages:
     resolution: {integrity: sha512-zAoAQiudy+r5SvnSw3KJy5os/oRJYHzrzja/tBDqrZtNhUw8bt6y8OBzMWcjWr+8liV8Eb6yOhw8WZ7VFZ5ZzA==}
     dev: true
 
-  /follow-redirects/1.14.0_debug@4.3.1:
-    resolution: {integrity: sha512-0vRwd7RKQBTt+mgu87mtYeofLFZpTas2S9zY+jIeuLJMNvudIgF52nr19q40HOwH5RrhWIPuj9puybzSJiRrVg==}
+  /follow-redirects/1.14.1_debug@4.3.1:
+    resolution: {integrity: sha512-HWqDgT7ZEkqRzBvc2s64vSZ/hfOceEol3ac/7tKwzuvEyWx3/4UegXh5oBOIotkGsObyk3xznnSRVADBgWSQVg==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -3624,8 +3624,8 @@ packages:
       ci-info: 2.0.0
     dev: true
 
-  /is-core-module/2.3.0:
-    resolution: {integrity: sha512-xSphU2KG9867tsYdLD4RWQ1VqdFl4HTO9Thf3I/3dLEfr0dbPTWKsuCKrgqMljg4nPE+Gq0VCnzT3gr0CyBmsw==}
+  /is-core-module/2.4.0:
+    resolution: {integrity: sha512-6A2fkfq1rfeQZjxrZJGerpLCTHRNEBiSgnu0+obeJpEPZRUooHgsizvzv0ZjJwOz3iWIHdJtVWJ/tmPr3D21/A==}
     dependencies:
       has: 1.0.3
 
@@ -4938,8 +4938,8 @@ packages:
       fast-diff: 1.2.0
     dev: true
 
-  /prettier/2.2.1:
-    resolution: {integrity: sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q==}
+  /prettier/2.3.0:
+    resolution: {integrity: sha512-kXtO4s0Lz/DW/IJ9QdWhAf7/NmPWQXkFr/r/WkR3vyI+0v8amTDxiaQSLzs8NBlytfLWX/7uQUMIW677yLKl4w==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
@@ -5227,7 +5227,7 @@ packages:
   /resolve/1.20.0:
     resolution: {integrity: sha512-wENBPt4ySzg4ybFQW2TT1zMQucPK95HSh/nq2CFTZVOGut2+pQvSsgtda4d26YrYcr067wjbmzOG8byDPBX63A==}
     dependencies:
-      is-core-module: 2.3.0
+      is-core-module: 2.4.0
       path-parse: 1.0.6
 
   /responselike/1.0.2:
@@ -5678,7 +5678,7 @@ packages:
     resolution: {integrity: sha512-SAM+5p6V99gYiiy2gT5ArdzgM1dLDed0nkrWmG6Fry/bUS/m9x83BwpJUOf1Qj/x2qJd+thL6IkIx7qPGRxqBw==}
     engines: {node: '>=10.0.0'}
     dependencies:
-      ajv: 8.2.0
+      ajv: 8.3.0
       lodash.clonedeep: 4.5.0
       lodash.truncate: 4.4.2
       slice-ansi: 4.0.0

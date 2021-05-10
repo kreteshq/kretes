@@ -5,7 +5,7 @@
     "start": "kretes start --production"
   },
   "dependencies": {
-    "kretes": "^1.0.0-alpha.45"
+    "kretes": "^1.0.0-alpha.46"
   },
   "browserslist": [
     "> 1%",
@@ -21,7 +21,7 @@
     "node-pg-migrate": "^5.9.0",
     "npm-check-updates": "^11.5.10",
     "pnpm": "6.2.5",
-    "prettier": "^2.2.1",
+    "prettier": "^2.3.0",
     "typescript": "^4.2.4",
     "tailwindcss": "^2.1.2"
   }
