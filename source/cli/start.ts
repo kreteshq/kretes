@@ -92,6 +92,12 @@ export const handler = async ({ port, production, database }) => {
   print(notice('Kretes'));
   process.env.KRETES = process.env.NODE_ENV = production ? 'production' : 'development';
 
+  // FIXME don't read two times, e.g in Snowpack
+  const { error, parsed } = dotenv.config()
+  if (error) {
+    throw error
+  }
+
   let app: Kretes;
 
   const config = require("config");
