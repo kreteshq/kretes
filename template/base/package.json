@@ -19,8 +19,8 @@
     "cross-env": "^7.0.3",
     "kretes-snowpack-refresh": "^0.0.3",
     "node-pg-migrate": "^5.9.0",
-    "npm-check-updates": "^11.5.10",
-    "pnpm": "6.2.5",
+    "npm-check-updates": "^11.5.11",
+    "pnpm": "6.3.0",
     "prettier": "^2.3.0",
     "typescript": "^4.2.4",
     "tailwindcss": "^2.1.2"
