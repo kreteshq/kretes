@@ -10,6 +10,7 @@ export const SnowpackConfig = {
   mount: {
     "app/components": '/@/components/',
     "app/hooks": '/@/hooks/',
+    "app/views": "/",
     stylesheets: '/stylesheets/',
     site: '/',
     static: { url: '/', static: true, resolve: false },

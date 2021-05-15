@@ -12,3 +12,4 @@ export { Security } from './security';
 export { Serve } from './serve';
 export { Snowpack } from './snowpack';
 export { SPA } from './spa';
+export { ServerSideRenderer } from './ssr';

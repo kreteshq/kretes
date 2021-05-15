@@ -109,6 +109,7 @@ export default class Kretes extends ServerApp {
 
     this.use(M.Security());
     this.use(M.CORS());
+    this.use(M.ServerSideRenderer(this.snowpack.getServerRuntime()));
     this.use(M.Routing(this.router));
     this.use(M.Caching());
     this.use(M.Serve(this.staticDir));
@@ -116,7 +117,7 @@ export default class Kretes extends ServerApp {
     if (process.env.KRETES != "production") {
       // middlewares to run ONLY in Development
       this.use(M.Snowpack(this.snowpack))
-      this.use(M.SPA(this.routes, this.snowpack));
+      this.use(M.SPA(this.routes));
     }
   }
 }

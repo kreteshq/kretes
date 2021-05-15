@@ -119,7 +119,9 @@ export const handler = async ({ port, production, database }) => {
   if (production) {
     await fs.ensureDir('dist/tasks');
 
-    app = await start({ port, database: databaseConnected });
+    const snowpack = await startSnowpack();
+
+    app = await start({ port, database: databaseConnected, snowpack });
   } else {
     await fs.emptyDir('public')
 
