@@ -28,6 +28,7 @@ export async function handler({ dir, installDependencies, template }) {
     await fs.copy(themeDir, join(cwd, dir), { overwrite: false, errorOnExist: true });
     await fs.rename(join(cwd, dir, 'npmrc'), join(cwd, dir, '.npmrc'));
     await fs.rename(join(cwd, dir, 'gitignore'), join(cwd, dir, '.gitignore'));
+    await fs.rename(join(cwd, dir, 'env'), join(cwd, dir, '.env'));
 
     // rename directories
     await fs.rename(join(cwd, dir, 'vscode'), join(cwd, dir, '.vscode'));

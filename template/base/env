@@ -1,0 +1,5 @@
+FOO=foo
+
+# env vars prefixed with `PUBLIC_` are visible client-side
+
+PUBLIC_BAR=bar
