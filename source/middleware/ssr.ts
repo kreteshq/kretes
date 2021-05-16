@@ -7,9 +7,9 @@ import { ServerRuntime } from "snowpack";
 export const ServerSideRenderer = (runtime: ServerRuntime): Middleware => {
   return next => request => {
 
-    const performServerSideRendering = async path => {
+    const performServerSideRendering = async (path: string, bindings: object = {}) => {
       const { exports: { render } } = await runtime.importModule(`${path}.js`);
-      return await render();
+      return await render(bindings);
     }
 
     request.context = { performServerSideRendering };
