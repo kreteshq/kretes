@@ -10,7 +10,7 @@ specifiers:
   '@types/fs-extra': ^9.0.11
   '@types/lru-cache': ^5.1.0
   '@types/semver': ^7.3.6
-  '@types/yargs': ^16.0.1
+  '@types/yargs': ^16.0.2
   '@zerollup/ts-transform-paths': ^1.7.18
   argon2: ^0.27.2
   ava: ^3.15.0
@@ -26,7 +26,7 @@ specifiers:
   dotenv: ^9.0.2
   dumper.js: ^1.3.1
   error-stack-parser: ^2.0.6
-  esbuild: ^0.12.0
+  esbuild: ^0.12.1
   eslint: ^7.26.0
   eslint-config-prettier: ^8.3.0
   eslint-plugin-prettier: ^3.4.0
@@ -72,7 +72,7 @@ dependencies:
   dotenv: 9.0.2
   dumper.js: 1.3.1
   error-stack-parser: 2.0.6
-  esbuild: 0.12.0
+  esbuild: 0.12.1
   fast-glob: 3.2.5
   fs-extra: 10.0.0
   graphile-utils: 4.11.2
@@ -101,7 +101,7 @@ devDependencies:
   '@types/fs-extra': 9.0.11
   '@types/lru-cache': 5.1.0
   '@types/semver': 7.3.6
-  '@types/yargs': 16.0.1
+  '@types/yargs': 16.0.2
   ava: 3.15.0
   axios: 0.21.1_debug@4.3.1
   eslint: 7.26.0
@@ -112,8 +112,8 @@ devDependencies:
 
 packages:
 
-  /@apollo/client/3.3.18_graphql@15.5.0:
-    resolution: {integrity: sha512-SaJSda4V36/pnv7jkCBROBPwd3w/3TnG/Bd8oLESuNqm6ruXDHt067ow00Y2zz1AOL8SuOI9LXjmkr+FcTqnIQ==}
+  /@apollo/client/3.3.19_graphql@15.5.0:
+    resolution: {integrity: sha512-vzljWLPP0GwocfBhUopzDCUwsiaNTtii1eu8qDybAXqwj4/ZhnIM46c6dNQmnVcJpAIFRIsNCOxM4OlMDySJug==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0
       react: ^16.8.0 || ^17.0.0
@@ -843,13 +843,13 @@ packages:
       tslib: 2.0.3
     dev: false
 
-  /@graphql-tools/links/7.1.0_e74fe15ee37a26b823ad5157a5546e73:
+  /@graphql-tools/links/7.1.0_af0944b9e9b5a121a4ba437e02aa4cd0:
     resolution: {integrity: sha512-8cJLs3ko0Zq0agJiFiHuAZ27OXbfgRF5JtVtIx8q2RfjVN0sss9QeetrTBjc2XfTj5HYZr6BHqqlyMMA4OXp7A==}
     peerDependencies:
       '@apollo/client': ~3.2.5 || ~3.3.0
       graphql: ^14.0.0 || ^15.0.0
     dependencies:
-      '@apollo/client': 3.3.18_graphql@15.5.0
+      '@apollo/client': 3.3.19_graphql@15.5.0
       '@graphql-tools/delegate': 7.1.5_graphql@15.5.0
       '@graphql-tools/utils': 7.10.0_graphql@15.5.0
       apollo-upload-client: 14.1.3_graphql@15.5.0
@@ -1362,8 +1362,8 @@ packages:
     resolution: {integrity: sha512-37RSHht+gzzgYeobbG+KWryeAW8J33Nhr69cjTqSYymXVZEN9NbRYWoYlRtDhHKPVT1FyNKwaTPC1NynKZpzRA==}
     dev: true
 
-  /@types/yargs/16.0.1:
-    resolution: {integrity: sha512-x4HABGLyzr5hKUzBC9dvjciOTm11WVH1NWonNjGgxapnTHu5SWUqyqn0zQ6Re0yQU0lsQ6ztLCoMAKDGZflyxA==}
+  /@types/yargs/16.0.2:
+    resolution: {integrity: sha512-EkZDJvHXblOE2/iFZb3Ty5c8RHPssmFvrXqj3V/ZLXtOt0f7xJh9Fd7p1pl2ITrNHM7Rl3Db3JJVBT7q/C0wUg==}
     dependencies:
       '@types/yargs-parser': 20.2.0
     dev: true
@@ -1582,7 +1582,7 @@ packages:
     peerDependencies:
       graphql: 14 - 15
     dependencies:
-      '@apollo/client': 3.3.18_graphql@15.5.0
+      '@apollo/client': 3.3.19_graphql@15.5.0
       '@babel/runtime': 7.14.0
       extract-files: 9.0.0
       graphql: 15.5.0
@@ -1950,7 +1950,7 @@ packages:
     dependencies:
       caniuse-lite: 1.0.30001228
       colorette: 1.2.2
-      electron-to-chromium: 1.3.730
+      electron-to-chromium: 1.3.731
       escalade: 3.1.1
       node-releases: 1.1.72
     dev: false
@@ -2561,8 +2561,8 @@ packages:
     deprecated: Use @eivifj/dot instead
     dev: false
 
-  /electron-to-chromium/1.3.730:
-    resolution: {integrity: sha512-1Tr3h09wXhmqXnvDyrRe6MFgTeU0ZXy3+rMJWTrOHh/HNesWwBBrKnMxRJWZ86dzs8qQdw2c7ZE1/qeGHygImA==}
+  /electron-to-chromium/1.3.731:
+    resolution: {integrity: sha512-dn1Nyd0DuFa3xhqZJr6/L9phyk+YXJpvrz6Vcu6mFxFqr5TQ9r/F3yvOYFUrEwY4Tbb1YBjN19TDKnSVCQvalA==}
     dev: false
 
   /emittery/0.8.1:
@@ -2664,8 +2664,8 @@ packages:
     requiresBuild: true
     dev: false
 
-  /esbuild/0.12.0:
-    resolution: {integrity: sha512-vUKQ6TiMWGCtI7jLSrMmBVY4aj4As9J6NsFnrS9insd2F5KKD3mr1jUe+SB4KsMACkQIGtTtkksPpRmmqgxDHw==}
+  /esbuild/0.12.1:
+    resolution: {integrity: sha512-WfQ00MKm/Y4ysz1u9PCUAsV66k5lbrcEvS6aG9jhBIavpB94FBdaWeBkaZXxCZB4w+oqh+j4ozJFWnnFprOXbg==}
     hasBin: true
     requiresBuild: true
     dev: false
@@ -3315,7 +3315,7 @@ packages:
       '@graphql-tools/graphql-tag-pluck': 6.5.1_graphql@15.5.0
       '@graphql-tools/import': 6.3.1_graphql@15.5.0
       '@graphql-tools/json-file-loader': 6.2.6_graphql@15.5.0
-      '@graphql-tools/links': 7.1.0_e74fe15ee37a26b823ad5157a5546e73
+      '@graphql-tools/links': 7.1.0_af0944b9e9b5a121a4ba437e02aa4cd0
       '@graphql-tools/load': 6.2.8_graphql@15.5.0
       '@graphql-tools/load-files': 6.3.2_graphql@15.5.0
       '@graphql-tools/merge': 6.2.14_graphql@15.5.0
@@ -3332,7 +3332,7 @@ packages:
       graphql: 15.5.0
       tslib: 2.2.0
     optionalDependencies:
-      '@apollo/client': 3.3.18_graphql@15.5.0
+      '@apollo/client': 3.3.19_graphql@15.5.0
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
