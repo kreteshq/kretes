@@ -33,8 +33,6 @@ export const start = async ({ port, database, snowpack = null }) => {
     }
   });
 
-
-
   const onExit = async (_signal) => {
     console.log(color`  {grey Stoping...}`);
     // await app.stop() FIXME is this really necessary?!

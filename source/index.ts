@@ -29,6 +29,13 @@ import { print, notice } from './util';
 
 const cwd = process.cwd();
 
+const Env = {
+  get isProduction() {
+    return process.env.KRETES === 'production'
+  }
+}
+
+
 const handleError = (request: Request) => (error) => {
   const { response } = request;
 
@@ -158,4 +165,5 @@ export {
   Routes, 
   Middleware,
   Pipeline,
+  Env
 }
