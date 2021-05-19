@@ -50,6 +50,8 @@ const compileServerSide = () => {
 export const handler = async () => {
   const cwd = process.cwd();
 
+  process.env.KRETES = process.env.NODE_ENV = 'production'; 
+
   try {
     println(notice('Build'));
 
