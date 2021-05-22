@@ -53,8 +53,11 @@
               },
               "connectionTimeoutMillis": {
                 "type": "number"
-              },
+              }
             }
+          },
+          "graphql": {
+            "type": "boolean"
           },
           "deploy": {
             "type": "object",

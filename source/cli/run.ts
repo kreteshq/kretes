@@ -11,11 +11,11 @@ import { App } from '../manifest';
 
 const VERSION = require('../../package.json').version;
 
-export const start = async ({ port, database, snowpack = null }) => {
+export const start = async ({ port, database, isGraphQL, snowpack = null }) => {
   const { routes } = require(__compiled('app/routes/index'));
   const { middlewares } = require(__compiled('app/middlewares/index'));
 
-  const app = new Kretes({ routes, middlewares, isDatabase: database, snowpack });
+  const app = new Kretes({ routes, middlewares, isDatabase: database, snowpack, graphql: isGraphQL });
   const server = await app.start(port);
 
   const wss = new WebSocket.Server({ server });
@@ -45,13 +45,14 @@ export const start = async ({ port, database, snowpack = null }) => {
   return app;
 };
 
-export async function handler({ port, database }: { port: number, database: boolean }) {
+export async function handler({ port, database, graphql }: { port: number, database: boolean, graphql: boolean }) {
   console.log(`${color.bold.blue('Kretes'.padStart(10))} ` + color`{bold ${VERSION}}`);
 
-  await start({ port, database })
+  await start({ port, database, isGraphQL: graphql })
 }
 
 export const builder = (_: Argv) => _
   .option('port', { alias: 'p', default: 5544 })
   .option('production', { type: 'boolean', default: false })
-  .option('database', { type: 'boolean' });
+  .option('database', { type: 'boolean' })
+  .option('graphql', { type: 'boolean' });

@@ -59,6 +59,7 @@ export default class Kretes extends ServerApp {
   staticDir: string;
   routePaths: Object;
   isDatabase: boolean;
+  isGraphQL: boolean;
   snowpack: SnowpackDevServer | undefined;
 
   constructor({
@@ -74,24 +75,28 @@ export default class Kretes extends ServerApp {
   } = {}) {
     super(routes, middlewares, handleError, append);
 
+    this.isGraphQL = graphql;
     this.staticDir = staticDir;
     this.isDatabase = isDatabase;
     this.snowpack = snowpack;
   }
 
   async setup() {
-    try {
-      const { types: typeDefs, resolvers } = await import(`${join(cwd, 'dist', 'site', '_api', 'index')}.js`);
 
-      this.add("POST", "/_api", await Endpoint.GraphQL({
-        schema: makeExecutableSchema({ typeDefs, resolvers })
-      }));
-      this.add("GET", "/_graphiql", await Endpoint.GraphiQL());
+    if (this.isGraphQL) {
+      try {
+        const { types: typeDefs, resolvers } = await import(`${join(cwd, 'dist', 'site', '_api', 'index')}.js`);
 
-      print(notice("OK")("GraphQL"));
-    } catch (error) {
-      print(notice("Error")("GraphQL")(error));
-      print(notice("Explain")(error));
+        this.add("POST", "/_api", await Endpoint.GraphQL({
+          schema: makeExecutableSchema({ typeDefs, resolvers })
+        }));
+        this.add("GET", "/_graphiql", await Endpoint.GraphiQL());
+
+        print(notice("OK")("GraphQL"));
+      } catch (error) {
+        print(notice("Error")("GraphQL")(error));
+        print(notice("Explain")(error));
+      }
     }
 
     if (this.isDatabase) {

@@ -92,6 +92,8 @@ export const handler = async ({ port, production, database }) => {
   print(notice('Kretes'));
   process.env.KRETES = process.env.NODE_ENV = production ? 'production' : 'development';
 
+  const config = require("config");
+
   // FIXME don't read two times, e.g in Snowpack
   const { error, parsed } = dotenv.config()
   if (error) {
@@ -100,7 +102,6 @@ export const handler = async ({ port, production, database }) => {
 
   let app: Kretes;
 
-  const config = require("config");
   const connection = config.has("db") ? config.get("db") : {}; // node-pg supports env variables
 
   let databaseConnected = false;
@@ -116,12 +117,14 @@ export const handler = async ({ port, production, database }) => {
     // can continue
   }
 
+  const isGraphQL = config.has("graphql") ? config.get("graphql") : false
+
   if (production) {
     await fs.ensureDir('dist/tasks');
 
     const snowpack = await startSnowpack();
 
-    app = await start({ port, database: databaseConnected, snowpack });
+    app = await start({ port, database: databaseConnected, snowpack, isGraphQL });
   } else {
     await fs.emptyDir('public')
 
@@ -164,7 +167,7 @@ export const handler = async ({ port, production, database }) => {
       await fs.ensureDir('dist/tasks');
 
       // start the HTTP server
-      app = await start({ port, database: databaseConnected, snowpack });
+      app = await start({ port, database: databaseConnected, snowpack, isGraphQL });
 
       await compileCSS();
       print(notice('CSS'));
@@ -212,7 +215,7 @@ export const handler = async ({ port, production, database }) => {
           makeRemoteService(app, dir, name);
         }
 
-        app = await start({ port, database, snowpack });
+        app = await start({ port, database, snowpack, isGraphQL });
 
         restartInProgress = false;
       }
