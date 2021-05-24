@@ -153,6 +153,7 @@ function register({ table = 'person', fields = [] } = {}): Handler {
           'Set-Cookie': Cookie.create('__ks_session', token, {
             httpOnly: true,
             sameSite: true,
+            path: '/',
             ...(process.env.DOMAIN && { domain: process.env.DOMAIN })
           })
         }
@@ -183,6 +184,7 @@ function login(finder: Finder): Handler {
             'Set-Cookie': Cookie.create('__ks_session', token, {
               httpOnly: true,
               sameSite: true,
+              path: '/',
               ...(process.env.DOMAIN && { domain: process.env.DOMAIN })
             })
           });
