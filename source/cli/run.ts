@@ -1,58 +1,24 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import color from 'chalk';
-import { Argv } from 'yargs';
-import WebSocket from 'ws';
+import Debug from 'debug';
+const debug = Debug('ks:cli:build'); // eslint-disable-line no-unused-vars
 
-import Kretes from '../';
-import { __compiled } from '../util';
-import { App } from '../manifest';
+import __ from 'chalk';
 
-const VERSION = require('../../package.json').version;
+import { run } from '../util';
 
-export const start = async ({ port, database, isGraphQL, snowpack = null }) => {
-  const { routes } = require(__compiled('app/routes/index'));
-  const { middlewares } = require(__compiled('app/middlewares/index'));
+const cwd = process.cwd();
 
-  const app = new Kretes({ routes, middlewares, isDatabase: database, snowpack, graphql: isGraphQL });
-  const server = await app.start(port);
+export const handler = async ({ name }) => {
+  const { default: config } = await import('config'); // defer the config loading
 
-  const wss = new WebSocket.Server({ server });
-  wss.on('connection', (socket) => {
-    App.WebSockets.add(socket);
-    socket.send(JSON.stringify({ type: 'connected' }));
-
-    socket.on('close', () => App.WebSockets.delete(socket));
-  });
-
-  wss.on('error', (error: Error & { code: string }) => {
-    if (error.code !== 'EADDRINUSE') {
-      console.error(`ws error:`);
-      console.error(error);
-    }
-  });
-
-  const onExit = async (_signal) => {
-    console.log(color`  {grey Stoping...}`);
-    // await app.stop() FIXME is this really necessary?!
-    process.exit(0);
-  };
-
-  process.on('SIGINT', onExit);
-  process.on('SIGTERM', onExit);
-
-  return app;
+  try {
+    const command: string = config.get(['commands', ...name].join('.'))
+    await run('/usr/bin/env', command.split(' '), { cwd });
+  } catch (error) {
+    console.error(__`  {red Error}: Command '${name.join(' ')}' not defined in the config`);
+  }
 };
 
-export async function handler({ port, database, graphql }: { port: number, database: boolean, graphql: boolean }) {
-  console.log(`${color.bold.blue('Kretes'.padStart(10))} ` + color`{bold ${VERSION}}`);
-
-  await start({ port, database, isGraphQL: graphql })
-}
-
-export const builder = (_: Argv) => _
-  .option('port', { alias: 'p', default: 5544 })
-  .option('production', { type: 'boolean', default: false })
-  .option('database', { type: 'boolean' })
-  .option('graphql', { type: 'boolean' });
+export const builder = _ => _;

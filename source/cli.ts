@@ -45,7 +45,7 @@ const _argv = yargs
   .usage('Usage: $0 <command> [options]')
   .command(['new [dir]', 'init', 'n'], 'Create new project', init.builder, init.handler)
   .command(['start', 's'], 'Start the application', start.builder, start.handler)
-  .command(['run'], 'Start the application', run.builder, run.handler)
+  .command(['run [name...]', 'r'], 'Run custom commands', run.builder, run.handler)
   .command(['add <pkg>'], 'Add package as project dependency', add.builder, add.handler)
   .command(['install', 'i'], 'Install dependencies', install.builder, install.handler)
   .command(['upgrade', 'up'], 'Upgrade packages', upgrade.builder, upgrade.handler)
