@@ -23,7 +23,6 @@ if (actual && !satisfies(actual, expected)) {
 import generate from './cli/generate';
 import background from './cli/background';
 import database from './cli/database';
-import docker from './cli/docker';
 
 import * as init from './cli/init';
 import * as start from './cli/start';
@@ -54,7 +53,6 @@ const _argv = yargs
   .command(['database [command]', 'db'], 'Database operations', database)
   .command(['deploy', 'deploy', 'de'], 'Deploy the application', deploy.builder, deploy.handler)
   .command(['generate [command]', 'g'], 'Generate various artifacts', generate)
-  .command(['docker [command]'], 'Docker interface', docker)
   .command(['routes', 'r'], 'Display routes', routes.builder, routes.handler)
   .command(['migrate', 'm'], 'Run database migrations', migrate.builder, migrate.handler)
   .command(['background', 'bg'], 'Run background processing', background)
