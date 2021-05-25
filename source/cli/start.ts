@@ -24,7 +24,7 @@ import { parser } from '../parser';
 import { notice, print } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
 import { App } from '../manifest'
-import { start } from './run';
+import { start } from './launch';
 import { SnowpackConfig } from '../config/snowpack';
 import { compileCSS } from '../compiler/css';
 
@@ -68,6 +68,12 @@ const startSnowpack = async () => {
 
   const snowpackConfig = createConfiguration({
     ...SnowpackConfig,
+    ...(process.env.KRETES === 'production' && {
+      mode: 'production',
+      devOptions: {
+        hmr: false,
+      },
+    }),
     plugins: [
       ...snowpackPlugins,
       ["@snowpack/plugin-postcss", { config: join(process.cwd(), 'config', 'postcss.config.js') }],
