@@ -38,6 +38,11 @@ export async function handler({ dir, installDependencies, template }) {
     const outputDefaultNix = join(cwd, dir, 'default.nix');
     await fs.outputFile(outputDefaultNix, substitute(tmplDefaultNix, { name }));
 
+    // parametrize `default.json`
+    const tmplDefaultJSON = await fs.readFile(join(themeDir, 'config', 'default.json'), 'utf-8');
+    const outputDefaultJSON = join(cwd, dir, 'config', 'default.json');
+    await fs.outputFile(outputDefaultJSON, substitute(tmplDefaultJSON, { name }));
+
     // parametrize `settings.json`
     const tmplVSCodeSettings = await fs.readFile(join(themeDir, 'vscode', 'settings.json'), 'utf-8');
     const outputVSCodeSettings = join(cwd, dir, '.vscode', 'settings.json');

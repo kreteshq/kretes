@@ -10,5 +10,12 @@
       "config/default.json"
     ],
     "src": "."
+  },
+  "commands": {
+    "docker": {
+      "build": "docker build -f ./config/docker/Dockerfile --tag kretes:{{name}}",
+      "start": "docker run -p 5544 --name {{name}} kretes:{{name}}",
+      "port": "docker inspect --format='{{(index (index .NetworkSettings.Ports \"5544/tcp\") 0).HostPort}}' {{name}}"
+    }
   }
 }
