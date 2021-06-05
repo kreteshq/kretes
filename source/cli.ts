@@ -37,6 +37,7 @@ import * as routes from './cli/routes';
 import * as migrate from './cli/migrate';
 import * as doctor from './cli/doctor';
 import * as clean from './cli/clean';
+import * as transpile from './cli/transpile';
 
 const _argv = yargs 
   .version()
@@ -57,6 +58,7 @@ const _argv = yargs
   .command(['migrate', 'm'], 'Run database migrations', migrate.builder, migrate.handler)
   .command(['background', 'bg'], 'Run background processing', background)
   .command(['doctor', 'doc'], 'Run the doctor utility', doctor.builder, doctor.handler)
+  .command(['transpile', 'ts'], 'Transpile the TypeScript files', transpile.builder, transpile.handler)
   .example('$0 new my-project', 'Create and initialize `my-project` directory')
   .example('$0 start', 'Start the application')
   .example('$0 build', 'Build the application for production')
