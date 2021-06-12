@@ -1,9 +1,7 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import { middleware } from 'retes';
-const { Routing } = middleware;
-export { Routing };
+export { Routing } from 'retes';
 
 export { CORS } from './cors';
 export { Caching } from './caching';

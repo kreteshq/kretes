@@ -4,7 +4,7 @@
 const debug = require('debug')('ks:routing'); // eslint-disable-line no-unused-vars
 
 import { join } from 'path';
-import { Route } from 'retes';
+import { route } from 'retes';
 
 const cwd = process.cwd();
 
@@ -18,14 +18,14 @@ const lookupHandler = ({ feature, action }) => {
     console.error(`'features/${feature}/Controller/${action}.js' could not be loaded.`);
 
     // return a handler that just informs about the missing handler
-    return _ => `You need to create 'features/${feature}/Controller/${action}.js'`;
+    return (_) => `You need to create 'features/${feature}/Controller/${action}.js'`;
   }
 };
 
-const { GET, PUT, DELETE, POST } = Route;
+const { GET, PUT, DELETE, POST } = route;
 
 // pretty smart, huh? :)
-function * buildResource(resources, parent: string = null) {
+function* buildResource(resources, parent: string = null) {
   const routes = [];
 
   for (const { feature, alias, children } of resources) {
@@ -63,7 +63,4 @@ class Router {
   get() {}
 }
 
-export {
-  Route
-}
-
+export { route };
