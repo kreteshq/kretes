@@ -11,7 +11,7 @@ import transformPaths from '@zerollup/ts-transform-paths';
 import { LspWatcher } from '@poppinss/chokidar-ts/build/src/LspWatcher';
 import { PluginFn } from '@poppinss/chokidar-ts/build/src/Contracts';
 import * as _ from 'colorette';
-import pg from "pg";
+import pg from 'pg';
 import { createConfiguration, startServer, logger } from 'snowpack';
 import dotenv from 'dotenv';
 
@@ -23,7 +23,7 @@ import { parser } from '../parser';
 // const SQLCompiler = require('../compiler/sql');
 import { notice, print } from '../util';
 import { generateWebRPCOnClient, RemoteMethodList } from '../rpc';
-import { App } from '../manifest'
+import { App } from '../manifest';
 import { start } from './launch';
 import { SnowpackConfig } from '../config/snowpack';
 import { compileCSS } from '../compiler/css';
@@ -31,8 +31,7 @@ import { compileCSS } from '../compiler/css';
 const CWD = process.cwd();
 const VERSION = require('../../package.json').version;
 
-const sleep = (ms: number) =>
-  new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 let stdout;
 
@@ -49,22 +48,25 @@ const reloadSQL = async (pool, file) => {
   }
 };
 
-const startSnowpack = async () => {
+export const startSnowpack = async () => {
   logger.level = 'silent';
 
   const { parsed: envs = {} } = dotenv.config();
-  const snowpackEnv = Object.fromEntries(Object.entries(envs)
-    .filter(([name, value]) => name.startsWith("PUBLIC_")));
+  const snowpackEnv = Object.fromEntries(
+    Object.entries(envs).filter(([name, value]) => name.startsWith('PUBLIC_'))
+  );
 
   const { default: config } = await import('config');
 
-  let plugins = []
+  let plugins = [];
   if (config.has('snowpack')) {
     plugins = config.get('snowpack.plugins');
   }
 
-  const snowpackPlugins = Object.entries(plugins)
-    .map<[string, any]>(([name, options]) => [`@snowpack/plugin-${name}`, options])
+  const snowpackPlugins = Object.entries(plugins).map<[string, any]>(([name, options]) => [
+    `@snowpack/plugin-${name}`,
+    options,
+  ]);
 
   const snowpackConfig = createConfiguration({
     ...SnowpackConfig,
@@ -76,20 +78,18 @@ const startSnowpack = async () => {
     }),
     plugins: [
       ...snowpackPlugins,
-      ["@snowpack/plugin-postcss", { config: join(process.cwd(), 'config', 'postcss.config.js') }],
-      ["kretes-snowpack-refresh", {}],
-    ]
+      ['@snowpack/plugin-postcss', { config: join(process.cwd(), 'config', 'postcss.config.js') }],
+      ['kretes-snowpack-refresh', {}],
+    ],
   });
-  
-  const server = await startServer(
-    {
-      config: {
-        ...snowpackConfig,
-        env: snowpackEnv,
-      },
-      lockfile: null
-    }
-  );
+
+  const server = await startServer({
+    config: {
+      ...snowpackConfig,
+      env: snowpackEnv,
+    },
+    lockfile: null,
+  });
 
   return server;
 };
@@ -98,32 +98,32 @@ export const handler = async ({ port, production, database }) => {
   print(notice('Kretes'));
   process.env.KRETES = process.env.NODE_ENV = production ? 'production' : 'development';
 
-  const config = require("config");
+  const config = require('config');
 
   // FIXME don't read two times, e.g in Snowpack
-  const { error, parsed } = dotenv.config()
+  const { error, parsed } = dotenv.config();
   if (error) {
-    throw error
+    throw error;
   }
 
   let app: Kretes;
 
-  const connection = config.has("db") ? config.get("db") : {}; // node-pg supports env variables
+  const connection = config.has('db') ? config.get('db') : {}; // node-pg supports env variables
 
   let databaseConnected = false;
   try {
     App.DatabasePool = new pg.Pool(connection);
     await App.DatabasePool.connect();
     databaseConnected = true;
-    print(notice("OK")("Database"));
+    print(notice('OK')('Database'));
   } catch (error) {
-    print(notice("Error")("Database")(error));
-    print(notice("Explain")(error));
+    print(notice('Error')('Database')(error));
+    print(notice('Explain')(error));
 
     // can continue
   }
 
-  const isGraphQL = config.has("graphql") ? config.get("graphql") : false
+  const isGraphQL = config.has('graphql') ? config.get('graphql') : false;
 
   if (production) {
     await fs.ensureDir('dist/tasks');
@@ -132,14 +132,10 @@ export const handler = async ({ port, production, database }) => {
 
     app = await start({ port, database: databaseConnected, snowpack, isGraphQL });
   } else {
-    await fs.emptyDir('public')
+    await fs.emptyDir('public');
 
     const TS = require('typescript/lib/typescript');
-    const compiler = new TypescriptCompiler(
-      CWD,
-      'config/server/tsconfig.json',
-      TS
-    );
+    const compiler = new TypescriptCompiler(CWD, 'config/server/tsconfig.json', TS);
     const { error, config } = compiler.configParser().parse();
 
     if (error || !config || config.errors.length) {
@@ -148,7 +144,7 @@ export const handler = async ({ port, production, database }) => {
     }
 
     const snowpack = await startSnowpack();
-    print(notice("Snowpack"))
+    print(notice('Snowpack'));
 
     // transforms `paths` defined in tsconfig.json
     // for the server-side code
@@ -158,7 +154,7 @@ export const handler = async ({ port, production, database }) => {
       const host = ts.createCompilerHost(options);
       const program = ts.createProgram(fileNames, options, host);
       const r = transformPaths(program);
-      return context => r.before(context);
+      return (context) => r.before(context);
     };
 
     compiler.use(plugin, 'before');
@@ -182,7 +178,6 @@ export const handler = async ({ port, production, database }) => {
       print(notice('Logs'));
     });
 
-
     watcher.on('subsequent:build', async ({ relativePath: filePath, skipped, diagnostics }) => {
       if (!restartInProgress) {
         restartInProgress = true;
@@ -201,20 +196,22 @@ export const handler = async ({ port, production, database }) => {
             resolve(true);
           });
         });
-        setImmediate(() => { app.server.emit('close'); });
+        setImmediate(() => {
+          app.server.emit('close');
+        });
 
         // clean the `require` cache
         const controllersCursor = join(CWD, 'dist', 'controllers');
         const apiCursor = join(CWD, 'dist', 'site', '_api');
 
-        debug('clean require.cache')
+        debug('clean require.cache');
         for (const key of Object.keys(require.cache)) {
           // TODO change to RegEx
           // if (key.includes(controllersCursor) || key.includes(apiCursor)) {
           delete require.cache[key];
           // }
         }
-        debug('require.cache cleaned')
+        debug('require.cache cleaned');
         // const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
 
         if (dir.includes('Service')) {
@@ -256,16 +253,11 @@ export const handler = async ({ port, production, database }) => {
       }
     });
 
-    watcher.watch([
-      'app/controllers',
-      'app/abilities',
-      'config',
-      'lib',
-      'site',
-      'stylesheets'
-    ], { ignored: [] });
+    watcher.watch(['app/controllers', 'app/abilities', 'config', 'lib', 'site', 'stylesheets'], {
+      ignored: [],
+    });
 
-    print(notice("TypeScript"))
+    print(notice('TypeScript'));
   }
 };
 
@@ -291,9 +283,8 @@ const makeRemoteService = async (app, dir, name) => {
   }
 };
 
-
-export const builder = _ => _
-  .option('port', { alias: 'p', default: 5544 })
-  .option('production', { type: 'boolean', default: false })
-  .option('database', { type: 'boolean' })
-  .default('dir', '.');
+export const builder = (_) =>
+  _.option('port', { alias: 'p', default: 5544 })
+    .option('production', { type: 'boolean', default: false })
+    .option('database', { type: 'boolean' })
+    .default('dir', '.');

@@ -1,10 +1,11 @@
 import test from 'ava';
 import axios from 'axios';
 import Kretes, { response, routing } from '..';
+import { startSnowpack } from '../cli/start';
 
 const { before, after } = test;
-const { Route } = routing
-const { GET } = Route
+const { route } = routing;
+const { GET } = route;
 const {
   OK,
   Created,
@@ -19,31 +20,29 @@ const {
   StyleSheetString,
   Unauthorized,
   Forbidden,
-  InternalServerError
-} = response
+  InternalServerError,
+} = response;
 
-
-const routes = [
-  GET('/', _ => 'Hello, Kretes'),
-]
-const app = new Kretes({ routes });
-let get, post;
+const routes = [GET('/', (_) => 'Hello, Kretes')];
+let get, post, app;
 
 before(async () => {
+  const snowpack = await startSnowpack();
+  app = new Kretes({ routes, snowpack });
   await app.start();
   const http = axios.create({ baseURL: `http://localhost:${app.port}` });
   get = http.get;
   post = http.post;
-})
+});
 
 after(async () => {
   await app.stop();
-})
+});
 
-test('GET handlers can return string as the response', async assert => {
+test('GET handlers can return string as the response', async (assert) => {
   const response = await get('/');
-  assert.deepEqual(response.status, 200)
-  assert.deepEqual(response.data, 'Hello, Kretes')
+  assert.deepEqual(response.status, 200);
+  assert.deepEqual(response.data, 'Hello, Kretes');
 });
 
 /*

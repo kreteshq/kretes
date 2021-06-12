@@ -4,26 +4,29 @@ import axios from 'axios';
 import Kretes, { routing } from '.';
 import { validation } from './request';
 import { Page } from './response';
+import { startSnowpack } from './cli/start';
+
+process.env.SUPPRESS_NO_CONFIG_WARNING = 'yes';
 
 const { before, after } = test;
-const { Route: { GET, POST } } = routing;
+const {
+  route: { GET, POST },
+} = routing;
 
-const GETs = [
-  GET('/error', _ => Page('no-such-file'))
-]
+const GETs = [GET('/error', (_) => Page('no-such-file'))];
 
 const Compositions = [
-  GET('/request-validation',
-    ({ params: { admin } }) =>
-      `Admin param (${admin}) should be absent from this request payload`,
-      {
-        middleware: [ validation({ name: { type: String, required: true } }) ]
-      }
+  GET(
+    '/request-validation',
+    ({ params: { admin } }) => `Admin param (${admin}) should be absent from this request payload`,
+    {
+      middleware: [validation({ name: { type: String, required: true } })],
+    }
   ),
- ];
+];
 
 const routes = [].concat(GETs, Compositions);
-let app
+let app;
 let get, post;
 
 before(async () => {
@@ -32,18 +35,17 @@ before(async () => {
   const http = axios.create({ baseURL: `http://localhost:${app.port}` });
   get = http.get;
   post = http.post;
-})
+});
 
 after(async () => {
   await app.stop();
-})
+});
 
 // Tests
 
-test('App: setup', async assert => {
+test('App: setup', async (assert) => {
   assert.deepEqual(typeof app.setup, 'function');
 });
-
 
 // TODO HIGH
 
@@ -57,8 +59,7 @@ test('App: setup', async assert => {
 //   }
 // });
 
-
-test.skip('sets security headers by default', async assert => {
+test.skip('sets security headers by default', async (assert) => {
   const { headers } = await get('/');
   assert.is(headers['x-download-options'], 'noopen');
   assert.is(headers['x-content-type-options'], 'nosniff');
@@ -80,7 +81,7 @@ test.skip('sets security headers by default', async assert => {
 
 // Tests for function composistions (aka middleware-like)
 
-test('built-in validation with invalid request', async assert => {
+test('built-in validation with invalid request', async (assert) => {
   try {
     await get('/request-validation');
   } catch ({ response: { status, data } }) {
@@ -89,13 +90,13 @@ test('built-in validation with invalid request', async assert => {
   }
 });
 
-test('built-in validation with valid request', async assert => {
+test('built-in validation with valid request', async (assert) => {
   const { status, data } = await get('/request-validation?name=Zaiste');
   assert.is(status, 200);
   assert.is(data, 'Admin param (undefined) should be absent from this request payload');
 });
 
-test('built-in validation strips undefined params', async assert => {
+test('built-in validation strips undefined params', async (assert) => {
   const { status, data } = await get('/request-validation?name=Zaiste&admin=true');
   assert.is(status, 200);
   assert.is(data, 'Admin param (undefined) should be absent from this request payload');
