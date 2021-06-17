@@ -1,6 +1,6 @@
 {
   "name": "kretes",
-  "version": "1.0.0-alpha.54",
+  "version": "1.0.0-alpha.55",
   "description": "A Programming Environment for TypeScript apps built on top of VS Code",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
