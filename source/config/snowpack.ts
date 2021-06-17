@@ -8,18 +8,15 @@ export const SnowpackConfig = {
     '@/types': './app/types',
   },
   mount: {
-    "app/components": '/@/components/',
-    "app/hooks": '/@/hooks/',
-    "app/views": "/",
+    'app/components': '/@/components/',
+    'app/hooks': '/@/hooks/',
+    'app/views': '/',
     stylesheets: '/stylesheets/',
     site: '/',
     static: { url: '/', static: true, resolve: false },
   },
   packageOptions: {},
-  exclude: [
-    '**/site/_api/**/*', 
-    '**/app/controllers/**/*',
-  ],
+  exclude: ['**/site/_api/**/*', '**/app/controllers/**/*'],
   devOptions: {
     hmr: true,
     port: 3333,
@@ -28,11 +25,11 @@ export const SnowpackConfig = {
   },
   buildOptions: {
     out: 'public',
-    watch: false
+    watch: false,
   },
   optimize: {
     bundle: true,
     minify: true,
-    target: 'es2018'
-  }
+    target: 'es2018',
+  },
 } as SnowpackUserConfig;
