@@ -137,7 +137,7 @@ export const handler = async ({ port, production, database }) => {
     await fs.emptyDir('public');
 
     const TS = require('typescript/lib/typescript');
-    const compiler = new TypescriptCompiler(CWD, 'config/server/tsconfig.json', TS);
+    const compiler = new TypescriptCompiler(CWD, 'server/tsconfig.json', TS);
     const { error, config } = compiler.configParser().parse();
 
     if (error || !config || config.errors.length) {
@@ -203,9 +203,9 @@ export const handler = async ({ port, production, database }) => {
         debug('clean require.cache');
         for (const key of Object.keys(require.cache)) {
           // TODO change to RegEx
-          // if (key.includes(controllersCursor) || key.includes(apiCursor)) {
-          delete require.cache[key];
-          // }
+          if (key.includes(serverCursor) || key.includes(apiCursor)) {
+            delete require.cache[key];
+          }
         }
         debug('require.cache cleaned');
         // const cacheKey = `${join(CWD, 'dist', dir, name)}.js`;
@@ -254,12 +254,9 @@ export const handler = async ({ port, production, database }) => {
       }
     });
 
-    watcher.watch(
-      ['app/abilities', 'app/controllers', 'app/graphql', 'config', 'lib', 'site', 'stylesheets'],
-      {
-        ignored: [],
-      }
-    );
+    watcher.watch(['server/**/*', 'config', 'lib', 'site', 'stylesheets'], {
+      ignored: [],
+    });
 
     print(notice('TypeScript'));
   }

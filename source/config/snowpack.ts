@@ -3,20 +3,20 @@ import { SnowpackUserConfig } from 'snowpack';
 export const SnowpackConfig = {
   root: process.cwd(),
   alias: {
-    '@/components': './app/components',
-    '@/hooks': './app/hooks',
-    '@/types': './app/types',
+    '@/components': './client/components',
+    '@/hooks': './client/hooks',
+    '@/types': './types',
   },
   mount: {
-    'app/components': '/@/components/',
-    'app/hooks': '/@/hooks/',
-    'app/views': '/',
+    'client/components': '/@/components/',
+    'client/hooks': '/@/hooks/',
+    'client/views': '/',
     stylesheets: '/stylesheets/',
     site: '/',
     static: { url: '/', static: true, resolve: false },
   },
   packageOptions: {},
-  exclude: ['**/site/_api/**/*', '**/app/controllers/**/*'],
+  exclude: ['**/site/_api/**/*', '**/server/**/*'],
   devOptions: {
     hmr: true,
     port: 3333,

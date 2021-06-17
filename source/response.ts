@@ -1,8 +1,8 @@
 // Copyright Zaiste. All rights reserved.
 // Licensed under the Apache License, Version 2.0
 
-import { createReadStream } from "fs";
-import { join } from "path";
+import { createReadStream } from 'fs';
+import { join } from 'path';
 
 // change to import maps when TS supports it
 import { response } from 'retes';
@@ -22,38 +22,38 @@ const {
   Forbidden,
   InternalServerError,
   MethodNotAllowed,
-  BadRequest
+  BadRequest,
 } = response;
 
-import { render, read } from "./view";
+import { render, read } from './view';
 
 const cwd = process.cwd();
 
 const Conflict = (content: string = '') => {
   return {
     statusCode: 409,
-    body: content
-  }
-}
+    body: content,
+  };
+};
 
 const NotFound = (headers = {}) => {
   return {
     statusCode: 404,
-    type: "text/html",
+    type: 'text/html',
     headers,
-    body: createReadStream(join(__dirname, "..", "resources", "404.html")),
+    body: createReadStream(join(__dirname, '..', 'resources', '404.html')),
   };
 };
 
-const cache = process.env.NODE_ENV === "production";
+const cache = process.env.NODE_ENV === 'production';
 
-interface Options { 
-  location?: string, 
+interface Options {
+  location?: string;
 }
 
-const Page = async (name: string, variables: object = {}, { location = 'app/views' }: Options = {}) => {
+const Page = async (name: string, variables: object = {}, { location = 'server/views' }: Options = {}) => {
   const path = join(cwd, location, `${name}.html`);
-  const paths = [join(cwd, "parts")];
+  const paths = [join(cwd, 'parts')];
 
   const content = await read(path, { cache });
   const html = await render(content.toString(), { context: variables, paths });
@@ -61,9 +61,8 @@ const Page = async (name: string, variables: object = {}, { location = 'app/view
   return HTMLString(html);
 };
 
-
 const MIME = {
-  isJavaScript: (_) => _ === "application/javascript",
+  isJavaScript: (_) => _ === 'application/javascript',
 };
 
 export {
@@ -86,5 +85,5 @@ export {
   Unauthorized,
   Conflict,
   MethodNotAllowed,
-  BadRequest
+  BadRequest,
 };

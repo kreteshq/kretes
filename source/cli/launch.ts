@@ -12,8 +12,8 @@ import { App } from '../manifest';
 const VERSION = require('../../package.json').version;
 
 export const start = async ({ port, database, isGraphQL, snowpack = null }) => {
-  const { routes } = require(__compiled('app/routes/index'));
-  const { middlewares } = require(__compiled('app/middlewares/index'));
+  const { routes } = require(__compiled('server/routes/index'));
+  const { middlewares } = require(__compiled('server/middlewares/index'));
 
   const app = new Kretes({ routes, middlewares, isDatabase: database, snowpack, graphql: isGraphQL });
   const server = await app.start(port);
@@ -45,14 +45,22 @@ export const start = async ({ port, database, isGraphQL, snowpack = null }) => {
   return app;
 };
 
-export async function handler({ port, database, graphql }: { port: number, database: boolean, graphql: boolean }) {
+export async function handler({
+  port,
+  database,
+  graphql,
+}: {
+  port: number;
+  database: boolean;
+  graphql: boolean;
+}) {
   console.log(`${color.bold.blue('Kretes'.padStart(10))} ` + color`{bold ${VERSION}}`);
 
-  await start({ port, database, isGraphQL: graphql })
+  await start({ port, database, isGraphQL: graphql });
 }
 
-export const builder = (_: Argv) => _
-  .option('port', { alias: 'p', default: 5544 })
-  .option('production', { type: 'boolean', default: false })
-  .option('database', { type: 'boolean' })
-  .option('graphql', { type: 'boolean' });
+export const builder = (_: Argv) =>
+  _.option('port', { alias: 'p', default: 5544 })
+    .option('production', { type: 'boolean', default: false })
+    .option('database', { type: 'boolean' })
+    .option('graphql', { type: 'boolean' });

@@ -6,14 +6,15 @@
       "ESNext"
     ],
     "allowJs": false,
-    "outDir": "../../dist",
-    "rootDir": "../../",
-    "baseUrl": "../../",
+    "outDir": "../.compiled",
+    "rootDir": "../",
+    "baseUrl": "../",
     "strict": true,
     "moduleResolution": "node",
     "paths": {
       "@/*": [
-        "app/*"
+        "client/*",
+        "server/*"
       ]
     },
     "esModuleInterop": true,
@@ -23,11 +24,11 @@
   },
   "include": [
     "*.ts",
-    "../../app/controllers/**.ts",
-    "../../app/graphql/**.ts",
-    "../../app/jobs/**.ts",
-    "../../app/middlewares/**.ts",
-    "../../app/routes/**.ts",
-    "../../site/_api/**/*.ts",
+    "jobs/**.ts",
+    "routes/**.ts",
+    "middlewares/**.ts",
+    "controllers/**.ts",
+    "graphql/**.ts",
+    "../site/_api/**/*.ts",
   ]
 }
