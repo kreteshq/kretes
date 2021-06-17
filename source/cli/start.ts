@@ -191,13 +191,13 @@ export const handler = async ({ port, production, database }) => {
 
         const { dir, name } = parse(filePath);
 
+        setImmediate(() => {
+          app.server.emit('close');
+        });
         await new Promise((resolve) => {
           app.server.close(() => {
             resolve(true);
           });
-        });
-        setImmediate(() => {
-          app.server.emit('close');
         });
 
         // clean the `require` cache
