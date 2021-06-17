@@ -14,6 +14,7 @@ import * as _ from 'colorette';
 import pg from 'pg';
 import { createConfiguration, startServer, logger } from 'snowpack';
 import dotenv from 'dotenv';
+import { createHttpTerminator, HttpTerminator } from 'http-terminator';
 
 import { response } from 'retes';
 const { JSONPayload } = response;
@@ -107,6 +108,7 @@ export const handler = async ({ port, production, database }) => {
   }
 
   let app: Kretes;
+  let terminator: HttpTerminator;
 
   const connection = config.has('db') ? config.get('db') : {}; // node-pg supports env variables
 
@@ -170,6 +172,9 @@ export const handler = async ({ port, production, database }) => {
 
       // start the HTTP server
       app = await start({ port, database: databaseConnected, snowpack, isGraphQL });
+      terminator = createHttpTerminator({
+        server: app.server,
+      });
 
       await compileCSS();
       print(notice('CSS'));
@@ -182,7 +187,7 @@ export const handler = async ({ port, production, database }) => {
       if (!restartInProgress) {
         restartInProgress = true;
 
-        console.log(color`{yellow •} {green RELOADED} {underline ${filePath}} `);
+        await terminator.terminate();
 
         // FIXME instead of displaying error messages,
         // display just the info about errors to check
@@ -190,15 +195,6 @@ export const handler = async ({ port, production, database }) => {
         // displayCompilationMessages(diagnostics);
 
         const { dir, name } = parse(filePath);
-
-        setImmediate(() => {
-          app.server.emit('close');
-        });
-        await new Promise((resolve) => {
-          app.server.close(() => {
-            resolve(true);
-          });
-        });
 
         // clean the `require` cache
         const serverCursor = join(CWD, '.compiled', 'server');
@@ -219,6 +215,11 @@ export const handler = async ({ port, production, database }) => {
         }
 
         app = await start({ port, database, snowpack, isGraphQL });
+        terminator = createHttpTerminator({
+          server: app.server,
+        });
+
+        console.log(color`{yellow •} {green RELOADED} {underline ${filePath}} `);
 
         restartInProgress = false;
       }

@@ -66,6 +66,7 @@
     "graphql": "15.5.0",
     "graphql-tools": "^7.0.5",
     "http-status": "^1.5.0",
+    "http-terminator": "^3.0.0",
     "lookpath": "^1.2.1",
     "mime-types": "^2.1.31",
     "pg": "^8.6.0",
