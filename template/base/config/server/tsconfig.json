@@ -23,10 +23,11 @@
   },
   "include": [
     "*.ts",
-    "../../app/jobs/**.ts",
-    "../../app/routes/**.ts",
-    "../../app/middlewares/**.ts",
     "../../app/controllers/**.ts",
+    "../../app/graphql/**.ts",
+    "../../app/jobs/**.ts",
+    "../../app/middlewares/**.ts",
+    "../../app/routes/**.ts",
     "../../site/_api/**/*.ts",
   ]
 }
