@@ -7,7 +7,7 @@ import Path from 'path';
 import { build, translate } from './controller';
 
 const cwd = process.cwd();
-const handlerDir = Path.join(cwd, 'dist');
+const handlerDir = Path.join(cwd, '.compiled');
 
 export class Kretes {
   constructor() {}
@@ -16,24 +16,30 @@ export class Kretes {
 export const setupControllersFromFilesystem = (app: ServerApp) => {
   const controllers = build();
   for (const resource in controllers) {
-    let controller = {}
-    if (controllers[resource].includes("index")) {
+    let controller = {};
+    if (controllers[resource].includes('index')) {
       controller = require(`${Path.join(handlerDir, 'site', '_api', resource, 'index')}.js`);
     } else {
       for (let operation of controllers[resource]) {
         try {
-          const { [operation]: handler } = require(`${Path.join(handlerDir, 'site', '_api', resource, operation)}.js`);
+          const { [operation]: handler } = require(`${Path.join(
+            handlerDir,
+            'site',
+            '_api',
+            resource,
+            operation
+          )}.js`);
 
           // FIXME better description
           // it happens when the function name inside the handler file
           // is different than the file name
           if (undefined === handler) {
-            throw new Error(`Handler name mismatch for ${operation}`)
+            throw new Error(`Handler name mismatch for ${operation}`);
           }
 
           controller[operation] = handler;
         } catch (error) {
-          console.error(error.message)
+          console.error(error.message);
         }
       }
     }
@@ -51,7 +57,7 @@ export const setupControllersFromFilesystem = (app: ServerApp) => {
       }
     }
   }
-}
+};
 
 import { lookpath } from 'lookpath';
 export const checkIfNixInstalled = async () => await lookpath('nix-shell');

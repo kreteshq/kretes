@@ -126,7 +126,7 @@ export const handler = async ({ port, production, database }) => {
   const isGraphQL = config.has('graphql') ? config.get('graphql') : false;
 
   if (production) {
-    await fs.ensureDir('dist/tasks');
+    await fs.ensureDir('.compiled/tasks');
 
     const snowpack = await startSnowpack();
 
@@ -166,7 +166,7 @@ export const handler = async ({ port, production, database }) => {
       // const stream = fg.stream([`${CWD}/features/**/*.sql`], { dot: true });
       // for await (const entry of stream) await reloadSQL(pool, entry);
 
-      await fs.ensureDir('dist/tasks');
+      await fs.ensureDir('.compiled/tasks');
 
       // start the HTTP server
       app = await start({ port, database: databaseConnected, snowpack, isGraphQL });
@@ -201,8 +201,8 @@ export const handler = async ({ port, production, database }) => {
         });
 
         // clean the `require` cache
-        const controllersCursor = join(CWD, 'dist', 'controllers');
-        const apiCursor = join(CWD, 'dist', 'site', '_api');
+        const serverCursor = join(CWD, '.compiled', 'server');
+        const apiCursor = join(CWD, '.compiled', 'site', '_api');
 
         debug('clean require.cache');
         for (const key of Object.keys(require.cache)) {

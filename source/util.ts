@@ -7,11 +7,11 @@ import * as _ from 'colorette';
 
 export const print = (message: string) => {
   process.stdout.write(message);
-}
+};
 
 export const println = (message: string = '') => {
-  console.log(message)
-}
+  console.log(message);
+};
 
 export function pick(obj, keys) {
   return keys.reduce((acc, k) => {
@@ -53,9 +53,12 @@ export const substitute = (template, data) => {
   });
 };
 
-export const compose = (...functions) => args => functions.reduceRight((arg, fn) => fn(arg), args);
+export const compose =
+  (...functions) =>
+  (args) =>
+    functions.reduceRight((arg, fn) => fn(arg), args);
 
-export const toBuffer = async stream => {
+export const toBuffer = async (stream) => {
   const chunks = [];
   for await (let chunk of stream) {
     chunks.push(chunk);
@@ -63,11 +66,11 @@ export const toBuffer = async stream => {
   return Buffer.concat(chunks);
 };
 
-export const streamToString = async stream => {
+export const streamToString = async (stream) => {
   let chunks = '';
 
   return new Promise((resolve, reject) => {
-    stream.on('data', chunk => (chunks += chunk));
+    stream.on('data', (chunk) => (chunks += chunk));
     stream.on('error', reject);
     stream.on('end', () => resolve(chunks));
   });
@@ -114,7 +117,7 @@ export const parseAcceptHeader = ({ accept = '*/*' }) => {
   return format;
 };
 
-export const generateSourceMap = input => {
+export const generateSourceMap = (input) => {
   if (!input) {
     return '';
   }
@@ -124,14 +127,14 @@ export const generateSourceMap = input => {
 
   const map = Buffer.from(input).toString('base64');
   return `\n//# sourceMappingURL=data:application/json;base64,${map}`;
-}
+};
 
 interface Options {
-  stdin?: 'ignore' | 'inherit' | 'pipe' | number
-  stdout?: 'inherit' | 'pipe' | number
-  stderr?: 'inherit' | 'pipe' | number
-  cwd?: string
-  env?: any 
+  stdin?: 'ignore' | 'inherit' | 'pipe' | number;
+  stdout?: 'inherit' | 'pipe' | number;
+  stderr?: 'inherit' | 'pipe' | number;
+  cwd?: string;
+  env?: any;
 }
 
 export const run = async (
@@ -142,16 +145,15 @@ export const run = async (
   return await new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       stdio: [stdin, stdout, stderr],
-      env: {...process.env, ...env},
+      env: { ...process.env, ...env },
       cwd,
     });
-    child.on('exit', code => {
+    child.on('exit', (code) => {
       if (code) reject(new Error('exit code 1'));
       else resolve();
     });
   });
 };
-
 
 import { green, red, gray, magenta, underline, cyan, blue, bold, yellow } from 'colorette';
 import * as explain from './explainer';
@@ -161,14 +163,17 @@ const TemplateNaming = {
   react: 'React.js',
   vue: 'Vue.js',
   svelte: 'Svelte',
-  solid: 'Solid.js'
-}
+  solid: 'Solid.js',
+};
 
 const Display = {
-  OK: name => `${gray(name.padStart(10))}  ${green('OK')}\n`,
-  Error: name => error => `${gray(name.padStart(10))}  ${red('Error:')} ${error.message}\n`,
+  OK: (name) => `${gray(name.padStart(10))}  ${green('OK')}\n`,
+  Error: (name) => (error) => `${gray(name.padStart(10))}  ${red('Error:')} ${error.message}\n`,
   Kretes: `${bold(blue('Kretes'.padStart(10)))}  ${bold(VERSION)}\n`,
-  New: (dir, template) => `${magenta('new'.padStart(10))}  creating a project in '${underline(dir)}'${template !== 'base' ? ` using the ${underline(TemplateNaming[template])} template` : ''}\n`,
+  New: (dir, template) =>
+    `${magenta('new'.padStart(10))}  creating a project in '${underline(dir)}'${
+      template !== 'base' ? ` using the ${underline(TemplateNaming[template])} template` : ''
+    }\n`,
   Deps: `${magenta('new'.padStart(10))}  installing dependencies\n`,
   ESM: `${gray('ESM'.padStart(10))}  `,
   Build: `${gray('Build'.padStart(10))}  `,
@@ -177,21 +182,27 @@ const Display = {
   CSS: `${gray('CSS'.padStart(10))}  ${green('OK')}\n`,
   Listening: (port) => `${gray('Started on'.padStart(10))}  ${underline(`http://localhost:${port}`)}\n`,
   Logs: `${gray('\n----- Logs\n\n'.padStart(10))}`,
-  Explain: error => `${gray("->")} ${explain.forError(error)}\n`,
-  Finish: dir => `${magenta('new'.padStart(10))}  Success! Run '${underline(`cd ${dir}`)}' and then '${underline('kretes start')}' (or just '${underline('ks s')}')\n`,
-}
+  Explain: (error) => `${gray('->')} ${explain.forError(error)}\n`,
+  Finish: (dir) =>
+    `${magenta('new'.padStart(10))}  Success! Run '${underline(`cd ${dir}`)}' and then '${underline(
+      'kretes start'
+    )}' (or just '${underline('ks s')}')\n`,
+};
 
-export const notice = message => Display[message] || "";
+export const notice = (message) => Display[message] || '';
 
 export const interpolate = (template: string, vars: object = {}) => {
-  const handler = new Function('vars', [
-    'const tagged = ( ' + Object.keys(vars).join(', ') + ' ) =>',
+  const handler = new Function(
+    'vars',
+    [
+      'const tagged = ( ' + Object.keys(vars).join(', ') + ' ) =>',
       '`' + template + '`',
-    'return tagged(...Object.values(vars))'
-  ].join('\n'))
+      'return tagged(...Object.values(vars))',
+    ].join('\n')
+  );
 
-  return handler(vars)
-}
+  return handler(vars);
+};
 
 export const isDatabaseConfigured = async () => {
   const { default: config } = await import('config'); // defer the config loading
@@ -199,8 +210,6 @@ export const isDatabaseConfigured = async () => {
   return config.has('db') || (PGHOST && PGPORT && PGDATABASE && PGDATA);
 };
 
-export const __compiled = (location: string) => 
-  Path.join(process.cwd(), `dist/${location}.js`);
+export const __compiled = (location: string) => Path.join(process.cwd(), `.compiled/${location}.js`);
 
-export const __source = (location: string) => 
-  Path.join(process.cwd(), `${location}.ts`)
+export const __source = (location: string) => Path.join(process.cwd(), `${location}.ts`);

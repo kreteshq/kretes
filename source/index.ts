@@ -76,7 +76,7 @@ export default class Kretes extends ServerApp {
     if (this.isGraphQL) {
       try {
         const { types: typeDefs, resolvers } = await import(
-          `${join(cwd, 'dist', 'site', '_api', 'index')}.js`
+          `${join(cwd, '.compiled', 'site', '_api', 'index')}.js`
         );
 
         this.add(
