@@ -117,7 +117,9 @@ export default class Kretes extends ServerApp {
 
     this.use(M.Security());
     this.use(M.CORS());
-    this.use(M.ServerSideRenderer(this.snowpack.getServerRuntime()));
+    if (this.snowpack) {
+      this.use(M.ServerSideRenderer(this.snowpack.getServerRuntime()));
+    }
     this.use(M.Routing(this.router));
     this.use(M.Caching());
     this.use(M.Serve(this.staticDir));
