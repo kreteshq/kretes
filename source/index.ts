@@ -159,4 +159,4 @@ import Schema from 'validate';
 import { SnowpackDevServer } from 'snowpack';
 export { Schema };
 
-export { Request, Response, CompoundResponse, Handler, Routes, Middleware, Pipeline, Env };
+export type { Request, Response, CompoundResponse, Handler, Routes, Middleware, Pipeline, Env };
