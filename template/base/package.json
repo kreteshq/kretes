@@ -5,7 +5,7 @@
     "start": "kretes start --production"
   },
   "dependencies": {
-    "kretes": "^1.0.0-alpha.54"
+    "kretes": "^1.0.0-alpha.56"
   },
   "browserslist": [
     "> 1%",
@@ -13,16 +13,16 @@
     "not ie <= 8"
   ],
   "devDependencies": {
-    "@snowpack/plugin-postcss": "^1.4.1",
+    "@snowpack/plugin-postcss": "^1.4.3",
     "autoprefixer": "^10.2.6",
     "chokidar": "^3.5.2",
     "cross-env": "^7.0.3",
     "kretes-snowpack-refresh": "^0.0.4",
-    "node-pg-migrate": "^5.9.0",
+    "node-pg-migrate": "^5.10.0",
     "npm-check-updates": "^11.7.1",
-    "pnpm": "6.7.6",
-    "prettier": "^2.3.1",
-    "typescript": "^4.3.4",
-    "tailwindcss": "^2.2.2"
+    "pnpm": "6.9.1",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5",
+    "tailwindcss": "^2.2.4"
   }
 }
