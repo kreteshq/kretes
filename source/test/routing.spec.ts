@@ -1,11 +1,10 @@
 import test from 'ava';
 import axios from 'axios';
-import Kretes, { response, routing } from '..';
+import Kretes, { response } from '..';
+import { GET } from '../route';
 import { startSnowpack } from '../cli/start';
 
 const { before, after } = test;
-const { route } = routing;
-const { GET } = route;
 const {
   OK,
   Created,

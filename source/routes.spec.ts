@@ -1,6 +1,6 @@
 import test from 'ava';
 import axios from 'axios';
-import Kretes, { routing } from '.';
+import Kretes from '.';
 
 // const { Route: { Resource } } = routing;
 

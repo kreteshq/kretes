@@ -1,17 +1,15 @@
 import test from 'ava';
 import axios from 'axios';
 
-import Kretes, { routing } from '.';
+import Kretes from '.';
 import { validation } from './request';
 import { Page } from './response';
 import { startSnowpack } from './cli/start';
+import { GET, POST } from './route';
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'yes';
 
 const { before, after } = test;
-const {
-  route: { GET, POST },
-} = routing;
 
 const GETs = [GET('/error', (_) => Page('no-such-file'))];
 

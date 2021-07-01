@@ -22,6 +22,7 @@ const lookupHandler = ({ feature, action }) => {
   }
 };
 
+// @ts-ignore
 const { GET, PUT, DELETE, POST } = route;
 
 // pretty smart, huh? :)
@@ -63,4 +64,4 @@ class Router {
   get() {}
 }
 
-export { route };
+export { GET, PUT, DELETE, POST };
