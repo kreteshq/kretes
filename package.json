@@ -102,6 +102,7 @@
     ".": "./dist/index.js",
     "./http": "./dist/http/index.js",
     "./request": "./dist/request.js",
+    "./route": "./dist/route.js",
     "./response": "./dist/response.js",
     "./auth": "./dist/auth.js"
   },
@@ -112,6 +113,9 @@
       ],
       "response": [
         "dist/response"
+      ],
+      "route": [
+        "dist/route"
       ],
       "auth": [
         "dist/auth"
