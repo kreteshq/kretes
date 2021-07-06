@@ -29,6 +29,7 @@
     "../site/**/*.ts",
   ],
   "exclude": [
+    "../site/_api/**/*.ts",
     "node_modules"
   ]
 }
