@@ -3,5 +3,5 @@
 --
 -- create table widget (
 --   id serial primary key,
---   name text,
+--   name text
 -- );
