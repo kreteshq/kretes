@@ -4,6 +4,7 @@
 import Path from 'path';
 import { spawn } from 'child_process';
 import * as _ from 'colorette';
+import FS from 'fs-extra';
 
 export const print = (message: string) => {
   process.stdout.write(message);
@@ -213,3 +214,12 @@ export const isDatabaseConfigured = async () => {
 export const __compiled = (location: string) => Path.join(process.cwd(), `.compiled/${location}.js`);
 
 export const __source = (location: string) => Path.join(process.cwd(), `${location}.ts`);
+
+export async function exists(path) {
+  try {
+    await FS.access(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
