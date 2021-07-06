@@ -5,10 +5,12 @@ export const SnowpackConfig = {
   alias: {
     '@/components': './client/components',
     '@/hooks': './client/hooks',
+    '@/graphql': './client/graphql',
     '@/types': './types',
   },
   mount: {
     'client/components': '/@/components/',
+    'client/graphql': '/@/graphql/',
     'client/hooks': '/@/hooks/',
     'client/views': '/',
     stylesheets: '/stylesheets/',
