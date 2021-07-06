@@ -5,38 +5,61 @@ import Path from 'path';
 import FS from 'fs-extra';
 import * as _ from 'colorette';
 
-import { run, print, println } from '../../util';
+import { run, print, println, exists } from '../../util';
 
 export const handler = async () => {
-  print('Setting up the database content: ');
   const { default: config } = await import('config'); // defer the config loading
 
-  const CWD = process.cwd();
+  const cwd = process.cwd();
 
-  if (!config.has("db")) {
-    println(`${_.red('Error')}`)
-    println(`Provide the database details in 'config/default.json'`)
+  if (!config.has('db')) {
+    println(`${_.red('Error')}`);
+    println(`Provide the database details in 'config/default.json'`);
 
     process.exit(1);
   }
 
-  const { database, user = process.env.USER } = config.get('db');
+  const { database, user = process.env.PGUSER || process.env.USER } = config.get('db');
 
-  const stdin = FS.openSync(Path.join(CWD, 'db/setup.sql'), 'r');
+  // FIXME this doesn't look good
+  process.env.PGUSER = user;
 
-  const dbLogPath = Path.join(CWD, 'log/database.log')
-  await FS.ensureFile(dbLogPath)
-  const stdout = FS.openSync(dbLogPath, 'a');
+  print(`Dropping the ${_.underline(database)} database: `);
+  await run('dropdb', [database, '--if-exists'], { cwd });
+  println(_.green('OK'));
 
-  process.env.PGOPTIONS='--client-min-messages=warning'
+  print(`Creating the ${_.underline(database)} database: `);
+  await run('createdb', [database], { cwd });
+  println(_.green('OK'));
 
-  try {
-    await run('/usr/bin/env', ['psql', database, user], { stdout, stdin });
-  } catch (error) {
-    println(error.message);
+  const setupAsSQL = Path.join(cwd, 'server', 'db/setup.sql');
+
+  if (await exists(setupAsSQL)) {
+    print('Setting up the database schema: ');
+    const stdin = await FS.open(setupAsSQL, 'r');
+
+    const dbLogPath = Path.join(cwd, 'log/database.log');
+    await FS.ensureFile(dbLogPath);
+    const stdout = await FS.open(dbLogPath, 'a');
+
+    process.env.PGOPTIONS = '--client-min-messages=warning';
+
+    try {
+      await run('/usr/bin/env', ['psql', database, user], { stdout, stdin });
+    } catch (error) {
+      println(error.message);
+    }
+
+    println(` ${_.green('OK')}`);
+  } else {
+    println(
+      `\n  The ${_.underline(
+        database
+      )} database has been created, but it's empty and without a schema.\n  You can define the database schema in ${_.underline(
+        '<project root>/server/db/setup.sql'
+      )}.\n  Then, re-run this command.`
+    );
   }
-
-  println(` ${_.green('OK')}\n`);
-}
+};
 
 export const command = 'setup';
