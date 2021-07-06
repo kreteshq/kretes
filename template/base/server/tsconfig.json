@@ -24,11 +24,12 @@
   },
   "include": [
     "*.ts",
+    "db/**.ts",
     "jobs/**.ts",
     "routes/**.ts",
     "middlewares/**.ts",
     "controllers/**.ts",
     "graphql/**.ts",
-    "../site/_api/**/*.ts",
+    "../site/_api/**/*.ts"
   ]
 }
