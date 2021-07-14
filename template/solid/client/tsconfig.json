@@ -16,7 +16,8 @@
     "moduleResolution": "node",
     "paths": {
       "@/*": [
-        "client/*"
+        "client/*",
+        "types"
       ]
     },
     "esModuleInterop": true,
