@@ -165,6 +165,7 @@ const TemplateNaming = {
   vue: 'Vue.js',
   svelte: 'Svelte',
   solid: 'Solid.js',
+  preact: 'Preact',
 };
 
 const Display = {
