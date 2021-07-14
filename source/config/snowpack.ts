@@ -13,7 +13,7 @@ export const SnowpackConfig = {
     'client/graphql': '/@/graphql/',
     'client/hooks': '/@/hooks/',
     'client/views': '/',
-    stylesheets: '/stylesheets/',
+    stylesheets: '/',
     site: '/',
     static: { url: '/', static: true, resolve: false },
   },
