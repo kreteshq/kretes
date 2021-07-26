@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+		"@prisma/client": "^2.27.0"
+  },
+  "devDependencies": {
+		"prisma": "^2.27.0"
+  },
+	"prisma": {
+    "schema": "server/db/schema.prisma"
+	}
+}
