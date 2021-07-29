@@ -41,20 +41,20 @@ specifiers:
   http-status: ^1.5.0
   http-terminator: ^3.0.0
   kretes-snowpack-refresh: ^0.0.4
-  lookpath: ^1.2.1
+  lookpath: ^1.2.2
   mime-types: ^2.1.32
   pg: ^8.7.1
   postcss: ^8.3.6
   postgraphile: ^4.12.3
   prettier: 2.3.2
-  retes: ^0.20.0
+  retes: ^0.20.1
   rsyncwrapper: ^3.0.1
   semver: ^7.3.5
   snowpack: 3.6.2
   stack-trace: 0.0.10
   typescript: 4.3.5
   validate: ^5.1.0
-  ws: ^7.5.3
+  ws: ^8.0.0
   yargs: 17.0.1
 
 dependencies:
@@ -84,19 +84,19 @@ dependencies:
   graphql: 15.5.1
   http-status: 1.5.0
   http-terminator: 3.0.0
-  lookpath: 1.2.1
+  lookpath: 1.2.2
   mime-types: 2.1.32
   pg: 8.7.1
   postcss: 8.3.6
   postgraphile: 4.12.3
-  retes: 0.20.0
+  retes: 0.20.1
   rsyncwrapper: 3.0.1
   semver: 7.3.5
   snowpack: 3.6.2
   stack-trace: 0.0.10
   typescript: 4.3.5
   validate: 5.1.0
-  ws: 7.5.3
+  ws: 8.0.0
   yargs: 17.0.1
 
 devDependencies:
@@ -2994,8 +2994,8 @@ packages:
       is-unicode-supported: 0.1.0
     dev: true
 
-  /lookpath/1.2.1:
-    resolution: {integrity: sha512-dMlL1UqJmBNoXLxRM2lZICttyf9U2+5leFewVRWujybSoL9HAWfDw53NwIffnc5uPHmBiP5EosR/R8lkB4jftQ==}
+  /lookpath/1.2.2:
+    resolution: {integrity: sha512-k2Gmn8iV6qdME3ztZC2spubmQISimFOPLuQKiPaLcVdRz0IpdxrNClVepMlyTJlhodm/zG/VfbkWERm3kUIh+Q==}
     engines: {npm: '>=6.13.4'}
     hasBin: true
     dev: false
@@ -4119,8 +4119,8 @@ packages:
       signal-exit: 3.0.3
     dev: true
 
-  /retes/0.20.0:
-    resolution: {integrity: sha512-EZhd74gx13+BgsK7FgebMgTXU/xRtrQWq8uwV5IWhTqIlgf+8BmQWigy4395SkQcajIO34TDy6h6F75kPK7agg==}
+  /retes/0.20.1:
+    resolution: {integrity: sha512-2wEblLm5ukF5XE6h/E1mCXB23LGGX3AC5tWxVUer/h9D0Ls9BW8xfA8OGh+qofb737zVVp+w9wGmoyV3QZsYew==}
     dependencies:
       debug: 4.3.2
       formidable: 1.2.2
@@ -4894,6 +4894,19 @@ packages:
   /ws/7.5.3:
     resolution: {integrity: sha512-kQ/dHIzuLrS6Je9+uv81ueZomEwH0qVYstcAQ4/Z93K8zeko9gtAbttJWzoC5ukqXY1PpoouV3+VSOqEAFt5wg==}
     engines: {node: '>=8.3.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false
+
+  /ws/8.0.0:
+    resolution: {integrity: sha512-6AcSIXpBlS0QvCVKk+3cWnWElLsA6SzC0lkQ43ciEglgXJXiCWK3/CGFEJ+Ybgp006CMibamAsqOlxE9s4AvYA==}
+    engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
