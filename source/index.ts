@@ -7,7 +7,7 @@ const debug = Debug('ks:index'); // eslint-disable-line no-unused-vars
 import { join } from 'path';
 import httpstatus from 'http-status';
 import { ServerApp } from 'retes';
-import { makeExecutableSchema } from 'graphql-tools';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 
 import { Request, Response, Handler, Routes, Middleware, Pipeline, CompoundResponse } from 'retes';
 
