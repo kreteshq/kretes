@@ -1,5 +1,22 @@
 {
   "extends": [
     "config:base"
-  ]
+  ],
+  "dependencyDashboard": true,
+  "schedule": ["on monday and wednesday and friday"],
+  "groupName": "all dependencies",
+  "separateMajorMinor": false,
+  "groupSlug": "all",
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "groupName": "all dependencies",
+      "groupSlug": "all"
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": false
+  }
 }
