@@ -18,5 +18,6 @@
   ],
   "lockFileMaintenance": {
     "enabled": false
-  }
+  },
+  "commitMessage": "update dependencies"
 }
