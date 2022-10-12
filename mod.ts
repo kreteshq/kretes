@@ -36,13 +36,13 @@ export const createRender = (renderFunc: Function, location: string) => async ({
   return await renderFunc(Page({ data }));
 }
 
-export const setup = async (root: string) => {
+export const setup = async (importer: Function) => {
   const routes: Routes = [];
 
-  for await (const entry of expandGlob("routes/**/*.{ts,tsx}", { root })) {
+  for await (const entry of expandGlob("routes/**/*.{ts,tsx}")) {
     const pathname = convertFilenameToPathname(entry.path.split('routes/').pop()!);
 
-    const { default: Page, handler } = await import(entry.path);
+    const { default: Page, handler } = await importer(entry.path);
 
     if (handler && Page) {
       routes.push([
