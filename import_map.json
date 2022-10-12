@@ -1,0 +1,16 @@
+{
+  "imports": {
+    "preact": "https://esm.sh/preact@10.11.1",
+    "preact/": "https://esm.sh/preact@10.11.1/",
+    "preact-render-to-string": "https://esm.sh/preact-render-to-string@5.2.5?external=preact",
+    "twind": "https://esm.sh/twind@0.16.17",
+    "twind/": "https://esm.sh/twind@0.16.17/",
+    "http/": "https://deno.land/std@0.159.0/http/",
+    "fs": "https://deno.land/std@0.159.0/fs/mod.ts",
+    "path": "https://deno.land/std@0.159.0/path/mod.ts",
+    "wren": "https://deno.land/x/wren@0.3.0/mod.ts",
+    "wren/": "https://deno.land/x/wren@0.3.0/",
+    "cliffy": "https://deno.land/x/cliffy@v0.25.2/command/mod.ts",
+    "cli": "https://deno.land/std@0.159.0/flags/mod.ts"
+  }
+}
