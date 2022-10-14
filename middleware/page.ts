@@ -1,16 +1,14 @@
 import type { Handler, Middleware } from "wren";
-import { join } from 'path';
+import { PageComponent, PageProps } from "../types.ts";
 
-export const Page: Middleware = (handler: Handler) => async (request, connInfo) => {
+export const Page = (page: PageComponent): Middleware => (handler: Handler) => (request, connInfo) => {
   const { url, params } = request;
-  const { pathname } = new URL(url);
 
-  // FIXME with dynamic segments
-
-  const location = `${join(Deno.cwd(), 'routes', pathname)}.page.tsx`;
-  const { default: Page } = await import(location);
-
-  request.page = <T = unknown>(data: T) => Page({ url, pathname, params, data });
+  request.page = <T = unknown>(data: T) => page({
+    url: new URL(url),
+    params,
+    data
+  } as PageProps<T>)
 
   return handler(request, connInfo);
 }
