@@ -7,8 +7,7 @@
 		"options": {
 			"useTabs": true,
 			"lineWidth": 101,
-			"indentWidth": 2,
-			"singleQuote": true
+			"indentWidth": 2
 		}
 	}
 }
